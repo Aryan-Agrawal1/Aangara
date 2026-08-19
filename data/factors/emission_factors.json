@@ -1,0 +1,122 @@
+{
+  "version": "EF-2026-01",
+  "last_updated": "2026-08-19",
+  "sources": [
+    "BEE Detailed Procedure under CCTS (July 2024)",
+    "CEA CO2 Baseline Database for the Indian Power Sector (User Guide v20.0)",
+    "IPCC 2006 Guidelines for National GHG Inventories (Indian Reference Adaptations)"
+  ],
+  "factors": {
+    "solid_fuels": {
+      "indian_domestic_coal": {
+        "name": "Indian Domestic Thermal Coal (Grade G10-G13)",
+        "ncv_default": 3800.0,
+        "ncv_unit": "kcal/kg",
+        "emission_factor": 96.1,
+        "ef_unit": "tCO2/TJ",
+        "oxidation_factor": 0.98,
+        "calculated_factor": 1.488,
+        "calculated_unit": "tCO2/tonne_coal",
+        "source": "BEE CCTS Procedure 2024 Table A1"
+      },
+      "imported_coal_indonesian": {
+        "name": "Imported Indonesian Coal",
+        "ncv_default": 5200.0,
+        "ncv_unit": "kcal/kg",
+        "emission_factor": 94.6,
+        "ef_unit": "tCO2/TJ",
+        "oxidation_factor": 0.99,
+        "calculated_factor": 2.043,
+        "calculated_unit": "tCO2/tonne_coal",
+        "source": "BEE CCTS Procedure 2024 Table A1"
+      },
+      "petcoke": {
+        "name": "Petroleum Coke (Petcoke)",
+        "ncv_default": 8200.0,
+        "ncv_unit": "kcal/kg",
+        "emission_factor": 97.5,
+        "ef_unit": "tCO2/TJ",
+        "oxidation_factor": 0.99,
+        "calculated_factor": 3.315,
+        "calculated_unit": "tCO2/tonne_petcoke",
+        "source": "BEE CCTS Procedure 2024 Table A1"
+      },
+      "biomass_briquettes": {
+        "name": "Agri-Residue Biomass Briquettes (Carbon Neutral Biogenic)",
+        "ncv_default": 3600.0,
+        "ncv_unit": "kcal/kg",
+        "emission_factor": 0.0,
+        "ef_unit": "tCO2/TJ (Fossil Scope)",
+        "oxidation_factor": 1.0,
+        "calculated_factor": 0.0,
+        "calculated_unit": "tCO2/tonne_biomass",
+        "source": "BEE CCTS Biomass Accounting Rule"
+      }
+    },
+    "liquid_fuels": {
+      "furnace_oil": {
+        "name": "Furnace Oil (FO)",
+        "ncv_default": 9800.0,
+        "ncv_unit": "kcal/kg",
+        "emission_factor": 77.4,
+        "ef_unit": "tCO2/TJ",
+        "oxidation_factor": 0.99,
+        "calculated_factor": 3.141,
+        "calculated_unit": "tCO2/tonne_FO",
+        "source": "BEE CCTS Procedure 2024 Table A2"
+      },
+      "high_speed_diesel": {
+        "name": "High Speed Diesel (HSD)",
+        "ncv_default": 10200.0,
+        "ncv_unit": "kcal/kg",
+        "emission_factor": 74.1,
+        "ef_unit": "tCO2/TJ",
+        "oxidation_factor": 0.99,
+        "calculated_factor": 3.136,
+        "calculated_unit": "tCO2/tonne_HSD",
+        "source": "BEE CCTS Procedure 2024 Table A2"
+      }
+    },
+    "gaseous_fuels": {
+      "natural_gas": {
+        "name": "Piped / Regasified Natural Gas (PNG/RLNG)",
+        "ncv_default": 8500.0,
+        "ncv_unit": "kcal/Sm3",
+        "emission_factor": 56.1,
+        "ef_unit": "tCO2/TJ",
+        "oxidation_factor": 0.995,
+        "calculated_factor": 0.001985,
+        "calculated_unit": "tCO2/Sm3",
+        "source": "BEE CCTS Procedure 2024 Table A3"
+      }
+    },
+    "electricity": {
+      "indian_national_grid_ef": {
+        "name": "Indian National Grid Combined Margin Baseline EF",
+        "emission_factor": 0.716,
+        "ef_unit": "tCO2e/MWh",
+        "source": "CEA CO2 Baseline Database for Indian Power Sector User Guide v20.0"
+      },
+      "captive_solar_wind": {
+        "name": "On-site Captive Solar / Wind Generation",
+        "emission_factor": 0.0,
+        "ef_unit": "tCO2e/MWh",
+        "source": "BEE Renewable Zero-Rating Rule"
+      }
+    },
+    "process_emissions": {
+      "cement_calcination_raw_meal": {
+        "name": "Limestone / Raw Meal Calcination (CaCO3 -> CaO + CO2)",
+        "emission_factor": 0.525,
+        "ef_unit": "tCO2/tonne_clinker",
+        "source": "BEE CCTS Cement Mass Balance & Procedure 2024"
+      },
+      "aluminium_anode_consumption": {
+        "name": "Aluminium Prebaked Anode Consumption (PFC + CO2)",
+        "emission_factor": 1.62,
+        "ef_unit": "tCO2e/tonne_aluminium",
+        "source": "BEE CCTS Aluminium Specific Procedure 2024"
+      }
+    }
+  }
+}

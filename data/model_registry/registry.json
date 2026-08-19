@@ -1,0 +1,41 @@
+{
+  "version": "REG-MODEL-V2.0",
+  "updated_at": "2026-08-19",
+  "models": [
+    {
+      "model_id": "CA-GEI-BENCHMARK-V1",
+      "model_name": "Industrial GEI Peer Benchmark Model",
+      "algorithm": "HistGradientBoostingRegressor",
+      "feature_schema_version": "FS-2026-08",
+      "training_samples": 1840,
+      "holdout_samples": 200,
+      "features": [
+        "sector_enc",
+        "annual_production",
+        "electricity_intensity_kwh",
+        "renewable_electricity_pct",
+        "thermal_fuel_tonnes"
+      ],
+      "target": "actual_gei",
+      "target_leakage_prevented": true,
+      "metrics": {
+        "holdout_mae": 0.1828,
+        "holdout_rmse": 0.319,
+        "holdout_r2": 0.9949
+      },
+      "artifact": "data/model_registry/gei_benchmark_v1.joblib"
+    },
+    {
+      "model_id": "CA-ANOMALY-ISO-V1",
+      "model_name": "Operational Anomaly Detector",
+      "algorithm": "IsolationForest",
+      "contamination_rate": 0.05,
+      "features": [
+        "electricity_intensity_kwh",
+        "renewable_electricity_pct",
+        "actual_gei"
+      ],
+      "artifact": "data/model_registry/anomaly_detector_v1.joblib"
+    }
+  ]
+}

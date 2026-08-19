@@ -1,0 +1,142 @@
+{
+  "version": "BEE-OFFSET-METH-2026-07",
+  "last_updated": "2026-07-07",
+  "source": "https://beeindia.gov.in/view_content.php?lang=1&lid=571",
+  "methodologies": [
+    {
+      "code": "BM EN01.001",
+      "sector": "Energy",
+      "title": "Grid-connected electricity generation from renewable sources",
+      "type": "Emission Reduction",
+      "applicable_technologies": [
+        "Solar PV",
+        "Wind",
+        "Small Hydro",
+        "Biomass Power"
+      ],
+      "status": "APPROVED"
+    },
+    {
+      "code": "BM EN01.002",
+      "sector": "Energy",
+      "title": "Hydrogen production from electrolysis of water",
+      "type": "Emission Avoidance",
+      "applicable_technologies": [
+        "Green Hydrogen Electrolyser",
+        "PEM / Alkaline"
+      ],
+      "status": "APPROVED"
+    },
+    {
+      "code": "BM IN02.001",
+      "sector": "Industries",
+      "title": "Energy efficiency and fuel switching measures for industrial facilities",
+      "type": "Emission Reduction",
+      "applicable_technologies": [
+        "Waste Heat Recovery (WHR)",
+        "VFDs",
+        "AFR Kiln Co-processing",
+        "Electrification"
+      ],
+      "status": "APPROVED"
+    },
+    {
+      "code": "BM IN02.002",
+      "sector": "Industries",
+      "title": "Hydrogen production using methane extracted from biogas",
+      "type": "Emission Reduction",
+      "applicable_technologies": [
+        "Biogas Reforming",
+        "Bio-Hydrogen"
+      ],
+      "status": "APPROVED"
+    },
+    {
+      "code": "BM WA03.001",
+      "sector": "Waste Handling and Disposal",
+      "title": "Landfill methane recovery",
+      "type": "Methane Capture",
+      "applicable_technologies": [
+        "Landfill Gas Capture Wells",
+        "Power Generation"
+      ],
+      "status": "APPROVED"
+    },
+    {
+      "code": "BM WA03.002",
+      "sector": "Waste Handling and Disposal",
+      "title": "Flaring or use of landfill gas",
+      "type": "Methane Destruction",
+      "applicable_technologies": [
+        "High-Efficiency Flares",
+        "Boiler Fuel"
+      ],
+      "status": "APPROVED"
+    },
+    {
+      "code": "BM AG04.001",
+      "sector": "Agriculture",
+      "title": "Methane recovery from livestock and manure management at households and small farms",
+      "type": "Methane Capture",
+      "applicable_technologies": [
+        "Community Biogas Digesters",
+        "Slurry Management"
+      ],
+      "status": "APPROVED"
+    },
+    {
+      "code": "BM FR05.001",
+      "sector": "Forestry",
+      "title": "Afforestation and reforestation of degraded mangrove habitats",
+      "type": "Carbon Removal",
+      "applicable_technologies": [
+        "Blue Carbon Coastal Mangrove Restoration"
+      ],
+      "status": "APPROVED"
+    },
+    {
+      "code": "BM FR05.002",
+      "sector": "Forestry",
+      "title": "Afforestation and reforestation of lands except wetlands",
+      "type": "Carbon Removal",
+      "applicable_technologies": [
+        "Agroforestry",
+        "Social Forestry",
+        "Wasteland Afforestation"
+      ],
+      "status": "APPROVED"
+    },
+    {
+      "code": "BM AG04.002",
+      "sector": "Agriculture",
+      "title": "Emission reduction through improved management practices in rice cultivation",
+      "type": "Methane Avoidance",
+      "applicable_technologies": [
+        "Alternate Wetting and Drying (AWD)",
+        "Direct Seeded Rice (DSR)"
+      ],
+      "status": "APPROVED"
+    },
+    {
+      "code": "BM WA03.003",
+      "sector": "Waste Handling and Disposal",
+      "title": "Production of Compressed Bio-gas (CBG)",
+      "type": "Methane Recovery & Biofuel",
+      "applicable_technologies": [
+        "Anaerobic Digestion + Pressure Swing Adsorption"
+      ],
+      "status": "APPROVED"
+    },
+    {
+      "code": "BM EN01.003",
+      "sector": "Energy",
+      "title": "Electricity and Heat Generation from Biomass",
+      "type": "Fuel Switching",
+      "applicable_technologies": [
+        "Biomass Cogeneration",
+        "Agricultural Residue Boilers"
+      ],
+      "status": "APPROVED"
+    }
+  ]
+}

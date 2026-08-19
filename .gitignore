@@ -1,0 +1,16 @@
+# Dependencies
+node_modules/
+__pycache__/
+*.py[cod]
+.venv/
+env/
+.next/
+out/
+build/
+*.db
+*.sqlite3
+.env
+logs/
+*.log
+coverage/
+.pytest_cache/

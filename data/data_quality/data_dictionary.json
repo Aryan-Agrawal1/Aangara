@@ -1,0 +1,139 @@
+{
+  "version": "DD-2026-V1.0",
+  "updated_at": "2026-08-19",
+  "fields": [
+    {
+      "name": "sector",
+      "type": "string",
+      "unit": "enum",
+      "allowed_values": [
+        "aluminium",
+        "cement",
+        "chlor_alkali",
+        "pulp_paper",
+        "petrochemicals",
+        "petroleum_refinery",
+        "iron_steel",
+        "textile",
+        "fertiliser"
+      ],
+      "applicability": "ALL",
+      "data_category": "regulatory_truth",
+      "validation_rule": "Must be one of the 8 notified CCTS sectors or fertiliser watchlist"
+    },
+    {
+      "name": "annual_production",
+      "type": "float",
+      "unit": "tonnes",
+      "allowed_range": [
+        100.0,
+        50000000.0
+      ],
+      "applicability": "ALL",
+      "data_category": "user_submitted_data",
+      "validation_rule": "Must be > 0. Out-of-scale values flagged for audit."
+    },
+    {
+      "name": "electricity_mwh",
+      "type": "float",
+      "unit": "MWh",
+      "allowed_range": [
+        0.0,
+        20000000.0
+      ],
+      "applicability": "ALL",
+      "data_category": "user_submitted_data",
+      "validation_rule": "Must be >= 0. Zero grid electricity requires captive power disclosure."
+    },
+    {
+      "name": "renewable_electricity_pct",
+      "type": "float",
+      "unit": "%",
+      "allowed_range": [
+        0.0,
+        100.0
+      ],
+      "applicability": "ALL",
+      "data_category": "user_submitted_data",
+      "validation_rule": "0 <= renewable_pct <= 100"
+    },
+    {
+      "name": "thermal_fuel_tonnes",
+      "type": "float",
+      "unit": "tonnes",
+      "allowed_range": [
+        0.0,
+        10000000.0
+      ],
+      "applicability": "ALL",
+      "data_category": "user_submitted_data",
+      "validation_rule": "Must be >= 0."
+    },
+    {
+      "name": "thermal_fuel_type",
+      "type": "string",
+      "unit": "enum",
+      "allowed_values": [
+        "indian_domestic_coal",
+        "imported_coal_indonesian",
+        "petcoke",
+        "natural_gas",
+        "furnace_oil",
+        "biomass"
+      ],
+      "applicability": "ALL",
+      "data_category": "user_submitted_data",
+      "validation_rule": "Must match standard CEA / MoEFCC emission factor catalog."
+    },
+    {
+      "name": "clinker_factor_pct",
+      "type": "float",
+      "unit": "%",
+      "allowed_range": [
+        45.0,
+        98.0
+      ],
+      "applicability": "CEMENT",
+      "data_category": "user_submitted_data",
+      "validation_rule": "Ratio of clinker to total cement produced. Typical OPC: 90-95%, PPC: 65-75%."
+    },
+    {
+      "name": "smelter_dc_sec_kwh_per_t",
+      "type": "float",
+      "unit": "kWh/t Al",
+      "allowed_range": [
+        12500.0,
+        16500.0
+      ],
+      "applicability": "ALUMINIUM",
+      "data_category": "user_submitted_data",
+      "validation_rule": "Specific DC electrical consumption per tonne primary aluminium."
+    },
+    {
+      "name": "steel_route",
+      "type": "string",
+      "unit": "enum",
+      "allowed_values": [
+        "BF_BOF",
+        "DRI_EAF",
+        "DRI_IF",
+        "COREX"
+      ],
+      "applicability": "IRON_STEEL",
+      "data_category": "user_submitted_data",
+      "validation_rule": "Primary technological crude steel smelting route."
+    },
+    {
+      "name": "actual_gei",
+      "type": "float",
+      "unit": "tCO2e / unit",
+      "allowed_range": [
+        0.01,
+        30.0
+      ],
+      "applicability": "ALL",
+      "data_category": "CALCULATED",
+      "validation_rule": "Total emissions / annual production. Reconciles with Scope 1 + Scope 2."
+    }
+  ]
+}
