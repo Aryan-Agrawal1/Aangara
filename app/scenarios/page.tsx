@@ -29,7 +29,7 @@ const CHART_TEXT = '#6B7A72';
 const ScenarioTooltip = ({ active, payload, label }: any) => {
   if (!active || !payload?.length) return null;
   return (
-    <div className="bg-[#0E1524] border border-[#E4E9E6] rounded-lg p-3 text-xs shadow-2xl">
+    <div className="bg-white border border-[#E4E9E6] shadow-lg border border-[#E4E9E6] rounded-lg p-3 text-xs shadow-2xl">
       <p className="text-[#4B5A54] font-semibold mb-1.5">{label}</p>
       {payload.map((p: any, i: number) => (
         <div key={i} className="flex justify-between items-center space-x-3 py-0.5">
@@ -140,7 +140,7 @@ export default function ScenariosPage() {
           <div>
             <div className="flex items-center space-x-2">
               <h1 className="text-2xl font-bold text-[#10231C] tracking-tight">Scenario Stress Testing Matrix</h1>
-              <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-950 text-amber-400 border border-amber-800/60 font-semibold">
+              <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#FEF7E8] text-[#C98A1E] border border-amber-800/60 font-semibold">
                 SENSITIVITY & RISK LAB
               </span>
             </div>
@@ -192,7 +192,7 @@ export default function ScenariosPage() {
             <div className="glass-panel rounded-xl p-5 border-[#E4E9E6]">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-4 pb-3 border-b border-[#E4E9E6] gap-2">
                 <div className="flex items-center space-x-2">
-                  <div className="p-1.5 rounded-lg bg-white border border-[#E4E9E6] text-sky-400 border border-[#E4E9E6]">
+                  <div className="p-1.5 rounded-lg bg-white border border-[#E4E9E6] text-[#2E6BA8] border border-[#E4E9E6]">
                     <Activity className="w-4 h-4" />
                   </div>
                   <div>
@@ -247,7 +247,7 @@ export default function ScenariosPage() {
                           <h4 className="text-base font-bold text-[#10231C]">{s.strategy} Strategy</h4>
                         </div>
                         <span className={`text-xs font-mono font-bold px-2 py-0.5 rounded ${
-                          isWinner ? 'bg-emerald-950 text-[#1F8A5F] border border-emerald-800' : 'bg-white border border-[#E4E9E6] text-[#4B5A54]'
+                          isWinner ? 'bg-[#E8F5EE] text-[#1F8A5F] border border-emerald-800' : 'bg-white border border-[#E4E9E6] text-[#4B5A54]'
                         }`}>
                           Rank #{s.rank}
                         </span>
@@ -271,7 +271,7 @@ export default function ScenariosPage() {
                         </div>
                         <div className="flex justify-between py-1 border-b border-[#E4E9E6]/60">
                           <span className="text-[#4B5A54]">Market CCCs:</span>
-                          <span className="text-sky-400 font-semibold">{s.procured_ccc_tco2e.toLocaleString('en-IN')} CCCs</span>
+                          <span className="text-[#2E6BA8] font-semibold">{s.procured_ccc_tco2e.toLocaleString('en-IN')} CCCs</span>
                         </div>
                         <div className="flex justify-between py-1 border-b border-[#E4E9E6]/60">
                           <span className="text-[#4B5A54]">Utility Score:</span>
@@ -279,7 +279,7 @@ export default function ScenariosPage() {
                         </div>
                         <div className="flex justify-between py-1">
                           <span className="text-[#4B5A54]">Risk Score:</span>
-                          <span className={`${s.risk_score < 40 ? 'text-[#1F8A5F]' : s.risk_score < 60 ? 'text-amber-400' : 'text-rose-400'}`}>
+                          <span className={`${s.risk_score < 40 ? 'text-[#1F8A5F]' : s.risk_score < 60 ? 'text-[#C98A1E]' : 'text-[#C33B2E]'}`}>
                             {s.risk_score.toFixed(0)}/100
                           </span>
                         </div>

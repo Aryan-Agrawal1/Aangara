@@ -60,11 +60,11 @@ export default function SourcesPage() {
         </div>
 
         
-        <ProvenanceFooter />
         
-        <div className="mb-8 p-4 bg-[#1E3A5F]/10 border border-[#1E3A5F]/30 rounded-xl">
+        
+        <div className="mb-8 p-4 bg-[#F6F8F7] border border-[#E4E9E6] rounded-xl">
           <div className="flex items-center gap-2 mb-3">
-            <span className="text-[9px] font-mono font-bold px-2 py-0.5 rounded bg-[#1E3A5F]/60 text-blue-300 border border-blue-700/40">REGULATORY WATCH</span>
+            <span className="text-[9px] font-mono font-bold px-2 py-0.5 rounded bg-[#E8F5F2] text-[#0B4A3D] border-[#0B4A3D]/20">REGULATORY WATCH</span>
             <h2 className="text-sm font-bold text-[#10231C]">Recent Regulatory Changes</h2>
           </div>
           <div className="space-y-2">
@@ -92,7 +92,7 @@ export default function SourcesPage() {
               onClick={() => setActiveCategory(cat.id)}
               className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all border ${
                 activeCategory === cat.id
-                  ? 'bg-[#1E3A5F] text-blue-200 border-blue-600/50'
+                  ? 'bg-[#0B4A3D] text-white border-[#0B4A3D]'
                   : 'bg-[#F6F8F7] text-[#4B5A54] border-[#E4E9E6] hover:text-[#10231C] hover:bg-white border border-[#E4E9E6]'
               }`}
             >

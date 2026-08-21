@@ -32,15 +32,15 @@ export function ExplainabilityCard({ decisionData, onOpenSourceTrace }: Explaina
   };
 
   return (
-    <div className="glass-panel rounded-xl p-5 mt-6 border-slate-800">
+    <div className="glass-panel rounded-xl p-5 mt-6 border-[#E4E9E6]">
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center space-x-2">
-          <div className="p-2 rounded-lg bg-slate-800 border border-slate-700 text-emerald-400">
+          <div className="p-2 rounded-lg bg-white border border-[#E4E9E6] border border-[#E4E9E6] text-[#1F8A5F]">
             <Sparkles className="w-4 h-4" />
           </div>
           <div>
             <h3 className="text-sm font-semibold text-white tracking-tight">Explainability & Decision Provenance</h3>
-            <p className="text-xs text-slate-400">Audit-ready mathematical causality and regulatory citation trace</p>
+            <p className="text-xs text-[#4B5A54]">Audit-ready mathematical causality and regulatory citation trace</p>
           </div>
         </div>
 
@@ -57,21 +57,21 @@ export function ExplainabilityCard({ decisionData, onOpenSourceTrace }: Explaina
       </div>
 
       {/* Core Deterministic Reason */}
-      <div className="bg-slate-900/80 rounded-lg p-4 border border-slate-800 text-xs text-slate-300 leading-relaxed">
+      <div className="bg-[#F6F8F7] rounded-lg p-4 border border-[#E4E9E6] text-xs text-[#4B5A54] leading-relaxed">
         <div className="font-semibold text-white mb-1.5 flex items-center space-x-1.5">
-          <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+          <CheckCircle2 className="w-4 h-4 text-[#1F8A5F]" />
           <span>Why {decisionData.recommended_strategy} Strategy Ranked #1:</span>
         </div>
         <p>{decisionData.recommendation_reason}</p>
 
         {/* AI synthesized expansion if available */}
         {aiResponse && (
-          <div className="mt-3 pt-3 border-t border-slate-800 text-slate-200">
-            <div className="flex items-center space-x-1.5 text-teal-400 font-semibold mb-1">
+          <div className="mt-3 pt-3 border-t border-[#E4E9E6] text-[#10231C]">
+            <div className="flex items-center space-x-1.5 text-[#0B4A3D] font-semibold mb-1">
               <Sparkles className="w-3.5 h-3.5" />
               <span>Executive Briefing ({aiResponse.service_status}):</span>
             </div>
-            <p className="whitespace-pre-line text-[11px] leading-relaxed text-slate-300">
+            <p className="whitespace-pre-line text-[11px] leading-relaxed text-[#4B5A54]">
               {aiResponse.narrative}
             </p>
           </div>
@@ -82,11 +82,11 @@ export function ExplainabilityCard({ decisionData, onOpenSourceTrace }: Explaina
       {decisionData.anomaly_intelligence && (
         <div className={`mt-3 p-3 rounded-lg border text-xs flex items-center justify-between ${
           decisionData.anomaly_intelligence.anomaly_detected
-            ? 'bg-amber-950/40 border-amber-800/60 text-amber-300'
-            : 'bg-slate-900/60 border-slate-800/80 text-slate-400'
+            ? 'bg-[#FEF7E8] border-amber-800/60 text-[#C98A1E]'
+            : 'bg-[#F6F8F7] border-[#E4E9E6]/80 text-[#4B5A54]'
         }`}>
           <div className="flex items-center space-x-2">
-            <ShieldCheck className="w-4 h-4 text-emerald-400 flex-shrink-0" />
+            <ShieldCheck className="w-4 h-4 text-[#1F8A5F] flex-shrink-0" />
             <span>
               <strong>Data Quality Intelligence:</strong> {decisionData.anomaly_intelligence.reason_codes[0]}
             </span>

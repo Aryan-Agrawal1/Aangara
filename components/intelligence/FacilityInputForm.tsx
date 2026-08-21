@@ -196,34 +196,34 @@ export function FacilityInputForm({
   // Helper tooltip component
   const TooltipHelp = ({ text }: { text: string }) => (
     <span className="relative inline-flex items-center ml-1.5 cursor-help group">
-      <HelpCircle className="w-3.5 h-3.5 text-slate-500 hover:text-slate-300 transition-colors" />
-      <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-1.5 hidden group-hover:block w-56 p-2 rounded bg-slate-950 border border-slate-700 text-[11px] text-slate-300 font-normal leading-tight z-50 shadow-2xl pointer-events-none">
+      <HelpCircle className="w-3.5 h-3.5 text-[#6B7A72] hover:text-[#4B5A54] transition-colors" />
+      <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-1.5 hidden group-hover:block w-56 p-2 rounded bg-white border border-[#E4E9E6] text-[11px] text-[#4B5A54] font-normal leading-tight z-50 shadow-2xl pointer-events-none">
         {text}
       </span>
     </span>
   );
 
   return (
-    <div className="glass-panel rounded-xl border-slate-800 overflow-hidden shadow-2xl">
+    <div className="glass-panel rounded-xl border-[#E4E9E6] overflow-hidden shadow-2xl">
       {/* Top Header & Presets Bar with Photographic Background */}
-      <div className="relative border-b border-slate-800">
+      <div className="relative border-b border-[#E4E9E6]">
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1587582423116-ec07293f0395?q=80&w=1200&auto=format&fit=crop')] bg-cover bg-center opacity-30 pointer-events-none"></div>
         <div className="absolute inset-0 bg-gradient-to-r from-[#06090E] via-[#06090E]/90 to-transparent pointer-events-none"></div>
         
         <div className="relative z-10 p-5 sm:p-6 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
           <div>
             <div className="flex items-center space-x-3">
-              <div className="p-2.5 rounded-lg bg-emerald-950/80 text-emerald-400 border border-emerald-800/60 shadow-lg shadow-emerald-950/50 backdrop-blur-md">
+              <div className="p-2.5 rounded-lg bg-[#E8F5EE] text-[#1F8A5F] border border-emerald-800/60 shadow-lg shadow-emerald-950/50 backdrop-blur-md">
                 <Building2 className="w-5 h-5" />
               </div>
               <div>
                 <div className="flex items-center space-x-2">
                   <h3 className="text-lg font-extrabold text-white tracking-tight">Facility Data Entry & Intelligence Studio</h3>
-                  <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-emerald-950/80 text-emerald-300 border border-emerald-800/60 backdrop-blur-md">
+                  <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-[#E8F5EE] text-[#1F8A5F] border border-emerald-800/60 backdrop-blur-md">
                     8-SECTOR READY
                   </span>
                 </div>
-                <p className="text-xs text-slate-300 mt-1 font-medium max-w-lg">
+                <p className="text-xs text-[#4B5A54] mt-1 font-medium max-w-lg">
                   Guided onboarding wizard for plant-specific GHG accounting, statutory GEI targets & abatement modeling.
                 </p>
               </div>
@@ -231,16 +231,16 @@ export function FacilityInputForm({
           </div>
 
           {/* 8-Sector 1-Click Demo Presets */}
-          <div className="flex flex-wrap items-center justify-start sm:justify-end gap-1.5 bg-[#0B1019]/80 backdrop-blur-md p-2.5 rounded-lg border border-slate-700/80 shadow-lg">
-            <span className="text-[11px] font-semibold text-slate-300 flex items-center space-x-1 mr-1">
-              <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+          <div className="flex flex-wrap items-center justify-start sm:justify-end gap-1.5 bg-[#0B1019]/80 backdrop-blur-md p-2.5 rounded-lg border border-[#E4E9E6]/80 shadow-lg">
+            <span className="text-[11px] font-semibold text-[#4B5A54] flex items-center space-x-1 mr-1">
+              <Sparkles className="w-3.5 h-3.5 text-[#C98A1E]" />
               <span>1-Click Demos:</span>
             </span>
             {[
-              { id: 'cement', label: 'Cement', color: 'text-emerald-400 hover:border-emerald-500' },
-              { id: 'iron_steel', label: 'Steel (Draft)', color: 'text-sky-400 hover:border-sky-500' },
-              { id: 'aluminium', label: 'Aluminium', color: 'text-amber-400 hover:border-amber-500' },
-              { id: 'chlor_alkali', label: 'Chlor-Alkali', color: 'text-teal-400 hover:border-teal-500' },
+              { id: 'cement', label: 'Cement', color: 'text-[#1F8A5F] hover:border-emerald-500' },
+              { id: 'iron_steel', label: 'Steel (Draft)', color: 'text-[#2E6BA8] hover:border-sky-500' },
+              { id: 'aluminium', label: 'Aluminium', color: 'text-[#C98A1E] hover:border-amber-500' },
+              { id: 'chlor_alkali', label: 'Chlor-Alkali', color: 'text-[#0B4A3D] hover:border-teal-500' },
               { id: 'pulp_paper', label: 'Paper', color: 'text-lime-400 hover:border-lime-500' },
               { id: 'petroleum_refinery', label: 'Refinery', color: 'text-violet-400 hover:border-violet-500' },
               { id: 'petrochemicals', label: 'Petrochem', color: 'text-cyan-400 hover:border-cyan-500' },
@@ -252,8 +252,8 @@ export function FacilityInputForm({
                 onClick={() => handleLoadPreset(p.id)}
                 className={`text-[11px] font-mono px-2.5 py-1.5 rounded-md transition-all cursor-pointer font-bold ${p.color} ${
                   formData.sector === p.id 
-                    ? 'bg-slate-800 shadow-inner border border-slate-600 ring-1 ring-emerald-500/30' 
-                    : 'bg-slate-900/60 hover:bg-slate-800 border border-slate-700/50 hover:border-slate-600'
+                    ? 'bg-white border border-[#E4E9E6] shadow-inner border border-[#CBD5CE] ring-1 ring-emerald-500/30' 
+                    : 'bg-[#F6F8F7] hover:bg-white border border-[#E4E9E6] border border-[#E4E9E6]/50 hover:border-[#CBD5CE]'
                 }`}
               >
                 {p.label}
@@ -269,28 +269,28 @@ export function FacilityInputForm({
         {/* STEP 1: Facility Profile & Siting */}
         
           <div className="space-y-4">
-            <div className="bg-slate-900/50 p-4 rounded-xl border border-slate-800/80 space-y-4">
-              <div className="flex items-center justify-between pb-2 border-b border-slate-800">
-                <span className="text-xs font-bold text-slate-200 flex items-center space-x-2">
-                  <Building2 className="w-4 h-4 text-emerald-400" />
+            <div className="bg-[#F6F8F7] p-4 rounded-xl border border-[#E4E9E6]/80 space-y-4">
+              <div className="flex items-center justify-between pb-2 border-b border-[#E4E9E6]">
+                <span className="text-xs font-bold text-[#10231C] flex items-center space-x-2">
+                  <Building2 className="w-4 h-4 text-[#1F8A5F]" />
                   <span>Step 1: Facility Profile, Jurisdiction & Baseline Scale</span>
                 </span>
-                <span className="text-[11px] text-slate-400 font-mono">1 / 4</span>
+                <span className="text-[11px] text-[#4B5A54] font-mono">1 / 4</span>
               </div>
 
               <div>
                 <div className="flex items-center justify-between mb-1">
-                  <label className="text-xs font-medium text-slate-200 flex items-center">
+                  <label className="text-xs font-medium text-[#10231C] flex items-center">
                     Facility Name / Entity Identifier
                     <TooltipHelp text="Official legal name or designated unit identifier for statutory CCTS compliance registry." />
                   </label>
-                  <span className="text-[10px] text-slate-500 font-mono">Mandatory Identifier</span>
+                  <span className="text-[10px] text-[#6B7A72] font-mono">Mandatory Identifier</span>
                 </div>
                 <input
                   type="text"
                   value={formData.facility_name}
                   onChange={(e) => handleChange('facility_name', e.target.value)}
-                  className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white placeholder-slate-600 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 font-medium"
+                  className="w-full bg-white border border-[#E4E9E6] rounded-lg px-3 py-2 text-xs text-white placeholder-slate-600 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 font-medium"
                   placeholder="e.g. Acme Cement Works Line 1"
                   required
                 />
@@ -299,16 +299,16 @@ export function FacilityInputForm({
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <div className="flex items-center justify-between mb-1">
-                    <label className="text-xs font-medium text-slate-200 flex items-center">
+                    <label className="text-xs font-medium text-[#10231C] flex items-center">
                       CCTS Industry Sector
                       <TooltipHelp text="Designated obligated sector under MoEFCC gazette notifications for GHG intensity compliance." />
                     </label>
-                    <span className="text-[10px] text-emerald-400 font-mono">Statutory Regime</span>
+                    <span className="text-[10px] text-[#1F8A5F] font-mono">Statutory Regime</span>
                   </div>
                   <select
                     value={formData.sector}
                     onChange={(e) => handleChange('sector', e.target.value)}
-                    className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500 font-semibold"
+                    className="w-full bg-white border border-[#E4E9E6] rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500 font-semibold"
                   >
                     <optgroup label="7 Notified Final CCTS Compliance Sectors">
                       <option value="cement">Cement (Integrated / Grinding)</option>
@@ -328,16 +328,16 @@ export function FacilityInputForm({
 
                 <div>
                   <div className="flex items-center justify-between mb-1">
-                    <label className="text-xs font-medium text-slate-200 flex items-center">
+                    <label className="text-xs font-medium text-[#10231C] flex items-center">
                       State (Regional Grid Context)
                       <TooltipHelp text="Used for state-specific grid emission factors, renewable purchase obligations & open access wheeling charges." />
                     </label>
-                    <span className="text-[10px] text-slate-500 font-mono">Grid CEA Node</span>
+                    <span className="text-[10px] text-[#6B7A72] font-mono">Grid CEA Node</span>
                   </div>
                   <select
                     value={formData.state}
                     onChange={(e) => handleChange('state', e.target.value)}
-                    className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500"
+                    className="w-full bg-white border border-[#E4E9E6] rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500"
                   >
                     {['Rajasthan', 'Gujarat', 'Odisha', 'Chhattisgarh', 'Maharashtra', 'Tamil Nadu', 'Andhra Pradesh', 'Madhya Pradesh', 'Jharkhand', 'Punjab', 'Uttar Pradesh', 'Karnataka', 'West Bengal'].map((s) => (
                       <option key={s} value={s}>{s}</option>
@@ -349,12 +349,12 @@ export function FacilityInputForm({
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <div className="flex items-center justify-between mb-1">
-                    <label className="text-xs font-medium text-slate-200 flex items-center">
+                    <label className="text-xs font-medium text-[#10231C] flex items-center">
                       Annual Finished Production
-                      <span className="ml-1 text-[10px] text-emerald-400 font-mono bg-emerald-950/60 px-1.5 py-0.2 rounded border border-emerald-800/40">[Tonnes/yr]</span>
+                      <span className="ml-1 text-[10px] text-[#1F8A5F] font-mono bg-[#E8F5EE] px-1.5 py-0.2 rounded border border-emerald-800/40">[Tonnes/yr]</span>
                       <TooltipHelp text="Net saleable product output for the baseline/reporting year used to compute GHG Emission Intensity (GEI)." />
                     </label>
-                    <span className="text-[10px] text-slate-500 font-mono">Range: 10k - 15M t</span>
+                    <span className="text-[10px] text-[#6B7A72] font-mono">Range: 10k - 15M t</span>
                   </div>
                   <input
                     type="number"
@@ -362,29 +362,29 @@ export function FacilityInputForm({
                     step="any"
                     value={formData.annual_production}
                     onChange={(e) => handleChange('annual_production', parseFloat(e.target.value) || 0)}
-                    className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white font-mono focus:outline-none focus:border-emerald-500"
+                    className="w-full bg-white border border-[#E4E9E6] rounded-lg px-3 py-2 text-xs text-white font-mono focus:outline-none focus:border-emerald-500"
                     placeholder="e.g. 1200000"
                     required
                   />
-                  <p className="text-[10px] text-slate-400 mt-1">Recommended: Calibrated with annual PAT/BRSR verified production log.</p>
+                  <p className="text-[10px] text-[#4B5A54] mt-1">Recommended: Calibrated with annual PAT/BRSR verified production log.</p>
                 </div>
 
                 <div>
                   <div className="flex items-center justify-between mb-1">
-                    <label className="text-xs font-medium text-slate-200 flex items-center">
+                    <label className="text-xs font-medium text-[#10231C] flex items-center">
                       Sub-Sector / Process Route
                       <TooltipHelp text="Specific process technology configuration (e.g. Dry Kiln, BF-BOF, Membrane Cell)." />
                     </label>
-                    <span className="text-[10px] text-slate-500 font-mono">Process Tech</span>
+                    <span className="text-[10px] text-[#6B7A72] font-mono">Process Tech</span>
                   </div>
                   <input
                     type="text"
                     value={formData.sub_sector}
                     onChange={(e) => handleChange('sub_sector', e.target.value)}
-                    className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white placeholder-slate-600 focus:outline-none focus:border-emerald-500"
+                    className="w-full bg-white border border-[#E4E9E6] rounded-lg px-3 py-2 text-xs text-white placeholder-slate-600 focus:outline-none focus:border-emerald-500"
                     placeholder="e.g. Integrated Dry Process Kiln"
                   />
-                  <p className="text-[10px] text-slate-400 mt-1">Defines benchmark cohort and methodology applicability.</p>
+                  <p className="text-[10px] text-[#4B5A54] mt-1">Defines benchmark cohort and methodology applicability.</p>
                 </div>
               </div>
             </div>
@@ -394,24 +394,24 @@ export function FacilityInputForm({
         {/* STEP 2: Energy & Fuel Streams */}
         
           <div className="space-y-4">
-            <div className="bg-slate-900/50 p-4 rounded-xl border border-slate-800/80 space-y-4">
-              <div className="flex items-center justify-between pb-2 border-b border-slate-800">
-                <span className="text-xs font-bold text-slate-200 flex items-center space-x-2">
-                  <Flame className="w-4 h-4 text-amber-400" />
+            <div className="bg-[#F6F8F7] p-4 rounded-xl border border-[#E4E9E6]/80 space-y-4">
+              <div className="flex items-center justify-between pb-2 border-b border-[#E4E9E6]">
+                <span className="text-xs font-bold text-[#10231C] flex items-center space-x-2">
+                  <Flame className="w-4 h-4 text-[#C98A1E]" />
                   <span>Step 2: Electricity & Thermal Fuel Consumption Streams</span>
                 </span>
-                <span className="text-[11px] text-slate-400 font-mono">2 / 4</span>
+                <span className="text-[11px] text-[#4B5A54] font-mono">2 / 4</span>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <div className="flex items-center justify-between mb-1">
-                    <label className="text-xs font-medium text-slate-200 flex items-center">
+                    <label className="text-xs font-medium text-[#10231C] flex items-center">
                       Grid / Captive Electricity
-                      <span className="ml-1 text-[10px] text-sky-400 font-mono bg-sky-950/60 px-1.5 py-0.2 rounded border border-sky-800/40">[MWh/year]</span>
+                      <span className="ml-1 text-[10px] text-[#2E6BA8] font-mono bg-[#EBF3FB] px-1.5 py-0.2 rounded border border-sky-800/40">[MWh/year]</span>
                       <TooltipHelp text="Total electricity drawn from state grid, captive power plants (CPP), and open access sources." />
                     </label>
-                    <span className="text-[10px] text-slate-500 font-mono">Scope 2 Input</span>
+                    <span className="text-[10px] text-[#6B7A72] font-mono">Scope 2 Input</span>
                   </div>
                   <input
                     type="number"
@@ -419,24 +419,24 @@ export function FacilityInputForm({
                     step="any"
                     value={formData.electricity_mwh}
                     onChange={(e) => handleChange('electricity_mwh', parseFloat(e.target.value) || 0)}
-                    className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white font-mono focus:outline-none focus:border-emerald-500"
+                    className="w-full bg-white border border-[#E4E9E6] rounded-lg px-3 py-2 text-xs text-white font-mono focus:outline-none focus:border-emerald-500"
                     placeholder="e.g. 98000"
                     required
                   />
-                  <div className="flex items-center space-x-1.5 mt-1 text-[10px] text-sky-400">
-                    <Zap className="w-3 h-3 text-sky-400 flex-shrink-0" />
+                  <div className="flex items-center space-x-1.5 mt-1 text-[10px] text-[#2E6BA8]">
+                    <Zap className="w-3 h-3 text-[#2E6BA8] flex-shrink-0" />
                     <span>CEA Grid Emission Factor: 0.716 tCO₂e/MWh (FY2023-24 baseline)</span>
                   </div>
                 </div>
 
                 <div>
                   <div className="flex items-center justify-between mb-1">
-                    <label className="text-xs font-medium text-slate-200 flex items-center">
+                    <label className="text-xs font-medium text-[#10231C] flex items-center">
                       Renewable Electricity Share
-                      <span className="ml-1 text-[10px] text-emerald-400 font-mono bg-emerald-950/60 px-1.5 py-0.2 rounded border border-emerald-800/40">[%]</span>
+                      <span className="ml-1 text-[10px] text-[#1F8A5F] font-mono bg-[#E8F5EE] px-1.5 py-0.2 rounded border border-emerald-800/40">[%]</span>
                       <TooltipHelp text="Percentage of total electricity met via on-site captive solar/wind, green tariffs, or ISTS open-access PPA." />
                     </label>
-                    <span className="text-[10px] text-slate-500 font-mono">Range: 0 - 100%</span>
+                    <span className="text-[10px] text-[#6B7A72] font-mono">Range: 0 - 100%</span>
                   </div>
                   <input
                     type="number"
@@ -445,11 +445,11 @@ export function FacilityInputForm({
                     step="any"
                     value={formData.renewable_electricity_pct}
                     onChange={(e) => handleChange('renewable_electricity_pct', parseFloat(e.target.value) || 0)}
-                    className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white font-mono focus:outline-none focus:border-emerald-500"
+                    className="w-full bg-white border border-[#E4E9E6] rounded-lg px-3 py-2 text-xs text-white font-mono focus:outline-none focus:border-emerald-500"
                     placeholder="e.g. 12.5"
                     required
                   />
-                  <p className="text-[10px] text-emerald-400/80 mt-1">
+                  <p className="text-[10px] text-[#1F8A5F]/80 mt-1">
                     Zero-emission power deduction applied per BEE Detailed Procedure Section 4.2.
                   </p>
                 </div>
@@ -458,16 +458,16 @@ export function FacilityInputForm({
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <div className="flex items-center justify-between mb-1">
-                    <label className="text-xs font-medium text-slate-200 flex items-center">
+                    <label className="text-xs font-medium text-[#10231C] flex items-center">
                       Primary Thermal Fuel
                       <TooltipHelp text="Major fuel source utilized in industrial kilns, boilers, furnaces, and thermal cracking units." />
                     </label>
-                    <span className="text-[10px] text-slate-500 font-mono">Scope 1 Thermal</span>
+                    <span className="text-[10px] text-[#6B7A72] font-mono">Scope 1 Thermal</span>
                   </div>
                   <select
                     value={formData.thermal_fuel_type}
                     onChange={(e) => handleChange('thermal_fuel_type', e.target.value)}
-                    className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500 font-semibold"
+                    className="w-full bg-white border border-[#E4E9E6] rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500 font-semibold"
                   >
                     <option value="petcoke">Petcoke / Petroleum Coke (3.24 tCO₂e/tonne)</option>
                     <option value="indian_domestic_coal">Indian Domestic Coal (1.95 tCO₂e/tonne)</option>
@@ -476,17 +476,17 @@ export function FacilityInputForm({
                     <option value="furnace_oil">Furnace Oil / LDO (3.12 tCO₂e/tonne)</option>
                     <option value="biomass">Biomass / Agro Residue (0.00 tCO₂e/t Net)</option>
                   </select>
-                  <p className="text-[10px] text-slate-400 mt-1">Calibrated with IPCC Tier 2 default net calorific values.</p>
+                  <p className="text-[10px] text-[#4B5A54] mt-1">Calibrated with IPCC Tier 2 default net calorific values.</p>
                 </div>
 
                 <div>
                   <div className="flex items-center justify-between mb-1">
-                    <label className="text-xs font-medium text-slate-200 flex items-center">
+                    <label className="text-xs font-medium text-[#10231C] flex items-center">
                       Annual Fuel Consumption
-                      <span className="ml-1 text-[10px] text-amber-400 font-mono bg-amber-950/60 px-1.5 py-0.2 rounded border border-amber-800/40">[Tonnes/year]</span>
+                      <span className="ml-1 text-[10px] text-[#C98A1E] font-mono bg-[#FEF7E8] px-1.5 py-0.2 rounded border border-amber-800/40">[Tonnes/year]</span>
                       <TooltipHelp text="Total mass of physical fuel combusted within the plant boundary for process thermal energy." />
                     </label>
-                    <span className="text-[10px] text-slate-500 font-mono">Fuel Mass</span>
+                    <span className="text-[10px] text-[#6B7A72] font-mono">Fuel Mass</span>
                   </div>
                   <input
                     type="number"
@@ -494,11 +494,11 @@ export function FacilityInputForm({
                     step="any"
                     value={formData.thermal_fuel_tonnes}
                     onChange={(e) => handleChange('thermal_fuel_tonnes', parseFloat(e.target.value) || 0)}
-                    className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white font-mono focus:outline-none focus:border-emerald-500"
+                    className="w-full bg-white border border-[#E4E9E6] rounded-lg px-3 py-2 text-xs text-white font-mono focus:outline-none focus:border-emerald-500"
                     placeholder="e.g. 95000"
                     required
                   />
-                  <p className="text-[10px] text-slate-400 mt-1">Thermal emissions = Quantity × Specific Emission Factor.</p>
+                  <p className="text-[10px] text-[#4B5A54] mt-1">Thermal emissions = Quantity × Specific Emission Factor.</p>
                 </div>
               </div>
             </div>
@@ -508,13 +508,13 @@ export function FacilityInputForm({
         {/* STEP 3: Sector Specific Process Data */}
         
           <div className="space-y-4">
-            <div className="bg-slate-900/50 p-4 rounded-xl border border-slate-800/80 space-y-4">
-              <div className="flex items-center justify-between pb-2 border-b border-slate-800">
-                <span className="text-xs font-bold text-slate-200 flex items-center space-x-2">
-                  <Cpu className="w-4 h-4 text-teal-400" />
+            <div className="bg-[#F6F8F7] p-4 rounded-xl border border-[#E4E9E6]/80 space-y-4">
+              <div className="flex items-center justify-between pb-2 border-b border-[#E4E9E6]">
+                <span className="text-xs font-bold text-[#10231C] flex items-center space-x-2">
+                  <Cpu className="w-4 h-4 text-[#0B4A3D]" />
                   <span>Step 3: Sector-Specific Process Parameters & Statutory Target Overrides</span>
                 </span>
-                <span className="text-[11px] text-slate-400 font-mono">3 / 4</span>
+                <span className="text-[11px] text-[#4B5A54] font-mono">3 / 4</span>
               </div>
 
               {/* Cement Sector Specific Inputs */}
@@ -522,12 +522,12 @@ export function FacilityInputForm({
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <div className="flex items-center justify-between mb-1">
-                      <label className="text-xs font-medium text-slate-200 flex items-center">
+                      <label className="text-xs font-medium text-[#10231C] flex items-center">
                         Clinker Factor
-                        <span className="ml-1 text-[10px] text-teal-400 font-mono bg-teal-950/60 px-1.5 py-0.2 rounded border border-teal-800/40">[%]</span>
+                        <span className="ml-1 text-[10px] text-[#0B4A3D] font-mono bg-teal-950/60 px-1.5 py-0.2 rounded border border-teal-800/40">[%]</span>
                         <TooltipHelp text="Ratio of clinker to total finished cement. OPC ~95%, PPC ~68-75%, Composite ~60-65%." />
                       </label>
-                      <span className="text-[10px] text-slate-500 font-mono">Range: 40 - 98%</span>
+                      <span className="text-[10px] text-[#6B7A72] font-mono">Range: 40 - 98%</span>
                     </div>
                     <input
                       type="number"
@@ -536,19 +536,19 @@ export function FacilityInputForm({
                       step="any"
                       value={formData.clinker_factor_pct || 74.0}
                       onChange={(e) => handleChange('clinker_factor_pct', parseFloat(e.target.value) || 74.0)}
-                      className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white font-mono focus:outline-none focus:border-emerald-500"
+                      className="w-full bg-white border border-[#E4E9E6] rounded-lg px-3 py-2 text-xs text-white font-mono focus:outline-none focus:border-emerald-500"
                     />
-                    <p className="text-[10px] text-slate-400 mt-1">Directly governs calcination process CO₂ emissions (0.525 tCO₂/t clinker).</p>
+                    <p className="text-[10px] text-[#4B5A54] mt-1">Directly governs calcination process CO₂ emissions (0.525 tCO₂/t clinker).</p>
                   </div>
 
                   <div>
                     <div className="flex items-center justify-between mb-1">
-                      <label className="text-xs font-medium text-slate-200 flex items-center">
+                      <label className="text-xs font-medium text-[#10231C] flex items-center">
                         Existing WHRS Capacity
-                        <span className="ml-1 text-[10px] text-teal-400 font-mono bg-teal-950/60 px-1.5 py-0.2 rounded border border-teal-800/40">[MW]</span>
+                        <span className="ml-1 text-[10px] text-[#0B4A3D] font-mono bg-teal-950/60 px-1.5 py-0.2 rounded border border-teal-800/40">[MW]</span>
                         <TooltipHelp text="Installed Waste Heat Recovery System capacity from preheater and clinker cooler exhausts." />
                       </label>
-                      <span className="text-[10px] text-slate-500 font-mono">0 - 50 MW</span>
+                      <span className="text-[10px] text-[#6B7A72] font-mono">0 - 50 MW</span>
                     </div>
                     <input
                       type="number"
@@ -557,9 +557,9 @@ export function FacilityInputForm({
                       step="any"
                       value={formData.whrs_installed_mw || 0.0}
                       onChange={(e) => handleChange('whrs_installed_mw', parseFloat(e.target.value) || 0.0)}
-                      className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white font-mono focus:outline-none focus:border-emerald-500"
+                      className="w-full bg-white border border-[#E4E9E6] rounded-lg px-3 py-2 text-xs text-white font-mono focus:outline-none focus:border-emerald-500"
                     />
-                    <p className="text-[10px] text-slate-400 mt-1">Set to 0 MW if no WHRS turbine is operational.</p>
+                    <p className="text-[10px] text-[#4B5A54] mt-1">Set to 0 MW if no WHRS turbine is operational.</p>
                   </div>
                 </div>
               )}
@@ -569,7 +569,7 @@ export function FacilityInputForm({
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <div className="flex items-center justify-between mb-1">
-                      <label className="text-xs font-medium text-slate-200 flex items-center">
+                      <label className="text-xs font-medium text-[#10231C] flex items-center">
                         Primary Smelting Route
                         <TooltipHelp text="Production route determines carbon intensity benchmarks: BF-BOF ~2.1 tCO2/t, DRI-EAF ~1.4 tCO2/t." />
                       </label>
@@ -577,7 +577,7 @@ export function FacilityInputForm({
                     <select
                       value={formData.steel_route || 'BF_BOF'}
                       onChange={(e) => handleChange('steel_route', e.target.value)}
-                      className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500 font-semibold"
+                      className="w-full bg-white border border-[#E4E9E6] rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500 font-semibold"
                     >
                       <option value="BF_BOF">Integrated Blast Furnace - Basic Oxygen Furnace (BF-BOF)</option>
                       <option value="DRI_EAF">Direct Reduced Iron - Electric Arc Furnace (DRI-EAF)</option>
@@ -587,9 +587,9 @@ export function FacilityInputForm({
 
                   <div>
                     <div className="flex items-center justify-between mb-1">
-                      <label className="text-xs font-medium text-slate-200 flex items-center">
+                      <label className="text-xs font-medium text-[#10231C] flex items-center">
                         Existing WHRS / TRT Capacity
-                        <span className="ml-1 text-[10px] text-teal-400 font-mono bg-teal-950/60 px-1.5 py-0.2 rounded border border-teal-800/40">[MW]</span>
+                        <span className="ml-1 text-[10px] text-[#0B4A3D] font-mono bg-teal-950/60 px-1.5 py-0.2 rounded border border-teal-800/40">[MW]</span>
                         <TooltipHelp text="Top-gas Recovery Turbines (TRT) and coke dry quenching waste power." />
                       </label>
                     </div>
@@ -599,7 +599,7 @@ export function FacilityInputForm({
                       step="any"
                       value={formData.whrs_installed_mw || 0.0}
                       onChange={(e) => handleChange('whrs_installed_mw', parseFloat(e.target.value) || 0.0)}
-                      className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white font-mono focus:outline-none focus:border-emerald-500"
+                      className="w-full bg-white border border-[#E4E9E6] rounded-lg px-3 py-2 text-xs text-white font-mono focus:outline-none focus:border-emerald-500"
                     />
                   </div>
                 </div>
@@ -609,12 +609,12 @@ export function FacilityInputForm({
               {formData.sector === 'aluminium' && (
                 <div>
                   <div className="flex items-center justify-between mb-1">
-                    <label className="text-xs font-medium text-slate-200 flex items-center">
+                    <label className="text-xs font-medium text-[#10231C] flex items-center">
                       Smelter DC Specific Energy Consumption
-                      <span className="ml-1 text-[10px] text-teal-400 font-mono bg-teal-950/60 px-1.5 py-0.2 rounded border border-teal-800/40">[kWh/t Al]</span>
+                      <span className="ml-1 text-[10px] text-[#0B4A3D] font-mono bg-teal-950/60 px-1.5 py-0.2 rounded border border-teal-800/40">[kWh/t Al]</span>
                       <TooltipHelp text="Direct Current specific power consumption across smelting potlines (BEE PAT benchmark: 14,000–15,500 kWh/t)." />
                     </label>
-                    <span className="text-[10px] text-slate-500 font-mono">BEE PAT: ~14.2k kWh/t</span>
+                    <span className="text-[10px] text-[#6B7A72] font-mono">BEE PAT: ~14.2k kWh/t</span>
                   </div>
                   <input
                     type="number"
@@ -623,9 +623,9 @@ export function FacilityInputForm({
                     step="any"
                     value={formData.smelter_dc_sec_kwh || 14200.0}
                     onChange={(e) => handleChange('smelter_dc_sec_kwh', parseFloat(e.target.value) || 14200.0)}
-                    className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white font-mono focus:outline-none focus:border-emerald-500"
+                    className="w-full bg-white border border-[#E4E9E6] rounded-lg px-3 py-2 text-xs text-white font-mono focus:outline-none focus:border-emerald-500"
                   />
-                  <p className="text-[10px] text-slate-400 mt-1">Potline electrolysis constitutes ~90% of primary aluminium GHG intensity.</p>
+                  <p className="text-[10px] text-[#4B5A54] mt-1">Potline electrolysis constitutes ~90% of primary aluminium GHG intensity.</p>
                 </div>
               )}
 
@@ -633,7 +633,7 @@ export function FacilityInputForm({
               {formData.sector === 'chlor_alkali' && (
                 <div>
                   <div className="flex items-center justify-between mb-1">
-                    <label className="text-xs font-medium text-slate-200 flex items-center">
+                    <label className="text-xs font-medium text-[#10231C] flex items-center">
                       Electrolysis Cell Technology
                       <TooltipHelp text="Zero-gap bipolar membrane cells consume ~2,100 kWh/t NaOH compared to >2,600 kWh/t in legacy cells." />
                     </label>
@@ -641,7 +641,7 @@ export function FacilityInputForm({
                   <select
                     value={formData.caustic_tech || 'bipolar_membrane'}
                     onChange={(e) => handleChange('caustic_tech', e.target.value)}
-                    className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500 font-semibold"
+                    className="w-full bg-white border border-[#E4E9E6] rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500 font-semibold"
                   >
                     <option value="bipolar_membrane">Zero-Gap Bipolar Membrane Cell (BAT standard)</option>
                     <option value="standard_membrane">Standard Gap Membrane Cell</option>
@@ -654,12 +654,12 @@ export function FacilityInputForm({
               {formData.sector === 'pulp_paper' && (
                 <div>
                   <div className="flex items-center justify-between mb-1">
-                    <label className="text-xs font-medium text-slate-200 flex items-center">
+                    <label className="text-xs font-medium text-[#10231C] flex items-center">
                       Specific Steam Consumption
-                      <span className="ml-1 text-[10px] text-teal-400 font-mono bg-teal-950/60 px-1.5 py-0.2 rounded border border-teal-800/40">[t steam / t paper]</span>
+                      <span className="ml-1 text-[10px] text-[#0B4A3D] font-mono bg-teal-950/60 px-1.5 py-0.2 rounded border border-teal-800/40">[t steam / t paper]</span>
                       <TooltipHelp text="Specific low/medium pressure steam consumed across digestor, evaps, and paper drying cylinders." />
                     </label>
-                    <span className="text-[10px] text-slate-500 font-mono">Range: 2.0 - 10.0</span>
+                    <span className="text-[10px] text-[#6B7A72] font-mono">Range: 2.0 - 10.0</span>
                   </div>
                   <input
                     type="number"
@@ -668,7 +668,7 @@ export function FacilityInputForm({
                     step="0.1"
                     value={formData.paper_steam_specific || 4.8}
                     onChange={(e) => handleChange('paper_steam_specific', parseFloat(e.target.value) || 4.8)}
-                    className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white font-mono focus:outline-none focus:border-emerald-500"
+                    className="w-full bg-white border border-[#E4E9E6] rounded-lg px-3 py-2 text-xs text-white font-mono focus:outline-none focus:border-emerald-500"
                   />
                 </div>
               )}
@@ -677,11 +677,11 @@ export function FacilityInputForm({
               {formData.sector === 'petroleum_refinery' && (
                 <div>
                   <div className="flex items-center justify-between mb-1">
-                    <label className="text-xs font-medium text-slate-200 flex items-center">
+                    <label className="text-xs font-medium text-[#10231C] flex items-center">
                       Million Barrel Number (MBN) Complexity Index
                       <TooltipHelp text="Solomon/BEE MBN index reflecting downstream secondary upgrading complexity (FCC, Hydrocracker, Coker)." />
                     </label>
-                    <span className="text-[10px] text-slate-500 font-mono">Range: 4.0 - 16.0</span>
+                    <span className="text-[10px] text-[#6B7A72] font-mono">Range: 4.0 - 16.0</span>
                   </div>
                   <input
                     type="number"
@@ -690,7 +690,7 @@ export function FacilityInputForm({
                     step="0.1"
                     value={formData.refinery_mbn || 9.8}
                     onChange={(e) => handleChange('refinery_mbn', parseFloat(e.target.value) || 9.8)}
-                    className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white font-mono focus:outline-none focus:border-emerald-500"
+                    className="w-full bg-white border border-[#E4E9E6] rounded-lg px-3 py-2 text-xs text-white font-mono focus:outline-none focus:border-emerald-500"
                   />
                 </div>
               )}
@@ -699,7 +699,7 @@ export function FacilityInputForm({
               {formData.sector === 'petrochemicals' && (
                 <div>
                   <div className="flex items-center justify-between mb-1">
-                    <label className="text-xs font-medium text-slate-200 flex items-center">
+                    <label className="text-xs font-medium text-[#10231C] flex items-center">
                       Cracker Feedstock Configuration
                       <TooltipHelp text="Naphtha vs Ethane/Propane gas crackers dictate furnace temperature and specific CO2 generation." />
                     </label>
@@ -707,7 +707,7 @@ export function FacilityInputForm({
                   <select
                     value={formData.petrochem_feedstock || 'dual_feed'}
                     onChange={(e) => handleChange('petrochem_feedstock', e.target.value)}
-                    className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500 font-semibold"
+                    className="w-full bg-white border border-[#E4E9E6] rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500 font-semibold"
                   >
                     <option value="dual_feed">Dual Feed (Naphtha + Gas Ethane/Propane)</option>
                     <option value="liquid_naphtha">100% Naphtha Feedstock</option>
@@ -720,7 +720,7 @@ export function FacilityInputForm({
               {formData.sector === 'textile' && (
                 <div>
                   <div className="flex items-center justify-between mb-1">
-                    <label className="text-xs font-medium text-slate-200 flex items-center">
+                    <label className="text-xs font-medium text-[#10231C] flex items-center">
                       Mill Processing Route
                       <TooltipHelp text="Wet processing and dyeing operations dominate thermal and boiler emissions." />
                     </label>
@@ -728,7 +728,7 @@ export function FacilityInputForm({
                   <select
                     value={formData.textile_route || 'composite_processing'}
                     onChange={(e) => handleChange('textile_route', e.target.value)}
-                    className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500 font-semibold"
+                    className="w-full bg-white border border-[#E4E9E6] rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500 font-semibold"
                   >
                     <option value="composite_processing">Composite Mill (Spinning, Weaving & Wet Processing)</option>
                     <option value="wet_processing_only">Stand-Alone Wet Processing & Dyeing</option>
@@ -738,24 +738,24 @@ export function FacilityInputForm({
               )}
 
               {/* Custom Notified Target GEI override */}
-              <div className="pt-3 border-t border-slate-800">
+              <div className="pt-3 border-t border-[#E4E9E6]">
                 <div className="flex items-center justify-between mb-1">
-                  <label className="text-xs font-medium text-slate-200 flex items-center">
+                  <label className="text-xs font-medium text-[#10231C] flex items-center">
                     Custom Notified Target GEI (Optional Statutory Override)
-                    <span className="ml-1 text-[10px] text-amber-400 font-mono bg-amber-950/60 px-1.5 py-0.2 rounded border border-amber-800/40">[tCO₂e/tonne]</span>
+                    <span className="ml-1 text-[10px] text-[#C98A1E] font-mono bg-[#FEF7E8] px-1.5 py-0.2 rounded border border-amber-800/40">[tCO₂e/tonne]</span>
                     <TooltipHelp text="If your designated consumer notice specifies a plant-specific target GEI, enter it here to override the gazetted sector default." />
                   </label>
-                  <span className="text-[10px] text-slate-500 font-mono">Optional Override</span>
+                  <span className="text-[10px] text-[#6B7A72] font-mono">Optional Override</span>
                 </div>
                 <input
                   type="number"
                   step="0.0001"
                   value={formData.custom_target_gei || ''}
                   onChange={(e) => handleChange('custom_target_gei', e.target.value ? parseFloat(e.target.value) : undefined)}
-                  className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white font-mono focus:outline-none focus:border-emerald-500"
+                  className="w-full bg-white border border-[#E4E9E6] rounded-lg px-3 py-2 text-xs text-white font-mono focus:outline-none focus:border-emerald-500"
                   placeholder="Leave blank to use official MoEFCC statutory gazette trajectory"
                 />
-                <p className="text-[10px] text-slate-400 mt-1">Default trajectory uses gazetted FY2025-26 statutory target baseline.</p>
+                <p className="text-[10px] text-[#4B5A54] mt-1">Default trajectory uses gazetted FY2025-26 statutory target baseline.</p>
               </div>
             </div>
 
@@ -764,60 +764,60 @@ export function FacilityInputForm({
         {/* STEP 4: Data Quality Audit & Confirmation */}
         
           <div className="space-y-4">
-            <div className="bg-slate-900/50 p-4 rounded-xl border border-slate-800/80 space-y-4">
-              <div className="flex items-center justify-between pb-2 border-b border-slate-800">
-                <span className="text-xs font-bold text-slate-200 flex items-center space-x-2">
-                  <FileCheck2 className="w-4 h-4 text-emerald-400" />
+            <div className="bg-[#F6F8F7] p-4 rounded-xl border border-[#E4E9E6]/80 space-y-4">
+              <div className="flex items-center justify-between pb-2 border-b border-[#E4E9E6]">
+                <span className="text-xs font-bold text-[#10231C] flex items-center space-x-2">
+                  <FileCheck2 className="w-4 h-4 text-[#1F8A5F]" />
                   <span>Step 4: Pre-Flight Thermodynamic Audit & Input Confirmation</span>
                 </span>
-                <span className="text-[11px] text-slate-400 font-mono">4 / 4</span>
+                <span className="text-[11px] text-[#4B5A54] font-mono">4 / 4</span>
               </div>
 
               {/* Pre-flight Review Summary Grid */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                <div className="bg-slate-950 p-3 rounded-lg border border-slate-800">
-                  <div className="text-[10px] uppercase font-mono text-slate-400 font-semibold mb-1">Facility Profile</div>
+                <div className="bg-white p-3 rounded-lg border border-[#E4E9E6]">
+                  <div className="text-[10px] uppercase font-mono text-[#4B5A54] font-semibold mb-1">Facility Profile</div>
                   <div className="text-xs font-bold text-white truncate">{formData.facility_name || 'Unnamed Facility'}</div>
-                  <div className="text-[11px] text-emerald-400 font-mono mt-0.5 capitalize">{formData.sector.replace('_', ' ')}</div>
-                  <div className="text-[10px] text-slate-400 mt-1">Output: <strong className="text-white">{formatTonnes(formData.annual_production)}</strong></div>
+                  <div className="text-[11px] text-[#1F8A5F] font-mono mt-0.5 capitalize">{formData.sector.replace('_', ' ')}</div>
+                  <div className="text-[10px] text-[#4B5A54] mt-1">Output: <strong className="text-white">{formatTonnes(formData.annual_production)}</strong></div>
                 </div>
 
-                <div className="bg-slate-950 p-3 rounded-lg border border-slate-800">
-                  <div className="text-[10px] uppercase font-mono text-slate-400 font-semibold mb-1">Energy Streams</div>
-                  <div className="text-xs font-mono text-slate-200">Electricity: <strong className="text-sky-400">{formData.electricity_mwh.toLocaleString()} MWh</strong></div>
-                  <div className="text-xs font-mono text-slate-200 mt-0.5">RE Share: <strong className="text-emerald-400">{formData.renewable_electricity_pct}%</strong></div>
-                  <div className="text-[10px] text-slate-400 mt-1">Fuel: <strong className="text-amber-300">{formData.thermal_fuel_type}</strong> ({formatTonnes(formData.thermal_fuel_tonnes)})</div>
+                <div className="bg-white p-3 rounded-lg border border-[#E4E9E6]">
+                  <div className="text-[10px] uppercase font-mono text-[#4B5A54] font-semibold mb-1">Energy Streams</div>
+                  <div className="text-xs font-mono text-[#10231C]">Electricity: <strong className="text-[#2E6BA8]">{formData.electricity_mwh.toLocaleString()} MWh</strong></div>
+                  <div className="text-xs font-mono text-[#10231C] mt-0.5">RE Share: <strong className="text-[#1F8A5F]">{formData.renewable_electricity_pct}%</strong></div>
+                  <div className="text-[10px] text-[#4B5A54] mt-1">Fuel: <strong className="text-[#C98A1E]">{formData.thermal_fuel_type}</strong> ({formatTonnes(formData.thermal_fuel_tonnes)})</div>
                 </div>
 
-                <div className="bg-slate-950 p-3 rounded-lg border border-slate-800">
-                  <div className="text-[10px] uppercase font-mono text-slate-400 font-semibold mb-1">Engineering State</div>
-                  <div className="text-xs font-mono text-slate-200">State: <strong className="text-white">{formData.state}</strong></div>
-                  <div className="text-xs font-mono text-slate-200 mt-0.5">Sub-Sector: <strong className="text-slate-300 truncate block">{formData.sub_sector || 'Standard'}</strong></div>
-                  <div className="text-[10px] text-slate-400 mt-1">Target Override: <strong className="text-teal-300">{formData.custom_target_gei ? `${formData.custom_target_gei} tCO₂e/t` : 'MoEFCC Gazette Default'}</strong></div>
+                <div className="bg-white p-3 rounded-lg border border-[#E4E9E6]">
+                  <div className="text-[10px] uppercase font-mono text-[#4B5A54] font-semibold mb-1">Engineering State</div>
+                  <div className="text-xs font-mono text-[#10231C]">State: <strong className="text-white">{formData.state}</strong></div>
+                  <div className="text-xs font-mono text-[#10231C] mt-0.5">Sub-Sector: <strong className="text-[#4B5A54] truncate block">{formData.sub_sector || 'Standard'}</strong></div>
+                  <div className="text-[10px] text-[#4B5A54] mt-1">Target Override: <strong className="text-teal-300">{formData.custom_target_gei ? `${formData.custom_target_gei} tCO₂e/t` : 'MoEFCC Gazette Default'}</strong></div>
                 </div>
               </div>
 
               {/* Data Audit Quality Score & Validation Checks */}
               <div className={`p-3.5 rounded-xl border text-xs ${
                 dataQuality?.status === 'PASS'
-                  ? 'bg-emerald-950/30 border-emerald-800/60 text-emerald-300'
+                  ? 'bg-[#E8F5EE] border-emerald-800/60 text-[#1F8A5F]'
                   : dataQuality?.status === 'WARNING'
-                  ? 'bg-amber-950/30 border-amber-800/60 text-amber-300'
-                  : 'bg-slate-950 border-slate-800 text-slate-300'
+                  ? 'bg-[#FEF7E8]/30 border-amber-800/60 text-[#C98A1E]'
+                  : 'bg-white border-[#E4E9E6] text-[#4B5A54]'
               }`}>
                 <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center space-x-2">
-                    <ShieldCheck className="w-4 h-4 text-emerald-400 flex-shrink-0" />
+                    <ShieldCheck className="w-4 h-4 text-[#1F8A5F] flex-shrink-0" />
                     <span className="font-bold text-white text-xs">
                       Thermodynamic & CCTS Engineering Sanity Check
                     </span>
                   </div>
-                  <span className="text-xs font-mono font-bold px-2.5 py-0.5 rounded bg-slate-900 border border-slate-700 text-emerald-400">
+                  <span className="text-xs font-mono font-bold px-2.5 py-0.5 rounded bg-[#F6F8F7] border border-[#E4E9E6] text-[#1F8A5F]">
                     Quality Score: {dataQuality?.quality_score || 95}/100
                   </span>
                 </div>
 
-                <p className="text-[11px] text-slate-300 leading-relaxed mb-2.5">
+                <p className="text-[11px] text-[#4B5A54] leading-relaxed mb-2.5">
                   {dataQuality?.errors && dataQuality.errors.length > 0
                     ? `Audit Alert: ${dataQuality.errors[0]}`
                     : dataQuality?.warnings && dataQuality.warnings.length > 0
@@ -825,13 +825,13 @@ export function FacilityInputForm({
                     : 'All physical activity streams, production mass balances, and specific energy ratios conform to BEE thermodynamic bounds.'}
                 </p>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[11px] font-mono text-slate-400 pt-2 border-t border-slate-800/60">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[11px] font-mono text-[#4B5A54] pt-2 border-t border-[#E4E9E6]/60">
                   <div className="flex items-center space-x-1.5">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 flex-shrink-0" />
+                    <CheckCircle2 className="w-3.5 h-3.5 text-[#1F8A5F] flex-shrink-0" />
                     <span>Scope 1 + Scope 2 Boundary Verified</span>
                   </div>
                   <div className="flex items-center space-x-1.5">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 flex-shrink-0" />
+                    <CheckCircle2 className="w-3.5 h-3.5 text-[#1F8A5F] flex-shrink-0" />
                     <span>CEA FY24 Grid EF Traceability Active</span>
                   </div>
                 </div>
@@ -839,7 +839,7 @@ export function FacilityInputForm({
             </div>
 
             {/* Navigation & Submit Footer */}
-            <div className="flex flex-col sm:flex-row items-center justify-end gap-3 pt-4 border-t border-slate-800/60 mt-4">
+            <div className="flex flex-col sm:flex-row items-center justify-end gap-3 pt-4 border-t border-[#E4E9E6]/60 mt-4">
               <button
                 type="submit"
                 disabled={isLoading}
@@ -852,9 +852,9 @@ export function FacilityInputForm({
           </div>
       
               {dataQuality?.errors && dataQuality.errors.length > 0 && (
-                <div className="mt-4 p-4 bg-rose-950/40 border border-rose-800/60 rounded-xl">
-                  <h4 className="text-sm font-bold text-rose-400 mb-2">Form Validation Errors</h4>
-                  <ul className="list-disc list-inside text-xs text-rose-300">
+                <div className="mt-4 p-4 bg-[#FDECEA] border border-rose-800/60 rounded-xl">
+                  <h4 className="text-sm font-bold text-[#C33B2E] mb-2">Form Validation Errors</h4>
+                  <ul className="list-disc list-inside text-xs text-[#C33B2E]">
                     {dataQuality.errors.map((err, i) => <li key={i}>{err}</li>)}
                   </ul>
                 </div>

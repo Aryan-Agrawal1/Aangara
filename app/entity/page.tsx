@@ -24,7 +24,7 @@ const PieCustomTooltip = ({ active, payload }: any) => {
   if (!active || !payload?.length) return null;
   const data = payload[0];
   return (
-    <div className="bg-[#0E1524] border border-[#E4E9E6] rounded-lg p-2.5 text-xs shadow-xl">
+    <div className="bg-white border border-[#E4E9E6] shadow-lg border border-[#E4E9E6] rounded-lg p-2.5 text-xs shadow-xl">
       <div className="flex items-center space-x-2">
         <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: data.payload.fill }} />
         <span className="text-[#10231C] font-bold">{data.name}</span>
@@ -193,7 +193,7 @@ export default function EntityInputPage() {
               {/* Source Streams Activity */}
               <div className="glass-panel rounded-xl p-5 border-[#E4E9E6]">
                 <h3 className="text-sm font-bold text-[#10231C] mb-3.5 flex items-center space-x-2 pb-2 border-b border-[#E4E9E6]">
-                  <Flame className="w-4 h-4 text-amber-400" />
+                  <Flame className="w-4 h-4 text-[#C98A1E]" />
                   <span>Energy & Fuel Streams</span>
                 </h3>
                 <div className="space-y-2.5 text-xs">
@@ -203,7 +203,7 @@ export default function EntityInputPage() {
                   </div>
                   <div className="flex justify-between py-1 border-b border-[#E4E9E6]/60">
                     <span className="text-[#4B5A54]">Thermal Fuel Type:</span>
-                    <span className="text-amber-400 font-semibold uppercase">{rp.source_streams.fuel_type}</span>
+                    <span className="text-[#C98A1E] font-semibold uppercase">{rp.source_streams.fuel_type}</span>
                   </div>
                   <div className="flex justify-between py-1 border-b border-[#E4E9E6]/60">
                     <span className="text-[#4B5A54]">Fuel Quantity:</span>
@@ -219,7 +219,7 @@ export default function EntityInputPage() {
               {/* Primary Abatement Project */}
               <div className="glass-panel rounded-xl p-5 border-[#E4E9E6]">
                 <h3 className="text-sm font-bold text-[#10231C] mb-3.5 flex items-center space-x-2 pb-2 border-b border-[#E4E9E6]">
-                  <Zap className="w-4 h-4 text-teal-400" />
+                  <Zap className="w-4 h-4 text-[#0B4A3D]" />
                   <span>Primary Abatement Project</span>
                 </h3>
                 <div className="space-y-2.5 text-xs">
@@ -237,7 +237,7 @@ export default function EntityInputPage() {
                   </div>
                   <div className="flex justify-between py-1">
                     <span className="text-[#4B5A54]">BEE Methodology:</span>
-                    <span className="font-mono text-sky-400 font-semibold">{entity.primary_project.methodology_code}</span>
+                    <span className="font-mono text-[#2E6BA8] font-semibold">{entity.primary_project.methodology_code}</span>
                   </div>
                 </div>
               </div>
@@ -247,7 +247,7 @@ export default function EntityInputPage() {
             <div className="glass-panel rounded-xl p-5 border-[#E4E9E6]">
               <div className="flex items-center justify-between mb-4 pb-3 border-b border-[#E4E9E6]">
                 <div className="flex items-center space-x-2">
-                  <BarChart2 className="w-4 h-4 text-sky-400" />
+                  <BarChart2 className="w-4 h-4 text-[#2E6BA8]" />
                   <h3 className="text-sm font-bold text-[#10231C]">GHG Emissions Inventory Breakdown (Scope 1 & 2)</h3>
                 </div>
                 <span className="text-[10px] font-mono text-[#4B5A54] bg-[#F6F8F7] px-2 py-0.5 rounded border border-[#E4E9E6]">

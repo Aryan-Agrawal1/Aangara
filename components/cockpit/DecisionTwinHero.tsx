@@ -17,16 +17,16 @@ const STRATEGY_COLORS: Record<string, string> = {
   HYBRID: '#34d399',  // emerald-400
 };
 
-const CHART_GRID = '#1e293b';      // slate-800
-const CHART_TEXT = '#94a3b8';      // slate-400
+const CHART_GRID = '#E4E9E6';      // slate-800
+const CHART_TEXT = '#6B7A72';      // slate-400
 const CHART_BG = 'rgba(15,23,42,0)'; // transparent — panels handle background
 
 // Custom tooltip for dark theme
 const DarkTooltip = ({ active, payload, label }: any) => {
   if (!active || !payload?.length) return null;
   return (
-    <div className="bg-[#0E1524] border border-slate-700 rounded-lg px-3 py-2 text-xs shadow-xl">
-      <p className="text-slate-300 font-semibold mb-1">{label}</p>
+    <div className="bg-white border border-[#E4E9E6] shadow-lg border border-[#E4E9E6] rounded-lg px-3 py-2 text-xs shadow-xl">
+      <p className="text-[#4B5A54] font-semibold mb-1">{label}</p>
       {payload.map((p: any, i: number) => (
         <p key={i} style={{ color: p.color }} className="font-mono">
           {p.name}: {typeof p.value === 'number' ? p.value.toFixed(2) : p.value}
@@ -96,26 +96,26 @@ export function DecisionTwinHero({
         <div>
           <div className="flex items-center space-x-2">
             <h2 className="text-xl font-bold text-white tracking-tight">CarbonAlpha Decision Twin™</h2>
-            <span className="px-2 py-0.5 rounded text-[11px] font-semibold bg-emerald-950 text-emerald-400 border border-emerald-800/60">
+            <span className="px-2 py-0.5 rounded text-[11px] font-semibold bg-[#E8F5EE] text-[#1F8A5F] border border-emerald-800/60">
               Capital Optimizer Active
             </span>
           </div>
-          <p className="text-xs text-slate-400 mt-0.5">
+          <p className="text-xs text-[#4B5A54] mt-0.5">
             Transparent comparison of BUY, BUILD, and HYBRID paths across financial lifecycle cost, internal decarbonisation, and regulatory risk.
           </p>
         </div>
         {/* Chart view toggle */}
-        <div className="flex items-center space-x-1 bg-slate-900 rounded-lg p-1 border border-slate-800">
+        <div className="flex items-center space-x-1 bg-[#F6F8F7] rounded-lg p-1 border border-[#E4E9E6]">
           <button
             onClick={() => setChartView('bars')}
-            className={`p-1.5 rounded-md transition-colors ${chartView === 'bars' ? 'bg-slate-700 text-white' : 'text-slate-500 hover:text-slate-300'}`}
+            className={`p-1.5 rounded-md transition-colors ${chartView === 'bars' ? 'bg-[#E4E9E6] text-white' : 'text-[#6B7A72] hover:text-[#4B5A54]'}`}
             title="Bar charts"
           >
             <BarChart2 className="w-4 h-4" />
           </button>
           <button
             onClick={() => setChartView('radar')}
-            className={`p-1.5 rounded-md transition-colors ${chartView === 'radar' ? 'bg-slate-700 text-white' : 'text-slate-500 hover:text-slate-300'}`}
+            className={`p-1.5 rounded-md transition-colors ${chartView === 'radar' ? 'bg-[#E4E9E6] text-white' : 'text-[#6B7A72] hover:text-[#4B5A54]'}`}
             title="Radar chart"
           >
             <Activity className="w-4 h-4" />
@@ -129,7 +129,7 @@ export function DecisionTwinHero({
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {/* Cost comparison */}
             <div>
-              <p className="text-[11px] font-semibold text-slate-400 uppercase tracking-widest mb-2">3-Year Lifecycle Cost (₹ Crore)</p>
+              <p className="text-[11px] font-semibold text-[#4B5A54] uppercase tracking-widest mb-2">3-Year Lifecycle Cost (₹ Crore)</p>
               <ResponsiveContainer width="100%" height={180}>
                 <BarChart data={costData} margin={{ top: 4, right: 8, left: 0, bottom: 4 }}>
                   <CartesianGrid strokeDasharray="3 3" stroke={CHART_GRID} vertical={false} />
@@ -149,7 +149,7 @@ export function DecisionTwinHero({
 
             {/* CO2 abatement comparison */}
             <div>
-              <p className="text-[11px] font-semibold text-slate-400 uppercase tracking-widest mb-2">Internal CO₂ Abatement (kt CO₂e/yr)</p>
+              <p className="text-[11px] font-semibold text-[#4B5A54] uppercase tracking-widest mb-2">Internal CO₂ Abatement (kt CO₂e/yr)</p>
               <ResponsiveContainer width="100%" height={180}>
                 <BarChart data={co2Data} margin={{ top: 4, right: 8, left: 0, bottom: 4 }}>
                   <CartesianGrid strokeDasharray="3 3" stroke={CHART_GRID} vertical={false} />
@@ -170,7 +170,7 @@ export function DecisionTwinHero({
         ) : (
           /* Radar view */
           <div className="flex flex-col items-center">
-            <p className="text-[11px] font-semibold text-slate-400 uppercase tracking-widest mb-2">Multi-Dimension Strategy Profile</p>
+            <p className="text-[11px] font-semibold text-[#4B5A54] uppercase tracking-widest mb-2">Multi-Dimension Strategy Profile</p>
             <ResponsiveContainer width="100%" height={240}>
               <RadarChart data={radarData[0] ? [
                 { axis: 'Cost Efficiency', BUY: radarData[0]?.['Cost Efficiency'] ?? 0, BUILD: radarData[1]?.['Cost Efficiency'] ?? 0, HYBRID: radarData[2]?.['Cost Efficiency'] ?? 0 },
@@ -211,7 +211,7 @@ export function DecisionTwinHero({
             <div
               key={stratKey}
               className={`rounded-xl p-5 relative transition-all duration-300 flex flex-col justify-between ${
-                isWinner ? 'glass-panel-elevated winner-card-glow' : 'glass-panel hover:border-slate-600'
+                isWinner ? 'glass-panel-elevated winner-card-glow' : 'glass-panel hover:border-[#CBD5CE]'
               }`}
             >
               {isWinner && (
@@ -229,24 +229,24 @@ export function DecisionTwinHero({
                     </div>
                     <div>
                       <h4 className="text-base font-bold text-white tracking-tight">{stratKey} STRATEGY</h4>
-                      <span className="text-[11px] text-slate-400 font-mono">Rank #{strat.rank} in Utility</span>
+                      <span className="text-[11px] text-[#4B5A54] font-mono">Rank #{strat.rank} in Utility</span>
                     </div>
                   </div>
                   <div className="text-right">
-                    <div className="text-xs text-slate-400">Utility</div>
-                    <div className="text-base font-mono font-bold text-white">{strat.utility_score.toFixed(1)}<span className="text-xs text-slate-500">/100</span></div>
+                    <div className="text-xs text-[#4B5A54]">Utility</div>
+                    <div className="text-base font-mono font-bold text-white">{strat.utility_score.toFixed(1)}<span className="text-xs text-[#6B7A72]">/100</span></div>
                   </div>
                 </div>
 
                 {/* Primary Cost */}
-                <div className="bg-slate-900/90 rounded-lg p-3.5 border border-slate-800 my-3">
-                  <div className="text-[11px] font-medium text-slate-400 uppercase tracking-wider">Modelled 3-Year Lifecycle Cost
-                    <span className="ml-1 px-1 py-0.5 rounded text-[9px] bg-amber-950 text-amber-400 border border-amber-900/50 font-mono">MODEL</span>
+                <div className="bg-white/95 rounded-lg p-3.5 border border-[#E4E9E6] my-3">
+                  <div className="text-[11px] font-medium text-[#4B5A54] uppercase tracking-wider">Modelled 3-Year Lifecycle Cost
+                    <span className="ml-1 px-1 py-0.5 rounded text-[9px] bg-[#FEF7E8] text-[#C98A1E] border border-amber-900/50 font-mono">MODEL</span>
                   </div>
                   <div className="text-2xl font-black text-white tnum mt-0.5">{formatCurrencyCr(strat.total_cost_cr)}</div>
-                  <div className="text-[11px] text-slate-400 mt-1 flex items-center justify-between">
+                  <div className="text-[11px] text-[#4B5A54] mt-1 flex items-center justify-between">
                     <span>Cost / tCO₂e:</span>
-                    <span className="font-mono font-semibold text-slate-200">{formatPricePerTonne(strat.cost_per_tco2e)}</span>
+                    <span className="font-mono font-semibold text-[#10231C]">{formatPricePerTonne(strat.cost_per_tco2e)}</span>
                   </div>
                 </div>
 
@@ -260,14 +260,14 @@ export function DecisionTwinHero({
                     strat.payback_years !== null ? { label: 'Capital Payback', value: formatYears(strat.payback_years), color: '#cbd5e1' } : null,
                     { label: 'Risk Index', value: `${strat.risk_score.toFixed(0)} / 100`, color: strat.risk_score < 40 ? '#34d399' : strat.risk_score < 60 ? '#fbbf24' : '#f87171' },
                   ].filter(Boolean).map((row: any, i) => (
-                    <div key={i} className="flex justify-between py-1 border-b border-slate-800/60 last:border-0">
-                      <span className="text-slate-400">{row.label}:</span>
+                    <div key={i} className="flex justify-between py-1 border-b border-[#E4E9E6]/60 last:border-0">
+                      <span className="text-[#4B5A54]">{row.label}:</span>
                       <span className="font-mono font-semibold" style={{ color: row.color }}>{row.value}</span>
                     </div>
                   ))}
                 </div>
 
-                <p className="text-xs text-slate-400 mt-3 pt-2 border-t border-slate-800 leading-relaxed italic">
+                <p className="text-xs text-[#4B5A54] mt-3 pt-2 border-t border-[#E4E9E6] leading-relaxed italic">
                   "{strat.summary}"
                 </p>
               </div>
@@ -276,7 +276,7 @@ export function DecisionTwinHero({
                 <button
                   onClick={() => onOpenCalculationTrace && onOpenCalculationTrace(stratKey)}
                   className={`w-full py-2 px-3 rounded-lg text-xs font-semibold flex items-center justify-center space-x-1.5 transition-all cursor-pointer ${
-                    isWinner ? 'bg-emerald-600 hover:bg-emerald-500 text-white shadow-lg shadow-emerald-950/50' : 'bg-slate-800 hover:bg-slate-700 text-slate-300'
+                    isWinner ? 'bg-emerald-600 hover:bg-emerald-500 text-white shadow-lg shadow-emerald-950/50' : 'bg-white border border-[#E4E9E6] hover:bg-[#E4E9E6] text-[#4B5A54]'
                   }`}
                 >
                   <span>Audit Strategy Trace</span>

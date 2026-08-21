@@ -24,7 +24,7 @@ const CHART_TEXT = '#6B7A72';
 const SectorTooltip = ({ active, payload, label }: any) => {
   if (!active || !payload?.length) return null;
   return (
-    <div className="bg-[#0E1524] border border-[#E4E9E6] rounded-lg p-3 text-xs shadow-2xl">
+    <div className="bg-white border border-[#E4E9E6] shadow-lg border border-[#E4E9E6] rounded-lg p-3 text-xs shadow-2xl">
       <p className="text-[#10231C] font-bold mb-1.5">{label} Sector</p>
       {payload.map((p: any, i: number) => (
         <div key={i} className="flex justify-between items-center space-x-3 py-0.5">
@@ -85,7 +85,7 @@ export default function OverviewPage() {
         <div className="mb-8">
           <div className="flex items-center space-x-2">
             <h1 className="text-2xl font-bold text-[#10231C] tracking-tight">National CCTS Sector Landscape</h1>
-            <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-950 text-[#1F8A5F] border border-emerald-800/60 font-semibold">
+            <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#E8F5EE] text-[#1F8A5F] border border-emerald-800/60 font-semibold">
               STATUTORY COMPLIANCE MAP
             </span>
           </div>
@@ -103,8 +103,8 @@ export default function OverviewPage() {
           </div>
           <div className="glass-panel rounded-xl p-4 border-[#E4E9E6]">
             <div className="text-[11px] text-[#4B5A54] font-medium">Draft Expansion Units</div>
-            <div className="text-2xl font-bold text-sky-400 font-mono mt-1">255</div>
-            <div className="text-[10px] text-sky-400 mt-0.5">Iron & Steel (G.S.R. 517(E))</div>
+            <div className="text-2xl font-bold text-[#2E6BA8] font-mono mt-1">255</div>
+            <div className="text-[10px] text-[#2E6BA8] mt-0.5">Iron & Steel (G.S.R. 517(E))</div>
           </div>
           <div className="glass-panel rounded-xl p-4 border-[#E4E9E6]">
             <div className="text-[11px] text-[#4B5A54] font-medium">Statutory Benchmark Act</div>
@@ -113,7 +113,7 @@ export default function OverviewPage() {
           </div>
           <div className="glass-panel rounded-xl p-4 border-[#E4E9E6]">
             <div className="text-[11px] text-[#4B5A54] font-medium">National Grid Emission Factor</div>
-            <div className="text-2xl font-bold text-teal-400 font-mono mt-1">0.716</div>
+            <div className="text-2xl font-bold text-[#0B4A3D] font-mono mt-1">0.716</div>
             <div className="text-[10px] text-[#4B5A54] mt-0.5">tCO₂e/MWh (CEA v20.0)</div>
           </div>
         </div>
@@ -158,7 +158,7 @@ export default function OverviewPage() {
           <div className="flex items-center space-x-2 mb-4">
             <CheckCircle2 className="w-5 h-5 text-[#1F8A5F]" />
             <h2 className="text-lg font-bold text-[#10231C]">7 Monitored Compliance Sectors</h2>
-            <span className="text-xs px-2 py-0.5 rounded bg-emerald-950 text-[#1F8A5F] border border-emerald-800/60 font-mono font-semibold">
+            <span className="text-xs px-2 py-0.5 rounded bg-[#E8F5EE] text-[#1F8A5F] border border-emerald-800/60 font-mono font-semibold">
               FINAL GAZETTE TARGETS ACTIVE
             </span>
           </div>
@@ -169,7 +169,7 @@ export default function OverviewPage() {
                 <div>
                   <div className="flex items-center justify-between mb-2">
                     <h3 className="text-base font-bold text-[#10231C]">{sec.name}</h3>
-                    <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-emerald-950/80 text-[#1F8A5F] border border-emerald-800/50">
+                    <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-[#E8F5EE] text-[#1F8A5F] border border-emerald-800/50">
                       {sec.status}
                     </span>
                   </div>
@@ -206,9 +206,9 @@ export default function OverviewPage() {
         {/* Watchlist Scope (Iron & Steel Draft + Fertiliser) */}
         <div>
           <div className="flex items-center space-x-2 mb-4">
-            <Clock className="w-5 h-5 text-amber-400" />
+            <Clock className="w-5 h-5 text-[#C98A1E]" />
             <h2 className="text-lg font-bold text-[#10231C]">Watchlist & Draft Transition Scope</h2>
-            <span className="text-xs px-2 py-0.5 rounded bg-amber-950 text-amber-400 border border-amber-800/60 font-mono font-semibold">
+            <span className="text-xs px-2 py-0.5 rounded bg-[#FEF7E8] text-[#C98A1E] border border-amber-800/60 font-mono font-semibold">
               DRAFT CONSULTATION / PHASE 2
             </span>
           </div>
@@ -219,7 +219,7 @@ export default function OverviewPage() {
                 <div>
                   <div className="flex items-center justify-between mb-2">
                     <h3 className="text-base font-bold text-[#10231C]">{sec.name}</h3>
-                    <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-amber-950/80 text-amber-400 border border-amber-800/50">
+                    <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-[#FEF7E8] text-[#C98A1E] border border-amber-800/50">
                       {sec.status}
                     </span>
                   </div>
@@ -230,7 +230,7 @@ export default function OverviewPage() {
                   <span className="text-[#6B7A72] font-mono">{sec.source_id}</span>
                   <Link
                     href={`/industrial-intelligence?sector=${sec.sector_id}`}
-                    className="text-amber-400 hover:text-amber-300 font-semibold flex items-center space-x-1"
+                    className="text-[#C98A1E] hover:text-[#C98A1E] font-semibold flex items-center space-x-1"
                   >
                     <span>Test Facility Intelligence</span>
                     <ArrowUpRight className="w-3.5 h-3.5" />

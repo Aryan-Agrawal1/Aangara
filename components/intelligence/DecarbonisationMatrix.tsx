@@ -41,7 +41,7 @@ const getPaybackTier = (paybackYears: number) => {
       label: 'Fast Payback (< 2.5 yrs)',
       shortLabel: '< 2.5 yrs',
       color: '#10b981', // emerald-500
-      badgeBg: 'bg-emerald-950/70 text-emerald-300 border-emerald-800/60',
+      badgeBg: 'bg-[#E8F5EE]/70 text-[#1F8A5F] border-emerald-800/60',
       pillColor: 'bg-emerald-500'
     };
   }
@@ -51,7 +51,7 @@ const getPaybackTier = (paybackYears: number) => {
       label: 'Medium Payback (2.5 – 4.5 yrs)',
       shortLabel: '2.5 - 4.5 yrs',
       color: '#38bdf8', // sky-400
-      badgeBg: 'bg-sky-950/70 text-sky-300 border-sky-800/60',
+      badgeBg: 'bg-[#EBF3FB]/70 text-[#2E6BA8] border-sky-800/60',
       pillColor: 'bg-sky-400'
     };
   }
@@ -60,7 +60,7 @@ const getPaybackTier = (paybackYears: number) => {
     label: 'Strategic / Long-Term (> 4.5 yrs)',
     shortLabel: '> 4.5 yrs',
     color: '#f59e0b', // amber-500
-    badgeBg: 'bg-amber-950/70 text-amber-300 border-amber-800/60',
+    badgeBg: 'bg-[#FEF7E8]/70 text-[#C98A1E] border-amber-800/60',
     pillColor: 'bg-amber-500'
   };
 };
@@ -118,9 +118,9 @@ export function DecarbonisationMatrix({ opportunities }: DecarbonisationMatrixPr
     const tier = getPaybackTier(d.payback_years);
 
     return (
-      <div className="bg-[#0B132B] border border-slate-700/90 rounded-xl p-3.5 text-xs shadow-2xl backdrop-blur-md max-w-sm z-50">
+      <div className="bg-[#0B132B] border border-[#E4E9E6]/90 rounded-xl p-3.5 text-xs shadow-2xl backdrop-blur-md max-w-sm z-50">
         <div className="flex items-center justify-between gap-2 mb-2">
-          <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-slate-900 text-teal-300 border border-slate-700">
+          <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-[#F6F8F7] text-teal-300 border border-[#E4E9E6]">
             {d.category}
           </span>
           <span
@@ -133,39 +133,39 @@ export function DecarbonisationMatrix({ opportunities }: DecarbonisationMatrixPr
 
         <div className="font-bold text-white mb-2 leading-snug text-xs">{d.title}</div>
 
-        <div className="space-y-1.5 font-mono text-[11px] bg-slate-950/80 p-2.5 rounded-lg border border-slate-800/80">
-          <div className="flex justify-between text-slate-400">
+        <div className="space-y-1.5 font-mono text-[11px] bg-white/80 p-2.5 rounded-lg border border-[#E4E9E6]/80">
+          <div className="flex justify-between text-[#4B5A54]">
             <span>Annual Abatement:</span>
-            <span className="text-emerald-400 font-bold">
+            <span className="text-[#1F8A5F] font-bold">
               {d.abatement_kt} kt/yr ({formatEmissions(d.abatement_tco2e)})
             </span>
           </div>
-          <div className="flex justify-between text-slate-400">
+          <div className="flex justify-between text-[#4B5A54]">
             <span>Implementation Timeline:</span>
-            <span className="text-sky-300 font-semibold">{d.timeline} months</span>
+            <span className="text-[#2E6BA8] font-semibold">{d.timeline} months</span>
           </div>
-          <div className="flex justify-between text-slate-400">
+          <div className="flex justify-between text-[#4B5A54]">
             <span>10-Yr NPV @ 9.5% WACC:</span>
-            <span className="text-emerald-400 font-bold">{formatCurrencyCr(d.npv_cr)}</span>
+            <span className="text-[#1F8A5F] font-bold">{formatCurrencyCr(d.npv_cr)}</span>
           </div>
-          <div className="flex justify-between text-slate-400">
+          <div className="flex justify-between text-[#4B5A54]">
             <span>Capital Cost (CAPEX):</span>
             <span className="text-white font-semibold">{formatCurrencyCr(d.capex_cr)}</span>
           </div>
-          <div className="flex justify-between text-slate-400">
+          <div className="flex justify-between text-[#4B5A54]">
             <span>Capital Payback:</span>
-            <span className="text-slate-200">{formatYears(d.payback_years)}</span>
+            <span className="text-[#10231C]">{formatYears(d.payback_years)}</span>
           </div>
           {d.cost_per_tco2e_inr !== undefined && (
-            <div className="flex justify-between text-slate-400 pt-1 border-t border-slate-800">
+            <div className="flex justify-between text-[#4B5A54] pt-1 border-t border-[#E4E9E6]">
               <span>Abatement Cost / tCO₂e:</span>
               <span className="text-teal-300 font-semibold">{formatPricePerTonne(d.cost_per_tco2e_inr)}</span>
             </div>
           )}
         </div>
 
-        <div className="mt-2 text-[10px] text-slate-400 font-mono flex items-center space-x-1.5">
-          <FileCheck className="w-3.5 h-3.5 text-teal-400 flex-shrink-0" />
+        <div className="mt-2 text-[10px] text-[#4B5A54] font-mono flex items-center space-x-1.5">
+          <FileCheck className="w-3.5 h-3.5 text-[#0B4A3D] flex-shrink-0" />
           <span className="truncate">{d.methodology}</span>
         </div>
       </div>
@@ -173,15 +173,15 @@ export function DecarbonisationMatrix({ opportunities }: DecarbonisationMatrixPr
   };
 
   return (
-    <div className="glass-panel rounded-xl border-slate-800 overflow-hidden shadow-2xl mt-6 space-y-6 pb-6">
+    <div className="glass-panel rounded-xl border-[#E4E9E6] overflow-hidden shadow-2xl mt-6 space-y-6 pb-6">
       {/* Header with Photographic Background */}
-      <div className="relative border-b border-slate-800">
+      <div className="relative border-b border-[#E4E9E6]">
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1506501139174-099022df5260?q=80&w=1200&auto=format&fit=crop')] bg-cover bg-center opacity-30 pointer-events-none"></div>
         <div className="absolute inset-0 bg-gradient-to-r from-[#06090E] via-[#06090E]/90 to-transparent pointer-events-none"></div>
         
         <div className="relative z-10 p-5 sm:p-6 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
           <div className="flex items-center space-x-3">
-            <div className="p-2.5 rounded-lg bg-teal-950/80 text-teal-400 border border-teal-800/60 shadow-lg shadow-teal-950/50 backdrop-blur-md">
+            <div className="p-2.5 rounded-lg bg-teal-950/80 text-[#0B4A3D] border border-teal-800/60 shadow-lg shadow-teal-950/50 backdrop-blur-md">
               <Zap className="w-5 h-5" />
             </div>
             <div>
@@ -193,14 +193,14 @@ export function DecarbonisationMatrix({ opportunities }: DecarbonisationMatrixPr
                   CAPITAL ALLOCATION
                 </span>
               </div>
-              <p className="text-xs text-slate-300 mt-1 font-medium">
+              <p className="text-xs text-[#4B5A54] mt-1 font-medium">
                 Marginal Abatement & Feasibility Map: CAPEX, energy savings, payback period, 10-Yr NPV & BEE methodologies.
               </p>
             </div>
           </div>
 
           <div className="flex items-center space-x-2">
-            <span className="text-[11px] font-mono font-bold px-3 py-1.5 rounded-md bg-[#0B1019]/80 text-slate-300 border border-slate-700 backdrop-blur-md shadow-inner">
+            <span className="text-[11px] font-mono font-bold px-3 py-1.5 rounded-md bg-[#0B1019]/80 text-[#4B5A54] border border-[#E4E9E6] backdrop-blur-md shadow-inner">
               {opportunities.length} VALIDATED PROJECTS
             </span>
           </div>
@@ -210,14 +210,14 @@ export function DecarbonisationMatrix({ opportunities }: DecarbonisationMatrixPr
       <div className="px-5 sm:px-6 space-y-6">
 
       {/* 2D Recharts Marginal Abatement & Feasibility Map */}
-      <div className="bg-slate-900/60 rounded-xl p-4 sm:p-5 border border-slate-800/80">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-4 pb-3 border-b border-slate-800/70 gap-2">
+      <div className="bg-[#F6F8F7] rounded-xl p-4 sm:p-5 border border-[#E4E9E6]/80">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-4 pb-3 border-b border-[#E4E9E6]/70 gap-2">
           <div>
             <h4 className="text-sm font-bold text-white flex items-center space-x-2">
-              <BarChart2 className="w-4 h-4 text-emerald-400" />
+              <BarChart2 className="w-4 h-4 text-[#1F8A5F]" />
               <span>Decarbonisation Marginal Abatement & Feasibility Map</span>
             </h4>
-            <p className="text-[11px] text-slate-400 mt-0.5">
+            <p className="text-[11px] text-[#4B5A54] mt-0.5">
               X-axis: Timeline (Months) • Y-axis: Annual CO₂e Reduction (kt/yr) • Bubble Size: 10-Yr NPV (₹ Cr) • Color: Payback Tier
             </p>
           </div>
@@ -226,15 +226,15 @@ export function DecarbonisationMatrix({ opportunities }: DecarbonisationMatrixPr
           <div className="flex flex-wrap items-center gap-3 text-[11px] font-mono">
             <div className="flex items-center space-x-1.5">
               <span className="w-2.5 h-2.5 rounded-full bg-emerald-400" />
-              <span className="text-slate-300">Fast Payback (&lt; 2.5y)</span>
+              <span className="text-[#4B5A54]">Fast Payback (&lt; 2.5y)</span>
             </div>
             <div className="flex items-center space-x-1.5">
               <span className="w-2.5 h-2.5 rounded-full bg-sky-400" />
-              <span className="text-slate-300">Medium (2.5-4.5y)</span>
+              <span className="text-[#4B5A54]">Medium (2.5-4.5y)</span>
             </div>
             <div className="flex items-center space-x-1.5">
               <span className="w-2.5 h-2.5 rounded-full bg-amber-400" />
-              <span className="text-slate-300">Strategic (&gt; 4.5y)</span>
+              <span className="text-[#4B5A54]">Strategic (&gt; 4.5y)</span>
             </div>
           </div>
         </div>
@@ -288,8 +288,8 @@ export function DecarbonisationMatrix({ opportunities }: DecarbonisationMatrixPr
       {/* Category Filter Chips */}
       {categories.length > 2 && (
         <div className="flex items-center space-x-2 overflow-x-auto pb-1">
-          <span className="text-[11px] font-semibold text-slate-400 flex items-center space-x-1 flex-shrink-0">
-            <Filter className="w-3 h-3 text-teal-400" />
+          <span className="text-[11px] font-semibold text-[#4B5A54] flex items-center space-x-1 flex-shrink-0">
+            <Filter className="w-3 h-3 text-[#0B4A3D]" />
             <span>Filter by Category:</span>
           </span>
           {categories.map((cat) => (
@@ -299,7 +299,7 @@ export function DecarbonisationMatrix({ opportunities }: DecarbonisationMatrixPr
               className={`text-xs px-3 py-1 rounded-full font-medium transition-all whitespace-nowrap cursor-pointer ${
                 selectedCategory === cat
                   ? 'bg-teal-500 text-slate-950 font-bold shadow-md shadow-teal-950/40'
-                  : 'bg-slate-900 text-slate-400 hover:text-slate-200 border border-slate-800'
+                  : 'bg-[#F6F8F7] text-[#4B5A54] hover:text-[#10231C] border border-[#E4E9E6]'
               }`}
             >
               {cat}
@@ -316,7 +316,7 @@ export function DecarbonisationMatrix({ opportunities }: DecarbonisationMatrixPr
           return (
             <div
               key={opp.opportunity_id}
-              className="bg-slate-900/90 rounded-xl p-5 border border-slate-800 hover:border-slate-700 transition-all flex flex-col justify-between shadow-lg shadow-black/20"
+              className="bg-white/95 rounded-xl p-5 border border-[#E4E9E6] hover:border-[#E4E9E6] transition-all flex flex-col justify-between shadow-lg shadow-black/20"
             >
               <div>
                 {/* Header Badges */}
@@ -330,77 +330,77 @@ export function DecarbonisationMatrix({ opportunities }: DecarbonisationMatrixPr
                     </span>
                   </div>
 
-                  <span className="text-xs font-mono text-emerald-400 font-bold bg-emerald-950/60 px-2.5 py-0.5 rounded border border-emerald-800/40 whitespace-nowrap">
+                  <span className="text-xs font-mono text-[#1F8A5F] font-bold bg-[#E8F5EE] px-2.5 py-0.5 rounded border border-emerald-800/40 whitespace-nowrap">
                     -{formatEmissions(opp.annual_reduction_tco2e)}/yr
                   </span>
                 </div>
 
                 <h4 className="text-sm font-bold text-white mb-1.5 leading-snug">{opp.title}</h4>
-                <p className="text-xs text-slate-400 leading-relaxed mb-4">{opp.description}</p>
+                <p className="text-xs text-[#4B5A54] leading-relaxed mb-4">{opp.description}</p>
               </div>
 
               <div>
                 {/* Financial & Engineering Metrics 6-Box Grid */}
-                <div className="bg-slate-950/70 rounded-xl p-3.5 border border-slate-800/80 text-xs font-mono grid grid-cols-2 sm:grid-cols-3 gap-2.5 mb-3">
-                  <div className="bg-slate-900/60 p-2 rounded-lg border border-slate-800/60">
-                    <div className="text-[10px] text-slate-400 uppercase">CAPEX</div>
+                <div className="bg-white/70 rounded-xl p-3.5 border border-[#E4E9E6]/80 text-xs font-mono grid grid-cols-2 sm:grid-cols-3 gap-2.5 mb-3">
+                  <div className="bg-[#F6F8F7] p-2 rounded-lg border border-[#E4E9E6]/60">
+                    <div className="text-[10px] text-[#4B5A54] uppercase">CAPEX</div>
                     <div className="text-xs font-bold text-white mt-0.5">{formatCurrencyCr(opp.capex_cr)}</div>
                   </div>
 
-                  <div className="bg-slate-900/60 p-2 rounded-lg border border-slate-800/60">
-                    <div className="text-[10px] text-slate-400 uppercase">Net Energy Savings</div>
-                    <div className="text-xs font-bold text-emerald-400 mt-0.5">
+                  <div className="bg-[#F6F8F7] p-2 rounded-lg border border-[#E4E9E6]/60">
+                    <div className="text-[10px] text-[#4B5A54] uppercase">Net Energy Savings</div>
+                    <div className="text-xs font-bold text-[#1F8A5F] mt-0.5">
                       {formatCurrencyCr(opp.annual_energy_savings_cr)}/yr
                     </div>
                   </div>
 
-                  <div className="bg-slate-900/60 p-2 rounded-lg border border-slate-800/60">
-                    <div className="text-[10px] text-slate-400 uppercase">Capital Payback</div>
-                    <div className="text-xs font-bold text-slate-200 mt-0.5">{formatYears(opp.payback_years)}</div>
+                  <div className="bg-[#F6F8F7] p-2 rounded-lg border border-[#E4E9E6]/60">
+                    <div className="text-[10px] text-[#4B5A54] uppercase">Capital Payback</div>
+                    <div className="text-xs font-bold text-[#10231C] mt-0.5">{formatYears(opp.payback_years)}</div>
                   </div>
 
-                  <div className="bg-slate-900/60 p-2 rounded-lg border border-slate-800/60">
-                    <div className="text-[10px] text-slate-400 uppercase flex items-center justify-between cursor-help" title="Net Present Value over 10 years, discounting future cash flows with WACC assumptions.">
+                  <div className="bg-[#F6F8F7] p-2 rounded-lg border border-[#E4E9E6]/60">
+                    <div className="text-[10px] text-[#4B5A54] uppercase flex items-center justify-between cursor-help" title="Net Present Value over 10 years, discounting future cash flows with WACC assumptions.">
                       <span>10-Yr NPV @ 9.5%</span>
-                      <HelpCircle className="w-3 h-3 text-slate-500" />
+                      <HelpCircle className="w-3 h-3 text-[#6B7A72]" />
                     </div>
-                    <div className="text-xs font-bold text-emerald-400 mt-0.5">{formatCurrencyCr(opp.npv_10yr_cr)}</div>
+                    <div className="text-xs font-bold text-[#1F8A5F] mt-0.5">{formatCurrencyCr(opp.npv_10yr_cr)}</div>
                   </div>
 
-                  <div className="bg-slate-900/60 p-2 rounded-lg border border-slate-800/60">
-                    <div className="text-[10px] text-slate-400 uppercase">OPEX Change</div>
-                    <div className="text-xs font-bold text-slate-300 mt-0.5">
+                  <div className="bg-[#F6F8F7] p-2 rounded-lg border border-[#E4E9E6]/60">
+                    <div className="text-[10px] text-[#4B5A54] uppercase">OPEX Change</div>
+                    <div className="text-xs font-bold text-[#4B5A54] mt-0.5">
                       {formatCurrencyCr(opp.annual_opex_change_cr)}/yr
                     </div>
                   </div>
 
-                  <div className="bg-slate-900/60 p-2 rounded-lg border border-slate-800/60">
-                    <div className="text-[10px] text-slate-400 uppercase">Abatement Cost</div>
-                    <div className="text-xs font-bold text-sky-300 mt-0.5">
+                  <div className="bg-[#F6F8F7] p-2 rounded-lg border border-[#E4E9E6]/60">
+                    <div className="text-[10px] text-[#4B5A54] uppercase">Abatement Cost</div>
+                    <div className="text-xs font-bold text-[#2E6BA8] mt-0.5">
                       {opp.cost_per_tco2e_inr !== undefined ? formatPricePerTonne(opp.cost_per_tco2e_inr) : '—'}
                     </div>
                   </div>
                 </div>
 
                 {/* Regulatory, Methodology & MRV Footer */}
-                <div className="pt-2.5 border-t border-slate-800/70 flex flex-wrap justify-between items-center text-[11px] gap-2">
-                  <div className="flex items-center space-x-1.5 text-slate-400">
-                    <FileCheck className="w-3.5 h-3.5 text-teal-400 flex-shrink-0" />
-                    <span className="font-mono text-slate-300 truncate max-w-[240px]">
+                <div className="pt-2.5 border-t border-[#E4E9E6]/70 flex flex-wrap justify-between items-center text-[11px] gap-2">
+                  <div className="flex items-center space-x-1.5 text-[#4B5A54]">
+                    <FileCheck className="w-3.5 h-3.5 text-[#0B4A3D] flex-shrink-0" />
+                    <span className="font-mono text-[#4B5A54] truncate max-w-[240px]">
                       {opp.applicable_methodology || 'BEE Compliance Protocol'}
                     </span>
                   </div>
 
                   <div className="flex items-center space-x-2">
-                    <span className="text-slate-400 font-mono flex items-center space-x-1">
-                      <Clock className="w-3 h-3 text-slate-500" />
+                    <span className="text-[#4B5A54] font-mono flex items-center space-x-1">
+                      <Clock className="w-3 h-3 text-[#6B7A72]" />
                       <span>{opp.implementation_months || 12}m</span>
                     </span>
-                    <span className="px-1.5 py-0.5 rounded text-[10px] font-mono font-bold bg-slate-800 text-slate-300 border border-slate-700">
+                    <span className="px-1.5 py-0.5 rounded text-[10px] font-mono font-bold bg-white border border-[#E4E9E6] text-[#4B5A54] border border-[#E4E9E6]">
                       MRV: {opp.mrv_complexity || 'MEDIUM'}
                     </span>
                     {opp.confidence_tier && (
-                      <span className="px-1.5 py-0.5 rounded text-[10px] font-mono font-bold bg-slate-950 text-emerald-400 border border-emerald-800/50 flex items-center space-x-1 cursor-help" title="Confidence tier of the model. 'CALIBRATED' means tuned with limited historical parameters.">
+                      <span className="px-1.5 py-0.5 rounded text-[10px] font-mono font-bold bg-white text-[#1F8A5F] border border-emerald-800/50 flex items-center space-x-1 cursor-help" title="Confidence tier of the model. 'CALIBRATED' means tuned with limited historical parameters.">
                         <span>{opp.confidence_tier}</span>
                         <HelpCircle className="w-2.5 h-2.5 text-emerald-500 opacity-80" />
                       </span>
