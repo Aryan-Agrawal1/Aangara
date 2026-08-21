@@ -154,6 +154,7 @@ export default function ScenariosPage() {
           onChange={runSim}
           onReset={resetScenarioParams}
         />
+        <p className="text-xs text-slate-500 mt-4">These scenario parameters sync with the Decision Twin. Navigate to Decision Twin to see updated recommendations.</p>
 
         {result && (
           <div className="mt-8 space-y-6">

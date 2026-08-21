@@ -146,6 +146,13 @@ export default function InstitutionalLandingPage() {
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1200px] h-[600px] ambient-glow pointer-events-none z-0"></div>
 
       {/* Global Institutional Header */}
+      
+        <div className="flex gap-6 items-center justify-center text-xs text-slate-400 font-mono border-b border-white/[0.04] py-2 px-4 bg-black/20 w-full absolute top-[60px] z-50">
+          <span className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-[#1E3A5F]"></span>7 CCTS Sectors Monitored</span>
+          <span className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-[#1E3A5F]"></span>3 Decarbonisation Strategies</span>
+          <span className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-[#1E3A5F]"></span>GEI Target Precision: ±0.5%</span>
+        </div>
+
       <Header currentSector={selectedSector} onSectorChange={(s) => setSelectedSector(s)} />
 
       {/* Hero Section */}
@@ -182,7 +189,7 @@ export default function InstitutionalLandingPage() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
             <Link
               href="/industrial-intelligence"
-              className="w-full sm:w-auto inline-flex items-center justify-center space-x-2.5 px-7 py-3.5 rounded-lg bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-slate-950 font-bold text-sm shadow-lg shadow-emerald-950/60 transition-all hover:scale-[1.02] active:scale-[0.98]"
+              className="w-full sm:w-auto inline-flex items-center justify-center space-x-2.5 px-7 py-3.5 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-sm shadow-lg shadow-emerald-950/60 transition-all hover:scale-[1.02] active:scale-[0.98]"
             >
               <span>Analyze Your Facility</span>
               <ArrowRight className="w-4 h-4 text-slate-950" />

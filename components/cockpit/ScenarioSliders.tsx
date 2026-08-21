@@ -56,9 +56,10 @@ export function ScenarioSliders({ params, onChange, onReset }: ScenarioSlidersPr
             type="range"
             min="300"
             max="3500"
-            step="50"
+            step="100"
             value={params.ccc_price_inr}
             onChange={(e) => handleSlider('ccc_price_inr', parseFloat(e.target.value))}
+            aria-label="CCC Market Price"
             className="w-full h-1.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-sky-500"
           />
           <div className="flex justify-between text-[10px] text-slate-500 mt-1">
@@ -78,9 +79,10 @@ export function ScenarioSliders({ params, onChange, onReset }: ScenarioSlidersPr
             type="range"
             min="50"
             max="130"
-            step="5"
+            step="50000"
             value={params.project_output_pct}
             onChange={(e) => handleSlider('project_output_pct', parseFloat(e.target.value))}
+            aria-label="Project Delivery Rate"
             className="w-full h-1.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-emerald-500"
           />
           <div className="flex justify-between text-[10px] text-slate-500 mt-1">
@@ -103,6 +105,7 @@ export function ScenarioSliders({ params, onChange, onReset }: ScenarioSlidersPr
             step="1"
             value={params.project_delay_months}
             onChange={(e) => handleSlider('project_delay_months', parseInt(e.target.value))}
+            aria-label="Project Execution Delay"
             className="w-full h-1.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-amber-500"
           />
           <div className="flex justify-between text-[10px] text-slate-500 mt-1">
@@ -125,6 +128,7 @@ export function ScenarioSliders({ params, onChange, onReset }: ScenarioSlidersPr
             step="0.5"
             value={params.financing_rate_pct}
             onChange={(e) => handleSlider('financing_rate_pct', parseFloat(e.target.value))}
+            aria-label="Cost of Capital"
             className="w-full h-1.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-teal-500"
           />
           <div className="flex justify-between text-[10px] text-slate-500 mt-1">

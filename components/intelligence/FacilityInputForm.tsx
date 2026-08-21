@@ -850,6 +850,16 @@ export function FacilityInputForm({
               </button>
             </div>
           </div>
+      
+              {dataQuality?.errors && dataQuality.errors.length > 0 && (
+                <div className="mt-4 p-4 bg-rose-950/40 border border-rose-800/60 rounded-xl">
+                  <h4 className="text-sm font-bold text-rose-400 mb-2">Form Validation Errors</h4>
+                  <ul className="list-disc list-inside text-xs text-rose-300">
+                    {dataQuality.errors.map((err, i) => <li key={i}>{err}</li>)}
+                  </ul>
+                </div>
+              )}
+
       </form>
       </div>
     </div>

@@ -5,10 +5,18 @@ module.exports = {
     './components/**/*.{js,ts,jsx,tsx,mdx}',
     './lib/**/*.{js,ts,jsx,tsx,mdx}',
   ],
-  darkMode: 'class',
+  darkMode: ['class'],
   theme: {
     extend: {
       colors: {
+        institutional: '#1E3A5F',
+        status: {
+          fact: '#3B82F6',
+          calculation: '#10B981',
+          model: '#8B5CF6',
+          scenario: '#F59E0B',
+          synthetic: '#6B7280',
+        },
         background: '#06090E',
         surface: {
           DEFAULT: '#0B1019',
@@ -72,4 +80,3 @@ module.exports = {
   },
   plugins: [],
 }
-

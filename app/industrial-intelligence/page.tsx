@@ -9,6 +9,9 @@ import { DecisionTwinHero } from '@/components/cockpit/DecisionTwinHero';
 import { SourceTraceDrawer } from '@/components/drawers/SourceTraceDrawer';
 import { StrategyTraceDrawer } from '@/components/drawers/StrategyTraceDrawer';
 import { formatCurrencyCr, formatEmissions, formatGEI } from '@/lib/formatters';
+import { StatusBadge } from '@/components/ui/StatusBadge';
+import { ProvenanceFooter } from '@/components/ui/ProvenanceFooter';
+import { ErrorState } from '@/components/ui/ErrorState';
 import { Sparkles, ShieldCheck, AlertTriangle, CheckCircle2, TrendingUp, TrendingDown, Target, Building2 } from 'lucide-react';
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || '';
@@ -104,11 +107,7 @@ export default function IndustrialIntelligencePage() {
 
         {/* Personalized Analysis Results */}
         {apiError && (
-          <div className="mt-8 bg-rose-950/40 border border-rose-800/60 p-6 rounded-xl flex flex-col items-center justify-center text-center">
-            <AlertTriangle className="w-10 h-10 text-rose-400 mb-3" />
-            <h3 className="text-lg font-bold text-white mb-2">Service Temporarily Unavailable</h3>
-            <p className="text-sm text-slate-300 max-w-lg">{apiError}</p>
-          </div>
+          <div className="mt-8"><ErrorState type="backend" message={apiError} onRetry={() => runAnalysis()} /></div>
         )}
 
         {analysisResult && carbon && !apiError && (
@@ -139,13 +138,13 @@ export default function IndustrialIntelligencePage() {
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                   <div className="bg-slate-900/90 p-3 rounded-lg border border-slate-800">
                     <div className="text-[11px] text-slate-400 uppercase">Calculated GEI</div>
-                    <div className="text-lg font-bold text-white font-mono mt-0.5">{formatGEI(carbon.actual_gei)}</div>
+                    <div className="text-lg font-bold text-white font-mono mt-0.5">{formatGEI(carbon.actual_gei)} <StatusBadge type="CALCULATION" /></div>
                     <div className="text-[10px] text-slate-500 mt-1">Total: {formatEmissions(carbon.total_ghg_tco2e)}</div>
                   </div>
 
                   <div className="bg-slate-900/90 p-3 rounded-lg border border-slate-800">
                     <div className="text-[11px] text-slate-400 uppercase">Notified Target</div>
-                    <div className="text-lg font-bold text-sky-400 font-mono mt-0.5">{formatGEI(carbon.target_gei)}</div>
+                    <div className="text-lg font-bold text-sky-400 font-mono mt-0.5">{formatGEI(carbon.target_gei)} <StatusBadge type="FACT" /></div>
                     <div className="text-[10px] text-slate-500 mt-1">MoEFCC Gazette Trajectory</div>
                   </div>
 
@@ -235,6 +234,7 @@ export default function IndustrialIntelligencePage() {
             )}
           </div>
         )}
+        <ProvenanceFooter />
       </main>
 
       {/* Source Trace Drawer */}

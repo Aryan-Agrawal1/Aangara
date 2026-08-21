@@ -13,7 +13,7 @@ import { getSectors, getEntities, getDecisionTwin, runScenarioSimulation } from 
 import { ScenarioParams } from '@/lib/types';
 import { useAppStore } from '@/lib/store';
 import { Loader2, AlertTriangle, RefreshCw } from 'lucide-react';
-
+import { ProvenanceFooter } from '@/components/ui/ProvenanceFooter';
 export default function DecisionCockpitPage() {
   const {
     currentSector, currentEntityId, reportingYear,
@@ -237,6 +237,24 @@ export default function DecisionCockpitPage() {
                 </button>
               </div>
             </div>
+
+            <div className="mt-4 p-4 bg-slate-900/60 rounded-xl border border-white/[0.06]">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                {[
+                  { label: 'WHAT', text: 'Comparative cost and abatement across three capital strategies' },
+                  { label: 'WHY', text: 'Statutory compliance under CCTS requires meeting GEI targets — this model finds the least-cost path' },
+                  { label: 'SO WHAT', text: decisionData ? `${decisionData.recommended_strategy} minimises 10-year lifecycle cost for this facility` : 'Run analysis to see recommendation' },
+                  { label: 'WHAT NEXT', text: 'Adjust stress scenarios to test robustness of this recommendation' }
+                ].map(({ label, text }) => (
+                  <div key={label}>
+                    <div className="text-[9px] font-mono font-bold text-slate-500 mb-1">{label}</div>
+                    <div className="text-xs text-slate-300">{text}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <ProvenanceFooter verifiedDate="2026-01-09" />
           </div>
         )}
       </main>

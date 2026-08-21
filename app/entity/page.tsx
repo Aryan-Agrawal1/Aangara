@@ -10,6 +10,7 @@ import {
   PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend,
   BarChart, Bar, XAxis, YAxis, CartesianGrid
 } from 'recharts';
+import { ProvenanceFooter } from '@/components/ui/ProvenanceFooter';
 import { Activity, CheckCircle2, ShieldAlert, Cpu, Flame, Zap, BarChart2, Building2, Layers } from 'lucide-react';
 
 const EMISSION_COLORS = ['#38bdf8', '#fbbf24', '#34d399'];
@@ -81,19 +82,19 @@ export default function EntityInputPage() {
       name: 'Scope 2 (Grid Electricity)',
       value: Math.round((rp.source_streams.electricity_mwh * 0.716)),
       pct: 0,
-      fill: '#38bdf8'
+      fill: '#1E3A5F'
     },
     {
       name: 'Scope 1 (Thermal Fuel)',
       value: Math.round(rp.source_streams.fuel_quantity_tonnes * (rp.source_streams.fuel_type === 'petcoke' ? 3.24 : 1.95)),
       pct: 0,
-      fill: '#fbbf24'
+      fill: '#F59E0B'
     },
     {
       name: 'Scope 1 (Process Calcination)',
       value: Math.round(rp.source_streams.process_emissions_tco2e || 0),
       pct: 0,
-      fill: '#34d399'
+      fill: '#10B981'
     }
   ].filter(d => d.value > 0) : [];
 
@@ -255,6 +256,7 @@ export default function EntityInputPage() {
                 <div className="h-56 w-full">
                   <ResponsiveContainer width="100%" height="100%">
                     <PieChart>
+                      <title>GHG Emissions Inventory Breakdown</title>
                       <Pie
                         data={emissionsBreakdown}
                         cx="50%"
@@ -294,6 +296,7 @@ export default function EntityInputPage() {
             </div>
           </div>
         )}
+        <ProvenanceFooter />
       </main>
     </div>
   );

@@ -2,6 +2,8 @@
 
 import React from 'react';
 import { Header } from '@/components/navigation/Header';
+import { StatusBadge } from '@/components/ui/StatusBadge';
+import { ProvenanceFooter } from '@/components/ui/ProvenanceFooter';
 import { ShieldCheck, Database, FileText, Cpu, AlertTriangle } from 'lucide-react';
 
 export default function TrustCenterPage() {
@@ -26,6 +28,7 @@ export default function TrustCenterPage() {
             <div className="flex items-center space-x-2 mb-4">
               <Database className="w-5 h-5 text-sky-400" />
               <h2 className="text-lg font-bold text-white">Data Provenance</h2>
+              <StatusBadge type="MODEL" />
             </div>
             <p className="text-sm text-slate-300 mb-4">
               All platform data displayed in the current demonstration environment is synthetically generated to protect proprietary industrial facility data.
@@ -44,6 +47,7 @@ export default function TrustCenterPage() {
             <div className="flex items-center space-x-2 mb-4">
               <FileText className="w-5 h-5 text-amber-400" />
               <h2 className="text-lg font-bold text-white">Regulatory Registry Status</h2>
+              <StatusBadge type="FACT" />
             </div>
             <p className="text-sm text-slate-300 mb-4">
               Alignment with the Ministry of Environment, Forest and Climate Change (MoEFCC) and Bureau of Energy Efficiency (BEE) gazette notifications.
@@ -67,6 +71,7 @@ export default function TrustCenterPage() {
             <div className="flex items-center space-x-2 mb-4">
               <Cpu className="w-5 h-5 text-purple-400" />
               <h2 className="text-lg font-bold text-white">ML Model Cards: GEI Benchmark Model</h2>
+              <StatusBadge type="CALCULATION" />
             </div>
             <p className="text-sm text-slate-300 mb-4">
               Transparency documentation for the predictive models powering CarbonAlpha's Decision Intelligence.
@@ -92,6 +97,7 @@ export default function TrustCenterPage() {
             </div>
           </section>
         </div>
+        <ProvenanceFooter verifiedDate="2026-01-09" />
       </main>
     </div>
   );

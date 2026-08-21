@@ -4,6 +4,8 @@ import React, { useState, useEffect } from 'react';
 import { Header } from '@/components/navigation/Header';
 import { getSources, getMethodologies } from '@/lib/api';
 import { RegulatorySourceItem, MethodologyItem } from '@/lib/types';
+import { ProvenanceFooter } from '@/components/ui/ProvenanceFooter';
+import { StatusBadge } from '@/components/ui/StatusBadge';
 import {
   FileText, ExternalLink, ShieldCheck, CheckCircle2, BookOpen,
   Cpu, Database, Layers, Check, AlertCircle
@@ -12,6 +14,17 @@ import {
 export default function SourcesPage() {
   const [sources, setSources] = useState<RegulatorySourceItem[]>([]);
   const [methodologies, setMethodologies] = useState<MethodologyItem[]>([]);
+  
+        const CATEGORIES = [
+          { id: 'all', label: 'All Sources' },
+          { id: 'acts', label: 'Acts & Regulations' },
+          { id: 'notifications', label: 'Notifications' },
+          { id: 'methodologies', label: 'Methodologies' },
+          { id: 'targets', label: 'Targets & Benchmarks' },
+          { id: 'datasets', label: 'Datasets' },
+        ];
+        const [activeCategory, setActiveCategory] = useState('all');
+    
   const [activeTab, setActiveTab] = useState<'statutory' | 'methodologies' | 'models' | 'provenance'>('statutory');
 
   useEffect(() => {
@@ -40,6 +53,48 @@ export default function SourcesPage() {
               Complete inventory of Indian Gazette notifications, BEE offset methodologies, ML model cards, and dataset provenance.
             </p>
           </div>
+        </div>
+
+        
+        <ProvenanceFooter />
+        
+        <div className="mb-8 p-4 bg-[#1E3A5F]/10 border border-[#1E3A5F]/30 rounded-xl">
+          <div className="flex items-center gap-2 mb-3">
+            <span className="text-[9px] font-mono font-bold px-2 py-0.5 rounded bg-[#1E3A5F]/60 text-blue-300 border border-blue-700/40">REGULATORY WATCH</span>
+            <h2 className="text-sm font-bold text-white">Recent Regulatory Changes</h2>
+          </div>
+          <div className="space-y-2">
+            {[
+              { date: 'Jan 2026', event: 'G.S.R. 25(E): 9 sectors notified under CCTS Phase 1 — effective 01-Jan-2026', status: 'FACT' },
+              { date: 'Aug 2025', event: 'Iron & Steel GEI targets moved to revised-draft stage pending final gazette notification', status: 'FACT' },
+              { date: 'Jul 2025', event: 'Fertiliser sector methodology updated to reflect urea process-emission boundary revision', status: 'FACT' },
+              { date: 'Mar 2025', event: 'CEA Grid Emission Factor updated to 0.716 tCO2e/MWh for FY2024', status: 'FACT' },
+            ].map(({ date, event, status }) => (
+              <div key={date} className="flex items-start gap-3 py-2 border-b border-white/[0.04] last:border-0">
+                <span className="text-[10px] font-mono text-slate-500 w-16 flex-shrink-0 pt-0.5">{date}</span>
+                <span className="text-xs text-slate-300 flex-1">{event}</span>
+                <StatusBadge type="FACT" />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div role="tablist" aria-label="Source categories" className="flex flex-wrap gap-2 mb-6">
+          {CATEGORIES.map(cat => (
+            <button
+              key={cat.id}
+              role="tab"
+              aria-selected={activeCategory === cat.id}
+              onClick={() => setActiveCategory(cat.id)}
+              className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all border ${
+                activeCategory === cat.id
+                  ? 'bg-[#1E3A5F] text-blue-200 border-blue-600/50'
+                  : 'bg-slate-900 text-slate-400 border-white/[0.06] hover:text-white hover:bg-slate-800'
+              }`}
+            >
+              {cat.label}
+            </button>
+          ))}
         </div>
 
         {/* Navigation Tabs */}

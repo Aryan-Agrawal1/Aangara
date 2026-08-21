@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
+:root.dark, :root {
   --background: #06090E;
   --surface-base: #0B1019;
   --surface-raised: #111827;
@@ -12,6 +12,28 @@
   --foreground-muted: #94A3B8;
   --carbon-emerald: #10B981;
   --carbon-cyan: #00F2FE;
+
+  --ca-accent-institutional: #1E3A5F;
+  --ca-status-fact: #3B82F6;
+  --ca-status-calculation: #10B981;
+  --ca-status-model: #8B5CF6;
+  --ca-status-scenario: #F59E0B;
+  --ca-status-synthetic: #6B7280;
+  --dur-fast: 120ms;
+  --dur-base: 200ms;
+  --dur-slow: 320ms;
+  --radius-card: 12px;
+  --radius-control: 8px;
+}
+
+:root.light {
+  --background: #F0F4F8;
+  --surface-base: #FFFFFF;
+  --surface-raised: #F8FAFC;
+  --surface-overlay: #EEF2FF;
+  --surface-border: rgba(0,0,0,0.08);
+  --foreground: #0F172A;
+  --foreground-muted: #475569;
 }
 
 body {
@@ -23,7 +45,6 @@ body {
   overflow-x: hidden;
 }
 
-/* Subtle 24px industrial grid texture background */
 .bg-industrial-grid {
   background-size: 24px 24px;
   background-image: 
@@ -31,7 +52,6 @@ body {
     linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
 }
 
-/* Ambient top-center radial gradient glow */
 .ambient-glow {
   background: radial-gradient(circle at 50% -10%, rgba(16, 185, 129, 0.15) 0%, rgba(6, 9, 14, 0) 65%);
 }
@@ -40,12 +60,11 @@ body {
   background: radial-gradient(circle at 50% 0%, rgba(6, 182, 212, 0.12) 0%, rgba(6, 9, 14, 0) 70%);
 }
 
-/* Industrial photographic backgrounds with heavy gradient overlays to ensure text readability */
 .bg-industrial-hero {
   background-image: 
     linear-gradient(to bottom, rgba(6, 9, 14, 0.8), rgba(6, 9, 14, 0.95), #06090E),
     linear-gradient(to right, rgba(6, 9, 14, 0.9), rgba(6, 9, 14, 0.6), rgba(6, 9, 14, 0.9)),
-    url('https://images.unsplash.com/photo-1496247749665-49cf5b1022e9?q=80&w=2560&auto=format&fit=crop'); /* Refinery / Pipes */
+    url('https://images.unsplash.com/photo-1496247749665-49cf5b1022e9?q=80&w=2560&auto=format&fit=crop');
   background-size: cover;
   background-position: center 20%;
   background-repeat: no-repeat;
@@ -54,7 +73,7 @@ body {
 .bg-industrial-cta {
   background-image: 
     linear-gradient(to bottom, rgba(11, 16, 25, 0.85), rgba(11, 16, 25, 0.95)),
-    url('https://images.unsplash.com/photo-1533422902700-50bc96716768?q=80&w=2560&auto=format&fit=crop'); /* Steel/Sparks */
+    url('https://images.unsplash.com/photo-1533422902700-50bc96716768?q=80&w=2560&auto=format&fit=crop');
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
@@ -77,7 +96,6 @@ body {
   background-size: cover;
 }
 
-/* Custom institutional scrollbars */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -93,7 +111,6 @@ body {
   background: #263347;
 }
 
-/* Institutional card & surface presets */
 .card-base {
   background-color: #0B1019;
   border: 1px solid rgba(255, 255, 255, 0.07);
@@ -114,7 +131,6 @@ body {
   border-color: rgba(255, 255, 255, 0.07);
 }
 
-/* Glass & elevated cards */
 .glass-panel {
   background: rgba(11, 16, 25, 0.82);
   backdrop-filter: blur(12px);
@@ -128,7 +144,6 @@ body {
   box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.6);
 }
 
-/* Shimmer animation for active strategy */
 @keyframes glow-pulse {
   0%, 100% {
     box-shadow: 0 0 15px rgba(16, 185, 129, 0.2), inset 0 0 15px rgba(16, 185, 129, 0.05);
@@ -145,9 +160,58 @@ body {
   border-color: rgba(16, 185, 129, 0.6) !important;
 }
 
-/* Tabular numerals for high-precision institutional data */
 .tnum, [data-tabular] {
   font-variant-numeric: tabular-nums;
   font-feature-settings: 'tnum';
 }
 
+/* Light mode overrides */
+.light {
+  --background: #F0F4F8;
+  --surface-base: #FFFFFF;
+  --surface-raised: #F8FAFC;
+  --surface-overlay: #EEF2FF;
+  --surface-border: rgba(0, 0, 0, 0.08);
+  --foreground: #0F172A;
+  --foreground-muted: #475569;
+}
+
+.light body {
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+.light .card-base {
+  background-color: #FFFFFF;
+  border-color: rgba(0, 0, 0, 0.08);
+}
+
+.light .card-raised {
+  background-color: #F8FAFC;
+  border-color: rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 20px -4px rgba(0, 0, 0, 0.1);
+}
+
+.light .glass-panel {
+  background: rgba(255, 255, 255, 0.9);
+  border-color: rgba(0, 0, 0, 0.08);
+}
+
+/* Reduced motion support */
+[data-reduced-motion='true'] *, 
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Focus ring - institutional navy */
+*:focus-visible {
+  outline: 2px solid #3B82F6;
+  outline-offset: 2px;
+  border-radius: 4px;
+}

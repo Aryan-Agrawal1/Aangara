@@ -1,34 +1,28 @@
 'use client';
-
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Activity, Layers, Sliders, FileText, Building2, Cpu } from 'lucide-react';
+import { Activity, Layers, Sliders, FileText, Building2, Cpu, Sun, Moon, Menu, X, Shield, Type } from 'lucide-react';
+import { useTheme } from '@/lib/theme';
 
-interface HeaderProps {
-  currentSector?: string;
-  currentEntityId?: string;
-  reportingYear?: string;
-  dataStatus?: string;
-  onSectorChange?: (sector: string) => void;
-  onEntityChange?: (entityId: string) => void;
-  onYearChange?: (year: string) => void;
-  sectorsList?: any[];
-  entitiesList?: any[];
-}
-
-export function Header({
-  currentSector = 'cement',
-  currentEntityId = 'SYN-CEM-001',
-  reportingYear = '2025-26',
-  dataStatus = 'SYNTHETIC',
-  onSectorChange,
-  onEntityChange,
-  onYearChange,
-  sectorsList = [],
-  entitiesList = []
-}: HeaderProps) {
+export function Header({ currentSector = 'cement', dataStatus = 'SYNTHETIC', onSectorChange }: any) {
   const pathname = usePathname();
+  const { theme, toggle } = useTheme();
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [fontSize, setFontSize] = useState(100);
+
+  const adjustFont = useCallback((delta: number) => {
+    setFontSize(prev => {
+      const next = Math.min(130, Math.max(90, prev + delta * 5));
+      document.documentElement.style.fontSize = `${next}%`;
+      return next;
+    });
+  }, []);
+
+  const resetFont = useCallback(() => {
+    setFontSize(100);
+    document.documentElement.style.fontSize = '';
+  }, []);
 
   const navLinks = [
     { href: '/industrial-intelligence', label: 'Industrial Intelligence', icon: Cpu, badge: 'ENTER DATA' },
@@ -36,98 +30,130 @@ export function Header({
     { href: '/overview', label: 'Sector Portfolio', icon: Building2 },
     { href: '/entity', label: 'Operational Input', icon: Activity },
     { href: '/scenarios', label: 'Stress Scenarios', icon: Sliders },
-    { href: '/sources', label: 'Regulatory Register', icon: FileText },
-    { href: '/trust', label: 'Trust Center', icon: FileText },
+    { href: '/sources', label: 'Evidence Center', icon: FileText },
+    { href: '/trust', label: 'Trust Center', icon: Shield },
   ];
 
   return (
-    <header className="border-b border-white/[0.07] bg-[#06090E]/90 backdrop-blur-md sticky top-0 z-40">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo & Brand */}
-          <Link href="/" className="flex items-center space-x-3 group">
-            <div className="h-9 w-9 rounded-lg bg-[#111827] border border-emerald-500/30 flex items-center justify-center shadow-lg shadow-emerald-950/40 relative overflow-hidden group-hover:border-emerald-400/60 transition-all">
-              <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/20 via-emerald-600/10 to-transparent" />
-              <span className="font-mono font-bold text-white text-base tracking-tighter relative z-10 flex items-baseline select-none">
-                <span className="text-emerald-400">C</span>
-                <span className="text-emerald-300 font-sans text-xs ml-0.5 font-semibold">α</span>
-              </span>
-            </div>
-            <div>
-              <div className="flex items-center space-x-2">
-                <span className="font-bold text-lg text-white tracking-tight group-hover:text-emerald-400 transition-colors">
-                  CarbonAlpha
-                </span>
-                <span className="text-[10px] px-1.5 py-0.5 rounded font-mono font-semibold bg-emerald-950/80 text-emerald-400 border border-emerald-800/60">
-                  INDIA CCTS
-                </span>
+    <>
+      {/* Accessibility bar */}
+      <div className="hidden md:flex items-center justify-end gap-3 px-6 py-1 border-b border-white/[0.04] bg-[#04060A] text-[10px] text-slate-600">
+        <span>Accessibility:</span>
+        <button onClick={() => adjustFont(-1)} className="hover:text-slate-400 transition-colors px-1" aria-label="Decrease text size">A−</button>
+        <button onClick={resetFont} className="hover:text-slate-400 transition-colors px-1" aria-label="Reset text size">A</button>
+        <button onClick={() => adjustFont(1)} className="hover:text-slate-400 transition-colors px-1" aria-label="Increase text size">A+</button>
+        <span className="text-slate-700">|</span>
+        <button
+          onClick={() => document.documentElement.setAttribute('data-reduced-motion', document.documentElement.getAttribute('data-reduced-motion') === 'true' ? 'false' : 'true')}
+          className="hover:text-slate-400 transition-colors"
+          aria-label="Toggle reduced motion"
+        >
+          Reduced Motion
+        </button>
+      </div>
+
+      <header className="border-b border-white/[0.07] bg-[#06090E]/95 dark:bg-[#06090E]/95 light:bg-white/95 backdrop-blur-md sticky top-0 z-40">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6">
+          <div className="flex items-center justify-between h-14">
+            {/* Logo */}
+            <Link href="/" className="flex items-center space-x-2.5 group flex-shrink-0">
+              <div className="h-8 w-8 rounded-lg bg-[#111827] border border-emerald-500/30 flex items-center justify-center shadow-lg shadow-emerald-950/40 relative overflow-hidden group-hover:border-emerald-400/60 transition-all">
+                <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/20 via-emerald-600/10 to-transparent" />
+                <span className="text-emerald-400 font-bold text-xs relative z-10 font-mono">Cα</span>
               </div>
-              <p className="text-[11px] text-slate-400 font-medium -mt-0.5">Decision Intelligence & Capital Allocation</p>
-            </div>
-          </Link>
+              <div className="hidden sm:block">
+                <div className="text-sm font-bold text-white leading-none tracking-tight">CarbonAlpha</div>
+                <div className="text-[9px] text-slate-500 uppercase tracking-widest leading-none mt-0.5">Decision Intelligence</div>
+              </div>
+            </Link>
 
-          {/* Navigation Links */}
-          <nav className="hidden lg:flex items-center space-x-1">
-            {navLinks.map((link) => {
-              const Icon = link.icon;
-              const isActive = pathname === link.href;
-              return (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-md text-xs font-medium transition-all ${
-                    isActive
-                      ? 'bg-[#111827] text-emerald-400 border border-white/[0.1] shadow-sm'
-                      : 'text-slate-400 hover:text-slate-200 hover:bg-[#0B1019]'
-                  }`}
-                >
-                  <Icon className={`w-3.5 h-3.5 ${isActive ? 'text-emerald-400' : 'text-slate-400'}`} />
-                  <span>{link.label}</span>
-                  {link.badge && (
-                    <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-emerald-950 text-emerald-400 border border-emerald-800/60 font-bold ml-1">
-                      {link.badge}
-                    </span>
-                  )}
-                </Link>
-              );
-            })}
-          </nav>
+            {/* Desktop Nav */}
+            <nav className="hidden lg:flex items-center gap-0.5" role="navigation" aria-label="Main">
+              {navLinks.map(({ href, label, badge }) => {
+                const active = pathname === href || pathname.startsWith(href + '/');
+                return (
+                  <Link
+                    key={href}
+                    href={href}
+                    className={`relative flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-xs font-medium transition-all ${
+                      active
+                        ? 'text-white bg-white/[0.06] border border-white/[0.08]'
+                        : 'text-slate-400 hover:text-white hover:bg-white/[0.04]'
+                    }`}
+                    aria-current={active ? 'page' : undefined}
+                  >
+                    <span>{label}</span>
+                    {badge && (
+                      <span className="text-[8px] font-mono font-bold px-1 py-0.5 rounded bg-emerald-950 text-emerald-400 border border-emerald-800/50">
+                        {badge}
+                      </span>
+                    )}
+                  </Link>
+                );
+              })}
+            </nav>
 
-          {/* Context Selectors & Status Badges */}
-          <div className="flex items-center space-x-3">
-            {/* Sector Selector */}
-            <div className="flex items-center space-x-1.5 bg-[#0B1019] px-2.5 py-1.5 rounded-md border border-white/[0.07] text-xs">
-              <span className="text-slate-500 font-medium">Sector:</span>
-              <select
-                value={currentSector}
-                onChange={(e) => onSectorChange && onSectorChange(e.target.value)}
-                className="bg-transparent text-slate-200 font-semibold focus:outline-none cursor-pointer"
+            {/* Right controls */}
+            <div className="flex items-center gap-2">
+              {/* Data status badge */}
+              <span className="hidden sm:inline-flex items-center text-[9px] font-mono font-bold px-2 py-0.5 rounded bg-slate-800/80 text-slate-400 border border-slate-700/50">
+                ● SYNTHETIC DEMONSTRATION
+              </span>
+
+              {/* Theme toggle */}
+              <button
+                onClick={toggle}
+                className="p-2 rounded-lg bg-slate-800/60 hover:bg-slate-700/80 text-slate-400 hover:text-white transition-all border border-white/[0.06]"
+                aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
               >
-                <optgroup label="8 Notified CCTS Compliance Sectors" className="bg-[#0B1019] text-slate-400">
-                  <option value="cement" className="bg-[#0B1019] text-slate-200">Cement (Core Demo)</option>
-                  <option value="iron_steel" className="bg-[#0B1019] text-slate-200">Iron & Steel (Draft G.S.R. 517(E))</option>
-                  <option value="aluminium" className="bg-[#0B1019] text-slate-200">Aluminium</option>
-                  <option value="chlor_alkali" className="bg-[#0B1019] text-slate-200">Chlor-Alkali</option>
-                  <option value="pulp_paper" className="bg-[#0B1019] text-slate-200">Pulp & Paper</option>
-                  <option value="petrochemicals" className="bg-[#0B1019] text-slate-200">Petrochemicals</option>
-                  <option value="petroleum_refinery" className="bg-[#0B1019] text-slate-200">Petroleum Refinery</option>
-                  <option value="textile" className="bg-[#0B1019] text-slate-200">Textile</option>
-                </optgroup>
-                <optgroup label="Watchlist Scope" className="bg-[#0B1019] text-slate-400">
-                  <option value="fertiliser" className="bg-[#0B1019] text-slate-200">Fertiliser (Watchlist)</option>
-                </optgroup>
-              </select>
-            </div>
+                {theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+              </button>
 
-            {/* Data Status Pill */}
-            <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-blue-950/60 text-blue-400 border border-blue-800/50 flex items-center space-x-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse"></span>
-              <span>{dataStatus}</span>
-            </span>
+              {/* Mobile menu toggle */}
+              <button
+                className="lg:hidden p-2 rounded-lg bg-slate-800/60 hover:bg-slate-700 text-slate-400 hover:text-white transition-all border border-white/[0.06]"
+                onClick={() => setMobileOpen(!mobileOpen)}
+                aria-label="Toggle navigation menu"
+                aria-expanded={mobileOpen}
+              >
+                {mobileOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
+              </button>
+            </div>
           </div>
         </div>
-      </div>
-    </header>
+
+        {/* Mobile nav drawer */}
+        {mobileOpen && (
+          <div className="lg:hidden border-t border-white/[0.07] bg-[#06090E] px-4 py-4">
+            <nav className="flex flex-col gap-1" role="navigation" aria-label="Mobile">
+              {navLinks.map(({ href, label, icon: Icon, badge }) => {
+                const active = pathname === href;
+                return (
+                  <Link
+                    key={href}
+                    href={href}
+                    onClick={() => setMobileOpen(false)}
+                    className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all ${
+                      active ? 'text-white bg-white/[0.08]' : 'text-slate-400 hover:text-white hover:bg-white/[0.04]'
+                    }`}
+                  >
+                    <Icon className="w-4 h-4 flex-shrink-0" />
+                    <span>{label}</span>
+                    {badge && <span className="ml-auto text-[9px] font-mono font-bold px-1.5 py-0.5 rounded bg-emerald-950 text-emerald-400 border border-emerald-800/50">{badge}</span>}
+                  </Link>
+                );
+              })}
+              {/* Accessibility controls in mobile */}
+              <div className="mt-3 pt-3 border-t border-white/[0.06] flex items-center gap-3">
+                <span className="text-xs text-slate-600">Text:</span>
+                <button onClick={() => adjustFont(-1)} className="text-xs text-slate-500 hover:text-white px-2 py-1 rounded bg-slate-800">A−</button>
+                <button onClick={resetFont} className="text-xs text-slate-500 hover:text-white px-2 py-1 rounded bg-slate-800">Reset</button>
+                <button onClick={() => adjustFont(1)} className="text-xs text-slate-500 hover:text-white px-2 py-1 rounded bg-slate-800">A+</button>
+              </div>
+            </nav>
+          </div>
+        )}
+      </header>
+    </>
   );
 }
-
