@@ -11,7 +11,7 @@ import { StrategyTraceDrawer } from '@/components/drawers/StrategyTraceDrawer';
 import { formatCurrencyCr, formatEmissions, formatGEI } from '@/lib/formatters';
 import { Sparkles, ShieldCheck, AlertTriangle, CheckCircle2, TrendingUp, TrendingDown, Target, Building2 } from 'lucide-react';
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || (process.env.NODE_ENV === 'development' ? 'http://127.0.0.1:8008' : '');
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || '';
 
 export default function IndustrialIntelligencePage() {
   const [formData, setFormData] = useState<FacilityFormData>({

@@ -7,7 +7,7 @@ import {
   MethodologyItem
 } from './types';
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || (process.env.NODE_ENV === 'development' ? 'http://127.0.0.1:8008' : '');
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || '';
 
 async function fetchJson<T>(url: string, options?: RequestInit): Promise<T> {
   const res = await fetch(`${API_BASE}${url}`, {

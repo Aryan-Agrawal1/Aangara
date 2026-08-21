@@ -76,7 +76,7 @@ export default function DecisionCockpitPage() {
       .then((data) => setDecisionData(data))
       .catch((e) => {
         console.error('Decision fetch failed:', e);
-        setDecisionError('Unable to reach CarbonAlpha backend. Check that the server is running on port 8008.');
+        setDecisionError('Backend API unavailable. Please try again in a moment.');
         setDecisionData(null);
       })
       .finally(() => setDecisionLoading(false));
