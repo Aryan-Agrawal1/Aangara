@@ -44,7 +44,7 @@ export function StrategyTraceDrawer({ isOpen, onClose, strategyName, strategy, p
                 <span>Inputs & Macro Assumptions</span>
               </h4>
               <div className="grid grid-cols-2 gap-3 text-xs text-slate-300 font-mono bg-slate-950/80 p-3 rounded-lg border border-slate-800">
-                <div>CCC Price (Assumed):</div><div className="text-sky-400 font-bold text-right">\u20B9{assumptions?.ccc_price_inr?.toLocaleString() ?? 1000}</div>
+                <div>CCC Price (Assumed):</div><div className="text-sky-400 font-bold text-right">₹{assumptions?.ccc_price_inr?.toLocaleString() ?? 1000}</div>
                 <div>WACC (Assumed):</div><div className="text-teal-400 font-bold text-right">{assumptions?.financing_rate_pct ?? 9.5}%</div>
                 <div>Proj Output (Derate):</div><div className="text-emerald-400 font-bold text-right">{assumptions?.project_output_delivery_pct ?? 100}%</div>
                 <div>Proj Delay:</div><div className="text-amber-400 font-bold text-right">{assumptions?.project_delay_months ?? 0} Mo</div>
@@ -55,7 +55,7 @@ export function StrategyTraceDrawer({ isOpen, onClose, strategyName, strategy, p
             <div className="bg-slate-900/80 rounded-xl p-4 border border-slate-800">
               <h4 className="text-sm font-bold text-white mb-2">Model Outputs (Abatement)</h4>
               <div className="grid grid-cols-2 gap-3 text-xs text-slate-300 font-mono bg-slate-950/80 p-3 rounded-lg border border-slate-800">
-                <div>Baseline Shortfall:</div><div className="text-right">{formatEmissions(project?.expected_annual_reduction_tco2e || 0)}</div>
+                <div>Baseline Shortfall:</div><div className="text-right">{formatEmissions(project?.expected_reduction_tco2e || 0)}</div>
                 <div>Internal Abated:</div><div className="text-emerald-400 font-bold text-right">{formatEmissions(strategy.internal_abatement_tco2e)}</div>
                 <div>Residual Procured:</div><div className="text-sky-400 font-bold text-right">{strategy.procured_ccc_tco2e.toLocaleString()} CCCs</div>
               </div>
