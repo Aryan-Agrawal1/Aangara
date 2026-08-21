@@ -1,1 +1,8 @@
-{`n  "rewrites": [`n    {`n      "source": "/api/:path*",`n      "destination": "/api/index.py"`n    }`n  ]`n}
+{
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "/api/index.py"
+    }
+  ]
+}
