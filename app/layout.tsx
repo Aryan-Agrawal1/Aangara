@@ -1,27 +1,32 @@
-import type { Metadata } from 'next';
-import '../styles/globals.css';
-import { JudgeModeFAB } from '@/components/navigation/JudgeModeFAB';
-import { ThemeProvider } from '@/lib/theme';
+import type { Metadata } from "next";
+import { Newsreader, Inter } from "next/font/google";
+import "../styles/globals.css";
+import { JudgeModeFAB } from "@/components/navigation/JudgeModeFAB";
+import { ThemeProvider } from "@/lib/theme";
+
+const newsreader = Newsreader({
+  subsets: ["latin"],
+  variable: "--font-display",
+  display: "swap",
+  style: ["normal", "italic"],
+  weight: ["400", "500", "600"],
+});
+const inter = Inter({ subsets: ["latin"], variable: "--font-sans", display: "swap" });
 
 export const metadata: Metadata = {
-  title: 'CarbonAlpha India - CCTS Carbon Decision Intelligence & Capital Allocation',
-  description: 'Convert Indian carbon-market complexity into deterministic capital-allocation decisions (BUY vs BUILD vs HYBRID) calibrated to BEE and CCTS rules.',
+  title: "CarbonAlpha India - CCTS Carbon Decision Intelligence",
+  description: "Institutional carbon-market decision intelligence for India CCTS compliance. BUY vs BUILD vs HYBRID strategies calibrated to BEE/MoEFCC/CERC regulations.",
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className="light" suppressHydrationWarning>
-      <body className="min-h-screen antialiased flex flex-col font-sans selection:bg-emerald-500 selection:text-white relative">
+    <html lang="en" className={`light ${newsreader.variable} ${inter.variable}`} suppressHydrationWarning>
+      <body className="bg-white text-[#10231C] min-h-screen antialiased flex flex-col font-sans selection:bg-[#0B4A3D] selection:text-white relative">
         <ThemeProvider>
-          <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 z-50 px-4 py-2 bg-emerald-600 text-white rounded-lg text-sm font-medium">Skip to main content</a>
           {children}
           <JudgeModeFAB />
-          <div className="fixed bottom-0 right-0 z-50 px-3 py-1 bg-amber-500/10 text-amber-500 border-t border-l border-amber-500/20 text-[10px] font-mono font-bold backdrop-blur-md rounded-tl-lg pointer-events-none">
-            SYNTHETIC DEMONSTRATION
+          <div className="fixed bottom-0 right-0 z-50 px-3 py-1 bg-[#FEF7E8] text-[#C98A1E] border-t border-l border-[#C98A1E]/30 text-[10px] font-mono font-bold rounded-tl-lg pointer-events-none">
+            SYNTHETIC DEMONSTRATION DATA
           </div>
         </ThemeProvider>
       </body>

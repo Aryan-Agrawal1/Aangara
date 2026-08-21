@@ -1,0 +1,7 @@
+import React from "react";
+export type BadgeVariant = "final" | "draft" | "watchlist" | "fact" | "calculation" | "model" | "scenario" | "synthetic" | "good" | "warning" | "critical" | "info";
+const S: Record<BadgeVariant, string> = { final:"bg-[#E8F5EE] text-[#1F8A5F] border-[#1F8A5F]/30", draft:"bg-[#FEF7E8] text-[#C98A1E] border-[#C98A1E]/30", watchlist:"bg-[#EBF3FB] text-[#2E6BA8] border-[#2E6BA8]/30", fact:"bg-[#EBF3FB] text-[#2E6BA8] border-[#2E6BA8]/30", calculation:"bg-[#E8F5EE] text-[#1F8A5F] border-[#1F8A5F]/30", model:"bg-purple-50 text-purple-700 border-purple-200", scenario:"bg-[#FEF7E8] text-[#C98A1E] border-[#C98A1E]/30", synthetic:"bg-[#F6F8F7] text-[#6B7A72] border-[#E4E9E6]", good:"bg-[#E8F5EE] text-[#1F8A5F] border-[#1F8A5F]/30", warning:"bg-[#FEF7E8] text-[#C98A1E] border-[#C98A1E]/30", critical:"bg-[#FDECEA] text-[#C33B2E] border-[#C33B2E]/30", info:"bg-[#EBF3FB] text-[#2E6BA8] border-[#2E6BA8]/30" };
+const L: Record<BadgeVariant, string> = { final:"FINAL", draft:"DRAFT", watchlist:"WATCHLIST", fact:"FACT", calculation:"CALC", model:"MODEL", scenario:"SCENARIO", synthetic:"SYNTHETIC", good:"GOOD", warning:"WARNING", critical:"CRITICAL", info:"INFO" };
+export function Badge({ variant, label, className = "" }: { variant: BadgeVariant; label?: string; className?: string }) {
+  return <span className={`inline-flex items-center px-2 py-0.5 rounded-full border font-mono font-bold tracking-wider text-[10px] uppercase ${S[variant]} ${className}`}>{label ?? L[variant]}</span>;
+}

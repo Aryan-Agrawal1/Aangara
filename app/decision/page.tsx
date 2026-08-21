@@ -1,5 +1,7 @@
 'use client';
 
+import { UtilityBar } from "@/components/ui/UtilityBar";
+import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import React, { useEffect } from 'react';
 import { Header } from '@/components/navigation/Header';
 import { CarbonPositionCard } from '@/components/cockpit/CarbonPositionCard';
@@ -106,7 +108,8 @@ export default function DecisionCockpitPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#070B11] flex flex-col tnum">
+    <div className="min-h-screen bg-white flex flex-col tnum">
+      <UtilityBar />
       <Header
         currentSector={currentSector}
         currentEntityId={currentEntityId}
@@ -119,11 +122,12 @@ export default function DecisionCockpitPage() {
       />
 
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <Breadcrumb items={[{ label: "Decision Twin" }]} />
         {decisionLoading ? (
           /* Loading skeleton */
           <div className="h-[60vh] flex flex-col items-center justify-center space-y-3">
-            <Loader2 className="w-8 h-8 text-emerald-400 animate-spin" />
-            <span className="text-sm font-mono text-slate-400">Loading CarbonAlpha Decision Engine...</span>
+            <Loader2 className="w-8 h-8 text-[#1F8A5F] animate-spin" />
+            <span className="text-sm font-mono text-[#4B5A54]">Loading CarbonAlpha Decision Engine...</span>
           </div>
         ) : decisionError ? (
           /* Graceful error state — backend down */
@@ -133,7 +137,7 @@ export default function DecisionCockpitPage() {
             </div>
             <div>
               <h3 className="text-base font-semibold text-rose-300 mb-1">Backend Unavailable</h3>
-              <p className="text-sm text-slate-400 max-w-md">{decisionError}</p>
+              <p className="text-sm text-[#4B5A54] max-w-md">{decisionError}</p>
             </div>
             <button
               onClick={() => {
@@ -144,7 +148,7 @@ export default function DecisionCockpitPage() {
                   .catch((e) => setDecisionError(String(e)))
                   .finally(() => setDecisionLoading(false));
               }}
-              className="flex items-center space-x-2 px-4 py-2 bg-slate-800 hover:bg-slate-700 rounded-lg text-sm text-slate-300 transition-colors"
+              className="flex items-center space-x-2 px-4 py-2 bg-white border border-[#E4E9E6] hover:bg-slate-700 rounded-lg text-sm text-[#4B5A54] transition-colors"
             >
               <RefreshCw className="w-4 h-4" />
               <span>Retry</span>
@@ -192,14 +196,14 @@ export default function DecisionCockpitPage() {
             {/* Bottom CTA for Dead End Test */}
             <div className="mt-8 flex flex-col sm:flex-row items-center justify-between bg-emerald-950/30 border border-emerald-900/50 rounded-xl p-6">
               <div className="text-center sm:text-left mb-4 sm:mb-0">
-                <h3 className="text-lg font-bold text-white mb-1">Ready to Finalize Strategy?</h3>
-                <p className="text-sm text-slate-300">Export the boardroom-ready report or proceed to implementation tracking.</p>
+                <h3 className="text-lg font-bold text-[#10231C] mb-1">Ready to Finalize Strategy?</h3>
+                <p className="text-sm text-[#4B5A54]">Export the boardroom-ready report or proceed to implementation tracking.</p>
               </div>
               <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
                 <button 
                   type="button"
                   aria-label="Save current scenario"
-                  className="px-5 py-2.5 rounded-lg text-sm font-semibold bg-slate-800 hover:bg-slate-700 text-white transition-colors border border-slate-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 focus:ring-offset-[#070B11]"
+                  className="px-5 py-2.5 rounded-lg text-sm font-semibold bg-white border border-[#E4E9E6] hover:bg-slate-700 text-[#10231C] transition-colors border border-[#E4E9E6] focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 focus:ring-offset-[#070B11]"
                 >
                   Save Scenario
                 </button>
@@ -224,21 +228,21 @@ export default function DecisionCockpitPage() {
                     setTimeout(() => { document.head.removeChild(printStyles); }, 1000);
                   }}
                   aria-label="Export for ACVA Verification"
-                  className="px-5 py-2.5 rounded-lg text-sm font-bold bg-amber-600 hover:bg-amber-500 text-white transition-colors shadow-lg shadow-amber-900/20 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 focus:ring-offset-[#070B11]"
+                  className="px-5 py-2.5 rounded-lg text-sm font-bold bg-amber-600 hover:bg-amber-500 text-[#10231C] transition-colors shadow-lg shadow-amber-900/20 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 focus:ring-offset-[#070B11]"
                 >
                   Export for ACVA Verification
                 </button>
                 <button 
                   type="button"
                   aria-label="Export board report"
-                  className="px-5 py-2.5 rounded-lg text-sm font-bold bg-emerald-600 hover:bg-emerald-500 text-white transition-colors shadow-lg shadow-emerald-900/20 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 focus:ring-offset-[#070B11]"
+                  className="px-5 py-2.5 rounded-lg text-sm font-bold bg-[#0B4A3D] hover:bg-[#0B4A3D] text-[#10231C] transition-colors shadow-lg shadow-emerald-900/20 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 focus:ring-offset-[#070B11]"
                 >
                   Export Board Report
                 </button>
               </div>
             </div>
 
-            <div className="mt-4 p-4 bg-slate-900/60 rounded-xl border border-white/[0.06]">
+            <div className="mt-4 p-4 bg-[#F6F8F7] rounded-xl border border-[#E4E9E6]">
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 {[
                   { label: 'WHAT', text: 'Comparative cost and abatement across three capital strategies' },
@@ -247,8 +251,8 @@ export default function DecisionCockpitPage() {
                   { label: 'WHAT NEXT', text: 'Adjust stress scenarios to test robustness of this recommendation' }
                 ].map(({ label, text }) => (
                   <div key={label}>
-                    <div className="text-[9px] font-mono font-bold text-slate-500 mb-1">{label}</div>
-                    <div className="text-xs text-slate-300">{text}</div>
+                    <div className="text-[9px] font-mono font-bold text-[#6B7A72] mb-1">{label}</div>
+                    <div className="text-xs text-[#4B5A54]">{text}</div>
                   </div>
                 ))}
               </div>
