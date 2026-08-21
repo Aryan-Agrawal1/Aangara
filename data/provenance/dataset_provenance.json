@@ -1,0 +1,109 @@
+{
+  "version": "PROV-2026-08-v2",
+  "updated_at": "2026-08-21",
+  "schema": {
+    "dataset_id": "Unique identifier for this dataset",
+    "name": "Human-readable dataset name",
+    "source_url": "URL of originating source or null if programmatically generated",
+    "retrieved_at": "ISO 8601 date when source was retrieved (null for synthetic)",
+    "license_note": "License or access conditions",
+    "real_or_synthetic": "One of: REAL_OFFICIAL, REAL_CORPORATE_DISCLOSURE, SYNTHETIC, VALIDATION_HOLDOUT, CURATED_BENCHMARK",
+    "calibration_basis": "Description of real data used to calibrate synthetic distributions, if any",
+    "row_count": "Number of records in the dataset",
+    "generator_version": "For synthetic datasets, the script version used",
+    "artifacts": "Multi-format file paths generated for this dataset",
+    "status": "Lifecycle status tag"
+  },
+  "datasets": [
+    {
+      "dataset_id": "SYNTH-2026-08-v2",
+      "name": "Industrial Training Set v2 (Calibrated Physics & Engineering)",
+      "source_url": null,
+      "retrieved_at": "2026-08-21",
+      "license_note": "Generated programmatically \u2014 no external license. CarbonAlpha internal calibrated data.",
+      "real_or_synthetic": "SYNTHETIC",
+      "calibration_basis": "GEI values derived from deterministic carbon engine equations (carbon.py) with genuine log-normal variance. Distributions bounded by BEE PAT, CEA grid EF (0.716 tCO2e/MWh), and BRSR disclosures.",
+      "row_count": 2500,
+      "generator_version": "scripts/generate_synthetic_data.py v2",
+      "artifacts": {
+        "json": "data/training/industrial_training_set.json",
+        "csv": "data/training/industrial_training_set.csv",
+        "parquet": "data/training/industrial_training_set.parquet"
+      },
+      "status": "ACTIVE"
+    },
+    {
+      "dataset_id": "HOLDOUT-2026-08-v2",
+      "name": "Validation Holdout Set v2 (Facility-Level Split Isolated)",
+      "source_url": null,
+      "retrieved_at": "2026-08-21",
+      "license_note": "Generated programmatically. CarbonAlpha internal validation holdout partition.",
+      "real_or_synthetic": "VALIDATION_HOLDOUT",
+      "calibration_basis": "Strict facility-level split enforced (zero facility overlap with training partition).",
+      "row_count": 500,
+      "generator_version": "scripts/generate_synthetic_data.py v2",
+      "artifacts": {
+        "json": "data/validation_holdout/holdout_set.json",
+        "csv": "data/validation_holdout/holdout_set.csv",
+        "parquet": "data/validation_holdout/holdout_set.parquet"
+      },
+      "status": "ACTIVE"
+    },
+    {
+      "dataset_id": "REG-TRUTH-2026-08",
+      "name": "Regulatory Truth \u2014 CCTS Sector Status & Statutory Targets",
+      "source_url": "https://moef.gov.in/en/notifications/",
+      "retrieved_at": "2026-08-21",
+      "license_note": "Government of India public regulatory notifications. Free to reference with attribution.",
+      "real_or_synthetic": "REAL_OFFICIAL",
+      "calibration_basis": "N/A \u2014 primary source statutory Gazette notifications G.S.R. 25(E), G.S.R. 517(E) draft, S.O. 2825(E).",
+      "row_count": 9,
+      "generator_version": "scripts/build_data_assets.py",
+      "artifacts": {
+        "json": "data/regulatory_truth/regulatory_status.json",
+        "cleaned_status_csv": "data/cleaned/regulatory_status.csv",
+        "cleaned_targets_csv": "data/cleaned/regulatory_targets.csv",
+        "cleaned_sources_csv": "data/cleaned/source_register.csv",
+        "cleaned_methodologies_csv": "data/cleaned/methodologies.csv",
+        "cleaned_emission_factors_csv": "data/cleaned/emission_factors.csv"
+      },
+      "status": "ACTIVE",
+      "next_review_due": "2026-09-15"
+    },
+    {
+      "dataset_id": "CURATED-BAT-2026-08",
+      "name": "Best Available Technology (BAT) Sector & Decarbonisation Benchmarks",
+      "source_url": "https://beeindia.gov.in",
+      "retrieved_at": "2026-08-21",
+      "license_note": "Curated from official BEE PAT cycles and public corporate BRSR sustainability filings.",
+      "real_or_synthetic": "CURATED_BENCHMARK",
+      "calibration_basis": "BEE PAT Cycle 1-6 Best Available Technology Compendia and CMA cement reports.",
+      "row_count": 19,
+      "generator_version": "scripts/build_data_assets.py",
+      "artifacts": {
+        "sector_benchmarks_csv": "data/curated/bat_sector_benchmarks.csv",
+        "sector_benchmarks_parquet": "data/curated/bat_sector_benchmarks.parquet",
+        "technologies_csv": "data/curated/bat_decarbonisation_technologies.csv",
+        "technologies_parquet": "data/curated/bat_decarbonisation_technologies.parquet"
+      },
+      "status": "ACTIVE",
+      "next_review_due": "2026-10-01"
+    },
+    {
+      "dataset_id": "EXPORTS-WORKBOOKS-2026-08",
+      "name": "CarbonAlpha Master Audit Workbooks & Data Dictionaries",
+      "source_url": "Internal System Exports",
+      "retrieved_at": "2026-08-21",
+      "license_note": "CarbonAlpha Comprehensive Data Governance Exports",
+      "real_or_synthetic": "GOVERNANCE_AUDIT",
+      "calibration_basis": "Compiled from unified data dictionaries, central unit registries, and Gazette registers.",
+      "row_count": 28,
+      "generator_version": "scripts/build_data_assets.py",
+      "artifacts": {
+        "data_dictionary_xlsx": "data/exports/carbonalpha_data_dictionary.xlsx",
+        "dataset_catalog_xlsx": "data/exports/carbonalpha_dataset_catalog.xlsx"
+      },
+      "status": "ACTIVE"
+    }
+  ]
+}

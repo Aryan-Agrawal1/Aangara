@@ -1,0 +1,7 @@
+Component,Issue Type,Severity,Description,Status
+FacilityInputForm,Mobile Layout,High,Wizard steps overflow on 390px screens due to grid-cols-2,Fixed
+FacilityInputForm,Mobile Layout,Medium,Presets flex container justification causes awkward wrap,Fixed
+Decision Page,UX Flow,High,Dead end after analysis; missing next steps,Fixed
+Decision Page,Accessibility,High,Missing focus states and ARIA labels on actions,Fixed
+Global,Accessibility,Medium,slate-500 text contrast ratio is too low for dark theme,Identified
+PeerBenchmarkCard,Mobile Layout,Low,Chart labels overlap on narrow screens,Identified

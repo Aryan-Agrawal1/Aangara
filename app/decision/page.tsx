@@ -1,0 +1,260 @@
+'use client';
+
+import React, { useEffect } from 'react';
+import { Header } from '@/components/navigation/Header';
+import { CarbonPositionCard } from '@/components/cockpit/CarbonPositionCard';
+import { MRVReadinessCard } from '@/components/cockpit/MRVReadinessCard';
+import { DecisionTwinHero } from '@/components/cockpit/DecisionTwinHero';
+import { ScenarioSliders } from '@/components/cockpit/ScenarioSliders';
+import { ExplainabilityCard } from '@/components/cockpit/ExplainabilityCard';
+import { SourceTraceDrawer } from '@/components/drawers/SourceTraceDrawer';
+import { StrategyTraceDrawer } from '@/components/drawers/StrategyTraceDrawer';
+import { getSectors, getEntities, getDecisionTwin, runScenarioSimulation } from '@/lib/api';
+import { ScenarioParams } from '@/lib/types';
+import { useAppStore } from '@/lib/store';
+import { Loader2, AlertTriangle, RefreshCw } from 'lucide-react';
+
+export default function DecisionCockpitPage() {
+  const {
+    currentSector, currentEntityId, reportingYear,
+    sectors, entities, decisionData, scenarioParams,
+    decisionLoading, decisionError,
+    setSector, setEntityId, setReportingYear,
+    setSectors, setEntities, setDecisionData, setScenarioParams,
+    setDecisionLoading, setDecisionError, resetScenarioParams
+  } = useAppStore();
+
+  const [isSourceDrawerOpen, setIsSourceDrawerOpen] = React.useState(false);
+  const [isStrategyDrawerOpen, setIsStrategyDrawerOpen] = React.useState(false);
+  const [activeStrategyName, setActiveStrategyName] = React.useState('BUY');
+
+  // Load initial sectors & entities (once, unless sector changes)
+  useEffect(() => {
+    async function init() {
+      try {
+        const [secs, ents] = await Promise.all([getSectors(), getEntities(currentSector)]);
+        setSectors(secs);
+        setEntities(ents);
+        if (ents.length > 0 && !currentEntityId) {
+          setEntityId(ents[0].entity_id);
+        }
+      } catch (e) {
+        console.error('Failed to load initial data:', e);
+      }
+    }
+    init();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Handle sector change
+  const handleSectorChange = async (newSector: string) => {
+    setSector(newSector);
+    try {
+      const ents = await getEntities(newSector);
+      setEntities(ents);
+      if (ents.length > 0) setEntityId(ents[0].entity_id);
+    } catch (e) {
+      console.error('Failed to load entities for sector:', e);
+    }
+  };
+
+  // Load decision data when entity or year changes
+  useEffect(() => {
+    if (!currentEntityId) return;
+
+    if (
+      decisionData &&
+      decisionData.entity_id === currentEntityId &&
+      decisionData.reporting_year === reportingYear
+    ) {
+      return;
+    }
+
+    setDecisionLoading(true);
+    setDecisionError(null);
+    getDecisionTwin(currentEntityId, reportingYear)
+      .then((data) => setDecisionData(data))
+      .catch((e) => {
+        console.error('Decision fetch failed:', e);
+        setDecisionError('Unable to reach CarbonAlpha backend. Check that the server is running on port 8008.');
+        setDecisionData(null);
+      })
+      .finally(() => setDecisionLoading(false));
+  }, [currentEntityId, reportingYear]);
+
+  // Scenario slider changes — live recalculate
+  const handleScenarioChange = async (newParams: ScenarioParams) => {
+    setScenarioParams(newParams);
+    if (!currentEntityId || !decisionData) return;
+    try {
+      const simResult = await runScenarioSimulation(currentEntityId, reportingYear, newParams);
+      setDecisionData({
+        ...decisionData,
+        strategies: simResult.strategies,
+        recommended_strategy: simResult.winner_strategy,
+        recommendation_reason: simResult.winner_summary,
+        assumptions_applied: {
+          ccc_price_inr: newParams.ccc_price_inr,
+          project_output_delivery_pct: newParams.project_output_pct,
+          project_delay_months: newParams.project_delay_months,
+          financing_rate_pct: newParams.financing_rate_pct
+        }
+      });
+    } catch (e) {
+      console.error('Scenario simulation failed:', e);
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-[#070B11] flex flex-col tnum">
+      <Header
+        currentSector={currentSector}
+        currentEntityId={currentEntityId}
+        reportingYear={reportingYear}
+        onSectorChange={handleSectorChange}
+        onEntityChange={setEntityId}
+        onYearChange={setReportingYear}
+        sectorsList={sectors}
+        entitiesList={entities}
+      />
+
+      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        {decisionLoading ? (
+          /* Loading skeleton */
+          <div className="h-[60vh] flex flex-col items-center justify-center space-y-3">
+            <Loader2 className="w-8 h-8 text-emerald-400 animate-spin" />
+            <span className="text-sm font-mono text-slate-400">Loading CarbonAlpha Decision Engine...</span>
+          </div>
+        ) : decisionError ? (
+          /* Graceful error state — backend down */
+          <div className="h-[60vh] flex flex-col items-center justify-center space-y-4 text-center">
+            <div className="p-4 rounded-full bg-rose-950/40 border border-rose-800/50">
+              <AlertTriangle className="w-8 h-8 text-rose-400" />
+            </div>
+            <div>
+              <h3 className="text-base font-semibold text-rose-300 mb-1">Backend Unavailable</h3>
+              <p className="text-sm text-slate-400 max-w-md">{decisionError}</p>
+            </div>
+            <button
+              onClick={() => {
+                setDecisionError(null);
+                setDecisionLoading(true);
+                getDecisionTwin(currentEntityId, reportingYear)
+                  .then(setDecisionData)
+                  .catch((e) => setDecisionError(String(e)))
+                  .finally(() => setDecisionLoading(false));
+              }}
+              className="flex items-center space-x-2 px-4 py-2 bg-slate-800 hover:bg-slate-700 rounded-lg text-sm text-slate-300 transition-colors"
+            >
+              <RefreshCw className="w-4 h-4" />
+              <span>Retry</span>
+            </button>
+          </div>
+        ) : !decisionData ? null : (
+          <div>
+            {/* Top Grid: Carbon Position & MRV Readiness */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
+              <div className="lg:col-span-2">
+                <CarbonPositionCard
+                  position={decisionData.baseline_position}
+                  onOpenSourceTrace={() => setIsSourceDrawerOpen(true)}
+                />
+              </div>
+              <div>
+                <MRVReadinessCard mrv={decisionData.mrv_readiness} />
+              </div>
+            </div>
+
+            {/* Decision Twin with recharts */}
+            <DecisionTwinHero
+              strategies={decisionData.strategies}
+              recommendedStrategy={decisionData.recommended_strategy}
+              project={decisionData.project_profile}
+              onOpenCalculationTrace={(stratKey) => {
+                setActiveStrategyName(stratKey);
+                setIsStrategyDrawerOpen(true);
+              }}
+            />
+
+            {/* Scenario Sliders */}
+            <ScenarioSliders
+              params={scenarioParams}
+              onChange={handleScenarioChange}
+              onReset={resetScenarioParams}
+            />
+
+            {/* Explainability */}
+            <ExplainabilityCard
+              decisionData={decisionData}
+              onOpenSourceTrace={() => setIsSourceDrawerOpen(true)}
+            />
+
+            {/* Bottom CTA for Dead End Test */}
+            <div className="mt-8 flex flex-col sm:flex-row items-center justify-between bg-emerald-950/30 border border-emerald-900/50 rounded-xl p-6">
+              <div className="text-center sm:text-left mb-4 sm:mb-0">
+                <h3 className="text-lg font-bold text-white mb-1">Ready to Finalize Strategy?</h3>
+                <p className="text-sm text-slate-300">Export the boardroom-ready report or proceed to implementation tracking.</p>
+              </div>
+              <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
+                <button 
+                  type="button"
+                  aria-label="Save current scenario"
+                  className="px-5 py-2.5 rounded-lg text-sm font-semibold bg-slate-800 hover:bg-slate-700 text-white transition-colors border border-slate-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 focus:ring-offset-[#070B11]"
+                >
+                  Save Scenario
+                </button>
+                <button 
+                  type="button"
+                  onClick={() => {
+                    const printStyles = document.createElement('style');
+                    printStyles.innerHTML = `
+                      @media print {
+                        body::before {
+                          content: 'Prepared for verification review - ACVA';
+                          display: block;
+                          text-align: center;
+                          font-weight: bold;
+                          font-size: 14pt;
+                          margin-bottom: 20px;
+                        }
+                      }
+                    `;
+                    document.head.appendChild(printStyles);
+                    window.print();
+                    setTimeout(() => { document.head.removeChild(printStyles); }, 1000);
+                  }}
+                  aria-label="Export for ACVA Verification"
+                  className="px-5 py-2.5 rounded-lg text-sm font-bold bg-amber-600 hover:bg-amber-500 text-white transition-colors shadow-lg shadow-amber-900/20 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 focus:ring-offset-[#070B11]"
+                >
+                  Export for ACVA Verification
+                </button>
+                <button 
+                  type="button"
+                  aria-label="Export board report"
+                  className="px-5 py-2.5 rounded-lg text-sm font-bold bg-emerald-600 hover:bg-emerald-500 text-white transition-colors shadow-lg shadow-emerald-900/20 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 focus:ring-offset-[#070B11]"
+                >
+                  Export Board Report
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+      </main>
+
+      <SourceTraceDrawer
+        isOpen={isSourceDrawerOpen}
+        onClose={() => setIsSourceDrawerOpen(false)}
+        position={decisionData?.baseline_position}
+        sectorName={decisionData?.sector}
+      />
+      <StrategyTraceDrawer
+        isOpen={isStrategyDrawerOpen}
+        onClose={() => setIsStrategyDrawerOpen(false)}
+        strategyName={activeStrategyName}
+        strategy={decisionData?.strategies?.[activeStrategyName]}
+        project={decisionData?.project_profile}
+        assumptions={decisionData?.assumptions_applied}
+      />
+    </div>
+  );
+}

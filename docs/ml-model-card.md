@@ -1,30 +1,113 @@
-# CarbonAlpha ML Model Cards
+# CarbonAlpha — ML Model Cards
+
+> **Updated:** 2026-08-21 | All models trained on SYNTH-2026-08-v2 (calibrated synthetic data)
 
 ---
 
-## Model 1: `CA-GEI-BENCHMARK-V1` (Industrial GEI Peer Benchmark)
-* **Model Type**: Supervised Non-linear Regressor (`HistGradientBoostingRegressor`)
-* **Purpose**: Estimates expected peer Greenhouse Gas Emission Intensity (GEI) and evaluates facility percentile ranking ($0 - 100	ext{th}$) against comparable industrial facilities.
-* **Training Dataset**: `data/synthetic_training_data/industrial_training_set.json` ($n = 1,840$ calibrated records across 8 sectors).
-* **Holdout Validation Dataset**: `data/validation_holdout/holdout_set.json` ($n = 200$ independent records).
-* **Features**:
-  - `sector_enc`: Encoded industrial sector (Aluminium, Cement, Iron & Steel, etc.)
-  - `annual_production`: Annual finished production in tonnes
-  - `electricity_intensity_kwh`: Specific electrical consumption ($	ext{kWh/t}$)
-  - `renewable_electricity_pct`: Percentage share of renewable power ($0 - 100\%$)
-  - `thermal_fuel_tonnes`: Annual thermal fuel consumption
-* **Target Label**: `actual_gei` ($	ext{tCO}_2	ext{e/unit}$).
-* **Target Leakage Safeguard**: `target_gei` is strictly excluded from feature inputs.
-* **Validation Performance**:
-  - **MAE**: $0.1828	ext{ tCO}_2	ext{e/t}$
-  - **RMSE**: $0.3190	ext{ tCO}_2	ext{e/t}$
-  - **$R^2$**: $0.9949$
+## CA-GEI-BENCHMARK-V2
+
+| Field | Value |
+|-------|-------|
+| **Model ID** | CA-GEI-BENCHMARK-V2 |
+| **Algorithm** | HistGradientBoostingRegressor |
+| **Confidence Tier** | CALIBRATED |
+| **Training set** | SYNTH-2026-08-v2 (1,600 records, facility-level split) |
+| **Holdout set** | HOLDOUT-2026-08-v2 (320 records, 0% leakage verified) |
+| **Features** | sector_enc, annual_production, electricity_intensity_kwh, renewable_electricity_pct, thermal_fuel_gj |
+| **Target** | actual_gei (tCO2e/t output) |
+
+### Metrics vs Naive Baseline
+
+| Metric | CA-GEI-BENCHMARK-V2 | Sector-Median Baseline |
+|--------|--------------------|-----------------------|
+| MAE | 0.1430 | 0.4653 |
+| RMSE | 0.2322 | — |
+| R² | 0.9953 | 0.9558 |
+| **Lift** | **3.25x better MAE** | baseline |
+
+> **⚠ Note on R²:** R²=0.9953 is still high. This reflects that even with genuine noise (log-normal σ per parameter), the synthetic training data is generated from a deterministic GEI formula, so the model still captures most variance. This is a known limitation of synthetic-data training. **Do not present this R² as a proxy for real-world predictive accuracy.**
+
+### Known Limitations
+- Trained on 100% synthetic data calibrated against sector-level real ranges (BEE/ASI/CEA/BRSR aggregates) — not individual facility disclosures
+- Genuine noise/variance added (log-normal σ), but some circularity remains vs. the underlying equation
+- Treat predictions as CALIBRATED illustrative peer benchmarks only
+- Upgrade to VALIDATED once retrained on real facility operating data
+
+### Hyperparameters
+```
+max_iter=300, max_depth=5, learning_rate=0.05
+min_samples_leaf=20, l2_regularization=1.0, random_state=2026
+```
 
 ---
 
-## Model 2: `CA-ANOMALY-ISO-V1` (Operational Anomaly Detector)
-* **Model Type**: Unsupervised Multivariate Anomaly Detector (`IsolationForest`)
-* **Purpose**: Identifies multi-dimensional thermodynamic or operational outliers that deviate from physical and empirical plant profiles.
-* **Contamination Rate**: $0.05$ ($5\%$).
-* **Features Evaluated**: Specific electrical intensity ($	ext{kWh/t}$), renewable share ($\%$) and calculated GHG emission intensity ($	ext{tCO}_2	ext{e/t}$).
-* **Output Classification**: `NORMAL`, `REVIEW`, `ANOMALY`.
+## CA-ENERGY-BENCHMARK-V1
+
+| Field | Value |
+|-------|-------|
+| **Model ID** | CA-ENERGY-BENCHMARK-V1 |
+| **Algorithm** | HistGradientBoostingRegressor |
+| **Confidence Tier** | CALIBRATED |
+| **Training set** | SYNTH-2026-08-v2 (1,600 records) |
+| **Target** | electricity_intensity_kwh_t (kWh per tonne output) |
+
+### Metrics
+
+| Metric | Value | Naive Baseline |
+|--------|-------|----------------|
+| MAE | 38.27 kWh/t | 562.33 kWh/t |
+| RMSE | 74.76 kWh/t | — |
+| R² | 0.9998 | — |
+| Lift | **14.69x better MAE** | |
+
+> **⚠ Note:** R²=0.9998 reflects that electricity intensity is the most equation-determined feature in the training set. New model — treat as CALIBRATED illustrative only.
+
+### Known Limitations
+Same as CA-GEI-BENCHMARK-V2. New model; no historical baseline comparator.
+
+---
+
+## CA-ANOMALY-ISO-V2
+
+| Field | Value |
+|-------|-------|
+| **Model ID** | CA-ANOMALY-ISO-V2 |
+| **Algorithm** | IsolationForest |
+| **Confidence Tier** | CALIBRATED |
+| **Contamination** | 0.05 (5% expected outlier rate) |
+| **n_estimators** | 200 |
+| **Features** | electricity_intensity_kwh, renewable_electricity_pct, thermal_fuel_gj, actual_gei |
+| **Training set** | SYNTH-2026-08-v2 (1,600 records) |
+
+### Interpretation
+- Score = -1 → anomaly flag (≈5% of inputs at expected contamination)
+- Score = +1 → normal operating range
+- Anomaly flags trigger reason-code generation from deterministic feature-delta analysis
+- **Advisory only** — not a formal compliance finding
+
+### Known Limitations
+- Trained entirely on synthetic data; real facility edge cases may not be represented
+- Threshold (contamination=0.05) is a calibration choice, not an empirical estimate
+- No precision/recall metrics available without labelled real anomalies
+
+---
+
+## DEPRECATED MODELS (Superseded)
+
+| Model ID | Status | Reason |
+|----------|--------|--------|
+| CA-GEI-BENCHMARK-V1 | DEPRECATED | Replaced by V2; trained on v1 data with insufficient noise |
+| CA-ANOMALY-ISO-V1 | DEPRECATED | Replaced by V2; retrained on calibrated data |
+
+---
+
+## Training Data Provenance
+
+All V2 models use **SYNTH-2026-08-v2**, generated by `scripts/generate_synthetic_data.py v2`.
+
+Real calibration sources (for distribution bounds, not training data):
+- **BEE Detailed Compliance Procedure v1.0** (Jul 2024) — emission factor formulas
+- **CEA Grid Emission Factor FY2023-24** — 0.716 tCO2e/MWh national average
+- **MoEFCC G.S.R. 25(E)** (Jan 2026) — sector GEI target ranges (cement, aluminium, etc.)
+- **ASI energy intensity aggregates** — sector-level production/energy bounds
+- **BRSR Core disclosures** — large obligated entities (Hindalco, Vedanta, IOCL, etc.)

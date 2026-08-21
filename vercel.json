@@ -1,0 +1,1 @@
+{`n  "version": 2,`n  "builds": [`n    { "src": "backend/app/main.py", "use": "@vercel/python" },`n    { "src": "frontend/package.json", "use": "@vercel/next" }`n  ],`n  "rewrites": [`n    { "source": "/api/(.*)", "destination": "/backend/app/main.py" },`n    { "source": "/(.*)", "destination": "/frontend/$1" }`n  ]`n}

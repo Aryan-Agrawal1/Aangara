@@ -1,0 +1,10 @@
+target_id,sector,sub_sector,major_product,output_unit,baseline_year,baseline_gei_default,target_gei_2025_26,target_gei_2026_27,gei_unit,status,source_id,source_url
+TGT-CEM-001,cement,Integrated Cement Plant (OPC/PPC),Ordinary Portland Cement / Portland Pozzolana Cement,tonnes,2023-24,0.738,0.72,0.702,tCO2e/t cement,FINAL,REG-MOEFCC-2025-GEI,https://egazette.gov.in/WriteReadData/2026/269375.pdf
+TGT-ALU-001,aluminium,Aluminium Smelting,Primary Aluminium Ingot,tonnes,2023-24,14.85,14.48,14.11,tCO2e/t aluminium,FINAL,REG-MOEFCC-2025-GEI,https://egazette.gov.in/WriteReadData/2026/269375.pdf
+TGT-CLA-001,chlor_alkali,Membrane Cell Caustic Soda,Caustic Soda (100% NaOH Equivalent),tonnes,2023-24,1.82,1.775,1.73,tCO2e/t caustic soda,FINAL,REG-MOEFCC-2025-GEI,https://egazette.gov.in/WriteReadData/2026/269375.pdf
+TGT-PUL-001,pulp_paper,Wood-based Integrated Pulp & Paper,Writing & Printing Paper,tonnes,2023-24,1.95,1.9,1.85,tCO2e/t paper,FINAL,REG-MOEFCC-2025-GEI,https://egazette.gov.in/WriteReadData/2026/269375.pdf
+TGT-PET-001,petrochemicals,Naphtha / Gas Cracker,Ethylene / Polymer Resins,tonnes,2023-24,1.25,1.22,1.19,tCO2e/t polymer,FINAL,REG-MOEFCC-2025-GEI,https://egazette.gov.in/WriteReadData/2026/269375.pdf
+TGT-REF-001,petroleum_refinery,Complex Coastal / Inland Refinery,Composite Refined Petroleum (MBN Basis),tonnes,2023-24,0.285,0.278,0.271,tCO2e/t crude throughput,FINAL,REG-MOEFCC-2025-GEI,https://egazette.gov.in/WriteReadData/2026/269375.pdf
+TGT-TEX-001,textile,Composite Fabric Mill,Finished Dyed Woven / Knitted Fabric,tonnes,2023-24,4.65,4.53,4.41,tCO2e/t fabric,FINAL,REG-MOEFCC-2025-GEI,https://egazette.gov.in/WriteReadData/2026/269375.pdf
+TGT-STE-001,iron_steel,Integrated BF-BOF Steel Plant,Crude Steel (BF-BOF Route),tonnes,2023-24,2.38,2.32,2.26,tCO2e/t crude steel,FINAL,REG-MOEFCC-2025-STEEL-GEI,https://egazette.gov.in/WriteReadData/2026/269375.pdf
+TGT-FER-001,fertiliser,Natural Gas Ammonia-Urea Complex,Prilled Urea,tonnes,2023-24,0.62,0.605,0.59,tCO2e/t urea,WATCHLIST,REG-DOF-2025-TRANSITION,https://fert.gov.in/

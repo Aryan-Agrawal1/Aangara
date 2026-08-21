@@ -1,0 +1,620 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: judge-flow.spec.ts >> Judge 90-second flow
+- Location: e2e\judge-flow.spec.ts:3:5
+
+# Error details
+
+```
+Test timeout of 30000ms exceeded.
+```
+
+```
+Error: page.click: Test timeout of 30000ms exceeded.
+Call log:
+  - waiting for locator('text=Run Personalized Decision Intelligence')
+
+```
+
+# Page snapshot
+
+```yaml
+- generic [ref=e1]:
+  - alert [ref=e2]
+  - generic [ref=e3]:
+    - banner [ref=e4]:
+      - generic [ref=e6]:
+        - link "C α CarbonAlpha INDIA CCTS Decision Intelligence & Capital Allocation" [ref=e7] [cursor=pointer]:
+          - /url: /
+          - generic [ref=e10]:
+            - generic [ref=e11]: C
+            - generic [ref=e12]: α
+          - generic [ref=e13]:
+            - generic [ref=e14]:
+              - generic [ref=e15]: CarbonAlpha
+              - generic [ref=e16]: INDIA CCTS
+            - paragraph [ref=e17]: Decision Intelligence & Capital Allocation
+        - navigation [ref=e18]:
+          - link "Industrial Intelligence ENTER DATA" [ref=e19] [cursor=pointer]:
+            - /url: /industrial-intelligence
+            - generic [ref=e23]: Industrial Intelligence
+            - generic [ref=e24]: ENTER DATA
+          - link "Decision Twin" [ref=e25] [cursor=pointer]:
+            - /url: /decision
+          - link "Sector Portfolio" [ref=e31] [cursor=pointer]:
+            - /url: /overview
+          - link "Operational Input" [ref=e37] [cursor=pointer]:
+            - /url: /entity
+          - link "Stress Scenarios" [ref=e41] [cursor=pointer]:
+            - /url: /scenarios
+          - link "Regulatory Register" [ref=e44] [cursor=pointer]:
+            - /url: /sources
+        - generic [ref=e49]:
+          - generic [ref=e50]:
+            - generic [ref=e51]: "Sector:"
+            - combobox [ref=e52] [cursor=pointer]:
+              - option "Cement (Core Demo)" [selected]
+              - option "Iron & Steel (Draft G.S.R. 517(E))"
+              - option "Aluminium"
+              - option "Chlor-Alkali"
+              - option "Pulp & Paper"
+              - option "Petrochemicals"
+              - option "Petroleum Refinery"
+              - option "Textile"
+              - option "Fertiliser (Watchlist)"
+          - generic [ref=e53]: SYNTHETIC
+    - main [ref=e56]:
+      - generic [ref=e58]:
+        - generic [ref=e59]:
+          - heading "CarbonAlpha Industrial Intelligence(TM)" [level=1] [ref=e60]
+          - generic [ref=e61]: PERSONALIZED DECISION ENGINE
+        - paragraph [ref=e62]: Enter plant-specific production and fuel parameters to receive bespoke carbon accounting, ML peer benchmarks, decarbonisation plans, and capital allocation strategies.
+      - generic [ref=e63]:
+        - generic [ref=e64]:
+          - generic [ref=e72]:
+            - generic [ref=e73]:
+              - heading "Facility Data Entry & Intelligence Studio" [level=3] [ref=e74]
+              - generic [ref=e75]: 8-SECTOR READY
+            - paragraph [ref=e76]: Guided onboarding wizard for plant-specific GHG accounting, statutory GEI targets & abatement modeling
+          - generic [ref=e77]:
+            - generic [ref=e78]: "1-Click Demos:"
+            - button "Cement" [ref=e82] [cursor=pointer]
+            - button "Steel (Draft)" [active] [ref=e83] [cursor=pointer]
+            - button "Aluminium" [ref=e84] [cursor=pointer]
+            - button "Chlor-Alkali" [ref=e85] [cursor=pointer]
+            - button "Paper" [ref=e86] [cursor=pointer]
+            - button "Refinery" [ref=e87] [cursor=pointer]
+            - button "Petrochem" [ref=e88] [cursor=pointer]
+            - button "Textile" [ref=e89] [cursor=pointer]
+        - generic [ref=e90]:
+          - button "1 Active 1. Facility Profile Entity, Sector & Scale" [ref=e91] [cursor=pointer]:
+            - generic [ref=e93]:
+              - generic [ref=e94]: "1"
+              - generic [ref=e100]: Active
+            - generic [ref=e101]: 1. Facility Profile
+            - generic [ref=e102]: Entity, Sector & Scale
+          - button "2 2. Energy & Fuel Streams Power & Thermal Activity" [ref=e103] [cursor=pointer]:
+            - generic [ref=e104]: "2"
+            - generic [ref=e109]: 2. Energy & Fuel Streams
+            - generic [ref=e110]: Power & Thermal Activity
+          - button "3 3. Sector Specific Process Data Process Parameters & Target" [ref=e111] [cursor=pointer]:
+            - generic [ref=e112]: "3"
+            - generic [ref=e118]: 3. Sector Specific Process Data
+            - generic [ref=e119]: Process Parameters & Target
+          - button "4 4. Data Quality Audit & Confirmation Pre-Flight Integrity & Run" [ref=e120] [cursor=pointer]:
+            - generic [ref=e121]: "4"
+            - generic [ref=e128]: 4. Data Quality Audit & Confirmation
+            - generic [ref=e129]: Pre-Flight Integrity & Run
+        - generic [ref=e131]:
+          - generic [ref=e132]:
+            - generic [ref=e133]:
+              - generic [ref=e134]: "Step 1: Facility Profile, Jurisdiction & Baseline Scale"
+              - generic [ref=e140]: 1 / 4
+            - generic [ref=e141]:
+              - generic [ref=e142]:
+                - generic [ref=e143]: Facility Name / Entity Identifier
+                - generic [ref=e148]: Mandatory Identifier
+              - textbox "e.g. Acme Cement Works Line 1" [ref=e149]: Kalinganagar Integrated Steel Plant
+            - generic [ref=e150]:
+              - generic [ref=e151]:
+                - generic [ref=e152]:
+                  - generic [ref=e153]: CCTS Industry Sector
+                  - generic [ref=e158]: Statutory Regime
+                - combobox [ref=e159]:
+                  - option "Cement (Integrated / Grinding)"
+                  - option "Aluminium (Smelting & Refining)"
+                  - option "Chlor-Alkali (Caustic Soda)"
+                  - option "Pulp & Paper"
+                  - option "Petrochemicals (Crackers / Polymers)"
+                  - option "Petroleum Refinery"
+                  - option "Textile (Composite Mills)"
+                  - option "Iron & Steel (Draft - 255 Units)" [selected]
+                  - option "Fertiliser (Urea / Ammonia Watchlist)"
+              - generic [ref=e160]:
+                - generic [ref=e161]:
+                  - generic [ref=e162]: State (Regional Grid Context)
+                  - generic [ref=e167]: Grid CEA Node
+                - combobox [ref=e168]:
+                  - option "Rajasthan"
+                  - option "Gujarat"
+                  - option "Odisha" [selected]
+                  - option "Chhattisgarh"
+                  - option "Maharashtra"
+                  - option "Tamil Nadu"
+                  - option "Andhra Pradesh"
+                  - option "Madhya Pradesh"
+                  - option "Jharkhand"
+                  - option "Punjab"
+                  - option "Uttar Pradesh"
+                  - option "Karnataka"
+                  - option "West Bengal"
+            - generic [ref=e169]:
+              - generic [ref=e170]:
+                - generic [ref=e171]:
+                  - generic [ref=e172]:
+                    - text: Annual Finished Production
+                    - generic [ref=e173]: "[Tonnes/yr]"
+                  - generic [ref=e178]: "Range: 10k - 15M t"
+                - spinbutton "e.g. 1200000" [ref=e179]: "2500000"
+                - paragraph [ref=e180]: "Recommended: Calibrated with annual PAT/BRSR verified production log."
+              - generic [ref=e181]:
+                - generic [ref=e182]:
+                  - generic [ref=e183]: Sub-Sector / Process Route
+                  - generic [ref=e188]: Process Tech
+                - textbox "e.g. Integrated Dry Process Kiln" [ref=e189]: Integrated BF-BOF Route
+                - paragraph [ref=e190]: Defines benchmark cohort and methodology applicability.
+          - button "Continue to Energy Streams" [ref=e192] [cursor=pointer]
+      - generic [ref=e196]:
+        - generic [ref=e197]:
+          - generic [ref=e198]:
+            - generic [ref=e199]:
+              - generic [ref=e206]:
+                - heading "Your Modelled Compliance Standing (2025-26)" [level=3] [ref=e207]
+                - paragraph [ref=e208]: Calculated from physical Scope 1 + Scope 2 fuel & process inputs
+              - button "View Source Trace" [ref=e209] [cursor=pointer]
+            - generic [ref=e210]:
+              - generic [ref=e211]:
+                - generic [ref=e212]: Calculated GEI
+                - generic [ref=e213]: 0.6962 tCO2e/t
+                - generic [ref=e214]: "Total: 8,35,397 tCO2e"
+              - generic [ref=e215]:
+                - generic [ref=e216]: Notified Target
+                - generic [ref=e217]: 0.7200 tCO2e/t
+                - generic [ref=e218]: MoEFCC Gazette Trajectory
+              - generic [ref=e219]:
+                - generic [ref=e220]: Intensity Delta
+                - generic [ref=e221]: "-0.0238"
+                - generic [ref=e226]: Below Target
+              - generic [ref=e227]:
+                - generic [ref=e228]: Surplus Scope
+                - generic [ref=e229]: 28,560 tCO2e
+                - generic [ref=e230]: Potential CCC Issuance
+          - generic [ref=e231]:
+            - generic [ref=e232]:
+              - heading "Operational Anomaly Engine" [level=3] [ref=e237]
+              - generic [ref=e238]:
+                - generic [ref=e239]: "Status: REVIEW"
+                - paragraph [ref=e240]: Operational intensity is higher than typical sector median.
+            - generic [ref=e241]:
+              - text: "Data Quality Audit Score:"
+              - strong [ref=e242]: 100/100
+        - generic [ref=e243]:
+          - generic [ref=e244]:
+            - generic [ref=e249]:
+              - generic [ref=e250]:
+                - heading "ML Peer Benchmark & Empirical GEI Distribution" [level=3] [ref=e251]
+                - generic [ref=e252]: DISTRIBUTION TWIN
+              - paragraph [ref=e253]: Continuous empirical distribution curve based on 208 audited industrial observations
+            - generic [ref=e254]:
+              - generic [ref=e255]: CA-GEI-Benchmark-HistGBM-V2
+              - generic [ref=e256]: "Confidence: HIGH"
+          - generic [ref=e257]:
+            - generic [ref=e258]:
+              - generic [ref=e259]: Your Facility GEI
+              - generic [ref=e260]: 0.6962 tCO2e/t
+              - generic [ref=e261]:
+                - generic [ref=e262]: "Delta vs Median:"
+                - generic [ref=e263]: +79.2% (Higher)
+            - generic [ref=e264]:
+              - generic [ref=e265]: Sector Median (P50)
+              - generic [ref=e266]: 0.3884 tCO2e/t
+              - generic [ref=e267]: "IQR: 0.354 – 0.425"
+            - generic [ref=e268]:
+              - generic [ref=e269]: Peer Percentile Rank
+              - generic [ref=e270]: 100th Percentile
+              - generic [ref=e275]: Lagging (High Carbon Intensity)
+            - generic [ref=e276]:
+              - generic [ref=e277]: Notified Target GEI
+              - generic [ref=e278]: 0.7200 tCO2e/t
+              - generic [ref=e279]: Compliant with FY26 Target
+          - generic [ref=e280]:
+            - generic [ref=e281]:
+              - generic [ref=e282]:
+                - heading "Continuous Peer Density Distribution (GEI tCO₂e/t)" [level=4] [ref=e283]
+                - paragraph [ref=e287]: Empirical kernel distribution curve with shaded quartile zones and designated facility marker
+              - generic [ref=e288]:
+                - generic [ref=e289]: P0-P25 (Leaders)
+                - generic [ref=e292]: P25-P75 (Sector Core)
+                - generic [ref=e295]: P75-P100 (Lagging)
+            - application [ref=e301]:
+              - generic [ref=e317]:
+                - generic [ref=e318]:
+                  - generic [ref=e319]: "0.300"
+                  - generic [ref=e321]: "0.380"
+                  - generic [ref=e323]: "0.460"
+                  - generic [ref=e325]: "0.540"
+                  - generic [ref=e327]: "0.620"
+                  - generic [ref=e329]: "0.700"
+                  - generic [ref=e331]: "0.762"
+                - generic [ref=e333]: 📍 Your Facility (0.696)
+                - generic [ref=e334]: Median P50 (0.388)
+                - generic [ref=e335]: Target (0.720)
+            - generic [ref=e336]:
+              - generic [ref=e337]: "P25 Leader Threshold: 0.3538"
+              - generic [ref=e338]: "P50 Sector Median: 0.3884"
+              - generic [ref=e339]: "P75 Lagging Threshold: 0.4247"
+          - generic [ref=e345]:
+            - generic [ref=e346]: Empirical Benchmark Assessment
+            - paragraph [ref=e347]: "\"Action Required: Your modelled GEI (0.6962) is in the 100th percentile, above peer median (0.3884).\""
+        - generic [ref=e348]:
+          - generic [ref=e349]:
+            - generic [ref=e354]:
+              - generic [ref=e355]:
+                - heading "Techno-Economic Decarbonisation Matrix" [level=3] [ref=e356]
+                - generic [ref=e357]: CAPITAL ALLOCATION
+              - paragraph [ref=e358]: "Marginal Abatement & Feasibility Map: CAPEX, energy savings, payback period, 10-Yr NPV & BEE methodologies"
+            - generic [ref=e359]: 4 VALIDATED PROJECTS
+          - generic [ref=e361]:
+            - generic [ref=e362]:
+              - generic [ref=e363]:
+                - heading "Decarbonisation Marginal Abatement & Feasibility Map" [level=4] [ref=e364]
+                - paragraph [ref=e367]: "X-axis: Timeline (Months) • Y-axis: Annual CO₂e Reduction (kt/yr) • Bubble Size: 10-Yr NPV (₹ Cr) • Color: Payback Tier"
+              - generic [ref=e368]:
+                - generic [ref=e369]: Fast Payback (< 2.5y)
+                - generic [ref=e372]: Medium (2.5-4.5y)
+                - generic [ref=e375]: Strategic (> 4.5y)
+            - application [ref=e381]:
+              - generic [ref=e396]:
+                - generic [ref=e399] [cursor=pointer]
+                - generic [ref=e402] [cursor=pointer]
+                - generic [ref=e405] [cursor=pointer]
+                - generic [ref=e408] [cursor=pointer]
+              - generic [ref=e409]:
+                - generic [ref=e410]:
+                  - generic [ref=e411]: 0m
+                  - generic [ref=e413]: 4m
+                  - generic [ref=e415]: 8m
+                  - generic [ref=e417]: 12m
+                  - generic [ref=e419]: 16m
+                - generic [ref=e421]: Implementation Timeline (Months)
+                - generic [ref=e422]:
+                  - generic [ref=e423]: 0 kt
+                  - generic [ref=e425]: 20 kt
+                  - generic [ref=e427]: 40 kt
+                  - generic [ref=e429]: 60 kt
+                  - generic [ref=e431]: 80 kt
+                - generic [ref=e433]: Annual CO₂e Reduction (kt/yr)
+          - generic [ref=e434]:
+            - generic [ref=e435]: "Filter by Category:"
+            - button "ALL" [ref=e439] [cursor=pointer]
+            - button "Waste Heat Recovery & Power Generation" [ref=e440] [cursor=pointer]
+            - button "Fuel Switching & Circular Economy" [ref=e441] [cursor=pointer]
+            - button "Process Decarbonisation & Clinker Reduction" [ref=e442] [cursor=pointer]
+            - button "Renewable Power & Zero-Carbon Electrification" [ref=e443] [cursor=pointer]
+          - generic [ref=e444]:
+            - generic [ref=e445]:
+              - generic [ref=e446]:
+                - generic [ref=e447]:
+                  - generic [ref=e448]:
+                    - generic [ref=e449]: Waste Heat Recovery & Power Generation
+                    - generic [ref=e450]: Medium Payback (2.5 – 4.5 yrs)
+                  - generic [ref=e451]: "-62,400 tCO2e/yr"
+                - heading "Kiln Pre-heater & Clinker Cooler WHRS (15 MW Captive Power)" [level=4] [ref=e452]
+                - paragraph [ref=e453]: Capture sensible heat from kiln suspension preheater and grate cooler exhaust gases to drive a steam rankine cycle turbine, generating 35-45 kWh/t clinker of zero-carbon power.
+              - generic [ref=e454]:
+                - generic [ref=e455]:
+                  - generic [ref=e456]:
+                    - generic [ref=e457]: CAPEX
+                    - generic [ref=e458]: ₹90.00 Cr
+                  - generic [ref=e459]:
+                    - generic [ref=e460]: Net Energy Savings
+                    - generic [ref=e461]: ₹25.20 Cr/yr
+                  - generic [ref=e462]:
+                    - generic [ref=e463]: Capital Payback
+                    - generic [ref=e464]: 4.0 yrs
+                  - generic [ref=e465]:
+                    - generic [ref=e466]: 10-Yr NPV @ 9.5%
+                    - generic [ref=e467]: ₹50.65 Cr
+                  - generic [ref=e468]:
+                    - generic [ref=e469]: OPEX Change
+                    - generic [ref=e470]: ₹2.25 Cr/yr
+                  - generic [ref=e471]:
+                    - generic [ref=e472]: Abatement Cost
+                    - generic [ref=e473]: ₹-2,147/tCO2e
+                - generic [ref=e474]:
+                  - generic [ref=e475]: BM IN02.001 (Energy Efficiency in Industrial Facilities)
+                  - generic [ref=e481]:
+                    - generic [ref=e482]: 14m
+                    - generic [ref=e487]: "MRV: LOW"
+                    - generic [ref=e488]: CALIBRATED
+            - generic [ref=e489]:
+              - generic [ref=e490]:
+                - generic [ref=e491]:
+                  - generic [ref=e492]:
+                    - generic [ref=e493]: Fuel Switching & Circular Economy
+                    - generic [ref=e494]: Medium Payback (2.5 – 4.5 yrs)
+                  - generic [ref=e495]: "-50,400 tCO2e/yr"
+                - heading "Alternative Fuels & Raw Materials (AFR) Feeding Retrofit (20% TSR)" [level=4] [ref=e496]
+                - paragraph [ref=e497]: Install automated shredded RDF/biomass pneumatic feeding and multi-channel calciner burner to replace fossil petcoke with non-recyclable solid recovered fuel and agro-residues.
+              - generic [ref=e498]:
+                - generic [ref=e499]:
+                  - generic [ref=e500]:
+                    - generic [ref=e501]: CAPEX
+                    - generic [ref=e502]: ₹36.00 Cr
+                  - generic [ref=e503]:
+                    - generic [ref=e504]: Net Energy Savings
+                    - generic [ref=e505]: ₹12.60 Cr/yr
+                  - generic [ref=e506]:
+                    - generic [ref=e507]: Capital Payback
+                    - generic [ref=e508]: 3.2 yrs
+                  - generic [ref=e509]:
+                    - generic [ref=e510]: 10-Yr NPV @ 9.5%
+                    - generic [ref=e511]: ₹34.95 Cr
+                  - generic [ref=e512]:
+                    - generic [ref=e513]: OPEX Change
+                    - generic [ref=e514]: ₹0.75 Cr/yr
+                  - generic [ref=e515]:
+                    - generic [ref=e516]: Abatement Cost
+                    - generic [ref=e517]: ₹-1,528/tCO2e
+                - generic [ref=e518]:
+                  - generic [ref=e519]: BM EN01.003 (Biomass & Alternative Fuel Thermal Generation)
+                  - generic [ref=e525]:
+                    - generic [ref=e526]: 8m
+                    - generic [ref=e531]: "MRV: MEDIUM"
+                    - generic [ref=e532]: CALIBRATED
+            - generic [ref=e533]:
+              - generic [ref=e534]:
+                - generic [ref=e535]:
+                  - generic [ref=e536]:
+                    - generic [ref=e537]: Process Decarbonisation & Clinker Reduction
+                    - generic [ref=e538]: Medium Payback (2.5 – 4.5 yrs)
+                  - generic [ref=e539]: "-42,000 tCO2e/yr"
+                - heading "Low-Carbon Calcined Clay Blending & 4th Gen VRM Separator Retrofit" [level=4] [ref=e540]
+                - paragraph [ref=e541]: Lower clinker factor from 75% to 60% through activated calcined clay and limestone substitution with high-efficiency 4th generation grinding dynamic separators.
+              - generic [ref=e542]:
+                - generic [ref=e543]:
+                  - generic [ref=e544]:
+                    - generic [ref=e545]: CAPEX
+                    - generic [ref=e546]: ₹26.40 Cr
+                  - generic [ref=e547]:
+                    - generic [ref=e548]: Net Energy Savings
+                    - generic [ref=e549]: ₹7.92 Cr/yr
+                  - generic [ref=e550]:
+                    - generic [ref=e551]: Capital Payback
+                    - generic [ref=e552]: 3.8 yrs
+                  - generic [ref=e553]:
+                    - generic [ref=e554]: 10-Yr NPV @ 9.5%
+                    - generic [ref=e555]: ₹17.36 Cr
+                  - generic [ref=e556]:
+                    - generic [ref=e557]: OPEX Change
+                    - generic [ref=e558]: ₹0.40 Cr/yr
+                  - generic [ref=e559]:
+                    - generic [ref=e560]: Abatement Cost
+                    - generic [ref=e561]: ₹-1,031/tCO2e
+                - generic [ref=e562]:
+                  - generic [ref=e563]: BM IN02.001 (Clinker Substitution & Energy Efficiency)
+                  - generic [ref=e569]:
+                    - generic [ref=e570]: 10m
+                    - generic [ref=e575]: "MRV: HIGH"
+                    - generic [ref=e576]: CALIBRATED
+            - generic [ref=e577]:
+              - generic [ref=e578]:
+                - generic [ref=e579]:
+                  - generic [ref=e580]:
+                    - generic [ref=e581]: Renewable Power & Zero-Carbon Electrification
+                    - generic [ref=e582]: Medium Payback (2.5 – 4.5 yrs)
+                  - generic [ref=e583]: "-17,542 tCO2e/yr"
+                - heading "Captive Solar PV & Interstate Green Power Open Access Integration" [level=4] [ref=e584]
+                - paragraph [ref=e585]: Procure green power via dedicated captive solar PV and bilateral Open Access transmission contracts under the Green Energy Open Access Rules 2022, displacing thermal grid electricity.
+              - generic [ref=e586]:
+                - generic [ref=e587]:
+                  - generic [ref=e588]:
+                    - generic [ref=e589]: CAPEX
+                    - generic [ref=e590]: ₹110.20 Cr
+                  - generic [ref=e591]:
+                    - generic [ref=e592]: Net Energy Savings
+                    - generic [ref=e593]: ₹28.65 Cr/yr
+                  - generic [ref=e594]:
+                    - generic [ref=e595]: Capital Payback
+                    - generic [ref=e596]: 4.0 yrs
+                  - generic [ref=e597]:
+                    - generic [ref=e598]: 10-Yr NPV @ 9.5%
+                    - generic [ref=e599]: ₹64.04 Cr
+                  - generic [ref=e600]:
+                    - generic [ref=e601]: OPEX Change
+                    - generic [ref=e602]: ₹0.35 Cr/yr
+                  - generic [ref=e603]:
+                    - generic [ref=e604]: Abatement Cost
+                    - generic [ref=e605]: ₹-9,537/tCO2e
+                - generic [ref=e606]:
+                  - generic [ref=e607]: BM EN01.001 (Grid-Connected Renewable Electricity)
+                  - generic [ref=e613]:
+                    - generic [ref=e614]: 6m
+                    - generic [ref=e619]: "MRV: LOW"
+                    - generic [ref=e620]: CALIBRATED
+        - generic [ref=e621]:
+          - generic [ref=e622]:
+            - generic [ref=e623]:
+              - generic [ref=e624]:
+                - heading "CarbonAlpha Decision Twin™" [level=2] [ref=e625]
+                - generic [ref=e626]: Capital Optimizer Active
+              - paragraph [ref=e627]: Transparent comparison of BUY, BUILD, and HYBRID paths across financial lifecycle cost, internal decarbonisation, and regulatory risk.
+            - generic [ref=e628]:
+              - button "Bar charts" [ref=e629] [cursor=pointer]
+              - button "Radar chart" [ref=e631] [cursor=pointer]
+          - generic [ref=e635]:
+            - generic [ref=e636]:
+              - paragraph [ref=e637]: 3-Year Lifecycle Cost (₹ Crore)
+              - application [ref=e640]:
+                - generic [ref=e654]:
+                  - generic [ref=e655]:
+                    - generic [ref=e656]: BUY
+                    - generic [ref=e658]: BUILD
+                    - generic [ref=e660]: HYBRID
+                  - generic [ref=e662]:
+                    - generic [ref=e663]: ₹0Cr
+                    - generic [ref=e665]: ₹6Cr
+                    - generic [ref=e667]: ₹12Cr
+                    - generic [ref=e669]: ₹18Cr
+                    - generic [ref=e671]: ₹24Cr
+            - generic [ref=e673]:
+              - paragraph [ref=e674]: Internal CO₂ Abatement (kt CO₂e/yr)
+              - application [ref=e677]:
+                - generic [ref=e691]:
+                  - generic [ref=e692]:
+                    - generic [ref=e693]: BUY
+                    - generic [ref=e695]: BUILD
+                    - generic [ref=e697]: HYBRID
+                  - generic [ref=e699]:
+                    - generic [ref=e700]: 0kt
+                    - generic [ref=e702]: 20kt
+                    - generic [ref=e704]: 40kt
+                    - generic [ref=e706]: 60kt
+                    - generic [ref=e708]: 80kt
+          - generic [ref=e710]:
+            - generic [ref=e711]:
+              - generic [ref=e712]: RECOMMENDED (#1)
+              - generic [ref=e716]:
+                - generic [ref=e717]:
+                  - generic [ref=e724]:
+                    - heading "BUY STRATEGY" [level=4] [ref=e725]
+                    - generic [ref=e726]: "Rank #1 in Utility"
+                  - generic [ref=e727]:
+                    - generic [ref=e728]: Utility
+                    - generic [ref=e729]: 70.5/100
+                - generic [ref=e730]:
+                  - generic [ref=e731]: Modelled 3-Year Lifecycle CostMODEL
+                  - generic [ref=e732]: ₹0.00 Cr
+                  - generic [ref=e733]:
+                    - generic [ref=e734]: "Cost / tCO₂e:"
+                    - generic [ref=e735]: ₹1,015/tCO2e
+                - generic [ref=e736]:
+                  - generic [ref=e737]:
+                    - generic [ref=e738]: "Internal Decarbonisation:"
+                    - generic [ref=e739]: 0 tCO₂e
+                  - generic [ref=e740]:
+                    - generic [ref=e741]: "Market CCC Procurement:"
+                    - generic [ref=e742]: 0 CCCs
+                  - generic [ref=e743]:
+                    - generic [ref=e744]: "Post-Strategy GEI:"
+                    - generic [ref=e745]: 0.6962 tCO2e/t
+                  - generic [ref=e746]:
+                    - generic [ref=e747]: "Risk Index:"
+                    - generic [ref=e748]: 68 / 100
+                - paragraph [ref=e749]: "\"Procure 0 CCCs annually at ?1,000/tCO2e. Zero internal structural decarbonisation.\""
+              - button "Audit Strategy Trace" [ref=e751] [cursor=pointer]
+            - generic [ref=e755]:
+              - generic [ref=e756]:
+                - generic [ref=e757]:
+                  - generic [ref=e764]:
+                    - heading "BUILD STRATEGY" [level=4] [ref=e765]
+                    - generic [ref=e766]: "Rank #3 in Utility"
+                  - generic [ref=e767]:
+                    - generic [ref=e768]: Utility
+                    - generic [ref=e769]: 67.5/100
+                - generic [ref=e770]:
+                  - generic [ref=e771]: Modelled 3-Year Lifecycle CostMODEL
+                  - generic [ref=e772]: ₹21.15 Cr
+                  - generic [ref=e773]:
+                    - generic [ref=e774]: "Cost / tCO₂e:"
+                    - generic [ref=e775]: ₹-2,147/tCO2e
+                - generic [ref=e776]:
+                  - generic [ref=e777]:
+                    - generic [ref=e778]: "Internal Decarbonisation:"
+                    - generic [ref=e779]: 62,400 tCO2e
+                  - generic [ref=e780]:
+                    - generic [ref=e781]: "Market CCC Procurement:"
+                    - generic [ref=e782]: 0 CCCs
+                  - generic [ref=e783]:
+                    - generic [ref=e784]: "Post-Strategy GEI:"
+                    - generic [ref=e785]: 0.6442 tCO2e/t
+                  - generic [ref=e786]:
+                    - generic [ref=e787]: "10-Yr NPV:"
+                    - generic [ref=e788]: ₹50.65 Cr
+                  - generic [ref=e789]:
+                    - generic [ref=e790]: "Capital Payback:"
+                    - generic [ref=e791]: 4.0 yrs
+                  - generic [ref=e792]:
+                    - generic [ref=e793]: "Risk Index:"
+                    - generic [ref=e794]: 35 / 100
+                - paragraph [ref=e795]: "\"Deploy capital project to abate 62,400 tCO2e. Leaves 0 tCO2e residual compliance gap.\""
+              - button "Audit Strategy Trace" [ref=e797] [cursor=pointer]
+            - generic [ref=e801]:
+              - generic [ref=e802]:
+                - generic [ref=e803]:
+                  - generic [ref=e810]:
+                    - heading "HYBRID STRATEGY" [level=4] [ref=e811]
+                    - generic [ref=e812]: "Rank #2 in Utility"
+                  - generic [ref=e813]:
+                    - generic [ref=e814]: Utility
+                    - generic [ref=e815]: 68.0/100
+                - generic [ref=e816]:
+                  - generic [ref=e817]: Modelled 3-Year Lifecycle CostMODEL
+                  - generic [ref=e818]: ₹21.15 Cr
+                  - generic [ref=e819]:
+                    - generic [ref=e820]: "Cost / tCO₂e:"
+                    - generic [ref=e821]: ₹-2,147/tCO2e
+                - generic [ref=e822]:
+                  - generic [ref=e823]:
+                    - generic [ref=e824]: "Internal Decarbonisation:"
+                    - generic [ref=e825]: 62,400 tCO2e
+                  - generic [ref=e826]:
+                    - generic [ref=e827]: "Market CCC Procurement:"
+                    - generic [ref=e828]: 0 CCCs
+                  - generic [ref=e829]:
+                    - generic [ref=e830]: "Post-Strategy GEI:"
+                    - generic [ref=e831]: 0.6442 tCO2e/t
+                  - generic [ref=e832]:
+                    - generic [ref=e833]: "10-Yr NPV:"
+                    - generic [ref=e834]: ₹50.65 Cr
+                  - generic [ref=e835]:
+                    - generic [ref=e836]: "Capital Payback:"
+                    - generic [ref=e837]: 4.0 yrs
+                  - generic [ref=e838]:
+                    - generic [ref=e839]: "Risk Index:"
+                    - generic [ref=e840]: 25 / 100
+                - paragraph [ref=e841]: "\"Execute internal abatement (62,400 tCO2e) and purchase residual 0 CCCs under scenario pricing.\""
+              - button "Audit Strategy Trace" [ref=e843] [cursor=pointer]
+        - generic [ref=e847]:
+          - generic [ref=e848]: Executive AI Strategic Action Brief
+          - paragraph [ref=e852]: "For Western Rajasthan Cement Works (Cement, 2025-26), the CarbonAlpha Capital Optimizer recommends the **BUY Strategy** with a composite utility score of 70.5/100. 1. **Economic Efficiency**: Modelled 3-year lifecycle cost is Rs. 0.00 Cr, providing the most robust capital allocation against pure BUY (Rs. 0.00 Cr). 2. **Decarbonisation Delivery**: Secures 0 tCO2e of structural internal abatement, permanently reducing emissions intensity towards CCTS regulatory targets. 3. **Compliance Coverage**: Any residual shortfall (0 tCO2e) is fully bridged under the assumed scenario CCC price of Rs. 1,000/tCO2e. 4. **Risk Sensitivity**: Strategy performance remains resilient across implementation timelines (assumed delay: 0 months)."
+  - generic [ref=e853]: 0kt
+```
+
+# Test source
+
+```ts
+  1  | import { test, expect } from '@playwright/test';
+  2  | 
+  3  | test('Judge 90-second flow', async ({ page }) => {
+  4  |   await page.goto('/');
+  5  |   await expect(page).toHaveTitle(/CarbonAlpha/);
+  6  |   await page.click('text=Enter Facility Data');
+  7  |   await page.waitForURL('**/industrial-intelligence');
+  8  |   await page.click('text=Steel (Draft)');
+> 9  |   await page.click('text=Run Personalized Decision Intelligence');
+     |              ^ Error: page.click: Test timeout of 30000ms exceeded.
+  10 |   
+  11 |   // Wait for the result to load and the next CTA to appear, then click it to go to /decision
+  12 |   await page.click('text=EXECUTE FULL DECISION TWIN', { timeout: 10000 });
+  13 |   await page.waitForURL('**/decision');
+  14 |   await expect(page.locator('text=DECISION TWIN').first()).toBeVisible();
+  15 | });
+  16 | 
+```

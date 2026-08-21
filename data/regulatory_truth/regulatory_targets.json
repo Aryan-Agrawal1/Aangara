@@ -14,7 +14,10 @@
       "gei_unit": "tCO2e/t cement",
       "status": "FINAL",
       "source_id": "REG-MOEFCC-2025-GEI",
-      "source_url": "https://egazette.gov.in/WriteReadData/2026/269375.pdf"
+      "source_url": "https://egazette.gov.in/WriteReadData/2026/269375.pdf",
+      "dataset_provenance": "MoEFCC_Gazette",
+      "real_or_synthetic": "REAL_OFFICIAL",
+      "parse_confidence": "HIGH"
     },
     {
       "target_id": "TGT-ALU-001",
@@ -29,7 +32,10 @@
       "gei_unit": "tCO2e/t aluminium",
       "status": "FINAL",
       "source_id": "REG-MOEFCC-2025-GEI",
-      "source_url": "https://egazette.gov.in/WriteReadData/2026/269375.pdf"
+      "source_url": "https://egazette.gov.in/WriteReadData/2026/269375.pdf",
+      "dataset_provenance": "MoEFCC_Gazette",
+      "real_or_synthetic": "REAL_OFFICIAL",
+      "parse_confidence": "HIGH"
     },
     {
       "target_id": "TGT-CLA-001",
@@ -44,7 +50,10 @@
       "gei_unit": "tCO2e/t caustic soda",
       "status": "FINAL",
       "source_id": "REG-MOEFCC-2025-GEI",
-      "source_url": "https://egazette.gov.in/WriteReadData/2026/269375.pdf"
+      "source_url": "https://egazette.gov.in/WriteReadData/2026/269375.pdf",
+      "dataset_provenance": "MoEFCC_Gazette",
+      "real_or_synthetic": "REAL_OFFICIAL",
+      "parse_confidence": "HIGH"
     },
     {
       "target_id": "TGT-PUL-001",
@@ -59,7 +68,10 @@
       "gei_unit": "tCO2e/t paper",
       "status": "FINAL",
       "source_id": "REG-MOEFCC-2025-GEI",
-      "source_url": "https://egazette.gov.in/WriteReadData/2026/269375.pdf"
+      "source_url": "https://egazette.gov.in/WriteReadData/2026/269375.pdf",
+      "dataset_provenance": "MoEFCC_Gazette",
+      "real_or_synthetic": "REAL_OFFICIAL",
+      "parse_confidence": "HIGH"
     },
     {
       "target_id": "TGT-PET-001",
@@ -74,7 +86,10 @@
       "gei_unit": "tCO2e/t polymer",
       "status": "FINAL",
       "source_id": "REG-MOEFCC-2025-GEI",
-      "source_url": "https://egazette.gov.in/WriteReadData/2026/269375.pdf"
+      "source_url": "https://egazette.gov.in/WriteReadData/2026/269375.pdf",
+      "dataset_provenance": "MoEFCC_Gazette",
+      "real_or_synthetic": "REAL_OFFICIAL",
+      "parse_confidence": "HIGH"
     },
     {
       "target_id": "TGT-REF-001",
@@ -89,7 +104,10 @@
       "gei_unit": "tCO2e/t crude throughput",
       "status": "FINAL",
       "source_id": "REG-MOEFCC-2025-GEI",
-      "source_url": "https://egazette.gov.in/WriteReadData/2026/269375.pdf"
+      "source_url": "https://egazette.gov.in/WriteReadData/2026/269375.pdf",
+      "dataset_provenance": "MoEFCC_Gazette",
+      "real_or_synthetic": "REAL_OFFICIAL",
+      "parse_confidence": "HIGH"
     },
     {
       "target_id": "TGT-TEX-001",
@@ -104,7 +122,10 @@
       "gei_unit": "tCO2e/t fabric",
       "status": "FINAL",
       "source_id": "REG-MOEFCC-2025-GEI",
-      "source_url": "https://egazette.gov.in/WriteReadData/2026/269375.pdf"
+      "source_url": "https://egazette.gov.in/WriteReadData/2026/269375.pdf",
+      "dataset_provenance": "MoEFCC_Gazette",
+      "real_or_synthetic": "REAL_OFFICIAL",
+      "parse_confidence": "HIGH"
     },
     {
       "target_id": "TGT-STE-001",
@@ -117,9 +138,12 @@
       "target_gei_2025_26": 2.32,
       "target_gei_2026_27": 2.26,
       "gei_unit": "tCO2e/t crude steel",
-      "status": "FINAL",
-      "source_id": "REG-MOEFCC-2025-STEEL-GEI",
-      "source_url": "https://egazette.gov.in/WriteReadData/2026/269375.pdf"
+      "status": "DRAFT",
+      "source_id": "REG-MOEFCC-2026-STEEL-DRAFT",
+      "source_url": "https://moef.gov.in/en/notifications/",
+      "dataset_provenance": "MoEFCC_Gazette",
+      "real_or_synthetic": "REAL_OFFICIAL",
+      "parse_confidence": "MEDIUM"
     },
     {
       "target_id": "TGT-FER-001",
@@ -134,7 +158,10 @@
       "gei_unit": "tCO2e/t urea",
       "status": "WATCHLIST",
       "source_id": "REG-DOF-2025-TRANSITION",
-      "source_url": "https://fert.gov.in/"
+      "source_url": "https://fert.gov.in/",
+      "dataset_provenance": "MoEFCC_Gazette",
+      "real_or_synthetic": "REAL_OFFICIAL",
+      "parse_confidence": "MEDIUM"
     }
   ]
 }

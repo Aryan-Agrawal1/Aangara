@@ -1,0 +1,12 @@
+category_group,fuel_id,name,ncv_default,ncv_unit,emission_factor,ef_unit,oxidation_factor,calculated_factor,calculated_unit,source
+solid_fuels,indian_domestic_coal,Indian Domestic Thermal Coal (Grade G10-G13),3800.0,kcal/kg,96.1,tCO2/TJ,0.98,1.488,tCO2/tonne_coal,BEE CCTS Procedure 2024 Table A1
+solid_fuels,imported_coal_indonesian,Imported Indonesian Coal,5200.0,kcal/kg,94.6,tCO2/TJ,0.99,2.043,tCO2/tonne_coal,BEE CCTS Procedure 2024 Table A1
+solid_fuels,petcoke,Petroleum Coke (Petcoke),8200.0,kcal/kg,97.5,tCO2/TJ,0.99,3.315,tCO2/tonne_petcoke,BEE CCTS Procedure 2024 Table A1
+solid_fuels,biomass_briquettes,Agri-Residue Biomass Briquettes (Carbon Neutral Biogenic),3600.0,kcal/kg,0.0,tCO2/TJ (Fossil Scope),1.0,0.0,tCO2/tonne_biomass,BEE CCTS Biomass Accounting Rule
+liquid_fuels,furnace_oil,Furnace Oil (FO),9800.0,kcal/kg,77.4,tCO2/TJ,0.99,3.141,tCO2/tonne_FO,BEE CCTS Procedure 2024 Table A2
+liquid_fuels,high_speed_diesel,High Speed Diesel (HSD),10200.0,kcal/kg,74.1,tCO2/TJ,0.99,3.136,tCO2/tonne_HSD,BEE CCTS Procedure 2024 Table A2
+gaseous_fuels,natural_gas,Piped / Regasified Natural Gas (PNG/RLNG),8500.0,kcal/Sm3,56.1,tCO2/TJ,0.995,0.001985,tCO2/Sm3,BEE CCTS Procedure 2024 Table A3
+electricity,indian_national_grid_ef,Indian National Grid Combined Margin Baseline EF,,,0.716,tCO2e/MWh,1.0,0.716,tCO2e/MWh,CEA CO2 Baseline Database for Indian Power Sector User Guide v20.0
+electricity,captive_solar_wind,On-site Captive Solar / Wind Generation,,,0.0,tCO2e/MWh,1.0,0.0,tCO2e/MWh,BEE Renewable Zero-Rating Rule
+process_emissions,cement_calcination_raw_meal,Limestone / Raw Meal Calcination (CaCO3 -> CaO + CO2),,,0.525,tCO2/tonne_clinker,1.0,0.525,tCO2/tonne_clinker,BEE CCTS Cement Mass Balance & Procedure 2024
+process_emissions,aluminium_anode_consumption,Aluminium Prebaked Anode Consumption (PFC + CO2),,,1.62,tCO2e/tonne_aluminium,1.0,1.62,tCO2e/tonne_aluminium,BEE CCTS Aluminium Specific Procedure 2024

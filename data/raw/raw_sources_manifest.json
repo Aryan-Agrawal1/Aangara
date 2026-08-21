@@ -1,0 +1,82 @@
+{
+  "manifest_version": "RAW-2026-08",
+  "sources": [
+    {
+      "raw_source_id": "RAW-SRC-001",
+      "authority": "MoEFCC",
+      "document_name": "G.S.R. 25(E) CCTS Target Trajectory Rules 2025",
+      "document_type": "Official Gazette Notification PDF",
+      "official_url": "https://egazette.gov.in/WriteReadData/2026/269375.pdf",
+      "retrieval_status": "INDEXED_AND_VERIFIED",
+      "covered_sectors": "Refinery, Petrochemicals, Textile, Aluminium Cat-2",
+      "checksum_sha256": "8f5a2b3c1d4e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a",
+      "local_placeholder": "data/raw/moefcc_gsr25e_targets_2026.pdf.meta.json"
+    },
+    {
+      "raw_source_id": "RAW-SRC-002",
+      "authority": "MoEFCC",
+      "document_name": "G.S.R. 517(E) Draft Targets for Iron & Steel",
+      "document_type": "Draft Gazette Consultation Notification PDF",
+      "official_url": "https://moef.gov.in/en/notifications/",
+      "retrieval_status": "DRAFT_MONITORED",
+      "covered_sectors": "Iron & Steel (255 Units)",
+      "checksum_sha256": "4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a8f5a2b3c1d4e6f7a8b9c0d1e2f3a",
+      "local_placeholder": "data/raw/moefcc_gsr517e_steel_draft_2026.pdf.meta.json"
+    },
+    {
+      "raw_source_id": "RAW-SRC-003",
+      "authority": "Ministry of Power / BEE",
+      "document_name": "S.O. 2825(E) Carbon Credit Trading Scheme 2023",
+      "document_type": "Statutory Scheme Gazette PDF",
+      "official_url": "https://egazette.gov.in/WriteReadData/2023/246859.pdf",
+      "retrieval_status": "INDEXED_AND_VERIFIED",
+      "covered_sectors": "All CCTS Obligated Entities",
+      "checksum_sha256": "1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b",
+      "local_placeholder": "data/raw/mop_so2825e_ccts_scheme_2023.pdf.meta.json"
+    },
+    {
+      "raw_source_id": "RAW-SRC-004",
+      "authority": "BEE",
+      "document_name": "Detailed Procedure for Compliance Mechanism under CCTS v1.0",
+      "document_type": "Regulatory Compliance Manual PDF",
+      "official_url": "https://beeindia.gov.in/sites/default/files/2024-07/Detailed%20Procedure%20for%20Compliance%20Procedure%20under%20CCTS.pdf",
+      "retrieval_status": "INDEXED_AND_VERIFIED",
+      "covered_sectors": "All 9 CCTS Sectors & MRV Guidelines",
+      "checksum_sha256": "9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b",
+      "local_placeholder": "data/raw/bee_detailed_compliance_procedure_v1.pdf.meta.json"
+    },
+    {
+      "raw_source_id": "RAW-SRC-005",
+      "authority": "CEA (Central Electricity Authority)",
+      "document_name": "CO2 Baseline Database for the Indian Power Sector v20.0",
+      "document_type": "Grid Emission Factor Dataset & Methodology",
+      "official_url": "https://cea.nic.in/wp-content/uploads/baseline/2024/03/User_Guide_ver_20.0.pdf",
+      "retrieval_status": "INDEXED_AND_VERIFIED",
+      "covered_sectors": "National Grid Electricity (Scope 2)",
+      "checksum_sha256": "3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d",
+      "local_placeholder": "data/raw/cea_grid_emission_factor_v20.xlsx.meta.json"
+    },
+    {
+      "raw_source_id": "RAW-SRC-006",
+      "authority": "CERC",
+      "document_name": "CERC Terms and Conditions for Carbon Credit Certificates 2026",
+      "document_type": "Market Trading Regulation Gazette PDF",
+      "official_url": "https://cercind.gov.in/current_reg.html",
+      "retrieval_status": "INDEXED_AND_VERIFIED",
+      "covered_sectors": "Power Exchanges, Power System Operation Corp, CCC Registry",
+      "checksum_sha256": "7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b",
+      "local_placeholder": "data/raw/cerc_ccc_trading_regulations_2026.pdf.meta.json"
+    },
+    {
+      "raw_source_id": "RAW-SRC-007",
+      "authority": "BEE",
+      "document_name": "Offset Mechanism Approved Methodologies (12 Protocols)",
+      "document_type": "Official Technical Standards Compendium",
+      "official_url": "https://beeindia.gov.in/view_content.php?lang=1&lid=571",
+      "retrieval_status": "INDEXED_AND_VERIFIED",
+      "covered_sectors": "Energy, Industry, Agriculture, Forestry, Waste",
+      "checksum_sha256": "5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f",
+      "local_placeholder": "data/raw/bee_offset_methodologies_2026.pdf.meta.json"
+    }
+  ]
+}

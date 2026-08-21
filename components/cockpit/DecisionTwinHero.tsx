@@ -1,0 +1,292 @@
+'use client';
+
+import React, { useState } from 'react';
+import {
+  BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
+  ResponsiveContainer, Cell, RadarChart, Radar, PolarGrid, PolarAngleAxis,
+  PolarRadiusAxis
+} from 'recharts';
+import { StrategyResult, Project } from '@/lib/types';
+import { formatCurrencyCr, formatEmissions, formatPricePerTonne, formatYears, formatGEI } from '@/lib/formatters';
+import { Crown, ShoppingCart, Hammer, GitMerge, ArrowRight, Zap, BarChart2, Activity } from 'lucide-react';
+
+// ── Colour palette (preserves existing dark glass-panel design system) ──
+const STRATEGY_COLORS: Record<string, string> = {
+  BUY: '#38bdf8',     // sky-400
+  BUILD: '#fbbf24',   // amber-400
+  HYBRID: '#34d399',  // emerald-400
+};
+
+const CHART_GRID = '#1e293b';      // slate-800
+const CHART_TEXT = '#94a3b8';      // slate-400
+const CHART_BG = 'rgba(15,23,42,0)'; // transparent — panels handle background
+
+// Custom tooltip for dark theme
+const DarkTooltip = ({ active, payload, label }: any) => {
+  if (!active || !payload?.length) return null;
+  return (
+    <div className="bg-[#0E1524] border border-slate-700 rounded-lg px-3 py-2 text-xs shadow-xl">
+      <p className="text-slate-300 font-semibold mb-1">{label}</p>
+      {payload.map((p: any, i: number) => (
+        <p key={i} style={{ color: p.color }} className="font-mono">
+          {p.name}: {typeof p.value === 'number' ? p.value.toFixed(2) : p.value}
+        </p>
+      ))}
+    </div>
+  );
+};
+
+interface DecisionTwinHeroProps {
+  strategies: Record<string, StrategyResult>;
+  recommendedStrategy: string;
+  project: Project;
+  onSelectStrategy?: (strategy: string) => void;
+  onOpenCalculationTrace?: (strategy: string) => void;
+}
+
+export function DecisionTwinHero({
+  strategies,
+  recommendedStrategy,
+  project,
+  onSelectStrategy,
+  onOpenCalculationTrace,
+}: DecisionTwinHeroProps) {
+  const [chartView, setChartView] = useState<'bars' | 'radar'>('bars');
+  const strategyList = ['BUY', 'BUILD', 'HYBRID'];
+
+  // ── Build chart data ──
+  const costData = strategyList.map((key) => ({
+    name: key,
+    'Lifecycle Cost (Cr)': strategies[key]?.total_cost_cr ?? 0,
+    fill: STRATEGY_COLORS[key],
+  }));
+
+  const co2Data = strategyList.map((key) => ({
+    name: key,
+    'Internal Abatement (kt)': Math.round((strategies[key]?.internal_abatement_tco2e ?? 0) / 1000),
+    fill: STRATEGY_COLORS[key],
+  }));
+
+  const radarData = strategyList.map((key) => {
+    const s = strategies[key];
+    if (!s) return null;
+    return {
+      strategy: key,
+      'Cost Efficiency': Math.max(0, 100 - s.utility_score),
+      'CO₂ Reduction': Math.min(100, (s.internal_abatement_tco2e / 50000) * 100),
+      'Low Risk': 100 - s.risk_score,
+      'Financial Return': s.npv_cr ? Math.min(100, (s.npv_cr / 50) * 100) : 20,
+      'Speed': Math.max(0, 100 - (s.payback_years ?? 5) * 10),
+    };
+  }).filter(Boolean);
+
+  const getStrategyIcon = (type: string) => {
+    switch (type) {
+      case 'BUY': return ShoppingCart;
+      case 'BUILD': return Hammer;
+      case 'HYBRID': return GitMerge;
+      default: return Zap;
+    }
+  };
+
+  return (
+    <div className="mt-6">
+      {/* Header */}
+      <div className="flex items-center justify-between mb-4">
+        <div>
+          <div className="flex items-center space-x-2">
+            <h2 className="text-xl font-bold text-white tracking-tight">CarbonAlpha Decision Twin™</h2>
+            <span className="px-2 py-0.5 rounded text-[11px] font-semibold bg-emerald-950 text-emerald-400 border border-emerald-800/60">
+              Capital Optimizer Active
+            </span>
+          </div>
+          <p className="text-xs text-slate-400 mt-0.5">
+            Transparent comparison of BUY, BUILD, and HYBRID paths across financial lifecycle cost, internal decarbonisation, and regulatory risk.
+          </p>
+        </div>
+        {/* Chart view toggle */}
+        <div className="flex items-center space-x-1 bg-slate-900 rounded-lg p-1 border border-slate-800">
+          <button
+            onClick={() => setChartView('bars')}
+            className={`p-1.5 rounded-md transition-colors ${chartView === 'bars' ? 'bg-slate-700 text-white' : 'text-slate-500 hover:text-slate-300'}`}
+            title="Bar charts"
+          >
+            <BarChart2 className="w-4 h-4" />
+          </button>
+          <button
+            onClick={() => setChartView('radar')}
+            className={`p-1.5 rounded-md transition-colors ${chartView === 'radar' ? 'bg-slate-700 text-white' : 'text-slate-500 hover:text-slate-300'}`}
+            title="Radar chart"
+          >
+            <Activity className="w-4 h-4" />
+          </button>
+        </div>
+      </div>
+
+      {/* ── CHARTS ROW ── */}
+      <div className="glass-panel rounded-xl p-4 mb-5">
+        {chartView === 'bars' ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {/* Cost comparison */}
+            <div>
+              <p className="text-[11px] font-semibold text-slate-400 uppercase tracking-widest mb-2">3-Year Lifecycle Cost (₹ Crore)</p>
+              <ResponsiveContainer width="100%" height={180}>
+                <BarChart data={costData} margin={{ top: 4, right: 8, left: 0, bottom: 4 }}>
+                  <CartesianGrid strokeDasharray="3 3" stroke={CHART_GRID} vertical={false} />
+                  <XAxis dataKey="name" tick={{ fill: CHART_TEXT, fontSize: 11 }} axisLine={false} tickLine={false} />
+                  <YAxis tick={{ fill: CHART_TEXT, fontSize: 10 }} axisLine={false} tickLine={false} width={55}
+                    tickFormatter={(v) => `₹${v.toFixed(0)}Cr`} />
+                  <Tooltip content={<DarkTooltip />} />
+                  <Bar dataKey="Lifecycle Cost (Cr)" radius={[4, 4, 0, 0]} maxBarSize={56}>
+                    {costData.map((entry) => (
+                      <Cell key={entry.name} fill={STRATEGY_COLORS[entry.name]}
+                        opacity={entry.name === recommendedStrategy ? 1 : 0.5} />
+                    ))}
+                  </Bar>
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+
+            {/* CO2 abatement comparison */}
+            <div>
+              <p className="text-[11px] font-semibold text-slate-400 uppercase tracking-widest mb-2">Internal CO₂ Abatement (kt CO₂e/yr)</p>
+              <ResponsiveContainer width="100%" height={180}>
+                <BarChart data={co2Data} margin={{ top: 4, right: 8, left: 0, bottom: 4 }}>
+                  <CartesianGrid strokeDasharray="3 3" stroke={CHART_GRID} vertical={false} />
+                  <XAxis dataKey="name" tick={{ fill: CHART_TEXT, fontSize: 11 }} axisLine={false} tickLine={false} />
+                  <YAxis tick={{ fill: CHART_TEXT, fontSize: 10 }} axisLine={false} tickLine={false} width={45}
+                    tickFormatter={(v) => `${v}kt`} />
+                  <Tooltip content={<DarkTooltip />} />
+                  <Bar dataKey="Internal Abatement (kt)" radius={[4, 4, 0, 0]} maxBarSize={56}>
+                    {co2Data.map((entry) => (
+                      <Cell key={entry.name} fill={STRATEGY_COLORS[entry.name]}
+                        opacity={entry.name === recommendedStrategy ? 1 : 0.5} />
+                    ))}
+                  </Bar>
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
+        ) : (
+          /* Radar view */
+          <div className="flex flex-col items-center">
+            <p className="text-[11px] font-semibold text-slate-400 uppercase tracking-widest mb-2">Multi-Dimension Strategy Profile</p>
+            <ResponsiveContainer width="100%" height={240}>
+              <RadarChart data={radarData[0] ? [
+                { axis: 'Cost Efficiency', BUY: radarData[0]?.['Cost Efficiency'] ?? 0, BUILD: radarData[1]?.['Cost Efficiency'] ?? 0, HYBRID: radarData[2]?.['Cost Efficiency'] ?? 0 },
+                { axis: 'CO₂ Reduction', BUY: radarData[0]?.['CO₂ Reduction'] ?? 0, BUILD: radarData[1]?.['CO₂ Reduction'] ?? 0, HYBRID: radarData[2]?.['CO₂ Reduction'] ?? 0 },
+                { axis: 'Low Risk', BUY: radarData[0]?.['Low Risk'] ?? 0, BUILD: radarData[1]?.['Low Risk'] ?? 0, HYBRID: radarData[2]?.['Low Risk'] ?? 0 },
+                { axis: 'Financial Return', BUY: radarData[0]?.['Financial Return'] ?? 0, BUILD: radarData[1]?.['Financial Return'] ?? 0, HYBRID: radarData[2]?.['Financial Return'] ?? 0 },
+                { axis: 'Speed', BUY: radarData[0]?.['Speed'] ?? 0, BUILD: radarData[1]?.['Speed'] ?? 0, HYBRID: radarData[2]?.['Speed'] ?? 0 },
+              ] : []}>
+                <PolarGrid stroke={CHART_GRID} />
+                <PolarAngleAxis dataKey="axis" tick={{ fill: CHART_TEXT, fontSize: 10 }} />
+                <PolarRadiusAxis angle={30} domain={[0, 100]} tick={{ fill: CHART_TEXT, fontSize: 9 }} />
+                {strategyList.map((key) => (
+                  <Radar key={key} name={key} dataKey={key}
+                    stroke={STRATEGY_COLORS[key]} fill={STRATEGY_COLORS[key]}
+                    fillOpacity={key === recommendedStrategy ? 0.25 : 0.08}
+                    strokeOpacity={key === recommendedStrategy ? 1 : 0.5}
+                    strokeWidth={key === recommendedStrategy ? 2 : 1}
+                  />
+                ))}
+                <Legend formatter={(val) => <span style={{ color: STRATEGY_COLORS[val] ?? CHART_TEXT, fontSize: 11 }}>{val}</span>} />
+                <Tooltip content={<DarkTooltip />} />
+              </RadarChart>
+            </ResponsiveContainer>
+          </div>
+        )}
+      </div>
+
+      {/* ── 3-Column Strategy Cards ── */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+        {strategyList.map((stratKey) => {
+          const strat = strategies[stratKey];
+          if (!strat) return null;
+          const isWinner = stratKey === recommendedStrategy;
+          const Icon = getStrategyIcon(stratKey);
+          const color = STRATEGY_COLORS[stratKey];
+
+          return (
+            <div
+              key={stratKey}
+              className={`rounded-xl p-5 relative transition-all duration-300 flex flex-col justify-between ${
+                isWinner ? 'glass-panel-elevated winner-card-glow' : 'glass-panel hover:border-slate-600'
+              }`}
+            >
+              {isWinner && (
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-bold text-[11px] px-3 py-0.5 rounded-full shadow-md flex items-center space-x-1.5 border border-emerald-400/40">
+                  <Crown className="w-3.5 h-3.5" />
+                  <span>RECOMMENDED (#1)</span>
+                </div>
+              )}
+
+              <div>
+                <div className="flex items-center justify-between mt-1 mb-3">
+                  <div className="flex items-center space-x-2.5">
+                    <div className="p-2 rounded-lg" style={{ background: `${color}18`, border: `1px solid ${color}40` }}>
+                      <Icon className="w-4 h-4" style={{ color }} />
+                    </div>
+                    <div>
+                      <h4 className="text-base font-bold text-white tracking-tight">{stratKey} STRATEGY</h4>
+                      <span className="text-[11px] text-slate-400 font-mono">Rank #{strat.rank} in Utility</span>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-xs text-slate-400">Utility</div>
+                    <div className="text-base font-mono font-bold text-white">{strat.utility_score.toFixed(1)}<span className="text-xs text-slate-500">/100</span></div>
+                  </div>
+                </div>
+
+                {/* Primary Cost */}
+                <div className="bg-slate-900/90 rounded-lg p-3.5 border border-slate-800 my-3">
+                  <div className="text-[11px] font-medium text-slate-400 uppercase tracking-wider">Modelled 3-Year Lifecycle Cost
+                    <span className="ml-1 px-1 py-0.5 rounded text-[9px] bg-amber-950 text-amber-400 border border-amber-900/50 font-mono">MODEL</span>
+                  </div>
+                  <div className="text-2xl font-black text-white tnum mt-0.5">{formatCurrencyCr(strat.total_cost_cr)}</div>
+                  <div className="text-[11px] text-slate-400 mt-1 flex items-center justify-between">
+                    <span>Cost / tCO₂e:</span>
+                    <span className="font-mono font-semibold text-slate-200">{formatPricePerTonne(strat.cost_per_tco2e)}</span>
+                  </div>
+                </div>
+
+                {/* Metrics */}
+                <div className="space-y-2 text-xs">
+                  {[
+                    { label: 'Internal Decarbonisation', value: strat.internal_abatement_tco2e > 0 ? formatEmissions(strat.internal_abatement_tco2e) : '0 tCO₂e', color: '#34d399' },
+                    { label: 'Market CCC Procurement', value: strat.procured_ccc_tco2e > 0 ? `${strat.procured_ccc_tco2e.toLocaleString('en-IN')} CCCs/yr` : '0 CCCs', color: '#38bdf8' },
+                    { label: 'Post-Strategy GEI', value: formatGEI(strat.post_strategy_gei), color: '#f8fafc' },
+                    strat.npv_cr !== null ? { label: '10-Yr NPV', value: formatCurrencyCr(strat.npv_cr), color: '#34d399' } : null,
+                    strat.payback_years !== null ? { label: 'Capital Payback', value: formatYears(strat.payback_years), color: '#cbd5e1' } : null,
+                    { label: 'Risk Index', value: `${strat.risk_score.toFixed(0)} / 100`, color: strat.risk_score < 40 ? '#34d399' : strat.risk_score < 60 ? '#fbbf24' : '#f87171' },
+                  ].filter(Boolean).map((row: any, i) => (
+                    <div key={i} className="flex justify-between py-1 border-b border-slate-800/60 last:border-0">
+                      <span className="text-slate-400">{row.label}:</span>
+                      <span className="font-mono font-semibold" style={{ color: row.color }}>{row.value}</span>
+                    </div>
+                  ))}
+                </div>
+
+                <p className="text-xs text-slate-400 mt-3 pt-2 border-t border-slate-800 leading-relaxed italic">
+                  "{strat.summary}"
+                </p>
+              </div>
+
+              <div className="mt-4 pt-2">
+                <button
+                  onClick={() => onOpenCalculationTrace && onOpenCalculationTrace(stratKey)}
+                  className={`w-full py-2 px-3 rounded-lg text-xs font-semibold flex items-center justify-center space-x-1.5 transition-all cursor-pointer ${
+                    isWinner ? 'bg-emerald-600 hover:bg-emerald-500 text-white shadow-lg shadow-emerald-950/50' : 'bg-slate-800 hover:bg-slate-700 text-slate-300'
+                  }`}
+                >
+                  <span>Audit Strategy Trace</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
