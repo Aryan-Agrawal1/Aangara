@@ -14,8 +14,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className="bg-[#06090E] text-slate-100 min-h-screen antialiased flex flex-col font-sans selection:bg-emerald-500 selection:text-black relative">
+    <html lang="en" className="light" suppressHydrationWarning>
+      <body className="min-h-screen antialiased flex flex-col font-sans selection:bg-emerald-500 selection:text-white relative">
         <ThemeProvider>
           <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 z-50 px-4 py-2 bg-emerald-600 text-white rounded-lg text-sm font-medium">Skip to main content</a>
           {children}
