@@ -11,12 +11,13 @@ from app.engines.carbon import CarbonEngine
 from app.engines.optimizer import CapitalOptimizer
 from app.engines.mrv import MRVEngine
 from app.services.gemini_service import gemini_service
+from app.config import settings
 
 class IndustrialIntelligenceService:
-    def __init__(self, model_dir: str = "data/model_registry", data_dir: str = "data"):
-        self.model_dir = model_dir
-        self.data_dir = data_dir
-        self.regulatory_engine = RegulatoryEngine(data_dir=data_dir)
+    def __init__(self, model_dir: Optional[str] = None, data_dir: Optional[str] = None):
+        self.data_dir = data_dir or settings.DATA_DIR
+        self.model_dir = model_dir or os.path.join(self.data_dir, "model_registry")
+        self.regulatory_engine = RegulatoryEngine(data_dir=self.data_dir)
         self._load_models()
         self._load_reference_distributions()
 

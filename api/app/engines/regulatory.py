@@ -1,15 +1,16 @@
 from typing import Dict, Any, Optional, List
 import json
 import os
+from app.config import settings
 
 class RegulatoryEngine:
-    def __init__(self, data_dir: str = "data"):
-        self.data_dir = data_dir
+    def __init__(self, data_dir: Optional[str] = None):
+        self.data_dir = data_dir or settings.DATA_DIR
         # Single source of truth: data/regulatory_truth/ (see docs/regulatory-discrepancies.md DISC-07)
-        self.targets_file = os.path.join(data_dir, "regulatory_truth", "regulatory_targets.json")
-        self.status_file = os.path.join(data_dir, "regulatory_truth", "regulatory_status.json")
-        self.sources_file = os.path.join(data_dir, "regulatory_truth", "source_register.json")
-        self.methods_file = os.path.join(data_dir, "regulatory_truth", "methodologies.json")
+        self.targets_file = os.path.join(self.data_dir, "regulatory_truth", "regulatory_targets.json")
+        self.status_file = os.path.join(self.data_dir, "regulatory_truth", "regulatory_status.json")
+        self.sources_file = os.path.join(self.data_dir, "regulatory_truth", "source_register.json")
+        self.methods_file = os.path.join(self.data_dir, "regulatory_truth", "methodologies.json")
         self._load_catalogs()
 
     def _load_catalogs(self):

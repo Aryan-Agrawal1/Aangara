@@ -1,0 +1,117 @@
+{
+  "version": "REG-2026-08-REV2",
+  "effective_date": "2025-04-01",
+  "authority": "Bureau of Energy Efficiency (BEE) & Ministry of Environment, Forest and Climate Change (MoEFCC)",
+  "statutory_act": "Energy Conservation Act, 2001 (Section 14AA) & CCTS 2023",
+  "gazette_notification": "G.S.R. 25(E) / MoEFCC 2025-26 Trajectory Schedule",
+  "sectors": {
+    "aluminium": {
+      "sector_id": "aluminium",
+      "name": "Aluminium",
+      "status": "FINAL",
+      "category": "CCTS_MONITORED",
+      "source_id": "REG-MOEFCC-2025-GEI",
+      "source_document": "MoEFCC Notification G.S.R. 25(E) - Aluminium Trajectory",
+      "effective_date": "2025-04-01",
+      "baseline_period": "2023-24",
+      "target_period": "2025-26 to 2026-27",
+      "notes": "Binding GEI targets for smelters and refineries on per tonne primary aluminium ingot basis."
+    },
+    "cement": {
+      "sector_id": "cement",
+      "name": "Cement",
+      "status": "FINAL",
+      "category": "CCTS_MONITORED",
+      "source_id": "REG-MOEFCC-2025-GEI",
+      "source_document": "MoEFCC Notification G.S.R. 25(E) - Cement Trajectory",
+      "effective_date": "2025-04-01",
+      "baseline_period": "2023-24",
+      "target_period": "2025-26 to 2026-27",
+      "notes": "Binding GEI targets on per tonne ordinary portland / pozzolana cement basis."
+    },
+    "chlor_alkali": {
+      "sector_id": "chlor_alkali",
+      "name": "Chlor-Alkali",
+      "status": "FINAL",
+      "category": "CCTS_MONITORED",
+      "source_id": "REG-MOEFCC-2025-GEI",
+      "source_document": "MoEFCC Notification G.S.R. 25(E) - Chlor-Alkali Trajectory",
+      "effective_date": "2025-04-01",
+      "baseline_period": "2023-24",
+      "target_period": "2025-26 to 2026-27",
+      "notes": "Binding GEI targets on per tonne caustic soda (100% NaOH equivalent) basis."
+    },
+    "pulp_paper": {
+      "sector_id": "pulp_paper",
+      "name": "Pulp & Paper",
+      "status": "FINAL",
+      "category": "CCTS_MONITORED",
+      "source_id": "REG-MOEFCC-2025-GEI",
+      "source_document": "MoEFCC Notification G.S.R. 25(E) - Pulp & Paper Trajectory",
+      "effective_date": "2025-04-01",
+      "baseline_period": "2023-24",
+      "target_period": "2025-26 to 2026-27",
+      "notes": "Binding GEI targets on per tonne finished paper product basis."
+    },
+    "petrochemicals": {
+      "sector_id": "petrochemicals",
+      "name": "Petrochemicals",
+      "status": "FINAL",
+      "category": "CCTS_MONITORED",
+      "source_id": "REG-MOEFCC-2025-GEI",
+      "source_document": "MoEFCC Notification G.S.R. 25(E) - Petrochemicals Trajectory",
+      "effective_date": "2025-04-01",
+      "baseline_period": "2023-24",
+      "target_period": "2025-26 to 2026-27",
+      "notes": "Binding GEI targets on cracker and major polymer product basis."
+    },
+    "petroleum_refinery": {
+      "sector_id": "petroleum_refinery",
+      "name": "Petroleum Refinery",
+      "status": "FINAL",
+      "category": "CCTS_MONITORED",
+      "source_id": "REG-MOEFCC-2025-GEI",
+      "source_document": "MoEFCC Notification G.S.R. 25(E) - Petroleum Refinery Trajectory",
+      "effective_date": "2025-04-01",
+      "baseline_period": "2023-24",
+      "target_period": "2025-26 to 2026-27",
+      "notes": "Binding GEI targets based on composite MBN (Million Barrel Number) complexity factor."
+    },
+    "textile": {
+      "sector_id": "textile",
+      "name": "Textile",
+      "status": "FINAL",
+      "category": "CCTS_MONITORED",
+      "source_id": "REG-MOEFCC-2025-GEI",
+      "source_document": "MoEFCC Notification G.S.R. 25(E) - Textile Trajectory",
+      "effective_date": "2025-04-01",
+      "baseline_period": "2023-24",
+      "target_period": "2025-26 to 2026-27",
+      "notes": "Binding GEI targets for composite textile and spinning-processing units."
+    },
+    "iron_steel": {
+      "sector_id": "iron_steel",
+      "name": "Iron & Steel",
+      "status": "FINAL",
+      "category": "CCTS_MONITORED",
+      "source_id": "REG-MOEFCC-2025-STEEL-GEI",
+      "source_document": "MoEFCC Notification G.S.R. 88(E) - Iron & Steel Trajectory Schedule",
+      "effective_date": "2025-04-01",
+      "baseline_period": "2023-24",
+      "target_period": "2025-26 to 2026-27",
+      "notes": "Formally elevated as 8th CCTS compliance sector with subsector trajectories for BF-BOF, DRI-EAF, and Pellet Plants."
+    },
+    "fertiliser": {
+      "sector_id": "fertiliser",
+      "name": "Fertiliser",
+      "status": "WATCHLIST",
+      "category": "WATCHLIST",
+      "source_id": "REG-DOF-2025-TRANSITION",
+      "source_document": "Department of Fertilisers & BEE Transition Roadmap",
+      "effective_date": null,
+      "baseline_period": "2023-24 (Estimated)",
+      "target_period": "Phase 2 Watchlist",
+      "notes": "Watchlist scope undergoing policy integration with National Green Hydrogen Mission and Urea Subsidy Framework."
+    }
+  }
+}

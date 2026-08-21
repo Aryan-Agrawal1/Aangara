@@ -1,0 +1,93 @@
+{
+  "version": "SRC-REG-2026-08",
+  "sources": [
+    {
+      "source_id": "REG-IN-ECA2001",
+      "tier": 1,
+      "authority": "Parliament of India / India Code",
+      "title": "Energy Conservation Act, 2001 (as amended 2022) - Section 14AA",
+      "date": "2022-12-19",
+      "version": "Act No. 52 of 2001 (Amended by Act 19 of 2022)",
+      "url": "https://www.indiacode.nic.in/handle/123456789/14657",
+      "status": "STATUTORY_FOUNDATION",
+      "notes": "Provides statutory mandate for Carbon Credit Certificates (CCC) and CCTS trading."
+    },
+    {
+      "source_id": "REG-MOP-CCTS2023",
+      "tier": 1,
+      "authority": "Ministry of Power",
+      "title": "Carbon Credit Trading Scheme, 2023 (S.O. 2825(E))",
+      "date": "2023-06-28",
+      "version": "S.O. 2825(E)",
+      "url": "https://egazette.gov.in/WriteReadData/2023/246859.pdf",
+      "status": "PRIMARY_SCHEME_NOTIFICATION",
+      "notes": "Establishes National Steering Committee, BEE as Administrator, Registry, CERC regulator."
+    },
+    {
+      "source_id": "REG-MOP-OFFSET2023",
+      "tier": 1,
+      "authority": "Ministry of Power",
+      "title": "CCTS Amendment Notification - Offset Mechanism (S.O. 5369(E))",
+      "date": "2023-12-19",
+      "version": "S.O. 5369(E)",
+      "url": "https://powermin.gov.in/sites/default/files/uploads/Including_Offset_mechanism_under_CCTS_notification.pdf",
+      "status": "PRIMARY_AMENDMENT",
+      "notes": "Introduces project-based Offset Mechanism for non-obligated entities."
+    },
+    {
+      "source_id": "REG-BEE-PROC2024",
+      "tier": 1,
+      "authority": "Bureau of Energy Efficiency (BEE)",
+      "title": "Detailed Procedure for Compliance Mechanism under CCTS (Version 1.0)",
+      "date": "2024-07-15",
+      "version": "Version 1.0",
+      "url": "https://beeindia.gov.in/sites/default/files/2024-07/Detailed%20Procedure%20for%20Compliance%20Procedure%20under%20CCTS.pdf",
+      "status": "COMPLIANCE_PROCEDURE",
+      "notes": "Prescribes source-stream calculation methodology, mass balance, GEI formulas, and MRV/ACV rules."
+    },
+    {
+      "source_id": "REG-MOEFCC-2026-GSR25E",
+      "tier": 1,
+      "authority": "Ministry of Environment, Forest and Climate Change (MoEFCC)",
+      "title": "Greenhouse Gases Emission Intensity Target (Amendment) Rules, 2025 (G.S.R. 25(E))",
+      "date": "2026-01-13",
+      "version": "G.S.R. 25(E)",
+      "url": "https://egazette.gov.in/WriteReadData/2026/269375.pdf",
+      "status": "OFFICIAL_TARGET_GAZETTE",
+      "notes": "Notifies unit-level targets for Refinery, Petrochemicals, Textile, and Aluminium Category 2."
+    },
+    {
+      "source_id": "REG-MOP-2026-03",
+      "tier": 1,
+      "authority": "Ministry of Power",
+      "title": "Lok Sabha Question No. 336 Answer - Transition of 7 Sectors and 490 Entities",
+      "date": "2026-03-12",
+      "version": "Parliamentary Record AU336",
+      "url": "https://powermin.gov.in/sites/default/files/uploads/LS12032026_Eng_0.pdf",
+      "status": "OFFICIAL_GOVERNMENT_RECORD",
+      "notes": "Confirms 7 notified CCTS sectors: Aluminium, Cement, Chlor-Alkali, Pulp & Paper, Petrochemicals, Refinery, Textile."
+    },
+    {
+      "source_id": "REG-CERC-2026-CCC",
+      "tier": 1,
+      "authority": "Central Electricity Regulatory Commission (CERC)",
+      "title": "Terms and Conditions for Purchase and Sale of Carbon Credit Certificates Regulations, 2026",
+      "date": "2026-04-27",
+      "version": "Reg. No. 205, Gazette No. 292",
+      "url": "https://cercind.gov.in/current_reg.html",
+      "status": "MARKET_TRADING_REGULATION",
+      "notes": "Governs CCC trading on Power Exchanges, order matching, settlement, and market surveillance."
+    },
+    {
+      "source_id": "REG-BEE-METH2026-07",
+      "tier": 1,
+      "authority": "Bureau of Energy Efficiency (BEE)",
+      "title": "Methodologies and Tools under Offset Mechanism (12 Notified Methodologies)",
+      "date": "2026-07-07",
+      "version": "Web Release 07-Jul-2026",
+      "url": "https://beeindia.gov.in/view_content.php?lang=1&lid=571",
+      "status": "CURRENT_METHODOLOGY_CATALOG",
+      "notes": "Latest 12 approved methodologies under CCTS Offset Mechanism."
+    }
+  ]
+}

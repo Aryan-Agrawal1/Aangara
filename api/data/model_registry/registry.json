@@ -1,0 +1,92 @@
+{
+  "version": "REG-MODEL-V2.3-250K",
+  "updated_at": "2026-08-21",
+  "total_catalogued_models": 3,
+  "models": [
+    {
+      "model_id": "CA-GEI-BENCHMARK-V2",
+      "model_name": "Industrial GEI Peer Benchmark Model (V2 — 250k Scale)",
+      "algorithm": "HistGradientBoostingRegressor",
+      "feature_schema_version": "FS-2026-08-v2",
+      "training_samples": 225000,
+      "holdout_samples": 27000,
+      "features": [
+        "sector_enc",
+        "annual_production",
+        "electricity_intensity_kwh",
+        "renewable_electricity_pct",
+        "thermal_fuel_gj"
+      ],
+      "target": "actual_gei",
+      "target_leakage_prevented": true,
+      "split_method": "FACILITY_LEVEL",
+      "metrics": {
+        "holdout_mae": 0.2821,
+        "holdout_rmse": 0.4704,
+        "holdout_r2": 0.9788,
+        "naive_baseline_mae": 0.403,
+        "naive_baseline_r2": 0.9616,
+        "lift_over_baseline": 1.43
+      },
+      "confidence_tier": "CALIBRATED",
+      "known_limitations": "Trained on 225k calibrated synthetic records across 9 Indian sectors. Facility-level train/holdout split enforced.",
+      "training_data_provenance_ids": [
+        "SYNTH-2026-08-v2-250K"
+      ],
+      "artifact": "data/model_registry/gei_benchmark_v2.joblib",
+      "artifact_status": "ACTIVE"
+    },
+    {
+      "model_id": "CA-ENERGY-BENCHMARK-V1",
+      "model_name": "Energy Intensity Benchmark Model (V1 — 250k Scale)",
+      "algorithm": "HistGradientBoostingRegressor",
+      "feature_schema_version": "FS-2026-08-v2",
+      "training_samples": 225000,
+      "holdout_samples": 27000,
+      "features": [
+        "sector_enc",
+        "annual_production",
+        "renewable_electricity_pct",
+        "thermal_fuel_gj",
+        "actual_gei"
+      ],
+      "target": "electricity_intensity_kwh_t",
+      "target_leakage_prevented": true,
+      "split_method": "FACILITY_LEVEL",
+      "metrics": {
+        "holdout_mae": 12.5,
+        "holdout_rmse": 29.52,
+        "holdout_r2": 1.0,
+        "naive_baseline_mae": 300.97,
+        "lift_over_baseline": 24.07
+      },
+      "confidence_tier": "CALIBRATED",
+      "known_limitations": "Trained on 225k calibrated synthetic records with genuine physical variance.",
+      "training_data_provenance_ids": [
+        "SYNTH-2026-08-v2-250K"
+      ],
+      "artifact": "data/model_registry/energy_benchmark_v1.joblib",
+      "artifact_status": "ACTIVE"
+    },
+    {
+      "model_id": "CA-ANOMALY-ISO-V2",
+      "model_name": "Operational Anomaly Detector (V2 — 250k Scale)",
+      "algorithm": "IsolationForest",
+      "contamination_rate": 0.05,
+      "n_estimators": 150,
+      "features": [
+        "electricity_intensity_kwh",
+        "renewable_electricity_pct",
+        "thermal_fuel_gj",
+        "actual_gei"
+      ],
+      "confidence_tier": "CALIBRATED",
+      "known_limitations": "Trained on calibrated 250k scale dataset. Flags operational outliers across energy and emissions dimensions.",
+      "training_data_provenance_ids": [
+        "SYNTH-2026-08-v2-250K"
+      ],
+      "artifact": "data/model_registry/anomaly_detector_v2.joblib",
+      "artifact_status": "ACTIVE"
+    }
+  ]
+}

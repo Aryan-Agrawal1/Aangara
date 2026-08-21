@@ -1,11 +1,12 @@
 import json
 import os
 from typing import List, Dict, Any, Optional
+from app.config import settings
 
 class DataService:
-    def __init__(self, data_dir: str = "data"):
-        self.data_dir = data_dir
-        self.entities_path = os.path.join(data_dir, "synthetic", "master_entities.json")
+    def __init__(self, data_dir: Optional[str] = None):
+        self.data_dir = data_dir or settings.DATA_DIR
+        self.entities_path = os.path.join(self.data_dir, "synthetic", "master_entities.json")
         self._load_entities()
 
     def _load_entities(self):

@@ -1,0 +1,10 @@
+sector,sub_sector_route,output_unit,bat_elec_kwh_per_t,bat_thermal_gj_per_t,bat_clinker_factor_pct,bat_process_emission_tco2_per_t_clinker,baseline_gei_default,bat_target_gei_2025_26,bat_target_gei_2026_27,best_in_class_gei,ccts_mandatory_reduction_pct,calibration_authority
+cement,Integrated Cement Plant (OPC/PPC),tonne cement,68.0,2.95,65.0,0.525,0.738,0.72,0.702,0.585,4.88,"BEE PAT Cycle 1-6 BAT Compendium, CMA 2024, MoEFCC G.S.R. 25(E)"
+aluminium,Primary Smelter (Pre-Baked Anode),tonne primary aluminium,13400.0,1.8,,1.55,14.85,14.48,14.11,12.8,4.98,"BEE DCP v1.0, BRSR Hindalco/Vedanta, MoEFCC G.S.R. 25(E)"
+iron_steel,Integrated Blast Furnace - Basic Oxygen Furnace (BF-BOF),tonne crude steel,480.0,17.5,,,2.38,2.32,2.26,1.85,5.04,"MoEFCC Draft G.S.R. 517(E), Tata Steel / JSW BRSR Disclosures"
+chlor_alkali,Zero-Gap Membrane Cell Caustic Soda,tonne caustic soda (100% NaOH),2050.0,0.85,,,1.82,1.775,1.73,1.52,4.95,"BEE PAT Cycle data, Grasim BRSR, MoEFCC G.S.R. 25(E)"
+pulp_paper,Wood-Based Integrated Pulp & Paper,tonne finished paper,680.0,9.2,,,1.95,1.9,1.85,1.45,5.13,"BEE PAT Cycle 1-6, JK Paper / ITC Disclosures, G.S.R. 25(E)"
+petrochemicals,Gas / Naphtha Cracker Complex,tonne polymer / ethylene,420.0,12.8,,,1.25,1.22,1.19,0.95,4.8,"BEE CCTS Procedure 2024, RIL BRSR, MoEFCC G.S.R. 25(E)"
+petroleum_refinery,High-Complexity Coastal/Inland Refinery,tonne crude throughput (MBN basis),45.0,2.1,,,0.285,0.278,0.271,0.21,4.91,"MoEFCC G.S.R. 25(E), IOCL / BPCL Refineries BRSR"
+textile,Composite Spinning & Fabric Processing,tonne finished fabric,1200.0,18.5,,,4.65,4.53,4.41,3.2,5.16,"BEE PAT Cycle data, MoEFCC G.S.R. 25(E)"
+fertiliser,Natural Gas Ammonia-Urea Complex,tonne prilled urea,95.0,21.0,,,0.62,0.605,0.59,0.48,4.84,"DoF Transition Roadmap, BEE Watchlist Register"
