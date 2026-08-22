@@ -231,29 +231,33 @@ export function FacilityInputForm({
           </div>
 
           {/* 8-Sector 1-Click Demo Presets */}
-          <div className="flex flex-wrap items-center justify-start sm:justify-end gap-1.5 bg-[#0B1019]/80 backdrop-blur-md p-2.5 rounded-lg border border-[#E4E9E6]/80 shadow-lg">
+          <div className="flex flex-wrap items-center justify-start sm:justify-end gap-1.5 bg-[#F6F8F7] p-2.5 rounded-lg border border-[#E4E9E6]">
             <span className="text-[11px] font-semibold text-[#4B5A54] flex items-center space-x-1 mr-1">
               <Sparkles className="w-3.5 h-3.5 text-[#C98A1E]" />
               <span>1-Click Demos:</span>
             </span>
             {[
-              { id: 'cement', label: 'Cement', color: 'text-[#1F8A5F] hover:border-emerald-500' },
-              { id: 'iron_steel', label: 'Steel (Draft)', color: 'text-[#2E6BA8] hover:border-sky-500' },
-              { id: 'aluminium', label: 'Aluminium', color: 'text-[#C98A1E] hover:border-amber-500' },
-              { id: 'chlor_alkali', label: 'Chlor-Alkali', color: 'text-[#0B4A3D] hover:border-teal-500' },
-              { id: 'pulp_paper', label: 'Paper', color: 'text-lime-400 hover:border-lime-500' },
-              { id: 'petroleum_refinery', label: 'Refinery', color: 'text-violet-400 hover:border-violet-500' },
-              { id: 'petrochemicals', label: 'Petrochem', color: 'text-cyan-400 hover:border-cyan-500' },
-              { id: 'textile', label: 'Textile', color: 'text-pink-400 hover:border-pink-500' },
+              { id: 'cement', label: 'Cement', draft: false },
+              { id: 'iron_steel', label: 'Steel (Draft)', draft: true },
+              { id: 'aluminium', label: 'Aluminium', draft: false },
+              { id: 'chlor_alkali', label: 'Chlor-Alkali', draft: false },
+              { id: 'pulp_paper', label: 'Paper', draft: false },
+              { id: 'petroleum_refinery', label: 'Refinery', draft: false },
+              { id: 'petrochemicals', label: 'Petrochem', draft: false },
+              { id: 'textile', label: 'Textile', draft: false },
             ].map((p) => (
               <button
                 key={p.id}
                 type="button"
                 onClick={() => handleLoadPreset(p.id)}
-                className={`text-[11px] font-mono px-2.5 py-1.5 rounded-md transition-all cursor-pointer font-bold ${p.color} ${
-                  formData.sector === p.id 
-                    ? 'bg-white border border-[#E4E9E6] shadow-inner border border-[#CBD5CE] ring-1 ring-emerald-500/30' 
-                    : 'bg-[#F6F8F7] hover:bg-white border border-[#E4E9E6] border border-[#E4E9E6]/50 hover:border-[#CBD5CE]'
+                className={`text-[11px] font-mono px-2.5 py-1.5 rounded-md transition-all cursor-pointer font-semibold border ${
+                  formData.sector === p.id
+                    ? p.draft
+                      ? 'bg-amber-50 border-amber-300 text-[#C98A1E] shadow-sm ring-1 ring-amber-300/40'
+                      : 'bg-[#E8F5F2] border-[#0B4A3D]/30 text-[#0B4A3D] shadow-sm ring-1 ring-[#0B4A3D]/20'
+                    : p.draft
+                      ? 'bg-white border-amber-200 text-[#C98A1E] hover:bg-amber-50'
+                      : 'bg-white border-[#E4E9E6] text-[#4B5A54] hover:bg-[#F6F8F7] hover:text-[#10231C]'
                 }`}
               >
                 {p.label}
@@ -290,7 +294,7 @@ export function FacilityInputForm({
                   type="text"
                   value={formData.facility_name}
                   onChange={(e) => handleChange('facility_name', e.target.value)}
-                  className="w-full bg-white border border-[#E4E9E6] rounded-lg px-3 py-2 text-xs text-white placeholder-slate-600 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 font-medium"
+                  className="w-full bg-white border border-[#E4E9E6] rounded-lg px-3 py-2 text-xs text-[#10231C] placeholder-[#6B7A72] focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 font-medium"
                   placeholder="e.g. Acme Cement Works Line 1"
                   required
                 />
@@ -381,7 +385,7 @@ export function FacilityInputForm({
                     type="text"
                     value={formData.sub_sector}
                     onChange={(e) => handleChange('sub_sector', e.target.value)}
-                    className="w-full bg-white border border-[#E4E9E6] rounded-lg px-3 py-2 text-xs text-white placeholder-slate-600 focus:outline-none focus:border-emerald-500"
+                    className="w-full bg-white border border-[#E4E9E6] rounded-lg px-3 py-2 text-xs text-[#10231C] placeholder-[#6B7A72] focus:outline-none focus:border-emerald-500"
                     placeholder="e.g. Integrated Dry Process Kiln"
                   />
                   <p className="text-[10px] text-[#4B5A54] mt-1">Defines benchmark cohort and methodology applicability.</p>

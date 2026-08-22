@@ -13,7 +13,7 @@ import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid
 } from 'recharts';
 import { ProvenanceFooter } from '@/components/ui/ProvenanceFooter';
-import { Activity, CheckCircle2, ShieldAlert, Cpu, Flame, Zap, BarChart2, Building2, Layers } from 'lucide-react';
+import { Activity, CheckCircle2, ShieldAlert, Cpu, Flame, Zap, BarChart2, Building2, Layers, AlertCircle } from 'lucide-react';
 
 const EMISSION_COLORS = ['#38bdf8', '#fbbf24', '#34d399'];
 const CHART_GRID = '#E4E9E6';
@@ -46,10 +46,12 @@ export default function EntityInputPage() {
 
   const [entity, setEntity] = useState<Entity | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [loadError, setLoadError] = useState<string | null>(null);
 
   useEffect(() => {
     async function load() {
       setIsLoading(true);
+      setLoadError(null);
       try {
         let currentEnts = entities;
         if (sectors.length === 0 || entities.length === 0) {
@@ -63,6 +65,7 @@ export default function EntityInputPage() {
         setEntity(e);
       } catch (err) {
         console.error('Failed to load entity:', err);
+        setLoadError('Unable to load facility data. The data service may be temporarily unavailable.');
       } finally {
         setIsLoading(false);
       }
@@ -156,7 +159,30 @@ export default function EntityInputPage() {
           </div>
         </div>
 
-        {entity && rp && (
+        {isLoading && (
+          <div className="flex flex-col items-center justify-center min-h-[320px] space-y-3">
+            <div className="w-8 h-8 border-2 border-[#0B4A3D] border-t-transparent rounded-full animate-spin" />
+            <span className="text-sm text-[#4B5A54] font-mono">Loading facility profile...</span>
+          </div>
+        )}
+
+        {!isLoading && loadError && (
+          <div className="flex flex-col items-center justify-center min-h-[320px] p-8 text-center">
+            <div className="w-14 h-14 rounded-2xl bg-[#FDECEA] border border-[#C33B2E]/20 flex items-center justify-center mb-4">
+              <AlertCircle className="w-6 h-6 text-[#C33B2E]" />
+            </div>
+            <h3 className="text-base font-semibold text-[#10231C] mb-2">Unable to Load Facility Data</h3>
+            <p className="text-sm text-[#4B5A54] max-w-sm mb-6">{loadError}</p>
+            <button
+              onClick={() => { setLoadError(null); setIsLoading(true); getEntityById(currentEntityId || 'SYN-CEM-001').then(setEntity).catch((e) => setLoadError(String(e))).finally(() => setIsLoading(false)); }}
+              className="flex items-center gap-2 px-4 py-2 bg-[#F6F8F7] hover:bg-[#E4E9E6] text-[#10231C] rounded-lg text-sm font-medium transition-colors border border-[#E4E9E6]"
+            >
+              <CheckCircle2 className="w-4 h-4" />Retry
+            </button>
+          </div>
+        )}
+
+        {!isLoading && !loadError && entity && rp && (
           <div className="space-y-6">
             {/* Top 3 Info Cards */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">

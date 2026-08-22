@@ -4,13 +4,54 @@ __pycache__/
 *.py[cod]
 .venv/
 env/
+
+# Build outputs
 .next/
 out/
 build/
+
+# Databases & secrets
 *.db
 *.sqlite3
 .env
+.env.local
+
+# Logs & test artifacts
 logs/
 *.log
 coverage/
 .pytest_cache/
+playwright-report/
+test-results/
+
+# Python & data pipeline (not needed for Vercel Next.js deployment)
+backend/
+api/
+requirements.txt
+pytest.ini
+data/
+scripts/
+docs/
+e2e/
+__tests__/
+types/
+docker-compose.yml
+vitest.config.ts
+vitest.setup.ts
+playwright.config.ts
+
+# All audit, research, and design docs (not needed in production)
+*.md
+!README.md
+
+# Scratch / temp files
+*.py
+*.csv
+*.xlsx
+*.parquet
+*.tsbuildinfo
+tsconfig.tsbuildinfo
+
+# OS metadata
+.DS_Store
+Thumbs.db

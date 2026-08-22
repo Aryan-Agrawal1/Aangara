@@ -132,11 +132,11 @@ export default function DecisionCockpitPage() {
         ) : decisionError ? (
           /* Graceful error state — backend down */
           <div className="h-[60vh] flex flex-col items-center justify-center space-y-4 text-center">
-            <div className="p-4 rounded-full bg-rose-950/40 border border-rose-800/50">
-              <AlertTriangle className="w-8 h-8 text-rose-400" />
+            <div className="p-4 rounded-full bg-[#FDECEA] border border-[#C33B2E]/20">
+              <AlertTriangle className="w-8 h-8 text-[#C33B2E]" />
             </div>
             <div>
-              <h3 className="text-base font-semibold text-rose-300 mb-1">Backend Unavailable</h3>
+              <h3 className="text-base font-semibold text-[#10231C] mb-1">Decision Twin Unavailable</h3>
               <p className="text-sm text-[#4B5A54] max-w-md">{decisionError}</p>
             </div>
             <button
@@ -148,13 +148,19 @@ export default function DecisionCockpitPage() {
                   .catch((e) => setDecisionError(String(e)))
                   .finally(() => setDecisionLoading(false));
               }}
-              className="flex items-center space-x-2 px-4 py-2 bg-white border border-[#E4E9E6] hover:bg-slate-700 rounded-lg text-sm text-[#4B5A54] transition-colors"
+              className="flex items-center space-x-2 px-4 py-2 bg-[#F6F8F7] border border-[#E4E9E6] hover:bg-[#E4E9E6] rounded-lg text-sm text-[#10231C] transition-colors"
             >
               <RefreshCw className="w-4 h-4" />
               <span>Retry</span>
             </button>
           </div>
-        ) : !decisionData ? null : (
+        ) : !decisionData ? (
+          /* Waiting for entity selection — not blank */
+          <div className="h-[40vh] flex flex-col items-center justify-center space-y-3 text-center">
+            <div className="w-8 h-8 border-2 border-[#0B4A3D] border-t-transparent rounded-full animate-spin" />
+            <span className="text-sm text-[#4B5A54] font-mono">Loading Decision Twin analysis...</span>
+          </div>
+        ) : (
           <div>
             {/* Top Grid: Carbon Position & MRV Readiness */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">

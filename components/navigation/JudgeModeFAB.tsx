@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Zap, FileText, Activity, X, ShieldCheck } from "lucide-react";
@@ -8,7 +8,8 @@ export function JudgeModeFAB() {
   const router = useRouter();
 
   return (
-    <aside aria-label="Demo shortcuts" className="fixed bottom-6 right-6 z-40 flex flex-col items-end font-sans">
+    <aside aria-label="Demo shortcuts" className="fixed bottom-8 right-6 z-40 flex flex-col items-end font-sans pointer-events-none">
+      <div className="pointer-events-auto flex flex-col items-end">
       {isOpen && (
         <div className="mb-3 bg-white border border-[#E4E9E6] p-3 rounded-xl shadow-elevated flex flex-col gap-1.5 min-w-[260px] animate-in slide-in-from-bottom-2 fade-in duration-200">
           <div className="px-2 py-1.5 border-b border-[#E4E9E6] mb-1 flex justify-between items-center">
@@ -72,6 +73,7 @@ export function JudgeModeFAB() {
           </>
         )}
       </button>
+      </div>
     </aside>
   );
 }

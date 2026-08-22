@@ -69,8 +69,8 @@ export default function SourcesPage() {
           </div>
           <div className="space-y-2">
             {[
-              { date: 'Jan 2026', event: 'G.S.R. 25(E): 9 sectors notified under CCTS Phase 1 — effective 01-Jan-2026', status: 'FACT' },
-              { date: 'Aug 2025', event: 'Iron & Steel GEI targets moved to revised-draft stage pending final gazette notification', status: 'FACT' },
+              { date: 'Jan 2026', event: 'G.S.R. 25(E): 8 sectors notified as FINAL under CCTS Phase 1 (Cement, Aluminium, Chlor-Alkali, Pulp & Paper, Petrochemicals, Petroleum Refinery, Textile + one more). Iron & Steel excluded from final notification — still at draft stage.', status: 'FACT' },
+              { date: 'Jun 2026', event: 'Iron & Steel GEI targets issued as Revised Draft G.S.R. 517(E) covering 255 units — public comment period open, final gazette notification pending', status: 'FACT' },
               { date: 'Jul 2025', event: 'Fertiliser sector methodology updated to reflect urea process-emission boundary revision', status: 'FACT' },
               { date: 'Mar 2025', event: 'CEA Grid Emission Factor updated to 0.716 tCO2e/MWh for FY2024', status: 'FACT' },
             ].map(({ date, event, status }) => (
