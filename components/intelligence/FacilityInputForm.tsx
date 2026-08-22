@@ -311,7 +311,7 @@ export function FacilityInputForm({
                   <select
                     value={formData.sector}
                     onChange={(e) => handleChange('sector', e.target.value)}
-                    className="w-full bg-white border border-[#E4E9E6] rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500 font-semibold"
+                    className="w-full bg-white border border-[#E4E9E6] rounded-lg px-3 py-2 text-xs text-[#10231C] focus:outline-none focus:border-emerald-500 font-semibold"
                   >
                     <optgroup label="7 Notified Final CCTS Compliance Sectors">
                       <option value="cement">Cement (Integrated / Grinding)</option>
@@ -340,7 +340,7 @@ export function FacilityInputForm({
                   <select
                     value={formData.state}
                     onChange={(e) => handleChange('state', e.target.value)}
-                    className="w-full bg-white border border-[#E4E9E6] rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500"
+                    className="w-full bg-white border border-[#E4E9E6] rounded-lg px-3 py-2 text-xs text-[#10231C] focus:outline-none focus:border-emerald-500"
                   >
                     {['Rajasthan', 'Gujarat', 'Odisha', 'Chhattisgarh', 'Maharashtra', 'Tamil Nadu', 'Andhra Pradesh', 'Madhya Pradesh', 'Jharkhand', 'Punjab', 'Uttar Pradesh', 'Karnataka', 'West Bengal'].map((s) => (
                       <option key={s} value={s}>{s}</option>
@@ -365,7 +365,7 @@ export function FacilityInputForm({
                     step="any"
                     value={formData.annual_production}
                     onChange={(e) => handleChange('annual_production', parseFloat(e.target.value) || 0)}
-                    className="w-full bg-white border border-[#E4E9E6] rounded-lg px-3 py-2 text-xs text-white font-mono focus:outline-none focus:border-emerald-500"
+                    className="w-full bg-white border border-[#E4E9E6] rounded-lg px-3 py-2 text-xs text-[#10231C] font-mono focus:outline-none focus:border-emerald-500"
                     placeholder="e.g. 1200000"
                     required
                   />
@@ -422,7 +422,7 @@ export function FacilityInputForm({
                     step="any"
                     value={formData.electricity_mwh}
                     onChange={(e) => handleChange('electricity_mwh', parseFloat(e.target.value) || 0)}
-                    className="w-full bg-white border border-[#E4E9E6] rounded-lg px-3 py-2 text-xs text-white font-mono focus:outline-none focus:border-emerald-500"
+                    className="w-full bg-white border border-[#E4E9E6] rounded-lg px-3 py-2 text-xs text-[#10231C] font-mono focus:outline-none focus:border-emerald-500"
                     placeholder="e.g. 98000"
                     required
                   />
@@ -448,7 +448,7 @@ export function FacilityInputForm({
                     step="any"
                     value={formData.renewable_electricity_pct}
                     onChange={(e) => handleChange('renewable_electricity_pct', parseFloat(e.target.value) || 0)}
-                    className="w-full bg-white border border-[#E4E9E6] rounded-lg px-3 py-2 text-xs text-white font-mono focus:outline-none focus:border-emerald-500"
+                    className="w-full bg-white border border-[#E4E9E6] rounded-lg px-3 py-2 text-xs text-[#10231C] font-mono focus:outline-none focus:border-emerald-500"
                     placeholder="e.g. 12.5"
                     required
                   />
@@ -470,7 +470,7 @@ export function FacilityInputForm({
                   <select
                     value={formData.thermal_fuel_type}
                     onChange={(e) => handleChange('thermal_fuel_type', e.target.value)}
-                    className="w-full bg-white border border-[#E4E9E6] rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500 font-semibold"
+                    className="w-full bg-white border border-[#E4E9E6] rounded-lg px-3 py-2 text-xs text-[#10231C] focus:outline-none focus:border-emerald-500 font-semibold"
                   >
                     <option value="petcoke">Petcoke / Petroleum Coke (3.24 tCO₂e/tonne)</option>
                     <option value="indian_domestic_coal">Indian Domestic Coal (1.95 tCO₂e/tonne)</option>
@@ -497,7 +497,7 @@ export function FacilityInputForm({
                     step="any"
                     value={formData.thermal_fuel_tonnes}
                     onChange={(e) => handleChange('thermal_fuel_tonnes', parseFloat(e.target.value) || 0)}
-                    className="w-full bg-white border border-[#E4E9E6] rounded-lg px-3 py-2 text-xs text-white font-mono focus:outline-none focus:border-emerald-500"
+                    className="w-full bg-white border border-[#E4E9E6] rounded-lg px-3 py-2 text-xs text-[#10231C] font-mono focus:outline-none focus:border-emerald-500"
                     placeholder="e.g. 95000"
                     required
                   />
@@ -539,7 +539,7 @@ export function FacilityInputForm({
                       step="any"
                       value={formData.clinker_factor_pct || 74.0}
                       onChange={(e) => handleChange('clinker_factor_pct', parseFloat(e.target.value) || 74.0)}
-                      className="w-full bg-white border border-[#E4E9E6] rounded-lg px-3 py-2 text-xs text-white font-mono focus:outline-none focus:border-emerald-500"
+                      className="w-full bg-white border border-[#E4E9E6] rounded-lg px-3 py-2 text-xs text-[#10231C] font-mono focus:outline-none focus:border-emerald-500"
                     />
                     <p className="text-[10px] text-[#4B5A54] mt-1">Directly governs calcination process CO₂ emissions (0.525 tCO₂/t clinker).</p>
                   </div>
@@ -560,7 +560,7 @@ export function FacilityInputForm({
                       step="any"
                       value={formData.whrs_installed_mw || 0.0}
                       onChange={(e) => handleChange('whrs_installed_mw', parseFloat(e.target.value) || 0.0)}
-                      className="w-full bg-white border border-[#E4E9E6] rounded-lg px-3 py-2 text-xs text-white font-mono focus:outline-none focus:border-emerald-500"
+                      className="w-full bg-white border border-[#E4E9E6] rounded-lg px-3 py-2 text-xs text-[#10231C] font-mono focus:outline-none focus:border-emerald-500"
                     />
                     <p className="text-[10px] text-[#4B5A54] mt-1">Set to 0 MW if no WHRS turbine is operational.</p>
                   </div>
@@ -580,7 +580,7 @@ export function FacilityInputForm({
                     <select
                       value={formData.steel_route || 'BF_BOF'}
                       onChange={(e) => handleChange('steel_route', e.target.value)}
-                      className="w-full bg-white border border-[#E4E9E6] rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500 font-semibold"
+                      className="w-full bg-white border border-[#E4E9E6] rounded-lg px-3 py-2 text-xs text-[#10231C] focus:outline-none focus:border-emerald-500 font-semibold"
                     >
                       <option value="BF_BOF">Integrated Blast Furnace - Basic Oxygen Furnace (BF-BOF)</option>
                       <option value="DRI_EAF">Direct Reduced Iron - Electric Arc Furnace (DRI-EAF)</option>
@@ -602,7 +602,7 @@ export function FacilityInputForm({
                       step="any"
                       value={formData.whrs_installed_mw || 0.0}
                       onChange={(e) => handleChange('whrs_installed_mw', parseFloat(e.target.value) || 0.0)}
-                      className="w-full bg-white border border-[#E4E9E6] rounded-lg px-3 py-2 text-xs text-white font-mono focus:outline-none focus:border-emerald-500"
+                      className="w-full bg-white border border-[#E4E9E6] rounded-lg px-3 py-2 text-xs text-[#10231C] font-mono focus:outline-none focus:border-emerald-500"
                     />
                   </div>
                 </div>
@@ -626,7 +626,7 @@ export function FacilityInputForm({
                     step="any"
                     value={formData.smelter_dc_sec_kwh || 14200.0}
                     onChange={(e) => handleChange('smelter_dc_sec_kwh', parseFloat(e.target.value) || 14200.0)}
-                    className="w-full bg-white border border-[#E4E9E6] rounded-lg px-3 py-2 text-xs text-white font-mono focus:outline-none focus:border-emerald-500"
+                    className="w-full bg-white border border-[#E4E9E6] rounded-lg px-3 py-2 text-xs text-[#10231C] font-mono focus:outline-none focus:border-emerald-500"
                   />
                   <p className="text-[10px] text-[#4B5A54] mt-1">Potline electrolysis constitutes ~90% of primary aluminium GHG intensity.</p>
                 </div>
@@ -644,7 +644,7 @@ export function FacilityInputForm({
                   <select
                     value={formData.caustic_tech || 'bipolar_membrane'}
                     onChange={(e) => handleChange('caustic_tech', e.target.value)}
-                    className="w-full bg-white border border-[#E4E9E6] rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500 font-semibold"
+                    className="w-full bg-white border border-[#E4E9E6] rounded-lg px-3 py-2 text-xs text-[#10231C] focus:outline-none focus:border-emerald-500 font-semibold"
                   >
                     <option value="bipolar_membrane">Zero-Gap Bipolar Membrane Cell (BAT standard)</option>
                     <option value="standard_membrane">Standard Gap Membrane Cell</option>
@@ -671,7 +671,7 @@ export function FacilityInputForm({
                     step="0.1"
                     value={formData.paper_steam_specific || 4.8}
                     onChange={(e) => handleChange('paper_steam_specific', parseFloat(e.target.value) || 4.8)}
-                    className="w-full bg-white border border-[#E4E9E6] rounded-lg px-3 py-2 text-xs text-white font-mono focus:outline-none focus:border-emerald-500"
+                    className="w-full bg-white border border-[#E4E9E6] rounded-lg px-3 py-2 text-xs text-[#10231C] font-mono focus:outline-none focus:border-emerald-500"
                   />
                 </div>
               )}
@@ -693,7 +693,7 @@ export function FacilityInputForm({
                     step="0.1"
                     value={formData.refinery_mbn || 9.8}
                     onChange={(e) => handleChange('refinery_mbn', parseFloat(e.target.value) || 9.8)}
-                    className="w-full bg-white border border-[#E4E9E6] rounded-lg px-3 py-2 text-xs text-white font-mono focus:outline-none focus:border-emerald-500"
+                    className="w-full bg-white border border-[#E4E9E6] rounded-lg px-3 py-2 text-xs text-[#10231C] font-mono focus:outline-none focus:border-emerald-500"
                   />
                 </div>
               )}
@@ -710,7 +710,7 @@ export function FacilityInputForm({
                   <select
                     value={formData.petrochem_feedstock || 'dual_feed'}
                     onChange={(e) => handleChange('petrochem_feedstock', e.target.value)}
-                    className="w-full bg-white border border-[#E4E9E6] rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500 font-semibold"
+                    className="w-full bg-white border border-[#E4E9E6] rounded-lg px-3 py-2 text-xs text-[#10231C] focus:outline-none focus:border-emerald-500 font-semibold"
                   >
                     <option value="dual_feed">Dual Feed (Naphtha + Gas Ethane/Propane)</option>
                     <option value="liquid_naphtha">100% Naphtha Feedstock</option>
@@ -731,7 +731,7 @@ export function FacilityInputForm({
                   <select
                     value={formData.textile_route || 'composite_processing'}
                     onChange={(e) => handleChange('textile_route', e.target.value)}
-                    className="w-full bg-white border border-[#E4E9E6] rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500 font-semibold"
+                    className="w-full bg-white border border-[#E4E9E6] rounded-lg px-3 py-2 text-xs text-[#10231C] focus:outline-none focus:border-emerald-500 font-semibold"
                   >
                     <option value="composite_processing">Composite Mill (Spinning, Weaving & Wet Processing)</option>
                     <option value="wet_processing_only">Stand-Alone Wet Processing & Dyeing</option>
@@ -755,7 +755,7 @@ export function FacilityInputForm({
                   step="0.0001"
                   value={formData.custom_target_gei || ''}
                   onChange={(e) => handleChange('custom_target_gei', e.target.value ? parseFloat(e.target.value) : undefined)}
-                  className="w-full bg-white border border-[#E4E9E6] rounded-lg px-3 py-2 text-xs text-white font-mono focus:outline-none focus:border-emerald-500"
+                  className="w-full bg-white border border-[#E4E9E6] rounded-lg px-3 py-2 text-xs text-[#10231C] font-mono focus:outline-none focus:border-emerald-500"
                   placeholder="Leave blank to use official MoEFCC statutory gazette trajectory"
                 />
                 <p className="text-[10px] text-[#4B5A54] mt-1">Default trajectory uses gazetted FY2025-26 statutory target baseline.</p>
@@ -780,9 +780,9 @@ export function FacilityInputForm({
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 <div className="bg-white p-3 rounded-lg border border-[#E4E9E6]">
                   <div className="text-[10px] uppercase font-mono text-[#4B5A54] font-semibold mb-1">Facility Profile</div>
-                  <div className="text-xs font-bold text-white truncate">{formData.facility_name || 'Unnamed Facility'}</div>
+                  <div className="text-xs font-bold text-[#10231C] truncate">{formData.facility_name || 'Unnamed Facility'}</div>
                   <div className="text-[11px] text-[#0B4A3D] font-mono mt-0.5 capitalize">{formData.sector.replace('_', ' ')}</div>
-                  <div className="text-[10px] text-[#4B5A54] mt-1">Output: <strong className="text-white">{formatTonnes(formData.annual_production)}</strong></div>
+                  <div className="text-[10px] text-[#4B5A54] mt-1">Output: <strong className="text-[#10231C]">{formatTonnes(formData.annual_production)}</strong></div>
                 </div>
 
                 <div className="bg-white p-3 rounded-lg border border-[#E4E9E6]">
@@ -794,7 +794,7 @@ export function FacilityInputForm({
 
                 <div className="bg-white p-3 rounded-lg border border-[#E4E9E6]">
                   <div className="text-[10px] uppercase font-mono text-[#4B5A54] font-semibold mb-1">Engineering State</div>
-                  <div className="text-xs font-mono text-[#10231C]">State: <strong className="text-white">{formData.state}</strong></div>
+                  <div className="text-xs font-mono text-[#10231C]">State: <strong className="text-[#10231C]">{formData.state}</strong></div>
                   <div className="text-xs font-mono text-[#10231C] mt-0.5">Sub-Sector: <strong className="text-[#4B5A54] truncate block">{formData.sub_sector || 'Standard'}</strong></div>
                   <div className="text-[10px] text-[#4B5A54] mt-1">Target Override: <strong className="text-teal-300">{formData.custom_target_gei ? `${formData.custom_target_gei} tCO₂e/t` : 'MoEFCC Gazette Default'}</strong></div>
                 </div>
@@ -811,7 +811,7 @@ export function FacilityInputForm({
                 <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center space-x-2">
                     <ShieldCheck className="w-4 h-4 text-[#0B4A3D] flex-shrink-0" />
-                    <span className="font-bold text-white text-xs">
+                    <span className="font-bold text-[#10231C] text-xs">
                       Thermodynamic & CCTS Engineering Sanity Check
                     </span>
                   </div>

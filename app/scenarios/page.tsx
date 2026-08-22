@@ -54,9 +54,11 @@ export default function ScenariosPage() {
   const [result, setResult] = useState<ScenarioSimulationResult | null>(null);
   const [sensitivityData, setSensitivityData] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   // Initialize sectors/entities if not already populated
   useEffect(() => {
+    setMounted(true);
     async function init() {
       if (sectors.length === 0 || entities.length === 0) {
         try {
@@ -207,18 +209,20 @@ export default function ScenariosPage() {
 
               {sensitivityData.length > 0 ? (
                 <div className="h-64 w-full">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <LineChart data={sensitivityData} margin={{ top: 10, right: 20, left: 10, bottom: 5 }}>
-                      <CartesianGrid strokeDasharray="3 3" stroke={CHART_GRID} vertical={false} />
-                      <XAxis dataKey="priceLabel" tick={{ fill: CHART_TEXT, fontSize: 11 }} axisLine={false} tickLine={false} />
-                      <YAxis tick={{ fill: CHART_TEXT, fontSize: 10 }} axisLine={false} tickLine={false} tickFormatter={(v) => `₹${v.toFixed(0)}Cr`} />
-                      <Tooltip content={<ScenarioTooltip />} />
-                      <Legend formatter={(val) => <span style={{ color: STRATEGY_COLORS[val], fontSize: 12 }}>{val} Strategy</span>} />
-                      <Line type="monotone" dataKey="BUY" stroke={STRATEGY_COLORS.BUY} strokeWidth={2} dot={{ r: 3 }} />
-                      <Line type="monotone" dataKey="BUILD" stroke={STRATEGY_COLORS.BUILD} strokeWidth={2} dot={{ r: 3 }} />
-                      <Line type="monotone" dataKey="HYBRID" stroke={STRATEGY_COLORS.HYBRID} strokeWidth={3} dot={{ r: 4 }} />
-                    </LineChart>
-                  </ResponsiveContainer>
+                  {mounted && (
+                    <ResponsiveContainer width="100%" height="100%">
+                      <LineChart data={sensitivityData} margin={{ top: 10, right: 20, left: 10, bottom: 5 }}>
+                        <CartesianGrid strokeDasharray="3 3" stroke={CHART_GRID} vertical={false} />
+                        <XAxis dataKey="priceLabel" tick={{ fill: CHART_TEXT, fontSize: 11 }} axisLine={false} tickLine={false} />
+                        <YAxis tick={{ fill: CHART_TEXT, fontSize: 10 }} axisLine={false} tickLine={false} tickFormatter={(v) => `₹${v.toFixed(0)}Cr`} />
+                        <Tooltip content={<ScenarioTooltip />} />
+                        <Legend formatter={(val) => <span style={{ color: STRATEGY_COLORS[val], fontSize: 12 }}>{val} Strategy</span>} />
+                        <Line type="monotone" dataKey="BUY" stroke={STRATEGY_COLORS.BUY} strokeWidth={2} dot={{ r: 3 }} />
+                        <Line type="monotone" dataKey="BUILD" stroke={STRATEGY_COLORS.BUILD} strokeWidth={2} dot={{ r: 3 }} />
+                        <Line type="monotone" dataKey="HYBRID" stroke={STRATEGY_COLORS.HYBRID} strokeWidth={3} dot={{ r: 4 }} />
+                      </LineChart>
+                    </ResponsiveContainer>
+                  )}
                 </div>
               ) : (
                 <div className="h-48 flex items-center justify-center text-xs text-[#6B7A72] font-mono">

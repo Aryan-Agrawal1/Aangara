@@ -16,7 +16,7 @@ import { ProvenanceFooter } from '@/components/ui/ProvenanceFooter';
 import { ErrorState } from '@/components/ui/ErrorState';
 import { Sparkles, ShieldCheck, AlertTriangle, CheckCircle2, TrendingUp, TrendingDown, Target, Building2 } from 'lucide-react';
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || '';
+const API_BASE = '';
 
 export default function IndustrialIntelligencePage() {
   const [formData, setFormData] = useState<FacilityFormData>({
