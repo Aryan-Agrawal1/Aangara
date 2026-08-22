@@ -1,5 +1,7 @@
 'use client';
 
+import { ClientChartWrapper } from "@/components/ui/ClientChartWrapper";
+
 import React, { useState } from 'react';
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
@@ -130,7 +132,8 @@ export function DecisionTwinHero({
             {/* Cost comparison */}
             <div>
               <p className="text-[11px] font-semibold text-[#4B5A54] uppercase tracking-widest mb-2">3-Year Lifecycle Cost (₹ Crore)</p>
-              <ResponsiveContainer width="100%" height={180}>
+              <ClientChartWrapper>
+<ResponsiveContainer width="100%" height={180}>
                 <BarChart data={costData} margin={{ top: 4, right: 8, left: 0, bottom: 4 }}>
                   <CartesianGrid strokeDasharray="3 3" stroke={CHART_GRID} vertical={false} />
                   <XAxis dataKey="name" tick={{ fill: CHART_TEXT, fontSize: 11 }} axisLine={false} tickLine={false} />
@@ -145,12 +148,14 @@ export function DecisionTwinHero({
                   </Bar>
                 </BarChart>
               </ResponsiveContainer>
+</ClientChartWrapper>
             </div>
 
             {/* CO2 abatement comparison */}
             <div>
               <p className="text-[11px] font-semibold text-[#4B5A54] uppercase tracking-widest mb-2">Internal CO₂ Abatement (kt CO₂e/yr)</p>
-              <ResponsiveContainer width="100%" height={180}>
+              <ClientChartWrapper>
+<ResponsiveContainer width="100%" height={180}>
                 <BarChart data={co2Data} margin={{ top: 4, right: 8, left: 0, bottom: 4 }}>
                   <CartesianGrid strokeDasharray="3 3" stroke={CHART_GRID} vertical={false} />
                   <XAxis dataKey="name" tick={{ fill: CHART_TEXT, fontSize: 11 }} axisLine={false} tickLine={false} />
@@ -165,13 +170,15 @@ export function DecisionTwinHero({
                   </Bar>
                 </BarChart>
               </ResponsiveContainer>
+</ClientChartWrapper>
             </div>
           </div>
         ) : (
           /* Radar view */
           <div className="flex flex-col items-center">
             <p className="text-[11px] font-semibold text-[#4B5A54] uppercase tracking-widest mb-2">Multi-Dimension Strategy Profile</p>
-            <ResponsiveContainer width="100%" height={240}>
+            <ClientChartWrapper>
+<ResponsiveContainer width="100%" height={240}>
               <RadarChart data={radarData[0] ? [
                 { axis: 'Cost Efficiency', BUY: radarData[0]?.['Cost Efficiency'] ?? 0, BUILD: radarData[1]?.['Cost Efficiency'] ?? 0, HYBRID: radarData[2]?.['Cost Efficiency'] ?? 0 },
                 { axis: 'CO₂ Reduction', BUY: radarData[0]?.['CO₂ Reduction'] ?? 0, BUILD: radarData[1]?.['CO₂ Reduction'] ?? 0, HYBRID: radarData[2]?.['CO₂ Reduction'] ?? 0 },
@@ -194,6 +201,7 @@ export function DecisionTwinHero({
                 <Tooltip content={<DarkTooltip />} />
               </RadarChart>
             </ResponsiveContainer>
+</ClientChartWrapper>
           </div>
         )}
       </div>

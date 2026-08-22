@@ -1,5 +1,7 @@
 'use client';
 
+import { ClientChartWrapper } from "@/components/ui/ClientChartWrapper";
+
 import React from 'react';
 import {
   AreaChart,
@@ -257,7 +259,8 @@ export function PeerBenchmarkCard({ benchmark, actualGei, targetGei }: PeerBench
 
         {/* Recharts Area Chart */}
         <div className="h-64 w-full">
-          <ResponsiveContainer width="100%" height="100%">
+          <ClientChartWrapper>
+<ResponsiveContainer width="100%" height="100%">
             <AreaChart data={curveData} margin={{ top: 25, right: 30, left: 0, bottom: 5 }}>
               <defs>
                 <linearGradient id="bellCurveGradient" x1="0" y1="0" x2="1" y2="0">
@@ -345,6 +348,7 @@ export function PeerBenchmarkCard({ benchmark, actualGei, targetGei }: PeerBench
               )}
             </AreaChart>
           </ResponsiveContainer>
+</ClientChartWrapper>
         </div>
 
         {/* Statistical Range Scale Bar */}

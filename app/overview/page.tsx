@@ -1,5 +1,7 @@
 'use client';
 
+import { ClientChartWrapper } from "@/components/ui/ClientChartWrapper";
+
 import { UtilityBar } from "@/components/ui/UtilityBar";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { ProvenanceFooter } from "@/components/ui/ProvenanceFooter";
@@ -137,7 +139,8 @@ export default function OverviewPage() {
             </div>
 
             <div className="h-64 w-full">
-              <ResponsiveContainer width="100%" height="100%">
+              <ClientChartWrapper>
+<ResponsiveContainer width="100%" height="100%">
                 <BarChart data={chartData} margin={{ top: 10, right: 20, left: 10, bottom: 5 }}>
                   <CartesianGrid strokeDasharray="3 3" stroke={CHART_GRID} vertical={false} />
                   <XAxis dataKey="name" tick={{ fill: CHART_TEXT, fontSize: 11 }} axisLine={false} tickLine={false} />
@@ -149,6 +152,7 @@ export default function OverviewPage() {
                   <Bar dataKey="2026-27 Target GEI" fill="#34d399" radius={[3, 3, 0, 0]} maxBarSize={28} />
                 </BarChart>
               </ResponsiveContainer>
+</ClientChartWrapper>
             </div>
           </div>
         )}

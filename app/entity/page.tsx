@@ -1,5 +1,7 @@
 'use client';
 
+import { ClientChartWrapper } from "@/components/ui/ClientChartWrapper";
+
 import { UtilityBar } from "@/components/ui/UtilityBar";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import React, { useState, useEffect } from 'react';
@@ -284,7 +286,8 @@ export default function EntityInputPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
                 {/* Pie Chart */}
                 <div className="h-56 w-full">
-                  <ResponsiveContainer width="100%" height="100%">
+                  <ClientChartWrapper>
+<ResponsiveContainer width="100%" height="100%">
                     <PieChart>
                       <title>GHG Emissions Inventory Breakdown</title>
                       <Pie
@@ -303,6 +306,7 @@ export default function EntityInputPage() {
                       <Tooltip content={<PieCustomTooltip />} />
                     </PieChart>
                   </ResponsiveContainer>
+</ClientChartWrapper>
                 </div>
 
                 {/* Legend & Summary List */}
