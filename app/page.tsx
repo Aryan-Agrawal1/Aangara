@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, BarChart2, Shield, TrendingDown, Zap, ExternalLink, Factory, CheckCircle2 } from "lucide-react";
@@ -9,6 +9,8 @@ import { StatCounter } from "@/components/ui/StatCounter";
 import { Badge } from "@/components/ui/Badge";
 import { SectorCard, SHARED_SECTORS } from "@/components/ui/SectorCard";
 
+import { CarbonIntelligenceCore } from "@/components/hero/CarbonIntelligenceCore";
+
 function useRevealOnScroll() {
   useEffect(() => {
     const els = document.querySelectorAll(".reveal-on-scroll");
@@ -17,8 +19,6 @@ function useRevealOnScroll() {
     return () => obs.disconnect();
   }, []);
 }
-
-
 
 const FEATURES = [
   {
@@ -45,6 +45,24 @@ const FEATURES = [
 
 export default function HomePage() {
   useRevealOnScroll();
+  const [heroSettled, setHeroSettled] = useState(false);
+
+  useEffect(() => {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const reducedMotionAttr = document.documentElement.getAttribute('data-reduced-motion') === 'true';
+    const hasAnimated = typeof window !== 'undefined' && sessionStorage.getItem('ca_hero_animated_v1');
+
+    if (prefersReducedMotion || reducedMotionAttr || hasAnimated) {
+      setHeroSettled(true);
+      return;
+    }
+
+    const timer = setTimeout(() => {
+      setHeroSettled(true);
+    }, 2200);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <div className="min-h-screen bg-white">
@@ -61,81 +79,91 @@ export default function HomePage() {
               className="object-cover object-[center_40%]"
             />
           </div>
-          <div className="absolute inset-0 bg-gradient-to-r from-[#0B4A3D] via-[#0B4A3D]/90 to-[#0B4A3D]/60" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#0B4A3D] via-[#0B4A3D]/90 to-[#0B4A3D]/70" />
           
-          <div className="relative max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-28 lg:py-32">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-              <div className="lg:col-span-7">
+          <div className="relative max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 lg:py-28">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+              <div className="lg:col-span-6 z-10">
                 <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/20 text-white/90 text-xs font-medium mb-6 backdrop-blur-sm">
                   <span className="w-2 h-2 rounded-full bg-[#6EE7B7] animate-pulse" />
                   <span>India CCTS Compliance Ready · BEE Gazette G.S.R. 25(E)</span>
                 </div>
 
                 <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-semibold leading-[1.12] tracking-tight mb-6">
-                  Turn statutory carbon compliance into{" "}
-                  <span className="italic text-[#F0A875]">capital advantage</span>
+                  <span className={`block transition-all duration-700 ease-out ${heroSettled ? 'opacity-100 translate-y-0' : 'ca-title-line-1'}`}>
+                    Turn statutory carbon
+                  </span>
+                  <span className={`block transition-all duration-700 ease-out ${heroSettled ? 'opacity-100 translate-y-0' : 'ca-title-line-2'}`}>
+                    compliance into <span className="italic text-[#F0A875]">capital advantage</span>
+                  </span>
                 </h1>
 
-                <p className="text-base sm:text-lg text-white/80 mb-8 max-w-2xl leading-relaxed font-normal">
+                <p className={`text-base sm:text-lg text-white/80 mb-8 max-w-xl leading-relaxed font-normal transition-all duration-700 ease-out ${heroSettled ? 'opacity-100 translate-y-0' : 'ca-hero-paragraph'}`}>
                   Deterministic GHG emission intensity (GEI) accounting, empirical peer distributions, and BUY / BUILD / HYBRID capital allocation for India&apos;s obligated industrial entities.
                 </p>
 
-                <div className="flex flex-wrap items-center gap-3.5">
+                <div className={`flex flex-wrap items-center gap-3.5 transition-all duration-700 ease-out ${heroSettled ? 'opacity-100 translate-y-0' : 'ca-hero-cta'}`}>
                   <Link
                     href="/industrial-intelligence"
-                    className="inline-flex items-center gap-2 px-6 py-3.5 rounded-button bg-[#C9622A] hover:bg-[#B5541F] text-white font-semibold text-sm shadow-resting hover:shadow-hover transition-all duration-200 transform hover:-translate-y-0.5"
+                    className="inline-flex items-center gap-2 px-6 py-3.5 rounded-button bg-[#C9622A] hover:bg-[#B5541F] text-white font-semibold text-sm shadow-resting hover:shadow-[0_8px_24px_rgba(201,98,42,0.4)] transition-all duration-200 transform hover:-translate-y-0.5"
                   >
                     <span>Launch Facility Intelligence</span>
                     <ArrowRight className="w-4 h-4" />
                   </Link>
                   <Link
                     href="/decision"
-                    className="inline-flex items-center gap-2 px-6 py-3.5 rounded-button bg-white/10 hover:bg-white/20 border border-white/25 text-white font-semibold text-sm transition-all duration-200"
+                    className="inline-flex items-center gap-2 px-6 py-3.5 rounded-button bg-white/10 hover:bg-white/20 border border-white/25 text-white font-semibold text-sm transition-all duration-200 backdrop-blur-sm"
                   >
                     <span>View Decision Twin</span>
                   </Link>
                 </div>
               </div>
 
-              <div className="lg:col-span-5 hidden lg:block">
-                <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-6 shadow-2xl text-white">
-                  <div className="flex items-center justify-between border-b border-white/15 pb-4 mb-4">
-                    <span className="text-xs font-mono font-semibold uppercase tracking-wider text-[#6EE7B7]">Statutory Matrix Snapshot</span>
-                    <span className="text-[10px] font-mono bg-white/10 px-2 py-0.5 rounded border border-white/20">CCTS Phase 1</span>
-                  </div>
-
-                  <div className="space-y-3.5 text-xs">
-                    <div className="flex justify-between items-center py-1 border-b border-white/10">
-                      <span className="text-white/70">National Grid Emission Factor</span>
-                      <span className="font-mono font-bold text-white tnum">0.716 tCO2e/MWh</span>
-                    </div>
-                    <div className="flex justify-between items-center py-1 border-b border-white/10">
-                      <span className="text-white/70">Monitored Sectors Active</span>
-                      <span className="font-mono font-bold text-[#6EE7B7] tnum">7 Sectors (490+ Units)</span>
-                    </div>
-                    <div className="flex justify-between items-center py-1 border-b border-white/10">
-                      <span className="text-white/70">Draft Consultation Scope</span>
-                      <span className="font-mono font-bold text-[#F0A875] tnum">Iron & Steel (255 Units)</span>
-                    </div>
-                    <div className="flex justify-between items-center py-1">
-                      <span className="text-white/70">Carbon Price Scenario Range</span>
-                      <span className="font-mono font-bold text-white tnum">INR 500 - 2,500 / CCC</span>
-                    </div>
-                  </div>
-
-                  <div className="mt-5 pt-4 border-t border-white/15">
-                    <Link
-                      href="/sources"
-                      className="inline-flex items-center gap-1.5 text-xs text-[#6EE7B7] hover:text-white transition-colors font-medium"
-                    >
-                      <span>Explore verified gazette register</span>
-                      <ExternalLink className="w-3 h-3" />
-                    </Link>
-                  </div>
-                </div>
+              {/* Centerpiece: Carbon Intelligence Core with orbiting fanning data chips */}
+              <div className="lg:col-span-6 flex items-center justify-center mt-4 lg:mt-0">
+                <CarbonIntelligenceCore />
               </div>
             </div>
           </div>
+
+          {/* Section Transition Divider Gradient */}
+          <div className="absolute bottom-0 inset-x-0 h-10 bg-gradient-to-b from-transparent via-[#0B4A3D]/40 to-[#F6F8F7] pointer-events-none" />
+
+          {/* Staggered Line Keyframes */}
+          <style jsx>{`
+            @keyframes heroLineReveal {
+              0% {
+                opacity: 0;
+                transform: translateY(18px);
+              }
+              100% {
+                opacity: 1;
+                transform: translateY(0);
+              }
+            }
+            .ca-title-line-1 {
+              animation: heroLineReveal 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.9s both;
+            }
+            .ca-title-line-2 {
+              animation: heroLineReveal 0.65s cubic-bezier(0.16, 1, 0.3, 1) 1.15s both;
+            }
+            .ca-hero-paragraph {
+              animation: heroLineReveal 0.65s cubic-bezier(0.16, 1, 0.3, 1) 1.35s both;
+            }
+            .ca-hero-cta {
+              animation: heroLineReveal 0.65s cubic-bezier(0.16, 1, 0.3, 1) 1.8s both;
+            }
+            @media (prefers-reduced-motion: reduce) {
+              .ca-title-line-1,
+              .ca-title-line-2,
+              .ca-hero-paragraph,
+              .ca-hero-cta {
+                animation: none !important;
+                opacity: 1 !important;
+                transform: none !important;
+              }
+            }
+          `}</style>
         </section>
 
         <section className="bg-[#F6F8F7] border-b border-[#E4E9E6] py-10">

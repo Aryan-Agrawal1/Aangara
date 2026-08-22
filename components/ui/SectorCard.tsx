@@ -17,7 +17,7 @@ export function SectorCard({ name, status, statusText, desc, img, subSector }: S
   const [imgFailed, setImgFailed] = useState(false);
 
   return (
-    <article className="reveal-on-scroll bg-white border border-[#E4E9E6] rounded-xl overflow-hidden shadow-resting hover:shadow-hover hover:-translate-y-1 transition-all duration-200 flex flex-col justify-between group">
+    <article className="reveal-on-scroll bg-white border border-[#E4E9E6] hover:border-emerald-600/30 rounded-xl overflow-hidden shadow-resting hover:shadow-[0_8px_24px_-4px_rgba(11,74,61,0.14),0_0_14px_rgba(201,98,42,0.10)] hover:-translate-y-1 transition-all duration-200 flex flex-col justify-between group">
       <div>
         <div className="h-40 relative bg-[#F6F8F7] overflow-hidden border-b border-[#E4E9E6]">
           {!imgFailed ? (
