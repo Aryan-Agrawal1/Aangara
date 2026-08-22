@@ -1,11 +1,13 @@
-﻿"use client";
-import React, { useEffect, useState } from "react";
+"use client";
+import React, { useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight, BarChart2, Shield, TrendingDown, Zap, ExternalLink, Factory, CheckCircle2 } from "lucide-react";
 import { UtilityBar } from "@/components/ui/UtilityBar";
 import { Header } from "@/components/navigation/Header";
 import { StatCounter } from "@/components/ui/StatCounter";
 import { Badge } from "@/components/ui/Badge";
+import { SectorCard, SHARED_SECTORS } from "@/components/ui/SectorCard";
 
 function useRevealOnScroll() {
   useEffect(() => {
@@ -16,133 +18,7 @@ function useRevealOnScroll() {
   }, []);
 }
 
-interface SectorCardProps {
-  name: string;
-  status: "final" | "draft" | "watchlist";
-  statusText: string;
-  desc: string;
-  img: string;
-  subSector: string;
-}
 
-function SectorCard({ name, status, statusText, desc, img, subSector }: SectorCardProps) {
-  const [imgFailed, setImgFailed] = useState(false);
-
-  return (
-    <article className="reveal-on-scroll bg-white border border-[#E4E9E6] rounded-xl overflow-hidden shadow-resting hover:shadow-hover hover:-translate-y-1 transition-all duration-200 flex flex-col justify-between group">
-      <div>
-        <div className="h-40 relative bg-[#F6F8F7] overflow-hidden border-b border-[#E4E9E6]">
-          {!imgFailed ? (
-            <img
-              src={img}
-              alt={`${name} industrial sector`}
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-              onError={() => setImgFailed(true)}
-              loading="lazy"
-            />
-          ) : (
-            <div className="w-full h-full flex flex-col items-center justify-center bg-[#E8F5F2] text-[#0B4A3D] p-4 text-center">
-              <Factory className="w-8 h-8 mb-1.5 opacity-80" />
-              <span className="text-xs font-semibold">{name} Sector</span>
-            </div>
-          )}
-          <div className="absolute top-2.5 right-2.5">
-            <Badge variant={status} label={statusText} />
-          </div>
-        </div>
-        <div className="p-4">
-          <div className="text-[11px] font-mono font-medium text-[#2E6BA8] uppercase tracking-wider mb-1">{subSector}</div>
-          <h3 className="text-base font-semibold text-[#10231C] mb-1.5">{name}</h3>
-          <p className="text-xs text-[#4B5A54] leading-relaxed">{desc}</p>
-        </div>
-      </div>
-      <div className="p-4 pt-0">
-        <Link
-          href={`/industrial-intelligence?sector=${name.toLowerCase().replace(/[^a-z0-9]/g, "_")}`}
-          className="inline-flex items-center gap-1 text-xs font-semibold text-[#0B4A3D] group-hover:text-[#C9622A] transition-colors mt-2"
-        >
-          <span>Analyse Sector Facility</span>
-          <ArrowRight className="w-3.5 h-3.5" />
-        </Link>
-      </div>
-    </article>
-  );
-}
-
-const SECTORS: SectorCardProps[] = [
-  {
-    name: "Cement",
-    status: "final",
-    statusText: "FINAL",
-    subSector: "Phase 1 Monitored",
-    desc: "Binding GEI targets notified via MoEFCC G.S.R. 25(E) on per tonne cement equivalent basis.",
-    img: "/images/sectors/cement.jpg"
-  },
-  {
-    name: "Iron & Steel",
-    status: "draft",
-    statusText: "DRAFT",
-    subSector: "Phase 2 Consultation",
-    desc: "MoEFCC revised draft notification G.S.R. 517(E) covering 255 integrated and sponge-iron units.",
-    img: "/images/sectors/iron_steel.jpg"
-  },
-  {
-    name: "Aluminium",
-    status: "final",
-    statusText: "FINAL",
-    subSector: "Phase 1 Monitored",
-    desc: "Binding GEI benchmarks for primary smelters and alumina refineries (tCO2e/t primary metal).",
-    img: "/images/sectors/aluminium.jpg"
-  },
-  {
-    name: "Chlor-Alkali",
-    status: "final",
-    statusText: "FINAL",
-    subSector: "Phase 1 Monitored",
-    desc: "Statutory specific power consumption and GEI caps per tonne caustic soda (100% NaOH equivalent).",
-    img: "/images/sectors/chlor_alkali.jpg"
-  },
-  {
-    name: "Pulp & Paper",
-    status: "final",
-    statusText: "FINAL",
-    subSector: "Phase 1 Monitored",
-    desc: "Statutory intensity standards for agro, wood, and recycled fiber-based paper manufacturing.",
-    img: "/images/sectors/pulp_paper.jpg"
-  },
-  {
-    name: "Petrochemicals",
-    status: "final",
-    statusText: "FINAL",
-    subSector: "Phase 1 Monitored",
-    desc: "Standardized specific emission trajectories across naphtha/gas crackers and downstream polymer units.",
-    img: "/images/sectors/petrochemicals.jpg"
-  },
-  {
-    name: "Petroleum Refinery",
-    status: "final",
-    statusText: "FINAL",
-    subSector: "Phase 1 Monitored",
-    desc: "Complexity-weighted GEI targets calibrated against composite MBN (Million Barrel Number) indices.",
-    img: "/images/sectors/petroleum_refinery.jpg"
-  },
-  {
-    name: "Textile",
-    status: "final",
-    statusText: "FINAL",
-    subSector: "Phase 1 Monitored",
-    desc: "Statutory thermal and electricity benchmarks for composite mills and processing clusters.",
-    img: "/images/sectors/textile.jpg"
-  },
-  {
-    name: "Fertiliser",
-    status: "watchlist",
-    statusText: "WATCHLIST",
-    subSector: "Phase 2 Roadmap",
-    desc: "Transition roadmap aligning with National Green Hydrogen Mission and ammonia decarbonisation.",
-    img: "/images/sectors/fertiliser.jpg"
-  }
-];
 
 const FEATURES = [
   {
@@ -176,14 +52,15 @@ export default function HomePage() {
       <Header />
       <main id="main-content">
         <section className="relative overflow-hidden bg-[#0B4A3D] text-white">
-          <div
-            className="absolute inset-0 opacity-25 mix-blend-luminosity pointer-events-none"
-            style={{
-              backgroundImage: "url(/images/hero/hero_industrial.jpg)",
-              backgroundSize: "cover",
-              backgroundPosition: "center 40%"
-            }}
-          />
+          <div className="absolute inset-0 opacity-25 mix-blend-luminosity pointer-events-none">
+            <Image
+              src="/images/hero/hero_industrial.jpg"
+              alt="Industrial Carbon Facility"
+              fill
+              priority
+              className="object-cover object-[center_40%]"
+            />
+          </div>
           <div className="absolute inset-0 bg-gradient-to-r from-[#0B4A3D] via-[#0B4A3D]/90 to-[#0B4A3D]/60" />
           
           <div className="relative max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-28 lg:py-32">
@@ -335,7 +212,7 @@ export default function HomePage() {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {SECTORS.map((sector) => (
+              {SHARED_SECTORS.map((sector) => (
                 <SectorCard key={sector.name} {...sector} />
               ))}
             </div>

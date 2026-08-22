@@ -6,23 +6,14 @@ import { UtilityBar } from "@/components/ui/UtilityBar";
 import { Header } from '@/components/navigation/Header';
 import { ProvenanceFooter } from '@/components/ui/ProvenanceFooter';
 import { TeamSection } from '@/components/about/TeamSection';
+import { SectorCard, SHARED_SECTORS } from "@/components/ui/SectorCard";
 import { 
   Building2, LineChart, Sliders, ShieldCheck, 
   ArrowRight, Activity, Zap, Factory, CheckCircle2,
   Database, Network, Scale
 } from 'lucide-react';
 
-const SECTORS = [
-  { id: 'aluminium', label: 'Aluminium', draft: false },
-  { id: 'cement', label: 'Cement', draft: false },
-  { id: 'chlor_alkali', label: 'Chlor-Alkali', draft: false },
-  { id: 'fertiliser', label: 'Fertiliser', draft: true },
-  { id: 'iron_steel', label: 'Iron & Steel', draft: true },
-  { id: 'paper', label: 'Pulp & Paper', draft: false },
-  { id: 'petrochemicals', label: 'Petrochem', draft: false },
-  { id: 'petroleum_refinery', label: 'Refinery', draft: false },
-  { id: 'textile', label: 'Textile', draft: false },
-];
+
 
 export default function AboutPage() {
   return (
@@ -150,26 +141,9 @@ export default function AboutPage() {
           <h2 className="text-xl font-bold text-[#10231C] tracking-tight mb-6 border-b border-[#E4E9E6] pb-3">
             Sectors Covered
           </h2>
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
-            {SECTORS.map((sector) => (
-              <div 
-                key={sector.id} 
-                className={`p-4 rounded-xl border flex flex-col items-center justify-center text-center transition-all ${
-                  sector.draft 
-                  ? 'bg-[#FEF7E8]/50 border-amber-200' 
-                  : 'bg-[#F6F8F7] border-[#E4E9E6]'
-                }`}
-              >
-                <Factory className={`w-6 h-6 mb-2 ${sector.draft ? 'text-[#C98A1E]' : 'text-[#4B5A54]'}`} />
-                <span className={`text-xs font-bold ${sector.draft ? 'text-[#C98A1E]' : 'text-[#10231C]'}`}>
-                  {sector.label}
-                </span>
-                {sector.draft && (
-                  <span className="text-[9px] font-mono mt-1 text-[#C98A1E] bg-[#FEF7E8] px-1.5 py-0.5 rounded border border-[#C98A1E]/30">
-                    DRAFT
-                  </span>
-                )}
-              </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {SHARED_SECTORS.map((sector) => (
+              <SectorCard key={sector.name} {...sector} />
             ))}
           </div>
         </section>

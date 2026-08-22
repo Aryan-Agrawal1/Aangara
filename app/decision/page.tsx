@@ -9,9 +9,11 @@ import { MRVReadinessCard } from '@/components/cockpit/MRVReadinessCard';
 import { DecisionTwinHero } from '@/components/cockpit/DecisionTwinHero';
 import { ScenarioSliders } from '@/components/cockpit/ScenarioSliders';
 import { ExplainabilityCard } from '@/components/cockpit/ExplainabilityCard';
-import { SourceTraceDrawer } from '@/components/drawers/SourceTraceDrawer';
-import { StrategyTraceDrawer } from '@/components/drawers/StrategyTraceDrawer';
+import dynamic from 'next/dynamic';
 import { getSectors, getEntities, getDecisionTwin, runScenarioSimulation } from '@/lib/api';
+
+const SourceTraceDrawer = dynamic(() => import('@/components/drawers/SourceTraceDrawer').then(mod => mod.SourceTraceDrawer), { ssr: false });
+const StrategyTraceDrawer = dynamic(() => import('@/components/drawers/StrategyTraceDrawer').then(mod => mod.StrategyTraceDrawer), { ssr: false });
 import { ScenarioParams } from '@/lib/types';
 import { useAppStore } from '@/lib/store';
 import { Loader2, AlertTriangle, RefreshCw } from 'lucide-react';

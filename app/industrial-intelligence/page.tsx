@@ -8,9 +8,11 @@ import { FacilityInputForm, FacilityFormData } from '@/components/intelligence/F
 import { PeerBenchmarkCard } from '@/components/intelligence/PeerBenchmarkCard';
 import { DecarbonisationMatrix } from '@/components/intelligence/DecarbonisationMatrix';
 import { DecisionTwinHero } from '@/components/cockpit/DecisionTwinHero';
-import { SourceTraceDrawer } from '@/components/drawers/SourceTraceDrawer';
-import { StrategyTraceDrawer } from '@/components/drawers/StrategyTraceDrawer';
+import dynamic from 'next/dynamic';
 import { formatCurrencyCr, formatEmissions, formatGEI } from '@/lib/formatters';
+
+const SourceTraceDrawer = dynamic(() => import('@/components/drawers/SourceTraceDrawer').then(mod => mod.SourceTraceDrawer), { ssr: false });
+const StrategyTraceDrawer = dynamic(() => import('@/components/drawers/StrategyTraceDrawer').then(mod => mod.StrategyTraceDrawer), { ssr: false });
 import { StatusBadge } from '@/components/ui/StatusBadge';
 import { ProvenanceFooter } from '@/components/ui/ProvenanceFooter';
 import { ErrorState } from '@/components/ui/ErrorState';

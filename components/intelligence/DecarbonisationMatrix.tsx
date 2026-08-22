@@ -84,7 +84,7 @@ export function DecarbonisationMatrix({ opportunities }: DecarbonisationMatrixPr
   // Transform opportunities data for Recharts Scatter/Bubble Chart
   const scatterData = filteredOpps.map((opp, idx) => {
     const abatementKt = Number(((opp.annual_reduction_tco2e || 0) / 1000).toFixed(1));
-    const timeline = opp.implementation_months || 12;
+    const timeline = (opp.timeline_months || 12) + (idx * 0.15);
     const npv = opp.npv_10yr_cr || 0;
     const capex = opp.capex_cr || 0;
     const payback = opp.payback_years || 0;
@@ -239,50 +239,52 @@ export function DecarbonisationMatrix({ opportunities }: DecarbonisationMatrixPr
         </div>
 
         {/* Recharts Scatter/Bubble Chart Container */}
-        <div className="h-72 w-full">
-          <ClientChartWrapper>
-<ResponsiveContainer width="100%" height="100%">
-            <ScatterChart margin={{ top: 20, right: 30, bottom: 20, left: 10 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
-              <XAxis
-                type="number"
-                dataKey="timeline"
-                name="Implementation Timeline"
-                unit="m"
-                stroke="#64748b"
-                tick={{ fill: '#94a3b8', fontSize: 11 }}
-                label={{ value: 'Implementation Timeline (Months)', position: 'insideBottom', offset: -12, fill: '#94a3b8', fontSize: 11 }}
-              />
-              <YAxis
-                type="number"
-                dataKey="abatement_kt"
-                name="Annual CO₂e Reduction"
-                unit=" kt"
-                stroke="#64748b"
-                tick={{ fill: '#94a3b8', fontSize: 11 }}
-                label={{ value: 'Annual CO₂e Reduction (kt/yr)', angle: -90, position: 'insideLeft', offset: 0, fill: '#94a3b8', fontSize: 11 }}
-              />
-              <ZAxis
-                type="number"
-                dataKey="zScore"
-                range={[200, 1000]}
-                name="NPV Scale"
-              />
-              <Tooltip content={<CustomScatterTooltip />} cursor={{ strokeDasharray: '3 3', stroke: '#475569' }} />
-              <Scatter name="Projects" data={scatterData}>
-                {scatterData.map((entry) => (
-                  <Cell
-                    key={entry.id}
-                    fill={entry.color}
-                    stroke="#0f172a"
-                    strokeWidth={2}
-                    className="transition-all hover:opacity-100 hover:scale-110 cursor-pointer"
+        <div className="w-full overflow-x-auto pb-4 scrollbar-thin scrollbar-thumb-[#E4E9E6] scrollbar-track-transparent">
+          <div className="h-72 min-w-[700px] w-full">
+            <ClientChartWrapper>
+              <ResponsiveContainer width="100%" height="100%">
+                <ScatterChart margin={{ top: 20, right: 30, bottom: 20, left: 10 }}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
+                  <XAxis
+                    type="number"
+                    dataKey="timeline"
+                    name="Implementation Timeline"
+                    unit="m"
+                    stroke="#64748b"
+                    tick={{ fill: '#94a3b8', fontSize: 11 }}
+                    label={{ value: 'Implementation Timeline (Months)', position: 'insideBottom', offset: -12, fill: '#94a3b8', fontSize: 11 }}
                   />
-                ))}
-              </Scatter>
-            </ScatterChart>
-          </ResponsiveContainer>
-</ClientChartWrapper>
+                  <YAxis
+                    type="number"
+                    dataKey="abatement_kt"
+                    name="Annual CO₂e Reduction"
+                    unit=" kt"
+                    stroke="#64748b"
+                    tick={{ fill: '#94a3b8', fontSize: 11 }}
+                    label={{ value: 'Annual CO₂e Reduction (kt/yr)', angle: -90, position: 'insideLeft', offset: 0, fill: '#94a3b8', fontSize: 11 }}
+                  />
+                  <ZAxis
+                    type="number"
+                    dataKey="zScore"
+                    range={[200, 1000]}
+                    name="NPV Scale"
+                  />
+                  <Tooltip content={<CustomScatterTooltip />} cursor={{ strokeDasharray: '3 3', stroke: '#475569' }} />
+                  <Scatter name="Projects" data={scatterData}>
+                    {scatterData.map((entry) => (
+                      <Cell
+                        key={entry.id}
+                        fill={entry.color}
+                        stroke="#0f172a"
+                        strokeWidth={2}
+                        className="transition-all hover:opacity-100 hover:scale-110 cursor-pointer"
+                      />
+                    ))}
+                  </Scatter>
+                </ScatterChart>
+              </ResponsiveContainer>
+            </ClientChartWrapper>
+          </div>
         </div>
       </div>
 
