@@ -2,10 +2,11 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Activity, Layers, Sliders, FileText, Building2, Cpu, Sun, Moon, Menu, X, Shield } from "lucide-react";
+import { Activity, Layers, Sliders, FileText, Building2, Cpu, Sun, Moon, Menu, X, Shield, Info } from "lucide-react";
 import { useTheme } from "@/lib/theme";
 
 const NAV_LINKS = [
+  { href: "/about", label: "About", icon: Info },
   { href: "/industrial-intelligence", label: "Facility Analysis", icon: Cpu },
   { href: "/decision", label: "Decision Twin", icon: Layers },
   { href: "/overview", label: "Portfolio", icon: Building2 },

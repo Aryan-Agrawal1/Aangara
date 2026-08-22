@@ -275,7 +275,7 @@ export default function ScenariosPage() {
                         </div>
                         <div className="flex justify-between py-1 border-b border-[#E4E9E6]/60">
                           <span className="text-[#4B5A54]">Market CCCs:</span>
-                          <span className="text-[#2E6BA8] font-semibold">{s.procured_ccc_tco2e.toLocaleString('en-IN')} CCCs</span>
+                          <span className="text-[#2E6BA8] font-semibold">{(s.ccc_procured_tco2e || 0).toLocaleString('en-IN')} CCCs</span>
                         </div>
                         <div className="flex justify-between py-1 border-b border-[#E4E9E6]/60">
                           <span className="text-[#4B5A54]">Utility Score:</span>

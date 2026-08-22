@@ -176,11 +176,8 @@ export function DecarbonisationMatrix({ opportunities }: DecarbonisationMatrixPr
 
   return (
     <div className="glass-panel rounded-xl border-[#E4E9E6] overflow-hidden shadow-2xl mt-6 space-y-6 pb-6">
-      {/* Header with Photographic Background */}
+      {/* Header without Photographic Background */}
       <div className="relative border-b border-[#E4E9E6]">
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1506501139174-099022df5260?q=80&w=1200&auto=format&fit=crop')] bg-cover bg-center opacity-30 pointer-events-none"></div>
-        <div className="absolute inset-0 bg-gradient-to-r from-white/80 via-white/60 to-transparent pointer-events-none"></div>
-        
         <div className="relative z-10 p-5 sm:p-6 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
           <div className="flex items-center space-x-3">
             <div className="p-2.5 rounded-lg bg-teal-950/80 text-[#0B4A3D] border border-teal-800/60 shadow-lg shadow-teal-950/50 backdrop-blur-md">
@@ -215,7 +212,7 @@ export function DecarbonisationMatrix({ opportunities }: DecarbonisationMatrixPr
       <div className="bg-[#F6F8F7] rounded-xl p-4 sm:p-5 border border-[#E4E9E6]/80">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-4 pb-3 border-b border-[#E4E9E6]/70 gap-2">
           <div>
-            <h4 className="text-sm font-bold text-white flex items-center space-x-2">
+            <h4 className="text-sm font-bold text-[#10231C] flex items-center space-x-2">
               <BarChart2 className="w-4 h-4 text-[#0B4A3D]" />
               <span>Decarbonisation Marginal Abatement & Feasibility Map</span>
             </h4>

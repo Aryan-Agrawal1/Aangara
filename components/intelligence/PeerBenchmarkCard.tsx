@@ -111,13 +111,10 @@ export function PeerBenchmarkCard({ benchmark, actualGei, targetGei }: PeerBench
   };
 
   return (
-    <div className="glass-panel rounded-xl border-[#E4E9E6] overflow-hidden shadow-2xl space-y-5 pb-6">
-      {/* Header with Photographic Background */}
+    <div className="glass-panel rounded-xl border-[#E4E9E6] overflow-hidden shadow-2xl mt-6 space-y-6 pb-6">
+      {/* Header without Photographic Background */}
       <div className="relative border-b border-[#E4E9E6]">
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1579546929518-9e396f3cc809?q=80&w=1200&auto=format&fit=crop')] bg-cover bg-center opacity-30 pointer-events-none"></div>
-        <div className="absolute inset-0 bg-gradient-to-r from-white/80 via-white/60 to-transparent pointer-events-none"></div>
-        
-        <div className="relative z-10 p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div className="relative z-10 p-5 sm:p-6 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
           <div className="flex items-center space-x-3">
             <div className="p-2.5 rounded-lg bg-[#EBF3FB] text-[#2E6BA8] border border-sky-800/60 shadow-lg shadow-sky-950/50 backdrop-blur-md">
               <BarChart3 className="w-5 h-5" />

@@ -57,7 +57,7 @@ export function StrategyTraceDrawer({ isOpen, onClose, strategyName, strategy, p
               <div className="grid grid-cols-2 gap-3 text-xs text-[#4B5A54] font-mono bg-white/80 p-3 rounded-lg border border-[#E4E9E6]">
                 <div>Baseline Shortfall:</div><div className="text-right">{formatEmissions(project?.expected_reduction_tco2e || 0)}</div>
                 <div>Internal Abated:</div><div className="text-[#0B4A3D] font-bold text-right">{formatEmissions(strategy.internal_abatement_tco2e)}</div>
-                <div>Residual Procured:</div><div className="text-[#2E6BA8] font-bold text-right">{strategy.procured_ccc_tco2e.toLocaleString()} CCCs</div>
+                <div>Residual Procured:</div><div className="text-[#2E6BA8] font-bold text-right">{(strategy.ccc_procured_tco2e || 0).toLocaleString()} CCCs</div>
               </div>
             </div>
 

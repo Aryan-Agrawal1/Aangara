@@ -262,7 +262,7 @@ export function DecisionTwinHero({
                 <div className="space-y-2 text-xs">
                   {[
                     { label: 'Internal Decarbonisation', value: strat.internal_abatement_tco2e > 0 ? formatEmissions(strat.internal_abatement_tco2e) : '0 tCO₂e', color: '#34d399' },
-                    { label: 'Market CCC Procurement', value: strat.procured_ccc_tco2e > 0 ? `${strat.procured_ccc_tco2e.toLocaleString('en-IN')} CCCs/yr` : '0 CCCs', color: '#38bdf8' },
+                    { label: 'Market CCC Procurement', value: (strat.ccc_procured_tco2e || 0) > 0 ? `${(strat.ccc_procured_tco2e || 0).toLocaleString('en-IN')} CCCs/yr` : '0 CCCs', color: '#38bdf8' },
                     { label: 'Post-Strategy GEI', value: formatGEI(strat.post_strategy_gei), color: '#f8fafc' },
                     strat.npv_cr !== null ? { label: '10-Yr NPV', value: formatCurrencyCr(strat.npv_cr), color: '#34d399' } : null,
                     strat.payback_years !== null ? { label: 'Capital Payback', value: formatYears(strat.payback_years), color: '#cbd5e1' } : null,

@@ -114,7 +114,7 @@ export interface StrategyResult {
   total_cost_cr: number;
   internal_abatement_tco2e: number;
   residual_shortfall_tco2e: number;
-  procured_ccc_tco2e: number;
+  ccc_procured_tco2e: number;
   post_strategy_gei: number;
   payback_years: number | null;
   npv_cr: number | null;
