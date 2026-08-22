@@ -281,6 +281,7 @@ export default function DecisionCockpitPage() {
         strategyName={activeStrategyName}
         strategy={decisionData?.strategies?.[activeStrategyName]}
         project={decisionData?.project_profile}
+        position={decisionData?.baseline_position}
         assumptions={decisionData?.assumptions_applied}
       />
     </div>

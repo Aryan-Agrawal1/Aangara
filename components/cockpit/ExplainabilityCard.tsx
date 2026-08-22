@@ -88,7 +88,7 @@ export function ExplainabilityCard({ decisionData, onOpenSourceTrace }: Explaina
           <div className="flex items-center space-x-2">
             <ShieldCheck className="w-4 h-4 text-[#0B4A3D] flex-shrink-0" />
             <span>
-              <strong>Data Quality Intelligence:</strong> {decisionData.anomaly_intelligence.reason_codes[0]}
+              <strong>Data Quality Intelligence:</strong> {decisionData.anomaly_intelligence.reason_codes?.[0] || (decisionData.anomaly_intelligence as any).interpretation || 'Metrics conform to standard sector benchmarks'}
             </span>
           </div>
           <span className="text-[10px] font-mono opacity-75">

@@ -6,7 +6,6 @@ import { Activity, Layers, Sliders, FileText, Building2, Cpu, Sun, Moon, Menu, X
 import { useTheme } from "@/lib/theme";
 
 const NAV_LINKS = [
-  { href: "/about", label: "About", icon: Info },
   { href: "/industrial-intelligence", label: "Facility Analysis", icon: Cpu },
   { href: "/decision", label: "Decision Twin", icon: Layers },
   { href: "/overview", label: "Portfolio", icon: Building2 },
@@ -14,6 +13,7 @@ const NAV_LINKS = [
   { href: "/scenarios", label: "Scenarios", icon: Sliders },
   { href: "/sources", label: "Evidence", icon: FileText },
   { href: "/trust", label: "Trust Center", icon: Shield },
+  { href: "/about", label: "About", icon: Info },
 ];
 
 export function Header({ currentSector, currentEntityId, reportingYear, onSectorChange, onEntityChange, onYearChange, sectorsList, entitiesList, dataStatus }: any) {

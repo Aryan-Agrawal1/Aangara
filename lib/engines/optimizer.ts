@@ -100,7 +100,7 @@ export class CapitalOptimizer {
       BUY: {
         strategy_id: 'BUY',
         name: 'Market CCC Procurement Only',
-        total_cost_3yr_cr: Number(buy_cost_3yr_cr.toFixed(2)),
+        total_cost_cr: Number(buy_cost_3yr_cr.toFixed(2)),
         annual_cost_cr: Number(buy_cost_annual_cr.toFixed(2)),
         capex_cr: 0.0,
         internal_abatement_tco2e: 0.0,
@@ -114,7 +114,7 @@ export class CapitalOptimizer {
       BUILD: {
         strategy_id: 'BUILD',
         name: 'Internal Decarbonisation Project',
-        total_cost_3yr_cr: Number(build_cost_3yr_cr.toFixed(2)),
+        total_cost_cr: Number(build_cost_3yr_cr.toFixed(2)),
         annual_cost_cr: Number(((build_cost_3yr_cr - project_capex_cr) / 3.0).toFixed(2)),
         capex_cr: project_capex_cr,
         internal_abatement_tco2e: Number(effective_reduction_tco2e.toFixed(0)),
@@ -129,7 +129,7 @@ export class CapitalOptimizer {
       HYBRID: {
         strategy_id: 'HYBRID',
         name: 'Hybrid: Project Execution + Residual CCC Hedge',
-        total_cost_3yr_cr: Number(hybrid_cost_3yr_cr.toFixed(2)),
+        total_cost_cr: Number(hybrid_cost_3yr_cr.toFixed(2)),
         annual_cost_cr: Number(((hybrid_cost_3yr_cr - project_capex_cr) / 3.0).toFixed(2)),
         capex_cr: project_capex_cr,
         internal_abatement_tco2e: Number(effective_reduction_tco2e.toFixed(0)),
