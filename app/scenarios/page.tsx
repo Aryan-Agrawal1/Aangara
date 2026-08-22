@@ -140,7 +140,7 @@ export default function ScenariosPage() {
           <div>
             <div className="flex items-center space-x-2">
               <h1 className="text-2xl font-bold text-[#10231C] tracking-tight">Scenario Stress Testing Matrix</h1>
-              <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#FEF7E8] text-[#C98A1E] border border-amber-800/60 font-semibold">
+              <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#FEF7E8] text-[#C98A1E] border border-[#C98A1E]/30 font-semibold">
                 SENSITIVITY & RISK LAB
               </span>
             </div>
@@ -167,11 +167,11 @@ export default function ScenariosPage() {
             <div className="glass-panel-elevated winner-card-glow rounded-xl p-5 border-emerald-500/70">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                 <div className="flex items-center space-x-3">
-                  <div className="p-2.5 rounded-xl bg-emerald-900/60 border border-emerald-400/40 text-[#1F8A5F]">
+                  <div className="p-2.5 rounded-xl bg-emerald-900/60 border border-emerald-400/40 text-[#0B4A3D]">
                     <Crown className="w-5 h-5" />
                   </div>
                   <div>
-                    <div className="text-xs text-[#1F8A5F] font-bold uppercase tracking-wider">Optimal Capital Allocation Path</div>
+                    <div className="text-xs text-[#0B4A3D] font-bold uppercase tracking-wider">Optimal Capital Allocation Path</div>
                     <h3 className="text-lg font-bold text-[#10231C] tracking-tight">
                       Recommended: {result.winner_strategy} STRATEGY
                     </h3>
@@ -247,7 +247,7 @@ export default function ScenariosPage() {
                           <h4 className="text-base font-bold text-[#10231C]">{s.strategy} Strategy</h4>
                         </div>
                         <span className={`text-xs font-mono font-bold px-2 py-0.5 rounded ${
-                          isWinner ? 'bg-[#E8F5EE] text-[#1F8A5F] border border-emerald-800' : 'bg-white border border-[#E4E9E6] text-[#4B5A54]'
+                          isWinner ? 'bg-[#E8F5EE] text-[#0B4A3D] border border-emerald-800' : 'bg-white border border-[#E4E9E6] text-[#4B5A54]'
                         }`}>
                           Rank #{s.rank}
                         </span>
@@ -267,7 +267,7 @@ export default function ScenariosPage() {
                       <div className="text-xs space-y-2 font-mono">
                         <div className="flex justify-between py-1 border-b border-[#E4E9E6]/60">
                           <span className="text-[#4B5A54]">Internal Abatement:</span>
-                          <span className="text-[#1F8A5F] font-semibold">{formatEmissions(s.internal_abatement_tco2e)}</span>
+                          <span className="text-[#0B4A3D] font-semibold">{formatEmissions(s.internal_abatement_tco2e)}</span>
                         </div>
                         <div className="flex justify-between py-1 border-b border-[#E4E9E6]/60">
                           <span className="text-[#4B5A54]">Market CCCs:</span>
@@ -279,7 +279,7 @@ export default function ScenariosPage() {
                         </div>
                         <div className="flex justify-between py-1">
                           <span className="text-[#4B5A54]">Risk Score:</span>
-                          <span className={`${s.risk_score < 40 ? 'text-[#1F8A5F]' : s.risk_score < 60 ? 'text-[#C98A1E]' : 'text-[#C33B2E]'}`}>
+                          <span className={`${s.risk_score < 40 ? 'text-[#0B4A3D]' : s.risk_score < 60 ? 'text-[#C98A1E]' : 'text-[#C33B2E]'}`}>
                             {s.risk_score.toFixed(0)}/100
                           </span>
                         </div>

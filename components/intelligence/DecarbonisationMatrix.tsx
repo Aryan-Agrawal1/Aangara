@@ -41,7 +41,7 @@ const getPaybackTier = (paybackYears: number) => {
       label: 'Fast Payback (< 2.5 yrs)',
       shortLabel: '< 2.5 yrs',
       color: '#10b981', // emerald-500
-      badgeBg: 'bg-[#E8F5EE]/70 text-[#1F8A5F] border-emerald-800/60',
+      badgeBg: 'bg-[#E8F5EE]/70 text-[#0B4A3D] border-[#0B4A3D]/30',
       pillColor: 'bg-emerald-500'
     };
   }
@@ -60,7 +60,7 @@ const getPaybackTier = (paybackYears: number) => {
     label: 'Strategic / Long-Term (> 4.5 yrs)',
     shortLabel: '> 4.5 yrs',
     color: '#f59e0b', // amber-500
-    badgeBg: 'bg-[#FEF7E8]/70 text-[#C98A1E] border-amber-800/60',
+    badgeBg: 'bg-[#FEF7E8]/70 text-[#C98A1E] border-[#C98A1E]/30',
     pillColor: 'bg-amber-500'
   };
 };
@@ -136,7 +136,7 @@ export function DecarbonisationMatrix({ opportunities }: DecarbonisationMatrixPr
         <div className="space-y-1.5 font-mono text-[11px] bg-white/80 p-2.5 rounded-lg border border-[#E4E9E6]/80">
           <div className="flex justify-between text-[#4B5A54]">
             <span>Annual Abatement:</span>
-            <span className="text-[#1F8A5F] font-bold">
+            <span className="text-[#0B4A3D] font-bold">
               {d.abatement_kt} kt/yr ({formatEmissions(d.abatement_tco2e)})
             </span>
           </div>
@@ -146,7 +146,7 @@ export function DecarbonisationMatrix({ opportunities }: DecarbonisationMatrixPr
           </div>
           <div className="flex justify-between text-[#4B5A54]">
             <span>10-Yr NPV @ 9.5% WACC:</span>
-            <span className="text-[#1F8A5F] font-bold">{formatCurrencyCr(d.npv_cr)}</span>
+            <span className="text-[#0B4A3D] font-bold">{formatCurrencyCr(d.npv_cr)}</span>
           </div>
           <div className="flex justify-between text-[#4B5A54]">
             <span>Capital Cost (CAPEX):</span>
@@ -177,7 +177,7 @@ export function DecarbonisationMatrix({ opportunities }: DecarbonisationMatrixPr
       {/* Header with Photographic Background */}
       <div className="relative border-b border-[#E4E9E6]">
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1506501139174-099022df5260?q=80&w=1200&auto=format&fit=crop')] bg-cover bg-center opacity-30 pointer-events-none"></div>
-        <div className="absolute inset-0 bg-gradient-to-r from-[#06090E] via-[#06090E]/90 to-transparent pointer-events-none"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-white/80 via-white/60 to-transparent pointer-events-none"></div>
         
         <div className="relative z-10 p-5 sm:p-6 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
           <div className="flex items-center space-x-3">
@@ -186,7 +186,7 @@ export function DecarbonisationMatrix({ opportunities }: DecarbonisationMatrixPr
             </div>
             <div>
               <div className="flex items-center space-x-2">
-                <h3 className="text-lg font-extrabold text-white tracking-tight">
+                <h3 className="text-lg font-extrabold text-[#10231C] tracking-tight">
                   Techno-Economic Decarbonisation Matrix
                 </h3>
                 <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-teal-950/80 text-teal-300 border border-teal-800/50 backdrop-blur-md">
@@ -200,7 +200,7 @@ export function DecarbonisationMatrix({ opportunities }: DecarbonisationMatrixPr
           </div>
 
           <div className="flex items-center space-x-2">
-            <span className="text-[11px] font-mono font-bold px-3 py-1.5 rounded-md bg-[#0B1019]/80 text-[#4B5A54] border border-[#E4E9E6] backdrop-blur-md shadow-inner">
+            <span className="text-[11px] font-mono font-bold px-3 py-1.5 rounded-md bg-white/80 text-[#4B5A54] border border-[#E4E9E6] backdrop-blur-md shadow-inner">
               {opportunities.length} VALIDATED PROJECTS
             </span>
           </div>
@@ -214,7 +214,7 @@ export function DecarbonisationMatrix({ opportunities }: DecarbonisationMatrixPr
         <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-4 pb-3 border-b border-[#E4E9E6]/70 gap-2">
           <div>
             <h4 className="text-sm font-bold text-white flex items-center space-x-2">
-              <BarChart2 className="w-4 h-4 text-[#1F8A5F]" />
+              <BarChart2 className="w-4 h-4 text-[#0B4A3D]" />
               <span>Decarbonisation Marginal Abatement & Feasibility Map</span>
             </h4>
             <p className="text-[11px] text-[#4B5A54] mt-0.5">
@@ -330,7 +330,7 @@ export function DecarbonisationMatrix({ opportunities }: DecarbonisationMatrixPr
                     </span>
                   </div>
 
-                  <span className="text-xs font-mono text-[#1F8A5F] font-bold bg-[#E8F5EE] px-2.5 py-0.5 rounded border border-emerald-800/40 whitespace-nowrap">
+                  <span className="text-xs font-mono text-[#0B4A3D] font-bold bg-[#E8F5EE] px-2.5 py-0.5 rounded border border-[#0B4A3D]/20 whitespace-nowrap">
                     -{formatEmissions(opp.annual_reduction_tco2e)}/yr
                   </span>
                 </div>
@@ -349,7 +349,7 @@ export function DecarbonisationMatrix({ opportunities }: DecarbonisationMatrixPr
 
                   <div className="bg-[#F6F8F7] p-2 rounded-lg border border-[#E4E9E6]/60">
                     <div className="text-[10px] text-[#4B5A54] uppercase">Net Energy Savings</div>
-                    <div className="text-xs font-bold text-[#1F8A5F] mt-0.5">
+                    <div className="text-xs font-bold text-[#0B4A3D] mt-0.5">
                       {formatCurrencyCr(opp.annual_energy_savings_cr)}/yr
                     </div>
                   </div>
@@ -364,7 +364,7 @@ export function DecarbonisationMatrix({ opportunities }: DecarbonisationMatrixPr
                       <span>10-Yr NPV @ 9.5%</span>
                       <HelpCircle className="w-3 h-3 text-[#6B7A72]" />
                     </div>
-                    <div className="text-xs font-bold text-[#1F8A5F] mt-0.5">{formatCurrencyCr(opp.npv_10yr_cr)}</div>
+                    <div className="text-xs font-bold text-[#0B4A3D] mt-0.5">{formatCurrencyCr(opp.npv_10yr_cr)}</div>
                   </div>
 
                   <div className="bg-[#F6F8F7] p-2 rounded-lg border border-[#E4E9E6]/60">
@@ -400,7 +400,7 @@ export function DecarbonisationMatrix({ opportunities }: DecarbonisationMatrixPr
                       MRV: {opp.mrv_complexity || 'MEDIUM'}
                     </span>
                     {opp.confidence_tier && (
-                      <span className="px-1.5 py-0.5 rounded text-[10px] font-mono font-bold bg-white text-[#1F8A5F] border border-emerald-800/50 flex items-center space-x-1 cursor-help" title="Confidence tier of the model. 'CALIBRATED' means tuned with limited historical parameters.">
+                      <span className="px-1.5 py-0.5 rounded text-[10px] font-mono font-bold bg-white text-[#0B4A3D] border border-emerald-800/50 flex items-center space-x-1 cursor-help" title="Confidence tier of the model. 'CALIBRATED' means tuned with limited historical parameters.">
                         <span>{opp.confidence_tier}</span>
                         <HelpCircle className="w-2.5 h-2.5 text-emerald-500 opacity-80" />
                       </span>

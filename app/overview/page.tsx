@@ -85,7 +85,7 @@ export default function OverviewPage() {
         <div className="mb-8">
           <div className="flex items-center space-x-2">
             <h1 className="text-2xl font-bold text-[#10231C] tracking-tight">National CCTS Sector Landscape</h1>
-            <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#E8F5EE] text-[#1F8A5F] border border-emerald-800/60 font-semibold">
+            <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#E8F5EE] text-[#0B4A3D] border border-[#0B4A3D]/30 font-semibold">
               STATUTORY COMPLIANCE MAP
             </span>
           </div>
@@ -99,7 +99,7 @@ export default function OverviewPage() {
           <div className="glass-panel rounded-xl p-4 border-[#E4E9E6]">
             <div className="text-[11px] text-[#4B5A54] font-medium">Notified Compliance Units</div>
             <div className="text-2xl font-bold text-[#10231C] font-mono mt-1">490+</div>
-            <div className="text-[10px] text-[#1F8A5F] mt-0.5">Under 7 Notified Sectors</div>
+            <div className="text-[10px] text-[#0B4A3D] mt-0.5">Under 7 Notified Sectors</div>
           </div>
           <div className="glass-panel rounded-xl p-4 border-[#E4E9E6]">
             <div className="text-[11px] text-[#4B5A54] font-medium">Draft Expansion Units</div>
@@ -123,7 +123,7 @@ export default function OverviewPage() {
           <div className="glass-panel rounded-xl p-5 border-[#E4E9E6] mb-10">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-4 pb-3 border-b border-[#E4E9E6] gap-2">
               <div className="flex items-center space-x-2">
-                <div className="p-1.5 rounded-lg bg-white border border-[#E4E9E6] text-[#1F8A5F] border border-[#E4E9E6]">
+                <div className="p-1.5 rounded-lg bg-white border border-[#E4E9E6] text-[#0B4A3D] border border-[#E4E9E6]">
                   <BarChart3 className="w-4 h-4" />
                 </div>
                 <div>
@@ -156,9 +156,9 @@ export default function OverviewPage() {
         {/* 7 Monitored Compliance Sectors Grid */}
         <div className="mb-10">
           <div className="flex items-center space-x-2 mb-4">
-            <CheckCircle2 className="w-5 h-5 text-[#1F8A5F]" />
+            <CheckCircle2 className="w-5 h-5 text-[#0B4A3D]" />
             <h2 className="text-lg font-bold text-[#10231C]">7 Monitored Compliance Sectors</h2>
-            <span className="text-xs px-2 py-0.5 rounded bg-[#E8F5EE] text-[#1F8A5F] border border-emerald-800/60 font-mono font-semibold">
+            <span className="text-xs px-2 py-0.5 rounded bg-[#E8F5EE] text-[#0B4A3D] border border-[#0B4A3D]/30 font-mono font-semibold">
               FINAL GAZETTE TARGETS ACTIVE
             </span>
           </div>
@@ -169,7 +169,7 @@ export default function OverviewPage() {
                 <div>
                   <div className="flex items-center justify-between mb-2">
                     <h3 className="text-base font-bold text-[#10231C]">{sec.name}</h3>
-                    <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-[#E8F5EE] text-[#1F8A5F] border border-emerald-800/50">
+                    <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-[#E8F5EE] text-[#0B4A3D] border border-emerald-800/50">
                       {sec.status}
                     </span>
                   </div>
@@ -192,7 +192,7 @@ export default function OverviewPage() {
                   <Link
                     href={`/decision?sector=${sec.sector_id}`}
                     onClick={() => setSector(sec.sector_id)}
-                    className="text-[#1F8A5F] hover:text-[#1F8A5F] font-semibold flex items-center space-x-1"
+                    className="text-[#0B4A3D] hover:text-[#0B4A3D] font-semibold flex items-center space-x-1"
                   >
                     <span>Launch Cockpit</span>
                     <ArrowUpRight className="w-3.5 h-3.5" />
@@ -208,7 +208,7 @@ export default function OverviewPage() {
           <div className="flex items-center space-x-2 mb-4">
             <Clock className="w-5 h-5 text-[#C98A1E]" />
             <h2 className="text-lg font-bold text-[#10231C]">Watchlist & Draft Transition Scope</h2>
-            <span className="text-xs px-2 py-0.5 rounded bg-[#FEF7E8] text-[#C98A1E] border border-amber-800/60 font-mono font-semibold">
+            <span className="text-xs px-2 py-0.5 rounded bg-[#FEF7E8] text-[#C98A1E] border border-[#C98A1E]/30 font-mono font-semibold">
               DRAFT CONSULTATION / PHASE 2
             </span>
           </div>

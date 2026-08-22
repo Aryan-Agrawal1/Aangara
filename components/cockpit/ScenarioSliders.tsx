@@ -27,7 +27,7 @@ export function ScenarioSliders({ params, onChange, onReset }: ScenarioSlidersPr
             <Sliders className="w-4 h-4" />
           </div>
           <div>
-            <h3 className="text-sm font-semibold text-white tracking-tight">Interactive Scenario Controls</h3>
+            <h3 className="text-sm font-semibold text-[#10231C] tracking-tight">Interactive Scenario Controls</h3>
             <p className="text-xs text-[#4B5A54]">Stress-test strategy rankings across 4 core carbon-finance variables in real-time</p>
           </div>
         </div>
@@ -73,7 +73,7 @@ export function ScenarioSliders({ params, onChange, onReset }: ScenarioSlidersPr
         <div className="bg-[#F6F8F7]/70 p-3.5 rounded-lg border border-[#E4E9E6]/80">
           <div className="flex justify-between items-center text-xs mb-1.5">
             <span className="text-[#4B5A54] font-medium">Project Delivery Rate</span>
-            <span className="font-mono font-bold text-[#1F8A5F]">{params.project_output_pct.toFixed(0)}%</span>
+            <span className="font-mono font-bold text-[#0B4A3D]">{params.project_output_pct.toFixed(0)}%</span>
           </div>
           <input
             type="range"

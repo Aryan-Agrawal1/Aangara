@@ -113,7 +113,7 @@ export function PeerBenchmarkCard({ benchmark, actualGei, targetGei }: PeerBench
       {/* Header with Photographic Background */}
       <div className="relative border-b border-[#E4E9E6]">
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1579546929518-9e396f3cc809?q=80&w=1200&auto=format&fit=crop')] bg-cover bg-center opacity-30 pointer-events-none"></div>
-        <div className="absolute inset-0 bg-gradient-to-r from-[#06090E] via-[#06090E]/90 to-transparent pointer-events-none"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-white/80 via-white/60 to-transparent pointer-events-none"></div>
         
         <div className="relative z-10 p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="flex items-center space-x-3">
@@ -122,10 +122,10 @@ export function PeerBenchmarkCard({ benchmark, actualGei, targetGei }: PeerBench
             </div>
             <div>
               <div className="flex items-center space-x-2">
-                <h3 className="text-lg font-extrabold text-white tracking-tight">
+                <h3 className="text-lg font-extrabold text-[#10231C] tracking-tight">
                   ML Peer Benchmark & Empirical GEI Distribution
                 </h3>
-                <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-[#EBF3FB] text-[#2E6BA8] border border-sky-800/50 backdrop-blur-md">
+                <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-[#EBF3FB] text-[#2E6BA8] border border-[#2E6BA8]/20 backdrop-blur-md">
                   DISTRIBUTION TWIN
                 </span>
               </div>
@@ -136,15 +136,15 @@ export function PeerBenchmarkCard({ benchmark, actualGei, targetGei }: PeerBench
           </div>
 
           <div className="flex flex-wrap items-center gap-2">
-            <span className="text-[11px] font-mono px-2.5 py-1.5 rounded-md bg-[#0B1019]/80 text-[#2E6BA8] border border-[#E4E9E6] backdrop-blur-md font-semibold shadow-inner">
+            <span className="text-[11px] font-mono px-2.5 py-1.5 rounded-md bg-white/80 text-[#2E6BA8] border border-[#E4E9E6] backdrop-blur-md font-semibold shadow-inner">
               {benchmark.benchmark_model}
             </span>
             <span 
-              className="text-[11px] font-mono px-2.5 py-1.5 rounded-md bg-[#E8F5EE] text-[#1F8A5F] border border-emerald-800/50 backdrop-blur-md font-bold shadow-inner flex items-center space-x-1 cursor-help"
+              className="text-[11px] font-mono px-2.5 py-1.5 rounded-md bg-[#E8F5EE] text-[#0B4A3D] border border-emerald-800/50 backdrop-blur-md font-bold shadow-inner flex items-center space-x-1 cursor-help"
               title="Confidence level indicates ML model prediction robustness. High means strong statistical historical backing, Calibrated means tuned via limited parameters."
             >
               <span>Confidence: {benchmark.confidence || 'HIGH'}</span>
-              <HelpCircle className="w-3 h-3 text-[#1F8A5F] opacity-80" />
+              <HelpCircle className="w-3 h-3 text-[#0B4A3D] opacity-80" />
             </span>
           </div>
         </div>
@@ -164,7 +164,7 @@ export function PeerBenchmarkCard({ benchmark, actualGei, targetGei }: PeerBench
           </div>
           <div className="text-[10px] text-[#4B5A54] mt-1 flex items-center space-x-1">
             <span>Delta vs Median:</span>
-            <span className={`font-mono font-bold ${deltaVsMedian <= 0 ? 'text-[#1F8A5F]' : 'text-[#C33B2E]'}`}>
+            <span className={`font-mono font-bold ${deltaVsMedian <= 0 ? 'text-[#0B4A3D]' : 'text-[#C33B2E]'}`}>
               {deltaVsMedian <= 0 ? `${deltaPct}% (Cleaner)` : `+${deltaPct}% (Higher)`}
             </span>
           </div>
@@ -186,9 +186,9 @@ export function PeerBenchmarkCard({ benchmark, actualGei, targetGei }: PeerBench
         <div
           className={`rounded-xl p-4 border ${
             isLeader
-              ? 'bg-[#E8F5EE] border-emerald-800/50 text-[#1F8A5F]'
+              ? 'bg-[#E8F5EE] border-emerald-800/50 text-[#0B4A3D]'
               : isLagging
-              ? 'bg-rose-950/30 border-[#C33B2E]/30 text-[#C33B2E]'
+              ? 'bg-[#FDECEA] border-[#C33B2E]/30 text-[#C33B2E]'
               : 'bg-white/95 border-[#E4E9E6] text-[#10231C]'
           }`}
         >
@@ -198,7 +198,7 @@ export function PeerBenchmarkCard({ benchmark, actualGei, targetGei }: PeerBench
           <div className="text-xl font-bold font-mono mt-1 flex items-center space-x-2">
             <span>{benchmark.peer_percentile.toFixed(0)}th Percentile</span>
             {isLeader ? (
-              <Award className="w-4 h-4 text-[#1F8A5F]" />
+              <Award className="w-4 h-4 text-[#0B4A3D]" />
             ) : isLagging ? (
               <TrendingUp className="w-4 h-4 text-[#C33B2E]" />
             ) : null}
@@ -217,7 +217,7 @@ export function PeerBenchmarkCard({ benchmark, actualGei, targetGei }: PeerBench
           </div>
           <div className="text-[10px] text-[#4B5A54] mt-1">
             {actualGei <= targetGei ? (
-              <span className="text-[#1F8A5F] font-bold">Compliant with FY26 Target</span>
+              <span className="text-[#0B4A3D] font-bold">Compliant with FY26 Target</span>
             ) : (
               <span className="text-[#C33B2E] font-bold">Obligation Shortfall Pending</span>
             )}
@@ -349,7 +349,7 @@ export function PeerBenchmarkCard({ benchmark, actualGei, targetGei }: PeerBench
 
         {/* Statistical Range Scale Bar */}
         <div className="flex justify-between text-[11px] font-mono text-[#4B5A54] mt-2 px-1">
-          <span className="text-[#1F8A5F]">P25 Leader Threshold: {benchmark.peer_p25_gei.toFixed(4)}</span>
+          <span className="text-[#0B4A3D]">P25 Leader Threshold: {benchmark.peer_p25_gei.toFixed(4)}</span>
           <span className="text-[#2E6BA8] font-bold">P50 Sector Median: {benchmark.peer_median_gei.toFixed(4)}</span>
           <span className="text-[#C33B2E]">P75 Lagging Threshold: {benchmark.peer_p75_gei.toFixed(4)}</span>
         </div>
@@ -357,7 +357,7 @@ export function PeerBenchmarkCard({ benchmark, actualGei, targetGei }: PeerBench
 
       {/* AI Statistical Narrative */}
       <div className="bg-[#F6F8F7] p-4 rounded-xl border border-[#E4E9E6]/80 text-xs flex items-start space-x-3">
-        <div className="p-1.5 rounded-lg bg-[#E8F5EE] border border-emerald-800/50 text-[#1F8A5F] mt-0.5 flex-shrink-0">
+        <div className="p-1.5 rounded-lg bg-[#E8F5EE] border border-emerald-800/50 text-[#0B4A3D] mt-0.5 flex-shrink-0">
           <ShieldCheck className="w-4 h-4" />
         </div>
         <div>

@@ -205,25 +205,24 @@ export function FacilityInputForm({
 
   return (
     <div className="glass-panel rounded-xl border-[#E4E9E6] overflow-hidden shadow-2xl">
-      {/* Top Header & Presets Bar with Photographic Background */}
-      <div className="relative border-b border-[#E4E9E6]">
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1587582423116-ec07293f0395?q=80&w=1200&auto=format&fit=crop')] bg-cover bg-center opacity-30 pointer-events-none"></div>
-        <div className="absolute inset-0 bg-gradient-to-r from-[#06090E] via-[#06090E]/90 to-transparent pointer-events-none"></div>
+      {/* Top Header & Presets Bar */}
+      <div className="relative border-b border-[#E4E9E6] bg-[#0B4A3D]">
+        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1587582423116-ec07293f0395?q=80&w=1200&auto=format&fit=crop')] bg-cover bg-center opacity-10 pointer-events-none"></div>
         
         <div className="relative z-10 p-5 sm:p-6 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
           <div>
             <div className="flex items-center space-x-3">
-              <div className="p-2.5 rounded-lg bg-[#E8F5EE] text-[#1F8A5F] border border-emerald-800/60 shadow-lg shadow-emerald-950/50 backdrop-blur-md">
+              <div className="p-2.5 rounded-lg bg-[#E8F5EE] text-[#0B4A3D] border border-[#0B4A3D]/30 shadow-lg shadow-emerald-950/50 backdrop-blur-md">
                 <Building2 className="w-5 h-5" />
               </div>
               <div>
                 <div className="flex items-center space-x-2">
                   <h3 className="text-lg font-extrabold text-white tracking-tight">Facility Data Entry & Intelligence Studio</h3>
-                  <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-[#E8F5EE] text-[#1F8A5F] border border-emerald-800/60 backdrop-blur-md">
+                  <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-[#E8F5EE] text-[#0B4A3D] border border-[#0B4A3D]/30 backdrop-blur-md">
                     8-SECTOR READY
                   </span>
                 </div>
-                <p className="text-xs text-[#4B5A54] mt-1 font-medium max-w-lg">
+                <p className="text-xs text-white/70 mt-1 font-medium max-w-lg">
                   Guided onboarding wizard for plant-specific GHG accounting, statutory GEI targets & abatement modeling.
                 </p>
               </div>
@@ -276,7 +275,7 @@ export function FacilityInputForm({
             <div className="bg-[#F6F8F7] p-4 rounded-xl border border-[#E4E9E6]/80 space-y-4">
               <div className="flex items-center justify-between pb-2 border-b border-[#E4E9E6]">
                 <span className="text-xs font-bold text-[#10231C] flex items-center space-x-2">
-                  <Building2 className="w-4 h-4 text-[#1F8A5F]" />
+                  <Building2 className="w-4 h-4 text-[#0B4A3D]" />
                   <span>Step 1: Facility Profile, Jurisdiction & Baseline Scale</span>
                 </span>
                 <span className="text-[11px] text-[#4B5A54] font-mono">1 / 4</span>
@@ -307,7 +306,7 @@ export function FacilityInputForm({
                       CCTS Industry Sector
                       <TooltipHelp text="Designated obligated sector under MoEFCC gazette notifications for GHG intensity compliance." />
                     </label>
-                    <span className="text-[10px] text-[#1F8A5F] font-mono">Statutory Regime</span>
+                    <span className="text-[10px] text-[#0B4A3D] font-mono">Statutory Regime</span>
                   </div>
                   <select
                     value={formData.sector}
@@ -355,7 +354,7 @@ export function FacilityInputForm({
                   <div className="flex items-center justify-between mb-1">
                     <label className="text-xs font-medium text-[#10231C] flex items-center">
                       Annual Finished Production
-                      <span className="ml-1 text-[10px] text-[#1F8A5F] font-mono bg-[#E8F5EE] px-1.5 py-0.2 rounded border border-emerald-800/40">[Tonnes/yr]</span>
+                      <span className="ml-1 text-[10px] text-[#0B4A3D] font-mono bg-[#E8F5EE] px-1.5 py-0.2 rounded border border-[#0B4A3D]/20">[Tonnes/yr]</span>
                       <TooltipHelp text="Net saleable product output for the baseline/reporting year used to compute GHG Emission Intensity (GEI)." />
                     </label>
                     <span className="text-[10px] text-[#6B7A72] font-mono">Range: 10k - 15M t</span>
@@ -437,7 +436,7 @@ export function FacilityInputForm({
                   <div className="flex items-center justify-between mb-1">
                     <label className="text-xs font-medium text-[#10231C] flex items-center">
                       Renewable Electricity Share
-                      <span className="ml-1 text-[10px] text-[#1F8A5F] font-mono bg-[#E8F5EE] px-1.5 py-0.2 rounded border border-emerald-800/40">[%]</span>
+                      <span className="ml-1 text-[10px] text-[#0B4A3D] font-mono bg-[#E8F5EE] px-1.5 py-0.2 rounded border border-[#0B4A3D]/20">[%]</span>
                       <TooltipHelp text="Percentage of total electricity met via on-site captive solar/wind, green tariffs, or ISTS open-access PPA." />
                     </label>
                     <span className="text-[10px] text-[#6B7A72] font-mono">Range: 0 - 100%</span>
@@ -453,7 +452,7 @@ export function FacilityInputForm({
                     placeholder="e.g. 12.5"
                     required
                   />
-                  <p className="text-[10px] text-[#1F8A5F]/80 mt-1">
+                  <p className="text-[10px] text-[#0B4A3D]/80 mt-1">
                     Zero-emission power deduction applied per BEE Detailed Procedure Section 4.2.
                   </p>
                 </div>
@@ -771,7 +770,7 @@ export function FacilityInputForm({
             <div className="bg-[#F6F8F7] p-4 rounded-xl border border-[#E4E9E6]/80 space-y-4">
               <div className="flex items-center justify-between pb-2 border-b border-[#E4E9E6]">
                 <span className="text-xs font-bold text-[#10231C] flex items-center space-x-2">
-                  <FileCheck2 className="w-4 h-4 text-[#1F8A5F]" />
+                  <FileCheck2 className="w-4 h-4 text-[#0B4A3D]" />
                   <span>Step 4: Pre-Flight Thermodynamic Audit & Input Confirmation</span>
                 </span>
                 <span className="text-[11px] text-[#4B5A54] font-mono">4 / 4</span>
@@ -782,14 +781,14 @@ export function FacilityInputForm({
                 <div className="bg-white p-3 rounded-lg border border-[#E4E9E6]">
                   <div className="text-[10px] uppercase font-mono text-[#4B5A54] font-semibold mb-1">Facility Profile</div>
                   <div className="text-xs font-bold text-white truncate">{formData.facility_name || 'Unnamed Facility'}</div>
-                  <div className="text-[11px] text-[#1F8A5F] font-mono mt-0.5 capitalize">{formData.sector.replace('_', ' ')}</div>
+                  <div className="text-[11px] text-[#0B4A3D] font-mono mt-0.5 capitalize">{formData.sector.replace('_', ' ')}</div>
                   <div className="text-[10px] text-[#4B5A54] mt-1">Output: <strong className="text-white">{formatTonnes(formData.annual_production)}</strong></div>
                 </div>
 
                 <div className="bg-white p-3 rounded-lg border border-[#E4E9E6]">
                   <div className="text-[10px] uppercase font-mono text-[#4B5A54] font-semibold mb-1">Energy Streams</div>
                   <div className="text-xs font-mono text-[#10231C]">Electricity: <strong className="text-[#2E6BA8]">{formData.electricity_mwh.toLocaleString()} MWh</strong></div>
-                  <div className="text-xs font-mono text-[#10231C] mt-0.5">RE Share: <strong className="text-[#1F8A5F]">{formData.renewable_electricity_pct}%</strong></div>
+                  <div className="text-xs font-mono text-[#10231C] mt-0.5">RE Share: <strong className="text-[#0B4A3D]">{formData.renewable_electricity_pct}%</strong></div>
                   <div className="text-[10px] text-[#4B5A54] mt-1">Fuel: <strong className="text-[#C98A1E]">{formData.thermal_fuel_type}</strong> ({formatTonnes(formData.thermal_fuel_tonnes)})</div>
                 </div>
 
@@ -804,19 +803,19 @@ export function FacilityInputForm({
               {/* Data Audit Quality Score & Validation Checks */}
               <div className={`p-3.5 rounded-xl border text-xs ${
                 dataQuality?.status === 'PASS'
-                  ? 'bg-[#E8F5EE] border-emerald-800/60 text-[#1F8A5F]'
+                  ? 'bg-[#E8F5EE] border-[#0B4A3D]/30 text-[#0B4A3D]'
                   : dataQuality?.status === 'WARNING'
-                  ? 'bg-[#FEF7E8]/30 border-amber-800/60 text-[#C98A1E]'
+                  ? 'bg-[#FEF7E8]/30 border-[#C98A1E]/30 text-[#C98A1E]'
                   : 'bg-white border-[#E4E9E6] text-[#4B5A54]'
               }`}>
                 <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center space-x-2">
-                    <ShieldCheck className="w-4 h-4 text-[#1F8A5F] flex-shrink-0" />
+                    <ShieldCheck className="w-4 h-4 text-[#0B4A3D] flex-shrink-0" />
                     <span className="font-bold text-white text-xs">
                       Thermodynamic & CCTS Engineering Sanity Check
                     </span>
                   </div>
-                  <span className="text-xs font-mono font-bold px-2.5 py-0.5 rounded bg-[#F6F8F7] border border-[#E4E9E6] text-[#1F8A5F]">
+                  <span className="text-xs font-mono font-bold px-2.5 py-0.5 rounded bg-[#F6F8F7] border border-[#E4E9E6] text-[#0B4A3D]">
                     Quality Score: {dataQuality?.quality_score || 95}/100
                   </span>
                 </div>
@@ -831,11 +830,11 @@ export function FacilityInputForm({
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[11px] font-mono text-[#4B5A54] pt-2 border-t border-[#E4E9E6]/60">
                   <div className="flex items-center space-x-1.5">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-[#1F8A5F] flex-shrink-0" />
+                    <CheckCircle2 className="w-3.5 h-3.5 text-[#0B4A3D] flex-shrink-0" />
                     <span>Scope 1 + Scope 2 Boundary Verified</span>
                   </div>
                   <div className="flex items-center space-x-1.5">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-[#1F8A5F] flex-shrink-0" />
+                    <CheckCircle2 className="w-3.5 h-3.5 text-[#0B4A3D] flex-shrink-0" />
                     <span>CEA FY24 Grid EF Traceability Active</span>
                   </div>
                 </div>

@@ -7,7 +7,8 @@ import {
   MethodologyItem
 } from './types';
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || '';
+// Force relative URLs since backend is now natively running in Next.js App Router
+const API_BASE = '';
 
 async function fetchJson<T>(url: string, options?: RequestInit): Promise<T> {
   const res = await fetch(`${API_BASE}${url}`, {

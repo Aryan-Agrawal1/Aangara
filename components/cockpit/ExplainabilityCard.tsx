@@ -35,11 +35,11 @@ export function ExplainabilityCard({ decisionData, onOpenSourceTrace }: Explaina
     <div className="glass-panel rounded-xl p-5 mt-6 border-[#E4E9E6]">
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center space-x-2">
-          <div className="p-2 rounded-lg bg-white border border-[#E4E9E6] border border-[#E4E9E6] text-[#1F8A5F]">
+          <div className="p-2 rounded-lg bg-white border border-[#E4E9E6] border border-[#E4E9E6] text-[#0B4A3D]">
             <Sparkles className="w-4 h-4" />
           </div>
           <div>
-            <h3 className="text-sm font-semibold text-white tracking-tight">Explainability & Decision Provenance</h3>
+            <h3 className="text-sm font-semibold text-[#10231C] tracking-tight">Explainability & Decision Provenance</h3>
             <p className="text-xs text-[#4B5A54]">Audit-ready mathematical causality and regulatory citation trace</p>
           </div>
         </div>
@@ -58,8 +58,8 @@ export function ExplainabilityCard({ decisionData, onOpenSourceTrace }: Explaina
 
       {/* Core Deterministic Reason */}
       <div className="bg-[#F6F8F7] rounded-lg p-4 border border-[#E4E9E6] text-xs text-[#4B5A54] leading-relaxed">
-        <div className="font-semibold text-white mb-1.5 flex items-center space-x-1.5">
-          <CheckCircle2 className="w-4 h-4 text-[#1F8A5F]" />
+        <div className="font-semibold text-[#10231C] mb-1.5 flex items-center space-x-1.5">
+          <CheckCircle2 className="w-4 h-4 text-[#0B4A3D]" />
           <span>Why {decisionData.recommended_strategy} Strategy Ranked #1:</span>
         </div>
         <p>{decisionData.recommendation_reason}</p>
@@ -82,11 +82,11 @@ export function ExplainabilityCard({ decisionData, onOpenSourceTrace }: Explaina
       {decisionData.anomaly_intelligence && (
         <div className={`mt-3 p-3 rounded-lg border text-xs flex items-center justify-between ${
           decisionData.anomaly_intelligence.anomaly_detected
-            ? 'bg-[#FEF7E8] border-amber-800/60 text-[#C98A1E]'
+            ? 'bg-[#FEF7E8] border-[#C98A1E]/30 text-[#C98A1E]'
             : 'bg-[#F6F8F7] border-[#E4E9E6]/80 text-[#4B5A54]'
         }`}>
           <div className="flex items-center space-x-2">
-            <ShieldCheck className="w-4 h-4 text-[#1F8A5F] flex-shrink-0" />
+            <ShieldCheck className="w-4 h-4 text-[#0B4A3D] flex-shrink-0" />
             <span>
               <strong>Data Quality Intelligence:</strong> {decisionData.anomaly_intelligence.reason_codes[0]}
             </span>

@@ -25,7 +25,7 @@ export function MRVReadinessCard({ mrv }: MRVReadinessCardProps) {
             <ShieldCheck className="w-4 h-4" />
           </div>
           <div>
-            <h3 className="text-sm font-semibold text-white tracking-tight">MRV & Evidence Readiness</h3>
+            <h3 className="text-sm font-semibold text-[#10231C] tracking-tight">MRV & Evidence Readiness</h3>
             <p className="text-xs text-[#4B5A54]">5-Dimension Measurement, Reporting & Verification Quality</p>
           </div>
         </div>
@@ -36,8 +36,8 @@ export function MRVReadinessCard({ mrv }: MRVReadinessCardProps) {
           </span>
           <span className={`text-[11px] font-semibold px-2 py-0.5 rounded border ${
             mrv.composite_score >= 80
-              ? 'bg-[#E8F5EE]/70 text-[#1F8A5F] border-emerald-800/60'
-              : 'bg-[#FEF7E8]/70 text-[#C98A1E] border-amber-800/60'
+              ? 'bg-[#E8F5EE]/70 text-[#0B4A3D] border-[#0B4A3D]/30'
+              : 'bg-[#FEF7E8]/70 text-[#C98A1E] border-[#C98A1E]/30'
           }`}>
             {mrv.status}
           </span>
@@ -50,7 +50,7 @@ export function MRVReadinessCard({ mrv }: MRVReadinessCardProps) {
           <div key={idx} className="bg-[#F6F8F7] p-2.5 rounded-lg border border-[#E4E9E6]/80">
             <div className="flex justify-between items-center text-[11px] mb-1">
               <span className="text-[#4B5A54] truncate pr-1">{dim.label}</span>
-              <span className="font-mono font-semibold text-white">{dim.score.toFixed(0)}%</span>
+              <span className="font-mono font-semibold text-[#10231C]">{dim.score.toFixed(0)}%</span>
             </div>
             <div className="w-full bg-white border border-[#E4E9E6] rounded-full h-1.5 overflow-hidden">
               <div

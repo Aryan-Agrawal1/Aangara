@@ -49,7 +49,7 @@ export default function SourcesPage() {
           <div>
             <div className="flex items-center space-x-2">
               <h1 className="text-2xl font-bold text-[#10231C] tracking-tight">Regulatory Source & Model Registry</h1>
-              <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-sky-950 text-sky-400 border border-sky-800/60 font-semibold">
+              <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#EBF3FB] text-[#2E6BA8] border border-sky-800/60 font-semibold">
                 AUDITABLE PROVENANCE
               </span>
             </div>
@@ -83,26 +83,10 @@ export default function SourcesPage() {
           </div>
         </div>
 
-        <div role="tablist" aria-label="Source categories" className="flex flex-wrap gap-2 mb-6">
-          {CATEGORIES.map(cat => (
-            <button
-              key={cat.id}
-              role="tab"
-              aria-selected={activeCategory === cat.id}
-              onClick={() => setActiveCategory(cat.id)}
-              className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all border ${
-                activeCategory === cat.id
-                  ? 'bg-[#0B4A3D] text-white border-[#0B4A3D]'
-                  : 'bg-[#F6F8F7] text-[#4B5A54] border-[#E4E9E6] hover:text-[#10231C] hover:bg-white border border-[#E4E9E6]'
-              }`}
-            >
-              {cat.label}
-            </button>
-          ))}
-        </div>
+
 
         {/* Navigation Tabs */}
-        <div className="flex space-x-2 mb-6 border-b border-[#E4E9E6] pb-3">
+        <div className="flex flex-wrap gap-2 mb-6 border-b border-[#E4E9E6] pb-3">
           {[
             { id: 'statutory', label: '1. Statutory Authorities & Gazettes', icon: ShieldCheck },
             { id: 'methodologies', label: '2. BEE Offset Methodologies (12)', icon: BookOpen },
@@ -132,7 +116,7 @@ export default function SourcesPage() {
                 <div key={src.source_id} className="glass-panel rounded-xl p-5 border-[#E4E9E6] flex flex-col justify-between">
                   <div>
                     <div className="flex justify-between items-center mb-2.5">
-                      <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-sky-950 text-sky-400 border border-sky-800/50">
+                      <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-[#EBF3FB] text-[#2E6BA8] border border-[#2E6BA8]/20">
                         TIER {src.tier} · {src.authority}
                       </span>
                       <span className="text-xs text-[#6B7A72] font-mono">{src.date}</span>
@@ -147,7 +131,7 @@ export default function SourcesPage() {
                       href={src.url}
                       target="_blank"
                       rel="noreferrer"
-                      className="text-sky-400 hover:text-sky-300 font-semibold flex items-center space-x-1"
+                      className="text-[#2E6BA8] hover:text-sky-300 font-semibold flex items-center space-x-1"
                     >
                       <span>View Gazette Source</span>
                       <ExternalLink className="w-3.5 h-3.5" />
@@ -166,7 +150,7 @@ export default function SourcesPage() {
               <div key={m.code} className="glass-panel rounded-xl p-4 border-[#E4E9E6] text-xs flex flex-col justify-between">
                 <div>
                   <div className="flex justify-between items-center mb-2">
-                    <span className="font-mono font-bold text-[#1F8A5F] bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-800/40">
+                    <span className="font-mono font-bold text-[#0B4A3D] bg-emerald-950/60 px-2 py-0.5 rounded border border-[#0B4A3D]/20">
                       {m.code}
                     </span>
                     <span className="text-[10px] text-[#4B5A54] font-semibold">{m.sector}</span>
@@ -226,10 +210,10 @@ export default function SourcesPage() {
               <div key={m.id} className="glass-panel rounded-xl p-5 border-[#E4E9E6]">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-3 mb-3 border-b border-[#E4E9E6] gap-2">
                   <div className="flex items-center space-x-2">
-                    <span className="font-mono text-sm font-bold text-[#1F8A5F]">{m.id}</span>
+                    <span className="font-mono text-sm font-bold text-[#0B4A3D]">{m.id}</span>
                     <span className="text-sm font-bold text-[#10231C]">· {m.name}</span>
                   </div>
-                  <span className="px-2.5 py-0.5 rounded text-[11px] font-mono font-bold bg-emerald-950 text-[#1F8A5F] border border-emerald-800 self-start sm:self-auto">
+                  <span className="px-2.5 py-0.5 rounded text-[11px] font-mono font-bold bg-[#E8F5EE] text-[#0B4A3D] border border-emerald-800/30 self-start sm:self-auto">
                     TIER: {m.tier}
                   </span>
                 </div>
@@ -238,10 +222,10 @@ export default function SourcesPage() {
                   <div className="space-y-2">
                     <div><span className="text-[#4B5A54] font-medium">Algorithm:</span> <span className="font-mono text-[#4B5A54]">{m.algo}</span></div>
                     <div><span className="text-[#4B5A54] font-medium">Target:</span> <span className="font-mono text-[#10231C]">{m.target}</span></div>
-                    <div><span className="text-[#4B5A54] font-medium">Features ({m.features.length}):</span> <span className="font-mono text-sky-300">{m.features.join(', ')}</span></div>
+                    <div><span className="text-[#4B5A54] font-medium">Features ({m.features.length}):</span> <span className="font-mono text-[#2E6BA8]">{m.features.join(', ')}</span></div>
                   </div>
                   <div className="space-y-2">
-                    <div><span className="text-[#4B5A54] font-medium">Holdout MAE:</span> <span className="font-mono text-[#1F8A5F] font-bold">{m.mae}</span></div>
+                    <div><span className="text-[#4B5A54] font-medium">Holdout MAE:</span> <span className="font-mono text-[#0B4A3D] font-bold">{m.mae}</span></div>
                     <div><span className="text-[#4B5A54] font-medium">Lift over Baseline:</span> <span className="font-mono text-[#4B5A54]">{m.lift}</span></div>
                     <div><span className="text-[#4B5A54] font-medium">Governance:</span> <span className="text-[#4B5A54]">{m.notes}</span></div>
                   </div>
@@ -282,7 +266,7 @@ export default function SourcesPage() {
             ].map((p) => (
               <div key={p.id} className="glass-panel rounded-xl p-5 border-[#E4E9E6] text-xs">
                 <div className="flex justify-between items-center mb-2">
-                  <span className="font-mono text-sm font-bold text-sky-400">{p.id}</span>
+                  <span className="font-mono text-sm font-bold text-[#2E6BA8]">{p.id}</span>
                   <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-white border border-[#E4E9E6] text-[#4B5A54]">
                     {p.type}
                   </span>

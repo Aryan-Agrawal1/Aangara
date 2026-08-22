@@ -58,7 +58,7 @@ export default function TrustCenterPage() {
               </div>
               <div className="bg-[#F6F8F7] p-4 rounded-lg border border-[#E4E9E6]">
                 <h3 className="text-sm font-bold text-[#10231C] mb-1">Cement</h3>
-                <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#E8F5EE] text-[#1F8A5F] border border-[#1F8A5F]/30">NOTIFIED</span>
+                <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#E8F5EE] text-[#0B4A3D] border border-[#1F8A5F]/30">NOTIFIED</span>
                 <p className="text-xs text-[#4B5A54] mt-2">Active statutory compliance targets in effect.</p>
               </div>
             </div>

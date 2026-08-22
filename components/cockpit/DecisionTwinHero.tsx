@@ -95,8 +95,8 @@ export function DecisionTwinHero({
       <div className="flex items-center justify-between mb-4">
         <div>
           <div className="flex items-center space-x-2">
-            <h2 className="text-xl font-bold text-white tracking-tight">CarbonAlpha Decision Twin™</h2>
-            <span className="px-2 py-0.5 rounded text-[11px] font-semibold bg-[#E8F5EE] text-[#1F8A5F] border border-emerald-800/60">
+            <h2 className="text-xl font-bold text-[#10231C] tracking-tight">CarbonAlpha Decision Twin™</h2>
+            <span className="px-2 py-0.5 rounded text-[11px] font-semibold bg-[#E8F5EE] text-[#0B4A3D] border border-[#0B4A3D]/30">
               Capital Optimizer Active
             </span>
           </div>
@@ -108,14 +108,14 @@ export function DecisionTwinHero({
         <div className="flex items-center space-x-1 bg-[#F6F8F7] rounded-lg p-1 border border-[#E4E9E6]">
           <button
             onClick={() => setChartView('bars')}
-            className={`p-1.5 rounded-md transition-colors ${chartView === 'bars' ? 'bg-[#E4E9E6] text-white' : 'text-[#6B7A72] hover:text-[#4B5A54]'}`}
+            className={`p-1.5 rounded-md transition-colors ${chartView === 'bars' ? 'bg-[#E4E9E6] text-[#10231C]' : 'text-[#6B7A72] hover:text-[#4B5A54]'}`}
             title="Bar charts"
           >
             <BarChart2 className="w-4 h-4" />
           </button>
           <button
             onClick={() => setChartView('radar')}
-            className={`p-1.5 rounded-md transition-colors ${chartView === 'radar' ? 'bg-[#E4E9E6] text-white' : 'text-[#6B7A72] hover:text-[#4B5A54]'}`}
+            className={`p-1.5 rounded-md transition-colors ${chartView === 'radar' ? 'bg-[#E4E9E6] text-[#10231C]' : 'text-[#6B7A72] hover:text-[#4B5A54]'}`}
             title="Radar chart"
           >
             <Activity className="w-4 h-4" />
@@ -228,7 +228,7 @@ export function DecisionTwinHero({
                       <Icon className="w-4 h-4" style={{ color }} />
                     </div>
                     <div>
-                      <h4 className="text-base font-bold text-white tracking-tight">{stratKey} STRATEGY</h4>
+                      <h4 className="text-base font-bold text-[#10231C] tracking-tight">{stratKey} STRATEGY</h4>
                       <span className="text-[11px] text-[#4B5A54] font-mono">Rank #{strat.rank} in Utility</span>
                     </div>
                   </div>

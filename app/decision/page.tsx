@@ -126,7 +126,7 @@ export default function DecisionCockpitPage() {
         {decisionLoading ? (
           /* Loading skeleton */
           <div className="h-[60vh] flex flex-col items-center justify-center space-y-3">
-            <Loader2 className="w-8 h-8 text-[#1F8A5F] animate-spin" />
+            <Loader2 className="w-8 h-8 text-[#0B4A3D] animate-spin" />
             <span className="text-sm font-mono text-[#4B5A54]">Loading CarbonAlpha Decision Engine...</span>
           </div>
         ) : decisionError ? (
@@ -200,7 +200,7 @@ export default function DecisionCockpitPage() {
             />
 
             {/* Bottom CTA for Dead End Test */}
-            <div className="mt-8 flex flex-col sm:flex-row items-center justify-between bg-emerald-950/30 border border-emerald-900/50 rounded-xl p-6">
+            <div className="mt-8 flex flex-col sm:flex-row items-center justify-between bg-[#E8F5F2] border border-[#0B4A3D]/20 rounded-xl p-6">
               <div className="text-center sm:text-left mb-4 sm:mb-0">
                 <h3 className="text-lg font-bold text-[#10231C] mb-1">Ready to Finalize Strategy?</h3>
                 <p className="text-sm text-[#4B5A54]">Export the boardroom-ready report or proceed to implementation tracking.</p>
@@ -209,7 +209,7 @@ export default function DecisionCockpitPage() {
                 <button 
                   type="button"
                   aria-label="Save current scenario"
-                  className="px-5 py-2.5 rounded-lg text-sm font-semibold bg-white border border-[#E4E9E6] hover:bg-slate-700 text-[#10231C] transition-colors border border-[#E4E9E6] focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 focus:ring-offset-[#070B11]"
+                  className="px-5 py-2.5 rounded-lg text-sm font-semibold bg-white border border-[#E4E9E6] hover:bg-[#E4E9E6] text-[#10231C] transition-colors border border-[#E4E9E6] focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 focus:ring-offset-[#070B11]"
                 >
                   Save Scenario
                 </button>

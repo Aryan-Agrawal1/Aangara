@@ -31,16 +31,16 @@ export function SourceTraceDrawer({
           <div className="flex items-center justify-between pb-4 border-b border-[#E4E9E6]">
             <div>
               <div className="flex items-center space-x-2">
-                <span className="text-xs font-mono font-bold px-2 py-0.5 rounded bg-[#EBF3FB] text-[#2E6BA8] border border-sky-800/50">
+                <span className="text-xs font-mono font-bold px-2 py-0.5 rounded bg-[#EBF3FB] text-[#2E6BA8] border border-[#2E6BA8]/20">
                   TIER-1 VERIFIED
                 </span>
-                <h3 className="text-lg font-bold text-white">Regulatory Source & Traceability</h3>
+                <h3 className="text-lg font-bold text-[#10231C]">Regulatory Source & Traceability</h3>
               </div>
               <p className="text-xs text-[#4B5A54] mt-0.5">Primary Indian Statutory References, Mathematical Steps & Data Status Labels</p>
             </div>
             <button
               onClick={onClose}
-              className="p-1.5 rounded-lg bg-[#F6F8F7] hover:bg-white border border-[#E4E9E6] text-[#4B5A54] hover:text-white transition-colors cursor-pointer"
+              className="p-1.5 rounded-lg bg-[#F6F8F7] hover:bg-white border border-[#E4E9E6] text-[#4B5A54] hover:text-[#10231C] transition-colors cursor-pointer"
             >
               <X className="w-5 h-5" />
             </button>
@@ -54,7 +54,7 @@ export function SourceTraceDrawer({
             </h4>
             <div className="grid grid-cols-2 gap-2 text-[11px] font-mono">
               <div className="p-2 rounded bg-white/80 border border-[#E4E9E6]">
-                <span className="text-[#1F8A5F] font-bold">FACT</span>
+                <span className="text-[#0B4A3D] font-bold">FACT</span>
                 <p className="text-[#4B5A54] text-[10px] mt-0.5">Official MoEFCC Gazette targets & CEA grid emission factor (0.716)</p>
               </div>
               <div className="p-2 rounded bg-white/80 border border-[#E4E9E6]">
@@ -79,7 +79,7 @@ export function SourceTraceDrawer({
                 <span className="text-[#4B5A54] font-medium">Statutory Authority:</span>
                 <span className="font-mono text-[#2E6BA8] font-semibold">{sourceId}</span>
               </div>
-              <h4 className="text-sm font-bold text-white mb-1">
+              <h4 className="text-sm font-bold text-[#10231C] mb-1">
                 MoEFCC Greenhouse Gases Emission Intensity Target Rules, 2025-26
               </h4>
               <p className="text-xs text-[#4B5A54] leading-relaxed">
@@ -103,7 +103,7 @@ export function SourceTraceDrawer({
             {/* Step-by-Step Calculation Trace */}
             <div className="bg-[#F6F8F7] rounded-xl p-4 border border-[#E4E9E6]">
               <h4 className="text-sm font-bold text-white mb-3 flex items-center space-x-2">
-                <Layers className="w-4 h-4 text-[#1F8A5F]" />
+                <Layers className="w-4 h-4 text-[#0B4A3D]" />
                 <span>Deterministic Calculation Step Provenance</span>
               </h4>
 
@@ -117,7 +117,7 @@ export function SourceTraceDrawer({
                           {trace.model_version}
                         </span>
                       </div>
-                      <div className="font-mono text-[#1F8A5F] bg-[#F6F8F7] px-2 py-1 rounded text-[11px] my-1 overflow-x-auto">
+                      <div className="font-mono text-[#0B4A3D] bg-[#F6F8F7] px-2 py-1 rounded text-[11px] my-1 overflow-x-auto">
                         {trace.formula}
                       </div>
                       <div className="flex flex-col sm:flex-row justify-between text-[#4B5A54] text-[11px] mt-1 gap-1">
