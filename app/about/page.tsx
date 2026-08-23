@@ -12,10 +12,20 @@ import {
   ArrowRight, Activity, Zap, Factory, CheckCircle2,
   Database, Network, Scale
 } from 'lucide-react';
+import { useEffect } from 'react';
 
-
+function useRevealOnScroll() {
+  useEffect(() => {
+    const els = document.querySelectorAll(".reveal-on-scroll");
+    const obs = new IntersectionObserver((e) => e.forEach((en) => { if (en.isIntersecting) en.target.classList.add("is-revealed"); }), { threshold: 0.12 });
+    els.forEach((el) => obs.observe(el));
+    return () => obs.disconnect();
+  }, []);
+}
 
 export default function AboutPage() {
+  useRevealOnScroll();
+
   return (
     <div className="min-h-screen bg-white flex flex-col">
       <UtilityBar />
@@ -141,11 +151,19 @@ export default function AboutPage() {
           <h2 className="text-xl font-bold text-[#10231C] tracking-tight mb-6 border-b border-[#E4E9E6] pb-3">
             Sectors Covered
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {SHARED_SECTORS.map((sector) => (
-              <SectorCard key={sector.name} {...sector} />
-            ))}
-          </div>
+            {SHARED_SECTORS && SHARED_SECTORS.length > 0 ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {SHARED_SECTORS.map((sector) => (
+                  <SectorCard key={sector.name} {...sector} />
+                ))}
+              </div>
+            ) : (
+              <div className="card-glass p-8 rounded-xl border-surface-border text-center flex flex-col items-center justify-center">
+                <Factory className="w-8 h-8 text-text-muted mb-3" />
+                <h3 className="text-text-primary font-semibold text-lg mb-1">Sector Data Unavailable</h3>
+                <p className="text-text-secondary text-sm">Unable to load the covered sectors at this time. Please try again later.</p>
+              </div>
+            )}
         </section>
 
         {/* Section: Data Treatment */}
@@ -187,16 +205,101 @@ export default function AboutPage() {
 
         {/* Section: The Engine */}
         <section className="mb-12">
-          <h2 className="text-xl font-bold text-[#10231C] tracking-tight mb-6 border-b border-[#E4E9E6] pb-3">
+          <h2 className="text-xl font-bold text-text-primary tracking-tight mb-6 border-b border-surface-border pb-3">
             The Engine Underneath
           </h2>
-          <div className="glass-panel p-6 rounded-xl border-[#E4E9E6] flex flex-col md:flex-row gap-6 items-start">
-            <div className="w-12 h-12 rounded-xl bg-[#0B4A3D] text-white flex flex-shrink-0 items-center justify-center shadow-lg shadow-emerald-950/20">
+          <div className="card-glass p-6 rounded-xl border-surface-border flex flex-col md:flex-row gap-6 items-start">
+            <div className="w-12 h-12 rounded-xl bg-brand-primary text-surface-base flex flex-shrink-0 items-center justify-center shadow-lg shadow-emerald-950/20">
               <Database className="w-6 h-6" />
             </div>
-            <p className="text-sm text-[#4B5A54] leading-relaxed">
+            <p className="text-sm text-text-secondary leading-relaxed">
               A deterministic calculation core (carbon/GEI/financial engines) that never has its arithmetic overridden by AI; specialized machine-learning models (peer benchmarking, anomaly detection) trained and evaluated with reported accuracy and honest confidence levels rather than presented as infallible; and an AI explanation layer that turns the calculated results into plain-language reasoning without ever being allowed to invent a number.
             </p>
+          </div>
+        </section>
+
+        {/* Section: Built With */}
+        <section className="mb-12">
+          <h2 className="text-xl font-bold text-text-primary tracking-tight mb-6 border-b border-surface-border pb-3">
+            Built With
+          </h2>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {/* Interface & Data (Frontend) */}
+            <div className="card-glass p-6 rounded-xl border-surface-border">
+              <h3 className="text-sm font-bold text-text-primary uppercase tracking-wider mb-6 flex items-center gap-2">
+                <Network className="w-4 h-4 text-brand-primary" />
+                Interface & Data
+              </h3>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="flex items-center gap-3 p-3 bg-white rounded-lg border border-surface-border shadow-sm">
+                  <div className="w-8 h-8 flex items-center justify-center font-bold text-xl bg-black text-white rounded">N</div>
+                  <div>
+                    <div className="text-xs font-bold text-text-primary">Next.js 14</div>
+                    <div className="text-[10px] text-text-muted">React Framework</div>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3 p-3 bg-white rounded-lg border border-surface-border shadow-sm">
+                  <div className="w-8 h-8 flex items-center justify-center font-bold text-[#06B6D4] text-xl">~</div>
+                  <div>
+                    <div className="text-xs font-bold text-text-primary">Tailwind</div>
+                    <div className="text-[10px] text-text-muted">Styling Engine</div>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3 p-3 bg-white rounded-lg border border-surface-border shadow-sm">
+                  <div className="w-8 h-8 flex items-center justify-center font-bold text-sky-600 text-lg">Re</div>
+                  <div>
+                    <div className="text-xs font-bold text-text-primary">Recharts</div>
+                    <div className="text-[10px] text-text-muted">Data Visualization</div>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3 p-3 bg-white rounded-lg border border-surface-border shadow-sm">
+                  <div className="w-8 h-8 flex items-center justify-center font-bold text-orange-500 text-lg text-center leading-none">🐻</div>
+                  <div>
+                    <div className="text-xs font-bold text-text-primary">Zustand</div>
+                    <div className="text-[10px] text-text-muted">State Management</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Platform Intelligence (Backend) */}
+            <div className="card-glass p-6 rounded-xl border-surface-border">
+              <h3 className="text-sm font-bold text-text-primary uppercase tracking-wider mb-6 flex items-center gap-2">
+                <Zap className="w-4 h-4 text-accent-fresh-deep" />
+                Platform Intelligence
+              </h3>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="flex items-center gap-3 p-3 bg-white rounded-lg border border-surface-border shadow-sm">
+                  <div className="w-8 h-8 flex items-center justify-center font-bold text-emerald-600 text-xl">⚡</div>
+                  <div>
+                    <div className="text-xs font-bold text-text-primary">FastAPI</div>
+                    <div className="text-[10px] text-text-muted">API Framework</div>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3 p-3 bg-white rounded-lg border border-surface-border shadow-sm">
+                  <div className="w-8 h-8 flex items-center justify-center font-bold text-blue-500 text-lg">Py</div>
+                  <div>
+                    <div className="text-xs font-bold text-text-primary">Pydantic</div>
+                    <div className="text-[10px] text-text-muted">Data Validation</div>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3 p-3 bg-white rounded-lg border border-surface-border shadow-sm">
+                  <div className="w-8 h-8 flex items-center justify-center font-bold text-orange-400 text-lg">sk</div>
+                  <div>
+                    <div className="text-xs font-bold text-text-primary">scikit-learn</div>
+                    <div className="text-[10px] text-text-muted">Machine Learning</div>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3 p-3 bg-white rounded-lg border border-surface-border shadow-sm">
+                  <div className="w-8 h-8 flex items-center justify-center font-bold text-[#150458] text-lg">pd</div>
+                  <div>
+                    <div className="text-xs font-bold text-text-primary">Pandas & NumPy</div>
+                    <div className="text-[10px] text-text-muted">Data Computation</div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 

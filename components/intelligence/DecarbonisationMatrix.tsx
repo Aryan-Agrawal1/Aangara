@@ -84,7 +84,13 @@ export function DecarbonisationMatrix({ opportunities }: DecarbonisationMatrixPr
   // Transform opportunities data for Recharts Scatter/Bubble Chart
   const scatterData = filteredOpps.map((opp, idx) => {
     const abatementKt = Number(((opp.annual_reduction_tco2e || 0) / 1000).toFixed(1));
-    const timeline = (opp.timeline_months || 12) + (idx * 0.15);
+    
+    // The backend uses implementation_months, fallback to timeline_months for mock data
+    const baseTimeline = opp.implementation_months || opp.timeline_months || 12;
+      
+    // Minimal deterministic spread to ensure perfectly stacked bubbles (if any share same timeline) are slightly shifted
+    const timeline = baseTimeline + (idx * 0.15);
+    
     const npv = opp.npv_10yr_cr || 0;
     const capex = opp.capex_cr || 0;
     const payback = opp.payback_years || 0;

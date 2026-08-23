@@ -69,65 +69,68 @@ export default function HomePage() {
       <UtilityBar />
       <Header />
       <main id="main-content">
-        <section className="relative overflow-hidden bg-[#0B4A3D] text-white">
-          <div className="absolute inset-0 opacity-25 mix-blend-luminosity pointer-events-none">
+        <section className="relative overflow-hidden bg-surface-base text-brand-primary">
+          {/* Subtle light background wash and texture */}
+          <div className="absolute inset-0 opacity-[0.03] mix-blend-multiply pointer-events-none">
             <Image
               src="/images/hero/hero_industrial.jpg"
               alt="Industrial Carbon Facility"
               fill
               priority
-              className="object-cover object-[center_40%]"
+              className="object-cover object-[center_40%] grayscale"
             />
           </div>
-          <div className="absolute inset-0 bg-gradient-to-r from-[#0B4A3D] via-[#0B4A3D]/90 to-[#0B4A3D]/70" />
+          <div className="absolute inset-0 bg-gradient-to-br from-surface-base via-surface-base/90 to-[#E2DFE1]/60" />
           
           <div className="relative max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 lg:py-28">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-              <div className="lg:col-span-6 z-10">
-                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/20 text-white/90 text-xs font-medium mb-6 backdrop-blur-sm">
-                  <span className="w-2 h-2 rounded-full bg-[#6EE7B7] animate-pulse" />
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 items-center">
+              
+              {/* Text Block - 5 columns (approx 42%) */}
+              <div className="lg:col-span-5 z-20">
+                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-primary/5 border border-brand-primary/10 text-brand-primary text-xs font-semibold mb-6 backdrop-blur-md">
+                  <span className="w-2 h-2 rounded-full bg-accent-fresh-deep animate-pulse shadow-[0_0_8px_rgba(140,169,73,0.6)]" />
                   <span>India CCTS Compliance Ready · BEE Gazette G.S.R. 25(E)</span>
                 </div>
 
-                <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-semibold leading-[1.12] tracking-tight mb-6">
+                <h1 className="font-display text-4xl sm:text-5xl lg:text-[3.5rem] font-bold leading-[1.1] tracking-tight mb-6 text-brand-primary">
                   <span className={`block transition-all duration-700 ease-out ${heroSettled ? 'opacity-100 translate-y-0' : 'ca-title-line-1'}`}>
                     Turn statutory carbon
                   </span>
                   <span className={`block transition-all duration-700 ease-out ${heroSettled ? 'opacity-100 translate-y-0' : 'ca-title-line-2'}`}>
-                    compliance into <span className="italic text-[#F0A875]">capital advantage</span>
+                    compliance into <span className="italic text-accent-fresh-deep drop-shadow-sm">capital advantage</span>
                   </span>
                 </h1>
 
-                <p className={`text-base sm:text-lg text-white/80 mb-8 max-w-xl leading-relaxed font-normal transition-all duration-700 ease-out ${heroSettled ? 'opacity-100 translate-y-0' : 'ca-hero-paragraph'}`}>
+                <p className={`text-base sm:text-lg text-text-secondary mb-8 max-w-lg leading-relaxed font-medium transition-all duration-700 ease-out ${heroSettled ? 'opacity-100 translate-y-0' : 'ca-hero-paragraph'}`}>
                   Deterministic GHG emission intensity (GEI) accounting, empirical peer distributions, and BUY / BUILD / HYBRID capital allocation for India&apos;s obligated industrial entities.
                 </p>
 
                 <div className={`flex flex-wrap items-center gap-3.5 transition-all duration-700 ease-out ${heroSettled ? 'opacity-100 translate-y-0' : 'ca-hero-cta'}`}>
                   <Link
                     href="/industrial-intelligence"
-                    className="inline-flex items-center gap-2 px-6 py-3.5 rounded-button bg-[#C9622A] hover:bg-[#B5541F] text-white font-semibold text-sm shadow-resting hover:shadow-[0_8px_24px_rgba(201,98,42,0.4)] transition-all duration-200 transform hover:-translate-y-0.5"
+                    className="inline-flex items-center gap-2 px-6 py-3.5 rounded-button bg-brand-primary hover:bg-brand-primary-hover text-surface-base font-semibold text-sm shadow-resting hover:shadow-[0_8px_24px_rgba(11,74,61,0.25)] transition-all duration-200 transform hover:-translate-y-0.5"
                   >
                     <span>Launch Facility Intelligence</span>
                     <ArrowRight className="w-4 h-4" />
                   </Link>
                   <Link
                     href="/decision"
-                    className="inline-flex items-center gap-2 px-6 py-3.5 rounded-button bg-white/10 hover:bg-white/20 border border-white/25 text-white font-semibold text-sm transition-all duration-200 backdrop-blur-sm"
+                    className="inline-flex items-center gap-2 px-6 py-3.5 rounded-button bg-surface-base hover:bg-surface-subtle border border-surface-border-strong text-brand-primary font-semibold text-sm shadow-sm transition-all duration-200"
                   >
                     <span>View Decision Twin</span>
                   </Link>
                 </div>
               </div>
 
-              {/* Centerpiece: Carbon Intelligence Core with orbiting fanning data chips */}
-              <div className="lg:col-span-6 flex items-center justify-center mt-4 lg:mt-0">
+              {/* Centerpiece: Carbon Intelligence Core Atom Graphic - 7 columns */}
+              <div className="lg:col-span-7 flex flex-col items-center lg:items-end justify-center mt-8 lg:mt-0 relative w-full min-h-[450px] lg:min-h-[650px] z-10">
                 <CarbonIntelligenceCore />
               </div>
             </div>
           </div>
 
           {/* Section Transition Divider Gradient */}
-          <div className="absolute bottom-0 inset-x-0 h-10 bg-gradient-to-b from-transparent via-[#0B4A3D]/40 to-[#F6F8F7] pointer-events-none" />
+          <div className="absolute bottom-0 inset-x-0 h-16 bg-gradient-to-b from-transparent to-surface-subtle pointer-events-none" />
 
           {/* Staggered Line Keyframes */}
           <style jsx>{`
