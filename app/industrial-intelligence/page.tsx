@@ -72,7 +72,26 @@ export default function IndustrialIntelligencePage() {
   };
 
   useEffect(() => {
-    runAnalysis();
+    if (typeof window !== 'undefined' && window.location.search.includes('demo=true')) {
+      const demoData = {
+        facility_name: 'Western Rajasthan Cement Works',
+        sector: 'cement',
+        sub_sector: 'Integrated Plant (OPC/PPC)',
+        state: 'Rajasthan',
+        annual_production: 1200000.0,
+        production_unit: 'tonnes',
+        electricity_mwh: 98000.0,
+        renewable_electricity_pct: 12.5,
+        thermal_fuel_type: 'petcoke',
+        thermal_fuel_tonnes: 95000.0,
+        clinker_factor_pct: 74.0,
+        whrs_installed_mw: 0.0
+      };
+      setFormData(demoData as any);
+      setTimeout(() => runAnalysis(demoData as any), 100);
+    } else {
+      runAnalysis();
+    }
   }, []);
 
   const carbon = analysisResult?.carbon_profile;

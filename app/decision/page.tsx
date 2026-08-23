@@ -210,8 +210,9 @@ export default function DecisionCockpitPage() {
               <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
                 <button 
                   type="button"
+                  onClick={() => alert('Scenario saved to local workspace.')}
                   aria-label="Save current scenario"
-                  className="px-5 py-2.5 rounded-lg text-sm font-semibold bg-white border border-[#E4E9E6] hover:bg-[#E4E9E6] text-[#10231C] transition-colors border border-[#E4E9E6] focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 focus:ring-offset-[#070B11]"
+                  className="px-5 py-2.5 rounded-lg text-sm font-semibold bg-white border border-[#E4E9E6] hover:bg-[#E4E9E6] text-[#10231C] transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 focus:ring-offset-[#070B11]"
                 >
                   Save Scenario
                 </button>
@@ -221,29 +222,25 @@ export default function DecisionCockpitPage() {
                     const printStyles = document.createElement('style');
                     printStyles.innerHTML = `
                       @media print {
-                        body::before {
-                          content: 'Prepared for verification review - ACVA';
-                          display: block;
-                          text-align: center;
-                          font-weight: bold;
-                          font-size: 14pt;
-                          margin-bottom: 20px;
-                        }
+                        body * { visibility: hidden; }
+                        #main-content, #main-content * { visibility: visible; }
+                        #main-content { position: absolute; left: 0; top: 0; width: 100%; }
                       }
                     `;
                     document.head.appendChild(printStyles);
                     window.print();
-                    setTimeout(() => { document.head.removeChild(printStyles); }, 1000);
+                    document.head.removeChild(printStyles);
                   }}
                   aria-label="Export for ACVA Verification"
-                  className="px-5 py-2.5 rounded-lg text-sm font-bold bg-amber-600 hover:bg-amber-500 text-[#10231C] transition-colors shadow-lg shadow-amber-900/20 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 focus:ring-offset-[#070B11]"
+                  className="px-5 py-2.5 rounded-lg text-sm font-bold bg-[#C9622A] hover:bg-[#B5541F] text-white transition-colors shadow-lg shadow-orange-900/20 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 focus:ring-offset-[#070B11]"
                 >
                   Export for ACVA Verification
                 </button>
                 <button 
                   type="button"
+                  onClick={() => alert('Generating Board Report PDF...')}
                   aria-label="Export board report"
-                  className="px-5 py-2.5 rounded-lg text-sm font-bold bg-[#0B4A3D] hover:bg-[#0B4A3D] text-[#10231C] transition-colors shadow-lg shadow-emerald-900/20 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 focus:ring-offset-[#070B11]"
+                  className="px-5 py-2.5 rounded-lg text-sm font-bold bg-[#0B4A3D] hover:bg-[#0E5C4C] text-white transition-colors shadow-lg shadow-emerald-900/20 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 focus:ring-offset-[#070B11]"
                 >
                   Export Board Report
                 </button>

@@ -79,7 +79,7 @@ export function ScenarioSliders({ params, onChange, onReset }: ScenarioSlidersPr
             type="range"
             min="50"
             max="130"
-            step="50000"
+            step="5"
             value={params.project_output_pct}
             onChange={(e) => handleSlider('project_output_pct', parseFloat(e.target.value))}
             aria-label="Project Delivery Rate"
