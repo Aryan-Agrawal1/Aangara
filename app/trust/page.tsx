@@ -16,10 +16,10 @@ export default function TrustCenterPage() {
         <Breadcrumb items={[{ label: "Trust Center" }]} />
         <div className="mb-8">
           <div className="flex items-center gap-2">
-            <ShieldCheck className="w-6 h-6 text-[#0B4A3D]" />
-            <h1 className="text-2xl font-bold text-[#10231C] tracking-tight">CarbonAlpha Trust Center</h1>
+            <ShieldCheck className="w-6 h-6 text-[#1F4D2E]" />
+            <h1 className="text-2xl font-bold text-[#10231C] tracking-tight">AANGARA Trust Center</h1>
           </div>
-          <p className="text-sm text-[#4B5A54] mt-2">Technical Evidence, Data Provenance, and Regulatory Alignment.</p>
+          <p className="text-sm text-[#4B5A54] mt-2">Technical Evidence, Data Provenance, and Regulatory Alignment · Produced by Terranex</p>
         </div>
 
         <div className="space-y-6">
@@ -71,7 +71,7 @@ export default function TrustCenterPage() {
               <StatusBadge type="CALCULATION" />
             </div>
             <p className="text-sm text-[#4B5A54] mb-4">
-              Transparency documentation for the predictive models powering CarbonAlpha's Decision Intelligence.
+              Transparency documentation for the predictive models powering AANGARA's Decision Intelligence.
             </p>
             <div className="bg-[#F6F8F7] p-4 rounded-lg border border-[#E4E9E6] space-y-4">
               <div>

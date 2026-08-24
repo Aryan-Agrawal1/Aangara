@@ -1,19 +1,17 @@
 'use client';
 
-import React from 'react';
-import Image from 'next/image';
+import React, { useEffect } from 'react';
 import Link from 'next/link';
 import { UtilityBar } from "@/components/ui/UtilityBar";
 import { Header } from '@/components/navigation/Header';
 import { ProvenanceFooter } from '@/components/ui/ProvenanceFooter';
 import { TeamSection } from '@/components/about/TeamSection';
 import { SHARED_SECTORS } from "@/components/ui/SectorCard";
-import {
-  Building2, LineChart, Sliders, ShieldCheck,
+import { 
+  Building2, LineChart, Sliders, ShieldCheck, 
   ArrowRight, Activity, Zap, Factory, CheckCircle2,
   Database, Network, Scale
 } from 'lucide-react';
-import { useEffect } from 'react';
 
 function useRevealOnScroll() {
   useEffect(() => {
@@ -24,58 +22,85 @@ function useRevealOnScroll() {
   }, []);
 }
 
-/* ── ChromaGrid — grayscale→color hover tiles for About page sectors ── */
-function SectorChromaTile({ name, imagePath, status }: { name: string; imagePath: string; status: string }) {
-  const isFinal = status === 'FINAL';
+/* ── Sector Card with NO images (clean text box per user request) ── */
+function SectorBoxCard({
+  name,
+  status,
+  statusText,
+  subSector,
+  desc,
+}: {
+  name: string;
+  status: 'final' | 'draft' | 'watchlist';
+  statusText: string;
+  subSector: string;
+  desc: string;
+}) {
+  const isFinal = status === 'final';
+  const isDraft = status === 'draft';
+
   return (
-    <div className="chroma-tile aspect-[4/3] group cursor-pointer">
-      <Image
-        src={imagePath}
-        alt={name}
-        fill
-        className="object-cover transition-all duration-500 grayscale group-hover:grayscale-0 group-hover:scale-105"
-        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 280px"
-      />
-      <div className="chroma-tile-overlay" />
-      {/* Status badge */}
-      <div className="absolute top-2.5 left-2.5 z-10">
-        <span className={`text-[9px] font-mono font-bold px-1.5 py-0.5 rounded ${
-          isFinal
-            ? 'bg-[#1F4D2E] text-white'
-            : 'bg-[#D9531E]/90 text-white'
-        }`}>
-          {isFinal ? 'FINAL' : 'DRAFT'}
-        </span>
+    <div className="card-glass rounded-xl p-5 border-[#E8E2DC] flex flex-col justify-between transition-all duration-200 hover:-translate-y-1 hover:shadow-hover hover:border-[#1F4D2E]/40 group">
+      <div>
+        <div className="flex items-center justify-between gap-2 mb-3">
+          <span className="text-[10px] font-mono font-bold tracking-wider text-[#5B8A4A] uppercase">
+            {subSector}
+          </span>
+          <span
+            className={`text-[9px] font-mono font-bold px-2 py-0.5 rounded-full border ${
+              isFinal
+                ? 'bg-[#E8F2EB] text-[#1F4D2E] border-[#1F4D2E]/25'
+                : isDraft
+                ? 'bg-[#FEF0E6] text-[#D9531E] border-[#D9531E]/30'
+                : 'bg-[#FEF7E8] text-[#C98A1E] border-[#C98A1E]/30'
+            }`}
+          >
+            {statusText}
+          </span>
+        </div>
+
+        <h3 className="text-base font-bold text-[#1A1C18] mb-2 group-hover:text-[#1F4D2E] transition-colors">
+          {name}
+        </h3>
+
+        <p className="text-xs text-[#4A5446] leading-relaxed line-clamp-3 mb-4">
+          {desc}
+        </p>
       </div>
-      {/* Name label — always visible */}
-      <div className="absolute bottom-0 inset-x-0 z-10 p-3">
-        <div className="text-white text-sm font-bold leading-tight drop-shadow-lg">{name}</div>
+
+      <div className="pt-3 border-t border-[#E8E2DC]">
+        <Link
+          href={`/industrial-intelligence?sector=${name.toLowerCase().replace(/[^a-z0-9]/g, '_')}`}
+          className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#1F4D2E] group-hover:text-[#D9531E] transition-colors"
+        >
+          <span>Analyse Facility</span>
+          <ArrowRight className="w-3.5 h-3.5" />
+        </Link>
       </div>
     </div>
   );
 }
 
-/* ── Tech stack logo loop marquee ── */
+/* ── Tech Stack Logo Loop Marquee ── */
 const TECH_STACK = [
-  { label: 'Next.js',       icon: 'N',  color: '#000000', bg: '#000' },
-  { label: 'React',         icon: '⚛',  color: '#61DAFB', bg: '#222' },
-  { label: 'Tailwind CSS',  icon: '~',  color: '#06B6D4', bg: '#F0FDFE' },
-  { label: 'Recharts',      icon: 'Re', color: '#3B82F6', bg: '#EFF6FF' },
-  { label: 'Zustand',       icon: '🐻', color: '#F97316', bg: '#FFF7ED' },
-  { label: 'TypeScript',    icon: 'TS', color: '#3178C6', bg: '#EFF6FF' },
-  { label: 'FastAPI',       icon: '⚡', color: '#059669', bg: '#ECFDF5' },
-  { label: 'Pydantic',      icon: 'Py', color: '#3B82F6', bg: '#EFF6FF' },
-  { label: 'scikit-learn',  icon: 'sk', color: '#F97316', bg: '#FFF7ED' },
-  { label: 'Pandas',        icon: 'pd', color: '#150458', bg: '#F5F3FF' },
-  { label: 'NumPy',         icon: 'np', color: '#4F8CE2', bg: '#EFF6FF' },
-  { label: 'OGL',           icon: '◼',  color: '#D9531E', bg: '#FEF0E6' },
+  { label: 'Next.js 14',   icon: 'N',  color: '#000000', bg: '#000' },
+  { label: 'React 18',     icon: '⚛',  color: '#61DAFB', bg: '#222' },
+  { label: 'Tailwind CSS', icon: '~',  color: '#06B6D4', bg: '#F0FDFE' },
+  { label: 'Recharts',     icon: 'Re', color: '#3B82F6', bg: '#EFF6FF' },
+  { label: 'Zustand',      icon: '🐻', color: '#F97316', bg: '#FFF7ED' },
+  { label: 'TypeScript',   icon: 'TS', color: '#3178C6', bg: '#EFF6FF' },
+  { label: 'FastAPI',      icon: '⚡', color: '#059669', bg: '#ECFDF5' },
+  { label: 'Pydantic',     icon: 'Py', color: '#3B82F6', bg: '#EFF6FF' },
+  { label: 'scikit-learn', icon: 'sk', color: '#F97316', bg: '#FFF7ED' },
+  { label: 'Pandas',       icon: 'pd', color: '#150458', bg: '#F5F3FF' },
+  { label: 'NumPy',        icon: 'np', color: '#4F8CE2', bg: '#EFF6FF' },
+  { label: 'OGL WebGL',    icon: '◼',  color: '#D9531E', bg: '#FEF0E6' },
 ];
 
 function LogoLoopMarquee() {
-  const doubled = [...TECH_STACK, ...TECH_STACK]; // duplicate for seamless loop
+  const doubled = [...TECH_STACK, ...TECH_STACK];
   return (
     <div className="overflow-hidden rounded-xl border border-[#E8E2DC] bg-white py-4 relative">
-      {/* fade masks */}
       <div className="absolute left-0 top-0 bottom-0 w-10 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
       <div className="absolute right-0 top-0 bottom-0 w-10 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
       <div className="flex gap-6 animate-[logoScroll_28s_linear_infinite] hover:[animation-play-state:paused]">
@@ -104,116 +129,8 @@ function LogoLoopMarquee() {
   );
 }
 
-/* ── ProfileCard — team member card with glare-on-hover effect ── */
-function ProfileCard({
-  name, initials, role, linkedin, github, email
-}: {
-  name: string; initials: string; role?: string;
-  linkedin?: string; github?: string; email?: string;
-}) {
-  const cardRef = React.useRef<HTMLDivElement>(null);
-
-  function handleMouseMove(e: React.MouseEvent<HTMLDivElement>) {
-    const card = cardRef.current;
-    if (!card) return;
-    const rect = card.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width) * 100;
-    const y = ((e.clientY - rect.top) / rect.height) * 100;
-    card.style.setProperty('--glare-x', `${x}%`);
-    card.style.setProperty('--glare-y', `${y}%`);
-  }
-
-  function handleMouseLeave() {
-    const card = cardRef.current;
-    if (!card) return;
-    card.style.setProperty('--glare-x', '50%');
-    card.style.setProperty('--glare-y', '50%');
-  }
-
-  return (
-    <div
-      ref={cardRef}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      className="profile-card relative bg-white rounded-xl border border-[#E8E2DC] overflow-hidden shadow-resting hover:shadow-hover transition-all duration-300 hover:-translate-y-1 p-6 flex flex-col items-center text-center"
-      style={{ '--glare-x': '50%', '--glare-y': '50%' } as React.CSSProperties}
-    >
-      {/* Glare overlay */}
-      <div
-        className="absolute inset-0 pointer-events-none rounded-xl transition-opacity duration-300 opacity-0 hover:opacity-100"
-        style={{
-          background: 'radial-gradient(circle at var(--glare-x) var(--glare-y), rgba(255,255,255,0.22) 0%, transparent 70%)',
-        }}
-      />
-      {/* Avatar */}
-      <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[#1F4D2E] to-[#5B8A4A] flex items-center justify-center text-white font-bold text-lg mb-4 shadow-md ring-4 ring-[#E8F2EB]">
-        {initials}
-      </div>
-      {/* Info */}
-      <div className="font-bold text-[#1A1C18] text-sm mb-0.5">{name}</div>
-      {role && <div className="text-[10px] text-[#6B7268] uppercase tracking-wider mb-4">{role}</div>}
-      {/* Social links */}
-      <div className="flex items-center gap-3 mt-auto">
-        {linkedin && (
-          <a href={linkedin} target="_blank" rel="noreferrer"
-            className="w-8 h-8 rounded-full flex items-center justify-center text-[#0A66C2] bg-[#0A66C2]/10 hover:bg-[#0A66C2] hover:text-white transition-colors"
-            aria-label={`${name} LinkedIn`}
-          >
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/>
-            </svg>
-          </a>
-        )}
-        {github && (
-          <a href={github} target="_blank" rel="noreferrer"
-            className="w-8 h-8 rounded-full flex items-center justify-center text-[#1A1C18] bg-[#1A1C18]/8 hover:bg-[#1A1C18] hover:text-white transition-colors"
-            aria-label={`${name} GitHub`}
-          >
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.09-.745.083-.73.083-.73 1.205.085 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.605-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12z"/>
-            </svg>
-          </a>
-        )}
-        {email && (
-          <a href={`mailto:${email}`}
-            className="w-8 h-8 rounded-full flex items-center justify-center text-[#D9531E] bg-[#D9531E]/10 hover:bg-[#D9531E] hover:text-white transition-colors"
-            aria-label={`Email ${name}`}
-          >
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
-            </svg>
-          </a>
-        )}
-      </div>
-    </div>
-  );
-}
-
-/* ── Main page ── */
 export default function AboutPage() {
   useRevealOnScroll();
-
-  const sectors = SHARED_SECTORS ?? [];
-  const sectorImageMap: Record<string, string> = {
-    'Cement':                '/images/sectors/cement.jpg',
-    'Iron & Steel':          '/images/sectors/iron_steel.jpg',
-    'Aluminium':             '/images/sectors/aluminium.jpg',
-    'Chlor-Alkali':          '/images/sectors/chlor_alkali.jpg',
-    'Fertiliser':            '/images/sectors/fertiliser.jpg',
-    'Petrochemicals':        '/images/sectors/petrochemicals.jpg',
-    'Petroleum Refinery':    '/images/sectors/petroleum_refinery.jpg',
-    'Pulp & Paper':          '/images/sectors/pulp_paper.jpg',
-    'Textile':               '/images/sectors/textile.jpg',
-  };
-
-  const teamMembers = [
-    { name: 'Aryan Agrawal',        initials: 'AA', role: 'Co-Founder', linkedin: 'https://www.linkedin.com/in/aryan-agrawal-286685371', github: 'https://github.com/Aryan-Agrawal1', email: 'aryanagrawal458@gmail.com' },
-    { name: 'Arko Roy Chowdhury',   initials: 'AR', role: 'Co-Founder', linkedin: 'https://www.linkedin.com/in/arkoroychowdhury/', github: 'https://github.com/MaxFrostbyte', email: 'arkoroychowdhury78@gmail.com' },
-    { name: 'Aarav Madan',          initials: 'AM', role: 'Co-Founder', linkedin: 'https://www.linkedin.com/in/aarav-madan-7296b2371/', github: 'https://github.com/aarav-madan', email: 'aaravmadan5@gmail.com' },
-    { name: 'Kanishk Agrawal',      initials: 'KA', role: 'Co-Founder', linkedin: 'https://www.linkedin.com/in/kanishk-agrawal-a8b2552ab/', github: 'https://github.com/Kanishk-Agrawal1', email: 'kanishkagrawal1208@gmail.com' },
-    { name: 'Vibha Sharma',         initials: 'VS', role: 'Co-Founder', linkedin: 'https://www.linkedin.com/in/vibha-sharma-7aa6572ab/', github: 'https://github.com/Vibha-Sharma1', email: 'vibhasharma18082007@gmail.com' },
-    { name: 'Vishant Parmar',       initials: 'VP', role: 'Co-Founder', linkedin: 'https://www.linkedin.com/in/vishant-parmar/', github: 'https://github.com/vishant-parmar', email: 'vishantparmar2007@gmail.com' },
-  ];
 
   return (
     <div className="min-h-screen bg-[#F5F2F3] flex flex-col">
@@ -225,13 +142,13 @@ export default function AboutPage() {
         {/* ── Page Hero ── */}
         <div className="mb-12 max-w-4xl reveal-on-scroll">
           <div className="flex items-center gap-2 mb-4">
-            <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-[#E8F2EB] text-[#1F4D2E] border border-[#1F4D2E]/20">
+            <span className="text-[10px] font-mono font-bold px-2.5 py-1 rounded-full bg-[#E8F2EB] text-[#1F4D2E] border border-[#1F4D2E]/20">
               ABOUT THE PLATFORM
             </span>
-            <span className="text-[10px] font-mono text-[#6B7268]">by Terranex</span>
+            <span className="text-[10px] font-mono text-[#6B7268]">Produced by Terranex</span>
           </div>
           <h1 className="text-3xl sm:text-4xl font-extrabold text-[#1A1C18] tracking-tight mb-4">
-            AANGARA — Carbon Intelligence Platform
+            AANGARA — CCTS Decision Intelligence
           </h1>
           <p className="text-base text-[#4A5446] leading-relaxed">
             AANGARA is a carbon-market decision-intelligence platform for Indian industrial facilities operating under the Carbon Credit Trading Scheme (CCTS). It connects a facility's production and emissions data, the current Indian regulatory framework, decarbonisation project economics, and financial scenario modelling into one transparent decision workflow — so an industrial operator can understand where they stand, what their options cost, and why a given strategy is recommended, before committing capital.
@@ -250,12 +167,14 @@ export default function AboutPage() {
               { icon: Activity, title: 'Opportunity Matrix', desc: 'Evaluates WHRS, renewable PPAs, fuel switching, and motor retrofits with 10-year NPV, MAC (INR/tCO₂e), and BEE methodology codes.' },
               { icon: ShieldCheck, title: 'Risk & Consequence', desc: 'Decomposes the recommendation into financial, environmental, regulatory, and execution risk components — the "why" is always visible.' },
             ].map((feat) => (
-              <div key={feat.title} className="card-glass p-5 rounded-xl border-[#E8E2DC]">
-                <div className="w-10 h-10 rounded-lg bg-[#E8F2EB] text-[#1F4D2E] flex items-center justify-center mb-4">
-                  <feat.icon className="w-5 h-5" />
+              <div key={feat.title} className="card-glass p-5 rounded-xl border-[#E8E2DC] flex flex-col justify-between">
+                <div>
+                  <div className="w-10 h-10 rounded-lg bg-[#E8F2EB] text-[#1F4D2E] flex items-center justify-center mb-4">
+                    <feat.icon className="w-5 h-5" />
+                  </div>
+                  <h3 className="text-sm font-bold text-[#1A1C18] mb-2">{feat.title}</h3>
+                  <p className="text-xs text-[#4A5446] leading-relaxed">{feat.desc}</p>
                 </div>
-                <h3 className="text-sm font-bold text-[#1A1C18] mb-2">{feat.title}</h3>
-                <p className="text-xs text-[#4A5446] leading-relaxed">{feat.desc}</p>
               </div>
             ))}
           </div>
@@ -279,41 +198,52 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* ── Regulatory Framework ── */}
+        {/* ── Built on India's Actual Regulatory Framework ── */}
         <section className="mb-12 reveal-on-scroll">
           <h2 className="text-xl font-bold text-[#1A1C18] tracking-tight mb-6 border-b border-[#E8E2DC] pb-3">
-            Built on India's Actual Regulatory Framework
+            Built on India&apos;s Actual Regulatory Framework
           </h2>
           <div className="glass-panel p-6 rounded-xl border-[#E8E2DC] text-sm text-[#4A5446] leading-relaxed space-y-3">
-            <p>AANGARA's calculations are grounded in the actual Indian regulatory architecture governing industrial carbon compliance — not a generic global carbon-accounting model.</p>
-            <p>The platform tracks the <strong className="text-[#1A1C18]">Carbon Credit Trading Scheme (CCTS)</strong>, notified under the Energy Conservation Act, 2001 (as amended in 2022), which established India's compliance mechanism for <strong className="text-[#1A1C18]">Greenhouse Gas Emission Intensity (GEI)</strong> targets across energy-intensive industrial sectors.</p>
-            <p>AANGARA references primary sources including <strong className="text-[#1A1C18]">BEE</strong>, <strong className="text-[#1A1C18]">MoEFCC</strong>, and <strong className="text-[#1A1C18]">CERC</strong> for regulatory targets, emission factors, and methodology structure — every regulatory figure is versioned and dated back to its source.</p>
+            <p>
+              AANGARA&apos;s calculations are grounded in the actual Indian regulatory architecture governing industrial carbon compliance — not a generic global carbon-accounting model.
+            </p>
+            <p>
+              The platform tracks the <strong className="text-[#1A1C18]">Carbon Credit Trading Scheme (CCTS)</strong>, notified under the Energy Conservation Act, 2001 (as amended in 2022), which established India&apos;s compliance mechanism for <strong className="text-[#1A1C18]">Greenhouse Gas Emission Intensity (GEI)</strong> targets across energy-intensive industrial sectors.
+            </p>
+            <p>
+              AANGARA references primary sources including <strong className="text-[#1A1C18]">Bureau of Energy Efficiency (BEE)</strong>, <strong className="text-[#1A1C18]">Ministry of Environment, Forest and Climate Change (MoEFCC)</strong>, and <strong className="text-[#1A1C18]">Central Electricity Regulatory Commission (CERC)</strong> for regulatory targets, emission factors, and methodology structure — every regulatory figure is versioned and dated back to its official gazette source.
+            </p>
           </div>
         </section>
 
-        {/* ── Sectors Covered — ChromaGrid ── */}
+        {/* ── Sectors Covered (Clean Text Cards — No Images per User Instruction) ── */}
         <section className="mb-12 reveal-on-scroll">
-          <h2 className="text-xl font-bold text-[#1A1C18] tracking-tight mb-2 border-b border-[#E8E2DC] pb-3">
-            Sectors Covered
-          </h2>
-          <p className="text-xs text-[#6B7268] mb-6">Hover each tile to reveal the sector. Greyscale → colour on interaction.</p>
-          {sectors.length > 0 ? (
-            <div className="grid grid-cols-3 gap-4">
-              {sectors.map((sector) => (
-                <SectorChromaTile
-                  key={sector.name}
-                  name={sector.name}
-                  imagePath={sectorImageMap[sector.name] ?? `/images/sectors/${sector.name.toLowerCase().replace(/[^a-z0-9]/g, '_')}.jpg`}
-                  status={sector.status ?? 'FINAL'}
-                />
-              ))}
+          <div className="flex items-center justify-between mb-6 border-b border-[#E8E2DC] pb-3">
+            <div>
+              <h2 className="text-xl font-bold text-[#1A1C18] tracking-tight">
+                Sectors Covered
+              </h2>
+              <p className="text-xs text-[#6B7268] mt-0.5">
+                Obligated industrial sectors with gazetted CCTS trajectories and draft scopes.
+              </p>
             </div>
-          ) : (
-            <div className="card-glass p-8 rounded-xl text-center">
-              <Factory className="w-8 h-8 text-[#6B7268] mx-auto mb-3" />
-              <p className="text-[#4A5446] text-sm">Sector data unavailable.</p>
-            </div>
-          )}
+            <span className="text-[10px] font-mono font-bold px-2.5 py-1 rounded bg-[#E8F2EB] text-[#1F4D2E] border border-[#1F4D2E]/20">
+              9 SECTORS
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {SHARED_SECTORS.map((sector) => (
+              <SectorBoxCard
+                key={sector.name}
+                name={sector.name}
+                status={sector.status}
+                statusText={sector.statusText}
+                subSector={sector.subSector}
+                desc={sector.desc}
+              />
+            ))}
+          </div>
         </section>
 
         {/* ── Data Treatment ── */}
@@ -342,7 +272,7 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* ── The Engine ── */}
+        {/* ── The Engine Underneath ── */}
         <section className="mb-12 reveal-on-scroll">
           <h2 className="text-xl font-bold text-[#1A1C18] tracking-tight mb-6 border-b border-[#E8E2DC] pb-3">
             The Engine Underneath
@@ -357,7 +287,7 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* ── Built With — LogoLoop marquee ── */}
+        {/* ── Built With — LogoLoop Marquee ── */}
         <section className="mb-12 reveal-on-scroll">
           <h2 className="text-xl font-bold text-[#1A1C18] tracking-tight mb-2 border-b border-[#E8E2DC] pb-3">
             Built With
@@ -369,24 +299,15 @@ export default function AboutPage() {
           <LogoLoopMarquee />
         </section>
 
-        {/* ── Team — ProfileCards ── */}
-        <section className="mb-12 reveal-on-scroll">
-          <h2 className="text-xl font-bold text-[#1A1C18] tracking-tight mb-2 border-b border-[#E8E2DC] pb-3">
-            The Team
-          </h2>
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
-            {teamMembers.map((member) => (
-              <ProfileCard key={member.name} {...member} />
-            ))}
-          </div>
-        </section>
+        {/* ── Team Section (Exact 6 Members & Socials Preserved) ── */}
+        <TeamSection />
 
         {/* ── CTA ── */}
         <section className="mb-12 reveal-on-scroll">
           <div className="bg-gradient-to-br from-[#1F4D2E] to-[#1A1C18] p-8 sm:p-12 rounded-xl border border-[#1F4D2E] text-center shadow-2xl">
             <h2 className="text-2xl font-bold text-white mb-3">Ready to evaluate your carbon position?</h2>
             <p className="text-sm text-[#E8E2DC] mb-8 max-w-xl mx-auto">
-              Calculate your facility's baseline, benchmark against peers, and find the optimal capital allocation strategy under CCTS.
+              Calculate your facility&apos;s baseline, benchmark against peers, and find the optimal capital allocation strategy under CCTS.
             </p>
             <Link
               href="/industrial-intelligence"

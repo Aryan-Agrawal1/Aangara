@@ -55,8 +55,8 @@ const TEAM_MEMBERS = [
 export function TeamSection() {
   return (
     <section className="mb-12 pt-8">
-      <div className="flex items-center justify-between mb-16 border-b border-surface-border pb-3">
-        <h2 className="text-xl font-bold text-text-primary tracking-tight">Team</h2>
+      <div className="flex items-center justify-between mb-16 border-b border-[#E8E2DC] pb-3">
+        <h2 className="text-xl font-bold text-[#1A1C18] tracking-tight">Team</h2>
       </div>
       
       {/* 3x2 Grid on desktop, 2x3 on tablet, 1x6 on mobile */}
@@ -64,25 +64,25 @@ export function TeamSection() {
         {TEAM_MEMBERS.map((member) => (
           <div 
             key={member.id} 
-            className="group card-glass rounded-xl px-8 pb-8 pt-0 border-surface-border flex flex-col items-center text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_12px_24px_-4px_rgba(11,74,61,0.08)]"
+            className="group card-glass rounded-xl px-8 pb-8 pt-0 border-[#E8E2DC] flex flex-col items-center text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_12px_24px_-4px_rgba(31,77,46,0.12)]"
           >
             {/* Avatar overlapping top edge */}
-            <div className="-mt-12 w-24 h-24 relative z-10 rounded-full bg-brand-primary flex flex-shrink-0 items-center justify-center text-surface-base font-bold text-2xl mb-5 shadow-resting ring-4 ring-surface-base transition-all duration-300 group-hover:scale-105 group-hover:shadow-[0_8px_20px_rgba(11,74,61,0.3)] group-hover:ring-accent-fresh-subtle">
+            <div className="-mt-12 w-24 h-24 relative z-10 rounded-full bg-gradient-to-br from-[#1F4D2E] to-[#27643A] flex flex-shrink-0 items-center justify-center text-[#F5F2F3] font-bold text-2xl mb-5 shadow-resting ring-4 ring-[#F5F2F3] transition-all duration-300 group-hover:scale-105 group-hover:shadow-[0_8px_20px_rgba(31,77,46,0.3)] group-hover:ring-[#FEF0E6]">
               {member.initials}
             </div>
             
-            {/* Name Container fixed height to ensure alignment */}
+            {/* Name Container */}
             <div className="flex flex-col flex-1 justify-start w-full mb-6">
-              <h3 className="text-base font-bold text-text-primary line-clamp-2 transition-colors duration-200 group-hover:text-brand-primary">{member.name}</h3>
+              <h3 className="text-base font-bold text-[#1A1C18] line-clamp-2 transition-colors duration-200 group-hover:text-[#1F4D2E]">{member.name}</h3>
             </div>
             
             {/* Icon Links */}
-            <div className="flex items-center justify-center space-x-3 w-full border-t border-surface-border pt-4">
+            <div className="flex items-center justify-center space-x-3 w-full border-t border-[#E8E2DC] pt-4">
               <a 
                 href={member.linkedin} 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="relative p-2.5 rounded-full text-text-muted transition-all hover:text-[#0A66C2] group/icon"
+                className="relative p-2.5 rounded-full text-[#6B7268] transition-all hover:text-[#0A66C2] group/icon"
                 title={`${member.name} LinkedIn`}
               >
                 <div className="absolute inset-0 bg-[#0A66C2]/10 rounded-full opacity-0 scale-75 transition-all duration-200 group-hover/icon:opacity-100 group-hover/icon:scale-100"></div>
@@ -92,18 +92,18 @@ export function TeamSection() {
                 href={member.github} 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="relative p-2.5 rounded-full text-text-muted transition-all hover:text-[#181717] group/icon"
+                className="relative p-2.5 rounded-full text-[#6B7268] transition-all hover:text-[#1A1C18] group/icon"
                 title={`${member.name} GitHub`}
               >
-                <div className="absolute inset-0 bg-[#181717]/10 rounded-full opacity-0 scale-75 transition-all duration-200 group-hover/icon:opacity-100 group-hover/icon:scale-100"></div>
+                <div className="absolute inset-0 bg-[#1A1C18]/10 rounded-full opacity-0 scale-75 transition-all duration-200 group-hover/icon:opacity-100 group-hover/icon:scale-100"></div>
                 <Github className="w-4 h-4 relative z-10" />
               </a>
               <a 
                 href={`mailto:${member.email}`} 
-                className="relative p-2.5 rounded-full text-text-muted transition-all hover:text-brand-primary group/icon"
+                className="relative p-2.5 rounded-full text-[#6B7268] transition-all hover:text-[#D9531E] group/icon"
                 title={`Email ${member.name}`}
               >
-                <div className="absolute inset-0 bg-accent-fresh-subtle rounded-full opacity-0 scale-75 transition-all duration-200 group-hover/icon:opacity-100 group-hover/icon:scale-100 border border-accent-fresh/30"></div>
+                <div className="absolute inset-0 bg-[#FEF0E6] rounded-full opacity-0 scale-75 transition-all duration-200 group-hover/icon:opacity-100 group-hover/icon:scale-100 border border-[#D9531E]/30"></div>
                 <Mail className="w-4 h-4 relative z-10" />
               </a>
             </div>

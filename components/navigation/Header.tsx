@@ -37,14 +37,14 @@ export function Header({ currentSector, currentEntityId, reportingYear, onSector
           {/* ── Brand mark ── */}
           <Link href="/" className="flex items-center gap-2.5 group flex-shrink-0">
             {/* Logo icon mark */}
-            <div className="relative w-9 h-9 flex-shrink-0">
+            <div className="relative w-8 h-8 flex-shrink-0">
               <Image
-                src="/aangara-logo.jpg"
+                src="/aangara-icon.png"
                 alt="AANGARA"
                 fill
                 priority
-                className="object-cover rounded-lg"
-                sizes="36px"
+                className="object-contain"
+                sizes="32px"
               />
             </div>
             {/* Wordmark */}

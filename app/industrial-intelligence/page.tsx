@@ -64,7 +64,7 @@ export default function IndustrialIntelligencePage() {
       }
     } catch (e) {
       console.error('Failed to run facility analysis:', e);
-      setApiError('Unable to connect to CarbonAlpha Intelligence Core. Please ensure the backend services are running.');
+      setApiError('Unable to connect to AANGARA Intelligence Core. Please ensure the backend services are running.');
       setAnalysisResult(null);
     } finally {
       setIsLoading(false);
@@ -108,9 +108,9 @@ export default function IndustrialIntelligencePage() {
         <div className="mb-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
           <div>
             <div className="flex items-center space-x-2">
-              <h1 className="text-2xl font-bold text-[#10231C] tracking-tight">CarbonAlpha Industrial Intelligence(TM)</h1>
-              <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-emerald-950 text-[#1F8A5F] border border-emerald-800/60 font-semibold">
-                PERSONALIZED DECISION ENGINE
+              <h1 className="text-2xl font-bold text-[#10231C] tracking-tight">AANGARA Industrial Intelligence</h1>
+              <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-[#E8F2EB] text-[#1F4D2E] border border-[#1F4D2E]/25 font-semibold">
+                DECISION ENGINE
               </span>
             </div>
             <p className="text-xs text-[#4B5A54] mt-1">

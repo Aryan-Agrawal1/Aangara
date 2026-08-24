@@ -281,8 +281,8 @@ export default function HomePage() {
           <div className="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 mb-10">
             <div className="md:col-span-2">
               <div className="flex items-center gap-2.5 mb-3">
-                <div className="relative w-8 h-8 flex-shrink-0 rounded-lg overflow-hidden shadow-resting">
-                  <img src="/aangara-logo.jpg" alt="AANGARA" className="w-full h-full object-cover" />
+                <div className="relative w-8 h-8 flex-shrink-0">
+                  <Image src="/aangara-icon.png" alt="AANGARA" fill className="object-contain" sizes="32px" />
                 </div>
                 <div>
                   <div className="font-bold text-[#1A1C18] leading-tight">AANGARA</div>

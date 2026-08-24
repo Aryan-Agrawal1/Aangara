@@ -84,11 +84,11 @@ export function AangaraHeroCore() {
         {/* Logo image */}
         <div className="relative w-52 h-52 sm:w-64 sm:h-64 drop-shadow-2xl">
           <Image
-            src="/aangara-logo.jpg"
+            src="/aangara-logo-transparent.png"
             alt="AANGARA — Ember and Leaf"
             fill
             priority
-            className="object-contain"
+            className="object-contain filter drop-shadow-[0_12px_24px_rgba(217,83,30,0.25)]"
             sizes="(max-width: 640px) 208px, 256px"
           />
         </div>

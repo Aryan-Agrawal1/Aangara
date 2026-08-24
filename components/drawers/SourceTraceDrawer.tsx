@@ -139,7 +139,7 @@ export function SourceTraceDrawer({
         {/* Footer Disclaimer */}
         <div className="pt-4 mt-6 border-t border-[#E4E9E6] text-[11px] text-[#6B7A72] leading-normal">
           <p>
-            <strong>Statutory Boundary Notice:</strong> CarbonAlpha models decision intelligence from notified Gazette equations. Official CCC issuance is governed by BEE under the Energy Conservation Act, 2001 (Section 14AA).
+            <strong>Statutory Boundary Notice:</strong> AANGARA models decision intelligence from notified Gazette equations. Official CCC issuance is governed by BEE under the Energy Conservation Act, 2001 (Section 14AA).
           </p>
         </div>
       </div>

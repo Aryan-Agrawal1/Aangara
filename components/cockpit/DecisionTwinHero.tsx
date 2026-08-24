@@ -97,8 +97,8 @@ export function DecisionTwinHero({
       <div className="flex items-center justify-between mb-4">
         <div>
           <div className="flex items-center space-x-2">
-            <h2 className="text-xl font-bold text-[#10231C] tracking-tight">CarbonAlpha Decision Twin™</h2>
-            <span className="px-2 py-0.5 rounded text-[11px] font-semibold bg-[#E8F5EE] text-[#0B4A3D] border border-[#0B4A3D]/30">
+            <h2 className="text-xl font-bold text-[#10231C] tracking-tight">AANGARA Decision Twin™</h2>
+            <span className="px-2 py-0.5 rounded text-[11px] font-semibold bg-[#E8F2EB] text-[#1F4D2E] border border-[#1F4D2E]/25">
               Capital Optimizer Active
             </span>
           </div>

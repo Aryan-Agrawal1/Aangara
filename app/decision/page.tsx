@@ -129,7 +129,7 @@ export default function DecisionCockpitPage() {
           /* Loading skeleton */
           <div className="h-[60vh] flex flex-col items-center justify-center space-y-3">
             <Loader2 className="w-8 h-8 text-[#0B4A3D] animate-spin" />
-            <span className="text-sm font-mono text-[#4B5A54]">Loading CarbonAlpha Decision Engine...</span>
+            <span className="text-sm font-mono text-[#4B5A54]">Loading AANGARA Decision Engine...</span>
           </div>
         ) : decisionError ? (
           /* Graceful error state — backend down */
