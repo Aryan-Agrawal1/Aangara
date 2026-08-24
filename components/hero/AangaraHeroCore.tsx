@@ -4,21 +4,25 @@ import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 
 const TOTAL_FRAMES = 50;
-const INTRO_DURATION_MS = 6500; // 0s - 6.5s plays full intro frames 1-50
-const LOGO_EMERGE_TIME_MS = 5200; // Logo starts emerging
-const SETTLE_TIME_MS = 6800; // Animation enters continuous living state
+const INTRO_DURATION_MS = 6000; // 0s - 6.0s plays full intro frames 1-50
+const LOGO_EMERGE_TIME_MS = 4800; // Logo starts emerging
+const SETTLE_TIME_MS = 6200; // Animation enters continuous living flame state
 
-// Continuous loop frames: oscillate between frame 20 and 28 for subtle breathing eye
-const LOOP_START_FRAME = 20;
-const LOOP_END_FRAME = 28;
+// Continuous flame loop: oscillate between frame 18 and 36 for rich, persistent burning flame
+const LOOP_START_FRAME = 18;
+const LOOP_END_FRAME = 36;
 
 export function AangaraHeroCore() {
+  const containerRef = useRef<HTMLDivElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const framesRef = useRef<HTMLImageElement[]>([]);
   const [framesLoaded, setFramesLoaded] = useState(false);
   const [logoVisible, setLogoVisible] = useState(false);
   const [settled, setSettled] = useState(false);
+  
   const animFrameIdRef = useRef<number | null>(null);
+  const isVisibleRef = useRef(true);
+  const isIntersectingRef = useRef(true);
 
   // Preload all 50 transparent WebP frames
   useEffect(() => {
@@ -31,8 +35,7 @@ export function AangaraHeroCore() {
       img.src = `/images/hero_frames/frame_${frameNum}.webp`;
       img.onload = () => {
         loadedCount++;
-        if (loadedCount >= Math.min(TOTAL_FRAMES, 25)) {
-          // As soon as first half is loaded, allow rendering to start immediately
+        if (loadedCount >= Math.min(TOTAL_FRAMES, 20)) {
           setFramesLoaded(true);
         }
       };
@@ -47,7 +50,31 @@ export function AangaraHeroCore() {
     };
   }, []);
 
-  // Coordinated animation sequence & continuous living eye loop
+  // Performance: Pause when tab is hidden or hero is scrolled out of viewport
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      isVisibleRef.current = document.visibilityState === 'visible';
+    };
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isIntersectingRef.current = entry.isIntersecting;
+      },
+      { threshold: 0.1 }
+    );
+
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
+
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+      observer.disconnect();
+    };
+  }, []);
+
+  // Coordinated animation sequence & continuous living flame loop
   useEffect(() => {
     if (!framesLoaded) return;
 
@@ -66,6 +93,13 @@ export function AangaraHeroCore() {
     }, SETTLE_TIME_MS);
 
     const render = (now: number) => {
+      animFrameIdRef.current = requestAnimationFrame(render);
+
+      // Performance guard: Skip drawing if tab hidden or off-screen
+      if (!isVisibleRef.current || !isIntersectingRef.current) {
+        return;
+      }
+
       const canvas = canvasRef.current;
       if (!canvas) return;
       const ctx = canvas.getContext('2d');
@@ -82,9 +116,9 @@ export function AangaraHeroCore() {
           Math.floor(progress * TOTAL_FRAMES)
         );
       } else {
-        // Settled continuous phase: breathe gently between frames 20 and 28
+        // Settled continuous phase: keep the flame actively burning indefinitely
         const loopDt = now - lastLoopTick;
-        if (loopDt > 110) { // ~9 fps for gentle, unhurried breathing
+        if (loopDt > 85) { // ~12 fps for organic, living flame flicker
           lastLoopTick = now;
           if (!isLoopingReverse) {
             currentLoopFrame++;
@@ -104,12 +138,8 @@ export function AangaraHeroCore() {
       const img = framesRef.current[frameIndex];
       if (img && img.complete && img.naturalWidth > 0) {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        
-        // Draw frame centered with high quality
         ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
       }
-
-      animFrameIdRef.current = requestAnimationFrame(render);
     };
 
     animFrameIdRef.current = requestAnimationFrame(render);
@@ -124,55 +154,69 @@ export function AangaraHeroCore() {
   }, [framesLoaded]);
 
   return (
-    <div className="relative w-full flex items-center justify-center min-h-[380px] sm:min-h-[460px] lg:min-h-[540px]">
-      {/* ── Layer 1: Ambient Atmospheric Radial Glow (no box, soft blur) ── */}
+    <div
+      ref={containerRef}
+      className="relative w-full h-full flex items-center justify-center min-h-[460px] sm:min-h-[540px] lg:min-h-[640px] select-none"
+    >
+      {/* ── Layer 1: Rich Atmospheric Background Wash Filling the Entire Right Half ── */}
       <div
-        className="absolute inset-0 pointer-events-none flex items-center justify-center"
+        className="absolute inset-0 pointer-events-none flex items-center justify-center overflow-hidden"
         aria-hidden="true"
       >
+        {/* Core primary flame radiant wash */}
         <div
-          className={`w-[320px] sm:w-[460px] lg:w-[540px] h-[320px] sm:h-[460px] lg:h-[540px] rounded-full transition-opacity duration-1000 ${
-            settled ? 'opacity-70' : 'opacity-90'
+          className={`w-[450px] sm:w-[620px] lg:w-[780px] h-[450px] sm:h-[620px] lg:h-[780px] rounded-full transition-all duration-1000 ${
+            settled ? 'opacity-85 scale-100' : 'opacity-95 scale-105'
           }`}
           style={{
             background:
-              'radial-gradient(circle, rgba(242,152,74,0.22) 0%, rgba(217,83,30,0.12) 35%, rgba(31,77,46,0.06) 60%, transparent 75%)',
-            filter: 'blur(32px)',
+              'radial-gradient(circle, rgba(217,83,30,0.30) 0%, rgba(242,152,74,0.22) 32%, rgba(31,77,46,0.14) 58%, rgba(245,242,243,0) 78%)',
+            filter: 'blur(42px)',
+          }}
+        />
+
+        {/* Secondary ambient green-gold corona wash */}
+        <div
+          className="absolute w-[360px] sm:w-[500px] lg:w-[640px] h-[360px] sm:h-[500px] lg:h-[640px] rounded-full opacity-60"
+          style={{
+            background:
+              'radial-gradient(circle, rgba(242,201,76,0.25) 0%, rgba(31,77,46,0.18) 45%, transparent 72%)',
+            filter: 'blur(54px)',
           }}
         />
       </div>
 
-      {/* ── Layer 2: Transparent Canvas Eye Animation (zero black box) ── */}
-      <div className="relative z-10 w-full max-w-[580px] aspect-[16/9] flex items-center justify-center">
+      {/* ── Layer 2: Scaled-Up Transparent Canvas Eye Animation (Zero Black Box) ── */}
+      <div className="relative z-10 w-full max-w-[720px] lg:max-w-[840px] aspect-[16/9] flex items-center justify-center">
         <canvas
           ref={canvasRef}
           width={960}
           height={540}
-          className="w-full h-full object-contain pointer-events-none drop-shadow-[0_12px_36px_rgba(217,83,30,0.18)]"
+          className="w-full h-full object-contain pointer-events-none drop-shadow-[0_16px_48px_rgba(217,83,30,0.22)]"
           aria-label="AANGARA Fiery Eye Carbon Intelligence Visual"
         />
       </div>
 
-      {/* ── Layer 3: High-Resolution AANGARA Logo Reveal ── */}
+      {/* ── Layer 3: High-Resolution AANGARA Logo Reveal (Static, Crisp, Centered) ── */}
       <div
         className="absolute z-20 flex flex-col items-center pointer-events-none"
         style={{
           opacity: logoVisible ? 1 : 0,
           transform: logoVisible
             ? 'scale(1) translateY(0)'
-            : 'scale(1.12) translateY(8px)',
+            : 'scale(1.10) translateY(10px)',
           transition:
-            'opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1)',
+            'opacity 1.3s cubic-bezier(0.16, 1, 0.3, 1), transform 1.3s cubic-bezier(0.16, 1, 0.3, 1)',
         }}
       >
-        <div className="relative w-44 h-44 sm:w-56 sm:h-56 lg:w-64 lg:h-64">
+        <div className="relative w-52 h-52 sm:w-68 sm:h-68 lg:w-80 lg:h-80 xl:w-92 xl:h-92">
           <Image
             src="/aangara-logo-transparent.png"
             alt="AANGARA Logo"
             fill
             priority
-            className="object-contain filter drop-shadow-[0_10px_24px_rgba(217,83,30,0.25)]"
-            sizes="(max-width: 640px) 176px, (max-width: 1024px) 224px, 256px"
+            className="object-contain filter drop-shadow-[0_12px_32px_rgba(217,83,30,0.30)]"
+            sizes="(max-width: 640px) 208px, (max-width: 1024px) 280px, 360px"
           />
         </div>
       </div>

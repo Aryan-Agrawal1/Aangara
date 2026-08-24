@@ -81,27 +81,8 @@ function SectorBoxCard({
   );
 }
 
-import dynamic from 'next/dynamic';
+import { TechStackMarquee } from '@/components/about/TechStackMarquee';
 
-const LogoLoop = dynamic(() => import('@/components/ui/LogoLoop'), { ssr: false });
-
-/* ── Tech Stack items for LogoLoop ── */
-const TECH_STACK_ITEMS = [
-  { name: 'Next.js',      abbr: 'NX',  color: '#000000' },
-  { name: 'React 19',     abbr: '⚛',   color: '#61DAFB' },
-  { name: 'TypeScript',   abbr: 'TS',  color: '#3178C6' },
-  { name: 'Tailwind CSS', abbr: 'TW',  color: '#06B6D4' },
-  { name: 'Recharts',     abbr: 'RC',  color: '#3B82F6' },
-  { name: 'Zustand',      abbr: 'ZS',  color: '#F97316' },
-  { name: 'FastAPI',      abbr: 'FA',  color: '#059669' },
-  { name: 'Pydantic',     abbr: 'Py',  color: '#E92063' },
-  { name: 'scikit-learn', abbr: 'sk',  color: '#F97316' },
-  { name: 'Pandas',       abbr: 'pd',  color: '#150458' },
-  { name: 'NumPy',        abbr: 'np',  color: '#4D77CF' },
-  { name: 'OGL / WebGL',  abbr: 'GL',  color: '#D9531E' },
-  { name: 'Vitest',       abbr: 'Vi',  color: '#6E40C9' },
-  { name: 'Playwright',   abbr: 'PW',  color: '#45BA4B' },
-];
 
 
 export default function AboutPage() {
@@ -273,16 +254,9 @@ export default function AboutPage() {
             </p>
           </div>
           <div className="bg-white rounded-xl border border-[#E8E2DC] py-5 overflow-hidden">
-            <LogoLoop
-              items={TECH_STACK_ITEMS}
-              speed={55}
-              direction="left"
-              pauseOnHover={true}
-              fadeOut={true}
-              fadeColor="#ffffff"
-              gap={20}
-            />
+            <TechStackMarquee />
           </div>
+
         </section>
 
         {/* ── Team Section (Exact 6 Members & Socials Preserved) ── */}

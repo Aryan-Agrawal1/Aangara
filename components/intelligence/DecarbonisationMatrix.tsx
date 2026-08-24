@@ -110,8 +110,9 @@ export function DecarbonisationMatrix({ opportunities }: DecarbonisationMatrixPr
     const tier = getPaybackTier(d.payback_years);
 
     return (
-      <div className="bg-white border border-[#E8E2DC] rounded-xl p-4 text-xs shadow-2xl max-w-sm z-50">
+      <div className="bg-white border border-[#E8E2DC] rounded-xl p-4 text-xs shadow-2xl max-w-sm z-50 pointer-events-none">
         <div className="flex items-center justify-between gap-2 mb-2">
+
           <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-[#E8F2EB] text-[#1F4D2E] border border-[#1F4D2E]/25">
             {d.category}
           </span>

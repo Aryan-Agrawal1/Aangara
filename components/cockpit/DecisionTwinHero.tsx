@@ -207,24 +207,31 @@ export function DecisionTwinHero({
       </div>
 
       {/* ── 3-Column Strategy Cards ── */}
+      {/* ── 3-Column Strategy Cards ── */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
         {strategyList.map((stratKey) => {
           const strat = strategies[stratKey];
           if (!strat) return null;
           const isWinner = stratKey === recommendedStrategy;
           const Icon = getStrategyIcon(stratKey);
-          const color = STRATEGY_COLORS[stratKey];
+          const color = STRATEGY_COLORS[stratKey] || '#1F4D2E';
 
           return (
             <div
               key={stratKey}
-              className={`rounded-xl p-5 relative transition-all duration-300 flex flex-col justify-between ${
-                isWinner ? 'glass-panel-elevated winner-card-glow' : 'glass-panel hover:border-[#CBD5CE]'
+              className={`rounded-xl p-5 relative transition-all duration-300 flex flex-col justify-between card-glass border ${
+                isWinner
+                  ? 'border-[#1F4D2E] shadow-[0_8px_24px_rgba(31,77,46,0.12)] ring-2 ring-[#1F4D2E]/20'
+                  : 'border-[#E8E2DC] hover:border-[#CBD5CE] hover:shadow-md'
               }`}
+              style={{
+                background: 'rgba(255, 255, 255, 0.85)',
+                backdropFilter: 'blur(12px)'
+              }}
             >
               {isWinner && (
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-bold text-[11px] px-3 py-0.5 rounded-full shadow-md flex items-center space-x-1.5 border border-emerald-400/40">
-                  <Crown className="w-3.5 h-3.5" />
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#1F4D2E] text-white font-bold text-[11px] px-3 py-0.5 rounded-full shadow-md flex items-center space-x-1.5 border border-[#1F4D2E]/40">
+                  <Crown className="w-3.5 h-3.5 text-amber-300" />
                   <span>RECOMMENDED (#1)</span>
                 </div>
               )}
@@ -236,47 +243,48 @@ export function DecisionTwinHero({
                       <Icon className="w-4 h-4" style={{ color }} />
                     </div>
                     <div>
-                      <h4 className="text-base font-bold text-[#10231C] tracking-tight">{stratKey} STRATEGY</h4>
-                      <span className="text-[11px] text-[#4B5A54] font-mono">Rank #{strat.rank} in Utility</span>
+                      <h4 className="text-base font-bold text-[#1A1C18] tracking-tight">{stratKey} STRATEGY</h4>
+                      <span className="text-[11px] text-[#6B7268] font-mono">Rank #{strat.rank || 1} in Utility</span>
                     </div>
                   </div>
                   <div className="text-right">
-                    <div className="text-xs text-[#4B5A54]">Utility</div>
-                    <div className="text-base font-mono font-bold text-white">{strat.utility_score.toFixed(1)}<span className="text-xs text-[#6B7A72]">/100</span></div>
+                    <div className="text-xs text-[#6B7268]">Utility</div>
+                    <div className="text-base font-mono font-bold text-[#1A1C18]">{strat.utility_score.toFixed(1)}<span className="text-xs text-[#6B7268]">/100</span></div>
                   </div>
                 </div>
 
                 {/* Primary Cost */}
-                <div className="bg-white/95 rounded-lg p-3.5 border border-[#E4E9E6] my-3">
-                  <div className="text-[11px] font-medium text-[#4B5A54] uppercase tracking-wider">Modelled 3-Year Lifecycle Cost
-                    <span className="ml-1 px-1 py-0.5 rounded text-[9px] bg-[#FEF7E8] text-[#C98A1E] border border-amber-900/50 font-mono">MODEL</span>
+                <div className="bg-[#F6F8F7] rounded-lg p-3.5 border border-[#E8E2DC] my-3">
+                  <div className="text-[11px] font-medium text-[#6B7268] uppercase tracking-wider">
+                    Modelled 3-Year Lifecycle Cost
+                    <span className="ml-1.5 px-1.5 py-0.5 rounded text-[9px] bg-[#FEF7E8] text-[#C98A1E] border border-amber-500/30 font-mono font-bold">MODEL</span>
                   </div>
-                  <div className="text-2xl font-black text-white tnum mt-0.5">{formatCurrencyCr(strat.total_cost_cr)}</div>
-                  <div className="text-[11px] text-[#4B5A54] mt-1 flex items-center justify-between">
+                  <div className="text-2xl font-black text-[#1A1C18] tnum mt-0.5">{formatCurrencyCr(strat.total_cost_cr)}</div>
+                  <div className="text-[11px] text-[#6B7268] mt-1 flex items-center justify-between">
                     <span>Cost / tCO₂e:</span>
-                    <span className="font-mono font-semibold text-[#10231C]">{formatPricePerTonne(strat.cost_per_tco2e)}</span>
+                    <span className="font-mono font-semibold text-[#1A1C18]">{formatPricePerTonne(strat.cost_per_tco2e)}</span>
                   </div>
                 </div>
 
                 {/* Metrics */}
                 <div className="space-y-2 text-xs">
                   {[
-                    { label: 'Internal Decarbonisation', value: strat.internal_abatement_tco2e > 0 ? formatEmissions(strat.internal_abatement_tco2e) : '0 tCO₂e', color: '#34d399' },
-                    { label: 'Market CCC Procurement', value: (strat.ccc_procured_tco2e || 0) > 0 ? `${(strat.ccc_procured_tco2e || 0).toLocaleString('en-IN')} CCCs/yr` : '0 CCCs', color: '#38bdf8' },
-                    { label: 'Post-Strategy GEI', value: formatGEI(strat.post_strategy_gei), color: '#f8fafc' },
-                    strat.npv_cr !== null ? { label: '10-Yr NPV', value: formatCurrencyCr(strat.npv_cr), color: '#34d399' } : null,
-                    strat.payback_years !== null ? { label: 'Capital Payback', value: formatYears(strat.payback_years), color: '#cbd5e1' } : null,
-                    { label: 'Risk Index', value: `${strat.risk_score.toFixed(0)} / 100`, color: strat.risk_score < 40 ? '#34d399' : strat.risk_score < 60 ? '#fbbf24' : '#f87171' },
+                    { label: 'Internal Decarbonisation', value: strat.internal_abatement_tco2e > 0 ? formatEmissions(strat.internal_abatement_tco2e) : '0 tCO₂e', color: '#1F4D2E' },
+                    { label: 'Market CCC Procurement', value: (strat.ccc_procured_tco2e || 0) > 0 ? `${(strat.ccc_procured_tco2e || 0).toLocaleString('en-IN')} CCCs/yr` : '0 CCCs', color: '#2E6BA8' },
+                    { label: 'Post-Strategy GEI', value: formatGEI(strat.post_strategy_gei), color: '#1A1C18' },
+                    strat.npv_cr !== null && strat.npv_cr !== undefined ? { label: '10-Yr NPV', value: formatCurrencyCr(strat.npv_cr), color: '#1F4D2E' } : null,
+                    strat.payback_years !== null && strat.payback_years !== undefined ? { label: 'Capital Payback', value: formatYears(strat.payback_years), color: '#1A1C18' } : null,
+                    { label: 'Risk Index', value: `${strat.risk_score.toFixed(0)} / 100`, color: strat.risk_score < 40 ? '#1F4D2E' : strat.risk_score < 60 ? '#C98A1E' : '#D9531E' },
                   ].filter(Boolean).map((row: any, i) => (
-                    <div key={i} className="flex justify-between py-1 border-b border-[#E4E9E6]/60 last:border-0">
-                      <span className="text-[#4B5A54]">{row.label}:</span>
-                      <span className="font-mono font-semibold" style={{ color: row.color }}>{row.value}</span>
+                    <div key={i} className="flex justify-between py-1 border-b border-[#E8E2DC]/70 last:border-0">
+                      <span className="text-[#6B7268]">{row.label}:</span>
+                      <span className="font-mono font-bold" style={{ color: row.color }}>{row.value}</span>
                     </div>
                   ))}
                 </div>
 
-                <p className="text-xs text-[#4B5A54] mt-3 pt-2 border-t border-[#E4E9E6] leading-relaxed italic">
-                  "{strat.summary}"
+                <p className="text-xs text-[#4A5446] mt-3 pt-2 border-t border-[#E8E2DC] leading-relaxed italic">
+                  "{strat.summary || strat.name}"
                 </p>
               </div>
 
@@ -284,7 +292,7 @@ export function DecisionTwinHero({
                 <button
                   onClick={() => onOpenCalculationTrace && onOpenCalculationTrace(stratKey)}
                   className={`w-full py-2 px-3 rounded-lg text-xs font-semibold flex items-center justify-center space-x-1.5 transition-all cursor-pointer ${
-                    isWinner ? 'bg-emerald-600 hover:bg-emerald-500 text-white shadow-lg shadow-emerald-950/50' : 'bg-white border border-[#E4E9E6] hover:bg-[#E4E9E6] text-[#4B5A54]'
+                    isWinner ? 'bg-[#1F4D2E] hover:bg-[#27643A] text-white shadow-sm' : 'bg-white border border-[#E8E2DC] hover:bg-[#F5F2F3] text-[#1A1C18]'
                   }`}
                 >
                   <span>Audit Strategy Trace</span>
@@ -295,6 +303,7 @@ export function DecisionTwinHero({
           );
         })}
       </div>
+
     </div>
   );
 }

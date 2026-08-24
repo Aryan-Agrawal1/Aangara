@@ -58,18 +58,18 @@ export default function HomePage() {
 
       <main id="main-content">
         {/* ═══════════════════════════════════════════════════════════════
-            HERO — Integrated fiery eye atmosphere, split layout
+            HERO — Full screen, integrated living flame atmosphere
             Left: Headline, explanation & CTAs enter immediately
-            Right: Transparent Canvas Animated Fiery Eye + Logo Reveal
+            Right: Scaled-up Canvas Animated Fiery Eye + Logo + Persistent Flame
         ═══════════════════════════════════════════════════════════════ */}
-        <section className="relative overflow-hidden bg-[#F5F2F3]">
-          <div className="relative max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16 lg:py-20">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+        <section className="relative overflow-hidden bg-[#F5F2F3] min-h-[calc(100vh-4rem)] flex flex-col justify-center">
+          <div className="relative max-w-[1400px] w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16 my-auto">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 items-center">
 
               {/* ── Left: Text Block — 5 columns ── */}
-              <div className="lg:col-span-5 z-20">
+              <div className="lg:col-span-5 z-20 flex flex-col justify-center">
                 {/* Headline */}
-                <h1 className="font-display text-[2.6rem] sm:text-[3.2rem] lg:text-[3.6rem] font-bold leading-[1.08] tracking-tight mb-6 text-[#1F4D2E]">
+                <h1 className="font-display text-[2.6rem] sm:text-[3.2rem] lg:text-[3.8rem] xl:text-[4.2rem] font-bold leading-[1.06] tracking-tight mb-6 text-[#1F4D2E]">
                   <span className="block ca-title-line-1">
                     Turn statutory carbon
                   </span>
@@ -82,7 +82,7 @@ export default function HomePage() {
                 </h1>
 
                 {/* Body copy */}
-                <p className="text-base sm:text-lg text-[#4A5446] mb-8 max-w-lg leading-relaxed font-medium ca-hero-paragraph">
+                <p className="text-base sm:text-lg text-[#4A5446] mb-8 max-w-xl leading-relaxed font-medium ca-hero-paragraph">
                   Deterministic GHG emission intensity accounting, empirical peer distributions,
                   and BUY / BUILD / HYBRID capital allocation for India&apos;s obligated industrial entities.
                 </p>
@@ -111,16 +111,17 @@ export default function HomePage() {
                 </div>
               </div>
 
-              {/* ── Right: Hero Animation — 7 columns ── */}
-              <div className="lg:col-span-7 flex items-center justify-center lg:justify-end mt-6 lg:mt-0 relative w-full min-h-[460px] lg:min-h-[560px] z-10">
+              {/* ── Right: Scaled-Up Persistent Flame Hero Core — 7 columns ── */}
+              <div className="lg:col-span-7 flex items-center justify-center lg:justify-end mt-4 lg:mt-0 relative w-full h-full min-h-[460px] sm:min-h-[520px] lg:min-h-[620px] z-10">
                 <AangaraHeroCore />
               </div>
             </div>
           </div>
 
           {/* Gradient transition into stats strip */}
-          <div className="absolute bottom-0 inset-x-0 h-20 bg-gradient-to-b from-transparent to-[#EBE6E3]/60 pointer-events-none" />
+          <div className="absolute bottom-0 inset-x-0 h-16 bg-gradient-to-b from-transparent to-[#EBE6E3]/60 pointer-events-none" />
         </section>
+
 
         {/* ═══════════════════════════════════════════════════════════════
             STAT COUNTERS — 4 headline numbers

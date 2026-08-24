@@ -63,20 +63,24 @@ export class OpportunityEngine {
       const target_ren_pct = 50.0;
       const add_pct = target_ren_pct - renewable_pct;
       const add_mwh = electricity_mwh * (add_pct / 100.0);
-      const solar_mw = add_mwh / 1750.0;
+      const solar_mw = Math.max(1.0, add_mwh / 1750.0);
       const capex = solar_mw * 3.8;
-      const savings = (add_mwh * 2.2) / 1e7;
+      // Tariff savings: ₹3.60/kWh differential over industrial grid tariff (1 MWh = 1000 kWh, 1 Cr = 1e7 INR)
+      const savings = (add_mwh * 1000 * 3.60) / 1e7;
+      const opex = capex * 0.015;
+      const net_annual_savings = Math.max(0.5, savings - opex);
       const red = add_mwh * 0.716;
-      const npv = savings * 7.0 - capex;
+      const npv = net_annual_savings * 6.5 - capex;
+      const payback = capex / net_annual_savings;
       opps.push({
         id: 'OPP-RE-02',
         title: `Group Captive Solar-Wind Hybrid (${solar_mw.toFixed(1)} MWp)`,
         category: 'FUEL_SWITCHING',
         capex_cr: Number(capex.toFixed(1)),
-        annual_opex_change_cr: Number((capex * 0.015).toFixed(2)),
+        annual_opex_change_cr: Number(opex.toFixed(2)),
         annual_energy_savings_cr: Number(savings.toFixed(2)),
         annual_reduction_tco2e: Number(red.toFixed(0)),
-        payback_years: Number((capex / savings).toFixed(1)),
+        payback_years: Number(payback.toFixed(1)),
         npv_10yr_cr: Number(npv.toFixed(1)),
         cost_per_tco2e: Number(((capex * 1e7) / (red * 10)).toFixed(0)),
         bee_methodology_code: 'BEE-CCTS-M-02-RE',
@@ -86,6 +90,7 @@ export class OpportunityEngine {
         description: 'Open access green tariff and hybrid group captive RE sourcing to achieve Scope 2 decarbonisation.'
       });
     }
+
 
     // 3. Sector Specific Process Upgrade
     if (sec === 'cement') {

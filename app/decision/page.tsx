@@ -18,6 +18,8 @@ import { ScenarioParams } from '@/lib/types';
 import { useAppStore } from '@/lib/store';
 import { Loader2, AlertTriangle, RefreshCw } from 'lucide-react';
 import { ProvenanceFooter } from '@/components/ui/ProvenanceFooter';
+import { exportACVAVerificationDossier, exportBoardroomReport } from '@/lib/exportPdf';
+
 export default function DecisionCockpitPage() {
   const {
     currentSector, currentEntityId, reportingYear,
@@ -202,68 +204,50 @@ export default function DecisionCockpitPage() {
             />
 
             {/* Bottom CTA for Dead End Test */}
-            <div className="mt-8 flex flex-col sm:flex-row items-center justify-between bg-[#E8F5F2] border border-[#0B4A3D]/20 rounded-xl p-6">
+
+            <div className="mt-8 flex flex-col sm:flex-row items-center justify-between bg-[#E8F2EB] border border-[#1F4D2E]/20 rounded-xl p-6 shadow-sm">
               <div className="text-center sm:text-left mb-4 sm:mb-0">
-                <h3 className="text-lg font-bold text-[#10231C] mb-1">Ready to Finalize Strategy?</h3>
-                <p className="text-sm text-[#4B5A54]">Export the boardroom-ready report or proceed to implementation tracking.</p>
+                <h3 className="text-lg font-bold text-[#1A1C18] mb-1">Ready to Finalize Strategy?</h3>
+                <p className="text-sm text-[#4A5446]">Export the boardroom-ready report or generate the ACVA statutory compliance audit dossier.</p>
               </div>
               <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
                 <button 
                   type="button"
-                  onClick={() => alert('Scenario saved to local workspace.')}
-                  aria-label="Save current scenario"
-                  className="px-5 py-2.5 rounded-lg text-sm font-semibold bg-white border border-[#E4E9E6] hover:bg-[#E4E9E6] text-[#10231C] transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 focus:ring-offset-[#070B11]"
-                >
-                  Save Scenario
-                </button>
-                <button 
-                  type="button"
-                  onClick={() => {
-                    const printStyles = document.createElement('style');
-                    printStyles.innerHTML = `
-                      @media print {
-                        body * { visibility: hidden; }
-                        #main-content, #main-content * { visibility: visible; }
-                        #main-content { position: absolute; left: 0; top: 0; width: 100%; }
-                      }
-                    `;
-                    document.head.appendChild(printStyles);
-                    window.print();
-                    document.head.removeChild(printStyles);
-                  }}
+                  onClick={() => exportACVAVerificationDossier(decisionData, reportingYear)}
                   aria-label="Export for ACVA Verification"
-                  className="px-5 py-2.5 rounded-lg text-sm font-bold bg-[#C9622A] hover:bg-[#B5541F] text-white transition-colors shadow-lg shadow-orange-900/20 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 focus:ring-offset-[#070B11]"
+                  className="px-5 py-2.5 rounded-lg text-sm font-bold bg-[#D9531E] hover:bg-[#C24514] text-white transition-all shadow-sm focus:outline-none focus:ring-2 focus:ring-[#D9531E] cursor-pointer"
                 >
                   Export for ACVA Verification
                 </button>
                 <button 
                   type="button"
-                  onClick={() => alert('Generating Board Report PDF...')}
+                  onClick={() => exportBoardroomReport(decisionData, scenarioParams, reportingYear)}
                   aria-label="Export board report"
-                  className="px-5 py-2.5 rounded-lg text-sm font-bold bg-[#0B4A3D] hover:bg-[#0E5C4C] text-white transition-colors shadow-lg shadow-emerald-900/20 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 focus:ring-offset-[#070B11]"
+                  className="px-5 py-2.5 rounded-lg text-sm font-bold bg-[#1F4D2E] hover:bg-[#27643A] text-white transition-all shadow-sm focus:outline-none focus:ring-2 focus:ring-[#1F4D2E] cursor-pointer"
                 >
                   Export Board Report
                 </button>
               </div>
             </div>
 
-            <div className="mt-4 p-4 bg-[#F6F8F7] rounded-xl border border-[#E4E9E6]">
+            <div className="mt-4 p-4 bg-[#F6F8F7] rounded-xl border border-[#E8E2DC]">
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 {[
                   { label: 'WHAT', text: 'Comparative cost and abatement across three capital strategies' },
                   { label: 'WHY', text: 'Statutory compliance under CCTS requires meeting GEI targets — this model finds the least-cost path' },
-                  { label: 'SO WHAT', text: decisionData ? `${decisionData.recommended_strategy} minimises 10-year lifecycle cost for this facility` : 'Run analysis to see recommendation' },
+                  { label: 'SO WHAT', text: decisionData ? `${decisionData.recommended_strategy || 'HYBRID'} Strategy minimises 10-year lifecycle cost for this facility` : 'Run analysis to see recommendation' },
                   { label: 'WHAT NEXT', text: 'Adjust stress scenarios to test robustness of this recommendation' }
                 ].map(({ label, text }) => (
                   <div key={label}>
-                    <div className="text-[9px] font-mono font-bold text-[#6B7A72] mb-1">{label}</div>
-                    <div className="text-xs text-[#4B5A54]">{text}</div>
+                    <div className="text-[9px] font-mono font-bold text-[#6B7268] mb-1">{label}</div>
+                    <div className="text-xs text-[#4A5446]">{text}</div>
                   </div>
                 ))}
               </div>
             </div>
 
-            <ProvenanceFooter verifiedDate="2026-01-09" />
+            <ProvenanceFooter verifiedDate="2026-08-24" />
+
           </div>
         )}
       </main>
