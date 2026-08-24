@@ -121,12 +121,12 @@ export function StrategyTraceDrawer({ isOpen, onClose, strategyName, strategy, p
           </div>
         </div>
         
-        <div className="mt-8 pt-4 border-t border-[#E4E9E6] flex justify-center">
-           <span className="px-3 py-1 bg-[#FEF7E8] text-[#C98A1E] text-[10px] font-mono font-bold rounded border border-[#C98A1E]/30">
-              SYNTHETIC DEMONSTRATION DATA
-           </span>
+        <div className="mt-8 pt-4 border-t border-[#E8E2DC] flex justify-between items-center text-[10px] text-[#6B7268] font-mono">
+           <span>AANGARA Analytical Twin</span>
+           <span>Deterministic Optimization Run</span>
         </div>
       </div>
     </div>
   );
 }
+

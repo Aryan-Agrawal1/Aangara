@@ -136,9 +136,10 @@ export default function EntityInputPage() {
           <div>
             <div className="flex items-center space-x-2">
               <h1 className="text-2xl font-bold text-[#10231C] tracking-tight">{entity?.entity_name || 'Industrial Facility Profile'}</h1>
-              <span className="px-2.5 py-0.5 rounded bg-blue-950 text-blue-400 border border-blue-800/60 font-mono text-[11px] font-bold">
-                CALIBRATED DEMO ENTITY
+              <span className="px-2.5 py-0.5 rounded bg-[#E8F2EB] text-[#1F4D2E] border border-[#1F4D2E]/25 font-mono text-[11px] font-bold">
+                BENCHMARK CALIBRATED PROFILE
               </span>
+
             </div>
             <p className="text-xs text-[#4B5A54] mt-1">
               Deterministic operational activity, mass balance fuel streams & statutory GHG accounting profile

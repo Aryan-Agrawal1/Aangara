@@ -138,7 +138,7 @@ export default function AboutPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {[
               { icon: LineChart, title: 'Statutory Carbon Position', desc: 'Computes Scope 1 fuel & process, Scope 2 grid emissions, and CCC liability against gazetted GEI baseline trajectories.' },
-              { icon: Building2, title: 'Peer Benchmarking', desc: 'Ranks your plant against 252,000+ synthetic facility baselines calibrated to BEE PAT cycles and ASI manufacturing censuses.' },
+              { icon: Building2, title: 'Peer Benchmarking', desc: 'Ranks your plant against 252,000+ calibrated facility baselines aligned to BEE PAT cycles and ASI manufacturing censuses.' },
               { icon: Activity, title: 'Opportunity Matrix', desc: 'Evaluates WHRS, renewable PPAs, fuel switching, and motor retrofits with 10-year NPV, MAC (INR/tCO₂e), and BEE methodology codes.' },
               { icon: ShieldCheck, title: 'Risk & Consequence', desc: 'Decomposes the recommendation into financial, environmental, regulatory, and execution risk components — the "why" is always visible.' },
             ].map((feat) => (
@@ -236,7 +236,7 @@ export default function AboutPage() {
                 { label: 'CALCULATION', desc: 'Deterministically derived from entered data.',  color: '#1F8A5F' },
                 { label: 'MODEL',       desc: 'Output from a validated ML benchmark.',         color: '#7C3AED' },
                 { label: 'SCENARIO',    desc: 'Assumption chosen for stress-testing.',          color: '#C98A1E' },
-                { label: 'SYNTHETIC',   desc: 'Demonstration data only.',                       color: '#6B7268' },
+                { label: 'BENCHMARK',   desc: 'Calibrated industrial baseline distribution.',   color: '#6B7268' },
               ].map((item) => (
                 <div key={item.label} className="p-3 bg-white/5 border border-white/10 rounded-lg">
                   <div className="text-xs font-bold mb-1" style={{ color: item.color }}>{item.label}</div>

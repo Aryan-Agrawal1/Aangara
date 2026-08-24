@@ -229,11 +229,11 @@ export function FacilityInputForm({
             </div>
           </div>
 
-          {/* 8-Sector 1-Click Demo Presets */}
+          {/* 8-Sector Quick Presets */}
           <div className="flex flex-wrap items-center justify-start sm:justify-end gap-1.5 bg-[#F6F8F7] p-2.5 rounded-lg border border-[#E4E9E6]">
             <span className="text-[11px] font-semibold text-[#4B5A54] flex items-center space-x-1 mr-1">
               <Sparkles className="w-3.5 h-3.5 text-[#C98A1E]" />
-              <span>1-Click Demos:</span>
+              <span>Sector Presets:</span>
             </span>
             {[
               { id: 'cement', label: 'Cement', draft: false },

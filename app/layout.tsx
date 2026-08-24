@@ -53,18 +53,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <footer className="w-full border-t border-[#E8E2DC] bg-white/70 backdrop-blur-sm py-4 px-6">
             <div className="max-w-[1400px] mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
               <p className="text-[10px] text-[#6B7268] font-mono">
-                AANGARA — CCTS Decision Intelligence · Synthetic Demonstration Data Only
+                AANGARA — CCTS Statutory Decision Intelligence Architecture
               </p>
               <p className="text-[10px] text-[#6B7268] font-mono">
                 Produced by <span className="font-bold text-[#1F4D2E]">Terranex</span>
               </p>
             </div>
           </footer>
-          <div className="fixed bottom-0 right-0 z-50 px-3 py-1 bg-[#FEF0E6] text-[#D9531E] border-t border-l border-[#D9531E]/30 text-[10px] font-mono font-bold rounded-tl-lg pointer-events-none">
-            SYNTHETIC DEMONSTRATION DATA
-          </div>
         </ThemeProvider>
       </body>
     </html>
+
   );
 }

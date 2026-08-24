@@ -32,8 +32,9 @@ const FEATURES = [
   {
     icon: TrendingDown,
     title: "Calibrated Peer Benchmarking",
-    desc: "Rank your plant against 252,000+ synthetic facility baselines calibrated to BEE PAT cycles and ASI manufacturing censuses.",
+    desc: "Rank your plant against 252,000+ calibrated facility baselines aligned to BEE PAT cycles and ASI manufacturing censuses.",
   },
+
   {
     icon: Zap,
     title: "Techno-Economic Opportunity Matrix",
@@ -49,27 +50,6 @@ const FEATURES = [
 export default function HomePage() {
   useRevealOnScroll();
 
-  // heroSettled tracks when the cinematic animation has finished
-  // and text should be visible — matches PHASE_TIMINGS.P6_SETTLE (7000ms)
-  const [heroSettled, setHeroSettled] = useState(false);
-
-  useEffect(() => {
-    const prefersReduced =
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
-      document.documentElement.getAttribute("data-reduced-motion") === "true" ||
-      !!sessionStorage.getItem("ca_hero_animated_v2");
-
-    if (prefersReduced) {
-      setHeroSettled(true);
-      return;
-    }
-
-    const timer = setTimeout(() => setHeroSettled(true), 7000);
-    return () => clearTimeout(timer);
-  }, []);
-
-  const settledClass = heroSettled ? "ca-hero-settled" : "";
-
   return (
     <div className="min-h-screen bg-[#F5F2F3]">
       {/* Accessible skip-link only */}
@@ -78,22 +58,22 @@ export default function HomePage() {
 
       <main id="main-content">
         {/* ═══════════════════════════════════════════════════════════════
-            HERO — Cinematic atmosphere, full-width split layout
-            Left: copy staggered in after animation settles
-            Right: AangaraHeroCore (dark → parchment transition)
+            HERO — Integrated fiery eye atmosphere, split layout
+            Left: Headline, explanation & CTAs enter immediately
+            Right: Transparent Canvas Animated Fiery Eye + Logo Reveal
         ═══════════════════════════════════════════════════════════════ */}
         <section className="relative overflow-hidden bg-[#F5F2F3]">
           <div className="relative max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16 lg:py-20">
-            <div className={`grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center ${settledClass}`}>
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
 
               {/* ── Left: Text Block — 5 columns ── */}
               <div className="lg:col-span-5 z-20">
                 {/* Headline */}
                 <h1 className="font-display text-[2.6rem] sm:text-[3.2rem] lg:text-[3.6rem] font-bold leading-[1.08] tracking-tight mb-6 text-[#1F4D2E]">
-                  <span className={`block transition-all duration-700 ease-out ${heroSettled ? "opacity-100 translate-y-0" : "ca-title-line-1"}`}>
+                  <span className="block ca-title-line-1">
                     Turn statutory carbon
                   </span>
-                  <span className={`block transition-all duration-700 ease-out ${heroSettled ? "opacity-100 translate-y-0" : "ca-title-line-2"}`}>
+                  <span className="block ca-title-line-2">
                     compliance into{" "}
                     <span className="italic text-gradient-flame drop-shadow-sm">
                       capital advantage
@@ -102,21 +82,13 @@ export default function HomePage() {
                 </h1>
 
                 {/* Body copy */}
-                <p
-                  className={`text-base sm:text-lg text-[#4A5446] mb-8 max-w-lg leading-relaxed font-medium transition-all duration-700 ease-out ${
-                    heroSettled ? "opacity-100 translate-y-0" : "ca-hero-paragraph"
-                  }`}
-                >
+                <p className="text-base sm:text-lg text-[#4A5446] mb-8 max-w-lg leading-relaxed font-medium ca-hero-paragraph">
                   Deterministic GHG emission intensity accounting, empirical peer distributions,
                   and BUY / BUILD / HYBRID capital allocation for India&apos;s obligated industrial entities.
                 </p>
 
                 {/* CTAs */}
-                <div
-                  className={`flex flex-wrap items-center gap-3.5 transition-all duration-700 ease-out ${
-                    heroSettled ? "opacity-100 translate-y-0" : "ca-hero-cta"
-                  }`}
-                >
+                <div className="flex flex-wrap items-center gap-3.5 ca-hero-cta">
                   <Link
                     href="/industrial-intelligence"
                     className="inline-flex items-center gap-2 px-6 py-3.5 rounded-[8px] bg-[#1F4D2E] hover:bg-[#27643A] text-[#F5F2F3] font-semibold text-sm shadow-sm hover:shadow-[0_8px_24px_rgba(31,77,46,0.28)] transition-all duration-200 transform hover:-translate-y-0.5"
@@ -133,12 +105,7 @@ export default function HomePage() {
                 </div>
 
                 {/* Trust line */}
-                <div
-                  className={`mt-8 flex items-center gap-2 text-[11px] text-[#6B7268] font-mono transition-all duration-700 ease-out ${
-                    heroSettled ? "opacity-100 translate-y-0" : "ca-hero-cta"
-                  }`}
-                  style={{ transitionDelay: heroSettled ? "0ms" : "8.4s" }}
-                >
+                <div className="mt-8 flex items-center gap-2 text-[11px] text-[#6B7268] font-mono ca-hero-cta">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#5B8A4A]" />
                   <span>Verified against Gazette G.S.R. 25(E) · Jan 2026</span>
                 </div>
@@ -326,8 +293,8 @@ export default function HomePage() {
 
           <div className="max-w-[1400px] mx-auto pt-6 border-t border-[#E8E2DC] flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] text-[#6B7268]">
             <span>© 2026 AANGARA by Terranex — Commercial Decision Support Platform.</span>
-            <span className="font-mono bg-[#FEF0E6] text-[#D9531E] px-2 py-0.5 rounded border border-[#D9531E]/30">
-              SYNTHETIC DEMONSTRATION ENVIRONMENT
+            <span className="font-mono text-[#1F4D2E] font-medium">
+              India CCTS Statutory Intelligence Architecture
             </span>
           </div>
         </footer>

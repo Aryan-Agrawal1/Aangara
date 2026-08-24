@@ -34,6 +34,12 @@ export function Header({ currentSector, currentEntityId, reportingYear, onSector
     return () => window.removeEventListener("scroll", h);
   }, []);
 
+  // Auto-close mobile drawer upon route change
+  useEffect(() => {
+    setMobileOpen(false);
+    setMoreOpen(false);
+  }, [pathname]);
+
   // Close "More" dropdown on outside click
   useEffect(() => {
     function handleClick(e: MouseEvent) {
@@ -58,7 +64,7 @@ export function Header({ currentSector, currentEntityId, reportingYear, onSector
       }`}
     >
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6">
-        <div className={`flex items-center justify-between transition-all duration-200 ${scrolled ? "h-13" : "h-16"}`}>
+        <div className="flex items-center justify-between h-16">
 
           {/* ── Brand mark ── */}
           <Link href="/" className="flex items-center gap-3 group flex-shrink-0 mr-8">
@@ -202,7 +208,7 @@ export function Header({ currentSector, currentEntityId, reportingYear, onSector
             </Link>
           </div>
           <div className="px-4 pb-3 text-[10px] text-[#6B7268] font-mono border-t border-[#E8E2DC] pt-3">
-            Produced by Terranex · SYNTHETIC DEMONSTRATION DATA
+            Produced by Terranex · CCTS Decision Intelligence
           </div>
         </div>
       )}

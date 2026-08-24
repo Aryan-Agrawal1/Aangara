@@ -275,23 +275,23 @@ body {
   100% { opacity: 1; transform: scale(1.00) translateY(0); }
 }
 
-/* ── Hero copy stagger (fires after logo settles at ~7s) ── */
+/* ── Hero copy stagger (enters immediately alongside hero) ── */
 @keyframes heroLineReveal {
-  0%   { opacity: 0; transform: translateY(16px); }
+  0%   { opacity: 0; transform: translateY(14px); }
   100% { opacity: 1; transform: translateY(0); }
 }
 
 .ca-title-line-1 {
-  animation: heroLineReveal 0.7s cubic-bezier(0.16, 1, 0.3, 1) 7.2s both;
+  animation: heroLineReveal 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
 }
 .ca-title-line-2 {
-  animation: heroLineReveal 0.7s cubic-bezier(0.16, 1, 0.3, 1) 7.5s both;
+  animation: heroLineReveal 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.30s both;
 }
 .ca-hero-paragraph {
-  animation: heroLineReveal 0.65s cubic-bezier(0.16, 1, 0.3, 1) 7.75s both;
+  animation: heroLineReveal 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.45s both;
 }
 .ca-hero-cta {
-  animation: heroLineReveal 0.65s cubic-bezier(0.16, 1, 0.3, 1) 8.1s both;
+  animation: heroLineReveal 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.60s both;
 }
 
 /* ── Settled state overrides ── */
