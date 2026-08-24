@@ -58,7 +58,7 @@ export function JudgeModeFAB() {
 
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 px-3.5 py-2.5 bg-[#0B4A3D] hover:bg-[#0E5C4C] text-white rounded-full shadow-hover hover:shadow-elevated transition-all transform hover:-translate-y-0.5 active:translate-y-0 border border-white/20 text-xs font-semibold"
+        className="flex items-center gap-2 px-3.5 py-2.5 bg-[#1F4D2E] hover:bg-[#27643A] text-white rounded-full shadow-hover hover:shadow-elevated transition-all transform hover:-translate-y-0.5 active:translate-y-0 border border-white/20 text-xs font-semibold"
         title="Demo Quick-Launch Menu"
       >
         {isOpen ? (

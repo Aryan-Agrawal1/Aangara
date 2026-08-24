@@ -9,7 +9,7 @@ import { StatCounter } from "@/components/ui/StatCounter";
 import { Badge } from "@/components/ui/Badge";
 import { SectorCard, SHARED_SECTORS } from "@/components/ui/SectorCard";
 
-import { CarbonIntelligenceCore } from "@/components/hero/CarbonIntelligenceCore";
+import { AangaraHeroCore } from "@/components/hero/AangaraHeroCore";
 
 function useRevealOnScroll() {
   useEffect(() => {
@@ -65,13 +65,13 @@ export default function HomePage() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-[#F5F2F3]">
       <UtilityBar />
       <Header />
       <main id="main-content">
-        <section className="relative overflow-hidden bg-surface-base text-brand-primary">
-          {/* Subtle light background wash and texture */}
-          <div className="absolute inset-0 opacity-[0.03] mix-blend-multiply pointer-events-none">
+        <section className="relative overflow-hidden bg-[#F5F2F3] text-[#1A1C18]">
+          {/* Subtle light background wash */}
+          <div className="absolute inset-0 opacity-[0.025] mix-blend-multiply pointer-events-none">
             <Image
               src="/images/hero/hero_industrial.jpg"
               alt="Industrial Carbon Facility"
@@ -80,24 +80,24 @@ export default function HomePage() {
               className="object-cover object-[center_40%] grayscale"
             />
           </div>
-          <div className="absolute inset-0 bg-gradient-to-br from-surface-base via-surface-base/90 to-[#E2DFE1]/60" />
+          <div className="absolute inset-0 bg-gradient-to-br from-[#F5F2F3] via-[#F5F2F3]/90 to-[#EBE6E3]/60" />
           
           <div className="relative max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 lg:py-28">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 items-center">
               
-              {/* Text Block - 5 columns (approx 42%) */}
+              {/* Text Block - 5 columns */}
               <div className="lg:col-span-5 z-20">
-                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-primary/5 border border-brand-primary/10 text-brand-primary text-xs font-semibold mb-6 backdrop-blur-md">
-                  <span className="w-2 h-2 rounded-full bg-accent-fresh-deep animate-pulse shadow-[0_0_8px_rgba(140,169,73,0.6)]" />
+                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#1F4D2E]/5 border border-[#1F4D2E]/12 text-[#1F4D2E] text-xs font-semibold mb-6 backdrop-blur-md">
+                  <span className="w-2 h-2 rounded-full bg-[#5B8A4A] animate-pulse shadow-[0_0_8px_rgba(91,138,74,0.5)]" />
                   <span>India CCTS Compliance Ready · BEE Gazette G.S.R. 25(E)</span>
                 </div>
 
-                <h1 className="font-display text-4xl sm:text-5xl lg:text-[3.5rem] font-bold leading-[1.1] tracking-tight mb-6 text-brand-primary">
+                <h1 className="font-display text-4xl sm:text-5xl lg:text-[3.5rem] font-bold leading-[1.1] tracking-tight mb-6 text-[#1F4D2E]">
                   <span className={`block transition-all duration-700 ease-out ${heroSettled ? 'opacity-100 translate-y-0' : 'ca-title-line-1'}`}>
                     Turn statutory carbon
                   </span>
                   <span className={`block transition-all duration-700 ease-out ${heroSettled ? 'opacity-100 translate-y-0' : 'ca-title-line-2'}`}>
-                    compliance into <span className="italic text-accent-fresh-deep drop-shadow-sm">capital advantage</span>
+                    compliance into <span className="italic text-gradient-flame drop-shadow-sm">capital advantage</span>
                   </span>
                 </h1>
 
@@ -108,23 +108,23 @@ export default function HomePage() {
                 <div className={`flex flex-wrap items-center gap-3.5 transition-all duration-700 ease-out ${heroSettled ? 'opacity-100 translate-y-0' : 'ca-hero-cta'}`}>
                   <Link
                     href="/industrial-intelligence"
-                    className="inline-flex items-center gap-2 px-6 py-3.5 rounded-button bg-brand-primary hover:bg-brand-primary-hover text-surface-base font-semibold text-sm shadow-resting hover:shadow-[0_8px_24px_rgba(11,74,61,0.25)] transition-all duration-200 transform hover:-translate-y-0.5"
+                    className="inline-flex items-center gap-2 px-6 py-3.5 rounded-button bg-[#1F4D2E] hover:bg-[#27643A] text-[#F5F2F3] font-semibold text-sm shadow-resting hover:shadow-[0_8px_24px_rgba(31,77,46,0.3)] transition-all duration-200 transform hover:-translate-y-0.5"
                   >
                     <span>Launch Facility Intelligence</span>
                     <ArrowRight className="w-4 h-4" />
                   </Link>
                   <Link
                     href="/decision"
-                    className="inline-flex items-center gap-2 px-6 py-3.5 rounded-button bg-surface-base hover:bg-surface-subtle border border-surface-border-strong text-brand-primary font-semibold text-sm shadow-sm transition-all duration-200"
+                    className="inline-flex items-center gap-2 px-6 py-3.5 rounded-button bg-[#F5F2F3] hover:bg-[#EBE6E3] border border-[#CFC8C2] text-[#1F4D2E] font-semibold text-sm shadow-sm transition-all duration-200"
                   >
                     <span>View Decision Twin</span>
                   </Link>
                 </div>
               </div>
 
-              {/* Centerpiece: Carbon Intelligence Core Atom Graphic - 7 columns */}
-              <div className="lg:col-span-7 flex flex-col items-center lg:items-end justify-center mt-8 lg:mt-0 relative w-full min-h-[450px] lg:min-h-[650px] z-10">
-                <CarbonIntelligenceCore />
+              {/* Centerpiece: AANGARA Hero — Flame/Logo graphic - 7 columns */}
+              <div className="lg:col-span-7 flex flex-col items-center lg:items-end justify-center mt-8 lg:mt-0 relative w-full min-h-[450px] lg:min-h-[560px] z-10">
+                <AangaraHeroCore />
               </div>
             </div>
           </div>
@@ -169,7 +169,7 @@ export default function HomePage() {
           `}</style>
         </section>
 
-        <section className="bg-[#F6F8F7] border-b border-[#E4E9E6] py-10">
+        <section className="bg-[#EBE6E3] border-b border-[#E8E2DC] py-10">
           <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8">
               {[
@@ -179,10 +179,10 @@ export default function HomePage() {
                 { value: 3, suffix: " Routes", label: "Capital Strategies", sub: "BUY · BUILD · HYBRID" }
               ].map(({ value, suffix, label, sub }) => (
                 <div key={label} className="text-center reveal-on-scroll">
-                  <div className="text-3xl sm:text-4xl font-bold text-[#0B4A3D] tnum font-sans tracking-tight">
+                  <div className="text-3xl sm:text-4xl font-bold text-[#1F4D2E] tnum font-sans tracking-tight">
                     <StatCounter value={value} suffix={suffix} />
                   </div>
-                  <div className="text-xs sm:text-sm font-semibold text-[#10231C] mt-1">{label}</div>
+                  <div className="text-xs sm:text-sm font-semibold text-[#1A1C18] mt-1">{label}</div>
                   <div className="text-[11px] text-[#6B7A72] mt-0.5">{sub}</div>
                 </div>
               ))}
@@ -250,9 +250,9 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section className="bg-[#0B4A3D] py-16 px-4 sm:px-6 lg:px-8 text-white">
+        <section className="bg-[#1F4D2E] py-16 px-4 sm:px-6 lg:px-8 text-white">
           <div className="max-w-[1400px] mx-auto text-center">
-            <p className="text-xs font-mono font-semibold uppercase tracking-widest text-[#6EE7B7] mb-2">
+            <p className="text-xs font-mono font-semibold uppercase tracking-widest text-[#F2984A] mb-2">
               Authoritative Reference Base
             </p>
             <h2 className="font-display text-2xl sm:text-3xl font-semibold mb-8">
@@ -277,51 +277,51 @@ export default function HomePage() {
           </div>
         </section>
 
-        <footer className="bg-white border-t border-[#E4E9E6] py-14 px-4 sm:px-6 lg:px-8 text-sm">
+        <footer className="bg-white border-t border-[#E8E2DC] py-14 px-4 sm:px-6 lg:px-8 text-sm">
           <div className="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 mb-10">
             <div className="md:col-span-2">
               <div className="flex items-center gap-2.5 mb-3">
-                <div className="w-8 h-8 rounded-lg bg-[#0B4A3D] flex items-center justify-center shadow-resting">
-                  <span className="text-white font-bold text-xs font-mono">Ca</span>
+                <div className="relative w-8 h-8 flex-shrink-0 rounded-lg overflow-hidden shadow-resting">
+                  <img src="/aangara-logo.jpg" alt="AANGARA" className="w-full h-full object-cover" />
                 </div>
                 <div>
-                  <div className="font-semibold text-[#10231C] leading-tight">CarbonAlpha India</div>
-                  <div className="text-[10px] text-[#6B7A72] uppercase tracking-widest leading-none mt-0.5">CCTS Decision Intelligence</div>
+                  <div className="font-bold text-[#1A1C18] leading-tight">AANGARA</div>
+                  <div className="text-[9px] text-[#6B7268] uppercase tracking-widest leading-none mt-0.5">CCTS Decision Intelligence · Terranex</div>
                 </div>
               </div>
-              <p className="text-xs text-[#4B5A54] leading-relaxed max-w-md mb-4">
+              <p className="text-xs text-[#4A5446] leading-relaxed max-w-md mb-4">
                 Independent analytical twin for India&apos;s Carbon Credit Trading Scheme (CCTS). Evaluates statutory obligations, peer distributions, and capital strategies. Not an official Government of India entity.
               </p>
-              <div className="flex items-center gap-2 text-[11px] font-mono text-[#6B7A72]">
-                <span className="w-2 h-2 rounded-full bg-[#1F8A5F]" />
+              <div className="flex items-center gap-2 text-[11px] font-mono text-[#6B7268]">
+                <span className="w-2 h-2 rounded-full bg-[#5B8A4A]" />
                 <span>Verified against Gazette G.S.R. 25(E) (Jan 2026)</span>
               </div>
             </div>
 
             <div>
-              <h4 className="text-xs font-semibold uppercase tracking-wider text-[#10231C] mb-3">Analytical Modules</h4>
-              <ul className="space-y-2 text-xs text-[#4B5A54]">
-                <li><Link href="/industrial-intelligence" className="hover:text-[#0B4A3D] transition-colors">Facility Intelligence Wizard</Link></li>
-                <li><Link href="/decision" className="hover:text-[#0B4A3D] transition-colors">BUY / BUILD / HYBRID Twin</Link></li>
-                <li><Link href="/overview" className="hover:text-[#0B4A3D] transition-colors">National Sector Portfolio</Link></li>
-                <li><Link href="/scenarios" className="hover:text-[#0B4A3D] transition-colors">Stress Scenario Modeling</Link></li>
+              <h4 className="text-xs font-semibold uppercase tracking-wider text-[#1A1C18] mb-3">Analytical Modules</h4>
+              <ul className="space-y-2 text-xs text-[#4A5446]">
+                <li><Link href="/industrial-intelligence" className="hover:text-[#1F4D2E] transition-colors">Facility Intelligence Wizard</Link></li>
+                <li><Link href="/decision" className="hover:text-[#1F4D2E] transition-colors">BUY / BUILD / HYBRID Twin</Link></li>
+                <li><Link href="/overview" className="hover:text-[#1F4D2E] transition-colors">National Sector Portfolio</Link></li>
+                <li><Link href="/scenarios" className="hover:text-[#1F4D2E] transition-colors">Stress Scenario Modeling</Link></li>
               </ul>
             </div>
 
             <div>
-              <h4 className="text-xs font-semibold uppercase tracking-wider text-[#10231C] mb-3">Evidence &amp; Trust</h4>
-              <ul className="space-y-2 text-xs text-[#4B5A54]">
-                <li><Link href="/sources" className="hover:text-[#0B4A3D] transition-colors">Evidence Center &amp; Gazette Log</Link></li>
-                <li><Link href="/trust" className="hover:text-[#0B4A3D] transition-colors">Trust Center &amp; Model Cards</Link></li>
-                <li><span className="text-[#6B7A72]">Model: CA-MVP-1.0</span></li>
-                <li><span className="text-[#6B7A72]">Data Version: REG-2026-08</span></li>
+              <h4 className="text-xs font-semibold uppercase tracking-wider text-[#1A1C18] mb-3">Evidence &amp; Trust</h4>
+              <ul className="space-y-2 text-xs text-[#4A5446]">
+                <li><Link href="/sources" className="hover:text-[#1F4D2E] transition-colors">Evidence Center &amp; Gazette Log</Link></li>
+                <li><Link href="/trust" className="hover:text-[#1F4D2E] transition-colors">Trust Center &amp; Model Cards</Link></li>
+                <li><span className="text-[#6B7268]">Model: AANGARA-MVP-1.0</span></li>
+                <li><span className="text-[#6B7268]">Data Version: REG-2026-08</span></li>
               </ul>
             </div>
           </div>
 
-          <div className="max-w-[1400px] mx-auto pt-6 border-t border-[#E4E9E6] flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] text-[#6B7A72]">
-            <span>(c) 2026 CarbonAlpha India - Commercial Decision Support Platform.</span>
-            <span className="font-mono bg-[#FEF7E8] text-[#C98A1E] px-2 py-0.5 rounded border border-[#C98A1E]/30">
+          <div className="max-w-[1400px] mx-auto pt-6 border-t border-[#E8E2DC] flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] text-[#6B7268]">
+            <span>© 2026 AANGARA by Terranex — Commercial Decision Support Platform.</span>
+            <span className="font-mono bg-[#FEF0E6] text-[#D9531E] px-2 py-0.5 rounded border border-[#D9531E]/30">
               SYNTHETIC DEMONSTRATION ENVIRONMENT
             </span>
           </div>

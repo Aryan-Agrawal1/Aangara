@@ -18,7 +18,7 @@ export function UtilityBar() {
       <div className="bg-[#F6F8F7] border-b border-[#E4E9E6] py-1 px-4">
         <div className="max-w-[1400px] mx-auto flex items-center justify-between text-[11px] text-[#4B5A54]">
           <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:px-3 focus:py-1 focus:bg-[#C9622A] focus:text-white focus:rounded">Skip to main content</a>
-          <span className="font-medium text-[#10231C] hidden sm:block">CarbonAlpha India — CCTS Decision Intelligence Platform</span>
+          <span className="font-medium text-[#1A1C18] hidden sm:block">AANGARA by Terranex — CCTS Decision Intelligence Platform</span>
           <div className="flex items-center gap-3 ml-auto">
             <span className="text-[#6B7A72] hidden sm:block">Accessibility:</span>
             <button onClick={() => adjustFont(-1)} className="w-5 h-5 flex items-center justify-center hover:bg-[#E4E9E6] rounded text-[10px] font-bold transition-colors" aria-label="Decrease text size">A−</button>
