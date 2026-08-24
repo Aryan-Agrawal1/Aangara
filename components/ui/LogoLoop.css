@@ -1,0 +1,109 @@
+/* ── LogoLoop — Seamless Marquee Styles ─────────────────────────────── */
+
+.logo-loop-outer {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  /* height: controlled by content */
+}
+
+/* Fade-out gradient masks on left & right edges */
+.logo-loop-outer[data-fade="true"]::before,
+.logo-loop-outer[data-fade="true"]::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 80px;
+  z-index: 2;
+  pointer-events: none;
+}
+.logo-loop-outer[data-fade="true"]::before {
+  left: 0;
+  background: linear-gradient(to right, var(--fade-color) 0%, transparent 100%);
+}
+.logo-loop-outer[data-fade="true"]::after {
+  right: 0;
+  background: linear-gradient(to left, var(--fade-color) 0%, transparent 100%);
+}
+
+.logo-loop-track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  /* transform applied via JS */
+}
+
+.logo-loop-set {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+/* Individual tile */
+.logo-loop-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 10px;
+  border: 1px solid rgba(26, 28, 24, 0.08);
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(6px);
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: background 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
+  cursor: default;
+}
+
+.logo-loop-item:hover {
+  background: #ffffff;
+  border-color: rgba(26, 28, 24, 0.15);
+  transform: translateY(-1px);
+}
+
+/* Abbr badge */
+.logo-loop-abbr {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  background-color: var(--item-color, #1F4D2E);
+  color: #fff;
+  font-size: 9px;
+  font-weight: 700;
+  font-family: ui-monospace, SFMono-Regular, monospace;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  flex-shrink: 0;
+  padding: 0 6px;
+}
+
+/* Icon slot */
+.logo-loop-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  flex-shrink: 0;
+}
+
+/* Label */
+.logo-loop-label {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #1A1C18;
+  font-family: system-ui, -apple-system, sans-serif;
+  letter-spacing: -0.01em;
+}
+
+/* Reduced motion — no translation */
+@media (prefers-reduced-motion: reduce) {
+  .logo-loop-track {
+    animation: none !important;
+    transform: none !important;
+  }
+}

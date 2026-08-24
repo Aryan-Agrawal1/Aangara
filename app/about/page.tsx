@@ -81,53 +81,28 @@ function SectorBoxCard({
   );
 }
 
-/* ── Tech Stack Logo Loop Marquee ── */
-const TECH_STACK = [
-  { label: 'Next.js 14',   icon: 'N',  color: '#000000', bg: '#000' },
-  { label: 'React 18',     icon: '⚛',  color: '#61DAFB', bg: '#222' },
-  { label: 'Tailwind CSS', icon: '~',  color: '#06B6D4', bg: '#F0FDFE' },
-  { label: 'Recharts',     icon: 'Re', color: '#3B82F6', bg: '#EFF6FF' },
-  { label: 'Zustand',      icon: '🐻', color: '#F97316', bg: '#FFF7ED' },
-  { label: 'TypeScript',   icon: 'TS', color: '#3178C6', bg: '#EFF6FF' },
-  { label: 'FastAPI',      icon: '⚡', color: '#059669', bg: '#ECFDF5' },
-  { label: 'Pydantic',     icon: 'Py', color: '#3B82F6', bg: '#EFF6FF' },
-  { label: 'scikit-learn', icon: 'sk', color: '#F97316', bg: '#FFF7ED' },
-  { label: 'Pandas',       icon: 'pd', color: '#150458', bg: '#F5F3FF' },
-  { label: 'NumPy',        icon: 'np', color: '#4F8CE2', bg: '#EFF6FF' },
-  { label: 'OGL WebGL',    icon: '◼',  color: '#D9531E', bg: '#FEF0E6' },
+import dynamic from 'next/dynamic';
+
+const LogoLoop = dynamic(() => import('@/components/ui/LogoLoop'), { ssr: false });
+
+/* ── Tech Stack items for LogoLoop ── */
+const TECH_STACK_ITEMS = [
+  { name: 'Next.js',      abbr: 'NX',  color: '#000000' },
+  { name: 'React 19',     abbr: '⚛',   color: '#61DAFB' },
+  { name: 'TypeScript',   abbr: 'TS',  color: '#3178C6' },
+  { name: 'Tailwind CSS', abbr: 'TW',  color: '#06B6D4' },
+  { name: 'Recharts',     abbr: 'RC',  color: '#3B82F6' },
+  { name: 'Zustand',      abbr: 'ZS',  color: '#F97316' },
+  { name: 'FastAPI',      abbr: 'FA',  color: '#059669' },
+  { name: 'Pydantic',     abbr: 'Py',  color: '#E92063' },
+  { name: 'scikit-learn', abbr: 'sk',  color: '#F97316' },
+  { name: 'Pandas',       abbr: 'pd',  color: '#150458' },
+  { name: 'NumPy',        abbr: 'np',  color: '#4D77CF' },
+  { name: 'OGL / WebGL',  abbr: 'GL',  color: '#D9531E' },
+  { name: 'Vitest',       abbr: 'Vi',  color: '#6E40C9' },
+  { name: 'Playwright',   abbr: 'PW',  color: '#45BA4B' },
 ];
 
-function LogoLoopMarquee() {
-  const doubled = [...TECH_STACK, ...TECH_STACK];
-  return (
-    <div className="overflow-hidden rounded-xl border border-[#E8E2DC] bg-white py-4 relative">
-      <div className="absolute left-0 top-0 bottom-0 w-10 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
-      <div className="absolute right-0 top-0 bottom-0 w-10 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
-      <div className="flex gap-6 animate-[logoScroll_28s_linear_infinite] hover:[animation-play-state:paused]">
-        {doubled.map((tech, i) => (
-          <div
-            key={i}
-            className="flex items-center gap-2.5 px-4 py-2 bg-white rounded-lg border border-[#E8E2DC] shadow-sm flex-shrink-0"
-          >
-            <div
-              className="w-8 h-8 rounded-md flex items-center justify-center font-bold text-sm flex-shrink-0"
-              style={{ background: tech.bg, color: tech.color }}
-            >
-              {tech.icon}
-            </div>
-            <span className="text-xs font-semibold text-[#1A1C18] whitespace-nowrap">{tech.label}</span>
-          </div>
-        ))}
-      </div>
-      <style jsx>{`
-        @keyframes logoScroll {
-          0%   { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
-        }
-      `}</style>
-    </div>
-  );
-}
 
 export default function AboutPage() {
   useRevealOnScroll();
@@ -287,16 +262,27 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* ── Built With — LogoLoop Marquee ── */}
+        {/* ── Technology & Intelligence Stack — LogoLoop Marquee ── */}
         <section className="mb-12 reveal-on-scroll">
-          <h2 className="text-xl font-bold text-[#1A1C18] tracking-tight mb-2 border-b border-[#E8E2DC] pb-3">
-            Built With
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-3">
-            <div className="text-[11px] font-mono font-bold text-[#5B8A4A] uppercase tracking-wider px-1">Interface & Data</div>
-            <div className="text-[11px] font-mono font-bold text-[#D9531E] uppercase tracking-wider px-1">Platform Intelligence</div>
+          <div className="border-b border-[#E8E2DC] pb-3 mb-6">
+            <h2 className="text-xl font-bold text-[#1A1C18] tracking-tight">
+              Technology &amp; Intelligence Stack
+            </h2>
+            <p className="text-xs text-[#6B7268] mt-1">
+              Actual project dependencies — not partnerships or affiliations.
+            </p>
           </div>
-          <LogoLoopMarquee />
+          <div className="bg-white rounded-xl border border-[#E8E2DC] py-5 overflow-hidden">
+            <LogoLoop
+              items={TECH_STACK_ITEMS}
+              speed={55}
+              direction="left"
+              pauseOnHover={true}
+              fadeOut={true}
+              fadeColor="#ffffff"
+              gap={20}
+            />
+          </div>
         </section>
 
         {/* ── Team Section (Exact 6 Members & Socials Preserved) ── */}
