@@ -101,8 +101,9 @@ export default function AboutPage() {
             <span className="text-[10px] font-mono font-bold px-2.5 py-1 rounded-full bg-[#E8F2EB] text-[#1F4D2E] border border-[#1F4D2E]/20">
               ABOUT THE PLATFORM
             </span>
-            <span className="text-[10px] font-mono text-[#6B7268]">Produced by Terranex</span>
+            <span className="text-[10px] font-mono text-[#6B7268]">CCTS Decision Intelligence</span>
           </div>
+
           <h1 className="text-3xl sm:text-4xl font-extrabold text-[#1A1C18] tracking-tight mb-4">
             AANGARA — CCTS Decision Intelligence
           </h1>
@@ -279,12 +280,13 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* ── Terranex Attribution ── */}
+        {/* ── Footer Attribution ── */}
         <div className="text-center py-6 border-t border-[#E8E2DC]">
           <p className="text-xs text-[#6B7268] font-mono">
-            Produced by <span className="font-bold text-[#1F4D2E]">Terranex</span>
+            <span className="font-bold text-[#1F4D2E]">AANGARA</span> · CCTS Statutory Decision Intelligence
           </p>
         </div>
+
 
       </main>
       <ProvenanceFooter verifiedDate="2026-08-24" />

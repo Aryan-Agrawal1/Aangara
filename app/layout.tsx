@@ -14,22 +14,22 @@ const newsreader = Newsreader({
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans", display: "swap" });
 
 export const metadata: Metadata = {
-  title: "AANGARA — CCTS Decision Intelligence by Terranex",
-  description: "Institutional carbon-market decision intelligence for India CCTS compliance. BUY vs BUILD vs HYBRID strategies calibrated to BEE / MoEFCC / CERC regulations. Produced by Terranex.",
-  keywords: ["AANGARA", "Terranex", "CCTS", "carbon compliance", "BEE", "India carbon market", "GEI", "CCC"],
-  authors: [{ name: "Terranex" }],
-  creator: "Terranex",
-  publisher: "Terranex",
+  title: "AANGARA — CCTS Decision Intelligence",
+  description: "Institutional carbon-market decision intelligence for India CCTS compliance. BUY vs BUILD vs HYBRID strategies calibrated to BEE / MoEFCC / CERC regulations.",
+  keywords: ["AANGARA", "CCTS", "carbon compliance", "BEE", "India carbon market", "GEI", "CCC"],
+  authors: [{ name: "AANGARA" }],
+  creator: "AANGARA",
+  publisher: "AANGARA",
   openGraph: {
     title: "AANGARA — CCTS Decision Intelligence",
-    description: "Institutional carbon-market decision intelligence for India CCTS compliance. Produced by Terranex.",
-    siteName: "AANGARA by Terranex",
+    description: "Institutional carbon-market decision intelligence for India CCTS compliance.",
+    siteName: "AANGARA",
     type: "website",
     locale: "en_IN",
   },
   twitter: {
     card: "summary_large_image",
-    title: "AANGARA — CCTS Decision Intelligence by Terranex",
+    title: "AANGARA — CCTS Decision Intelligence",
     description: "Institutional carbon-market decision intelligence for India CCTS compliance.",
   },
   icons: {
@@ -56,13 +56,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 AANGARA — CCTS Statutory Decision Intelligence Architecture
               </p>
               <p className="text-[10px] text-[#6B7268] font-mono">
-                Produced by <span className="font-bold text-[#1F4D2E]">Terranex</span>
+                <span className="font-bold text-[#1F4D2E]">AANGARA</span> · All Rights Reserved
               </p>
             </div>
           </footer>
         </ThemeProvider>
       </body>
     </html>
+
 
   );
 }

@@ -257,7 +257,7 @@ export default function HomePage() {
                 <div>
                   <div className="font-bold text-[#1A1C18] leading-tight">AANGARA</div>
                   <div className="text-[9px] text-[#6B7268] uppercase tracking-widest leading-none mt-0.5">
-                    CCTS Decision Intelligence · Terranex
+                    CCTS Decision Intelligence Architecture
                   </div>
                 </div>
               </div>
@@ -293,11 +293,12 @@ export default function HomePage() {
           </div>
 
           <div className="max-w-[1400px] mx-auto pt-6 border-t border-[#E8E2DC] flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] text-[#6B7268]">
-            <span>© 2026 AANGARA by Terranex — Commercial Decision Support Platform.</span>
+            <span>© 2026 AANGARA — Commercial Decision Support Platform.</span>
             <span className="font-mono text-[#1F4D2E] font-medium">
               India CCTS Statutory Intelligence Architecture
             </span>
           </div>
+
         </footer>
       </main>
     </div>

@@ -184,8 +184,9 @@ export function exportACVAVerificationDossier(
   // Footer
   doc.setFontSize(7.5);
   doc.setTextColor(107, 114, 104);
-  doc.text('AANGARA Institutional CCTS Intelligence by Terranex · Confidential Statutory Compliance Documentation', 14, 288);
+  doc.text('AANGARA Institutional CCTS Decision Intelligence · Confidential Statutory Compliance Documentation', 14, 288);
   doc.text('Page 1 of 1', 185, 288);
+
 
   doc.save(`AANGARA_ACVA_Dossier_${entityId}_${reportingYear.replace('/', '-')}.pdf`);
 }
@@ -350,8 +351,9 @@ export function exportBoardroomReport(
   // Footer
   doc.setFontSize(7.5);
   doc.setTextColor(107, 114, 104);
-  doc.text('AANGARA Boardroom Decision Intelligence by Terranex · Statutory CCTS Capital Allocation Framework', 14, 288);
+  doc.text('AANGARA Boardroom Decision Intelligence · Statutory CCTS Capital Allocation Framework', 14, 288);
   doc.text('Page 1 of 1', 185, 288);
+
 
   doc.save(`AANGARA_Boardroom_Decision_Report_${entityId}_${reportingYear.replace('/', '-')}.pdf`);
 }

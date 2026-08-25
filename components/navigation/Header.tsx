@@ -208,8 +208,9 @@ export function Header({ currentSector, currentEntityId, reportingYear, onSector
             </Link>
           </div>
           <div className="px-4 pb-3 text-[10px] text-[#6B7268] font-mono border-t border-[#E8E2DC] pt-3">
-            Produced by Terranex · CCTS Decision Intelligence
+            AANGARA · CCTS Decision Intelligence
           </div>
+
         </div>
       )}
     </header>

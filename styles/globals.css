@@ -3,12 +3,13 @@
 @tailwind utilities;
 
 /* ============================================================
-   AANGARA by TERRANEX — DESIGN SYSTEM v3
+   AANGARA — DESIGN SYSTEM v3
    Color identity derived from AANGARA logo:
      Leaf  (left stroke) → deep institutional green — trust, authority
      Flame (right stroke) → deep ember orange-red   — energy, ignition
      Earth (crossbar globe) → warm parchment surface — grounding
    ============================================================ */
+
 
 :root {
   /* --- FLAME (energy / ignition) --- */
@@ -382,10 +383,10 @@ body {
    ============================================================ */
 @keyframes continuousShine {
   0% {
-    transform: translateX(-150%) skewX(-25deg);
+    transform: translateX(-160%) skewX(-20deg);
   }
-  30%, 100% {
-    transform: translateX(250%) skewX(-25deg);
+  25%, 100% {
+    transform: translateX(260%) skewX(-20deg);
   }
 }
 
@@ -410,12 +411,12 @@ body {
   background: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(255, 255, 255, 0) 35%,
-    rgba(255, 255, 255, 0.55) 50%,
-    rgba(242, 152, 74, 0.12) 55%,
-    transparent 65%
+    rgba(255, 255, 255, 0) 30%,
+    rgba(255, 255, 255, 0.60) 50%,
+    rgba(242, 152, 74, 0.15) 55%,
+    transparent 70%
   );
-  animation: continuousShine 5.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  animation: continuousShine 7.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
   pointer-events: none;
   z-index: 5;
 }
@@ -424,6 +425,45 @@ body {
   transform: translateY(-4px);
   box-shadow: 0 16px 32px -4px rgba(31, 77, 46, 0.12), 0 0 0 1px rgba(31, 77, 46, 0.25);
 }
+
+/* --- Team Profile Blue-Tinted Glassmorphism Card --- */
+.team-blue-glass-card {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(145deg, rgba(240, 247, 255, 0.82) 0%, rgba(225, 239, 255, 0.72) 100%);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(186, 215, 248, 0.75);
+  box-shadow: 0 8px 24px -4px rgba(37, 99, 175, 0.08), 0 2px 6px -1px rgba(37, 99, 175, 0.04);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease;
+}
+
+.team-blue-glass-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0) 30%,
+    rgba(255, 255, 255, 0.65) 50%,
+    rgba(186, 215, 248, 0.30) 55%,
+    transparent 70%
+  );
+  animation: continuousShine 7.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.team-blue-glass-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 32px -4px rgba(37, 99, 175, 0.18), 0 0 0 1.5px rgba(37, 99, 175, 0.40);
+  border-color: rgba(147, 197, 253, 0.95);
+}
+
 
 /* ============================================================
    FOCUS / SCROLLBAR

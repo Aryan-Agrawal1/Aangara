@@ -3,24 +3,27 @@
 import { ClientChartWrapper } from "@/components/ui/ClientChartWrapper";
 import React, { useState } from 'react';
 import {
-  ScatterChart,
-  Scatter,
+  BarChart,
+  Bar,
   XAxis,
   YAxis,
-  ZAxis,
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
-  Cell
+  Cell,
+  ReferenceLine
 } from 'recharts';
 import { formatCurrencyCr, formatEmissions, formatPricePerTonne, formatYears } from '@/lib/formatters';
 import {
   Zap,
   Clock,
   FileCheck,
-  BarChart2,
+  BarChart3,
   Filter,
-  HelpCircle
+  HelpCircle,
+  TrendingDown,
+  Coins,
+  Sparkles
 } from 'lucide-react';
 
 interface DecarbonisationMatrixProps {
@@ -71,40 +74,52 @@ export function DecarbonisationMatrix({ opportunities }: DecarbonisationMatrixPr
     ? opportunities
     : opportunities.filter((o) => o.category === selectedCategory);
 
-  // Transform opportunities data for Recharts Scatter/Bubble Chart
-  const scatterData = filteredOpps.map((opp, idx) => {
-    const abatementKt = Number(((opp.annual_reduction_tco2e || 0) / 1000).toFixed(1));
-    const baseTimeline = opp.implementation_months || opp.timeline_months || 12;
-    const timeline = baseTimeline + (idx * 0.15);
-    const npv = opp.npv_10yr_cr || 0;
-    const capex = opp.capex_cr || 0;
-    const payback = opp.payback_years || 0;
-    const tier = getPaybackTier(payback);
+  // Transform and order data for Marginal Abatement Cost (MAC) Curve (cheapest to most expensive)
+  const macData = filteredOpps
+    .map((opp, idx) => {
+      const abatementKt = Number(((opp.annual_reduction_tco2e || 0) / 1000).toFixed(1));
+      const capex = opp.capex_cr || 0;
+      const npv = opp.npv_10yr_cr || 0;
+      const payback = opp.payback_years || 0;
+      const costPerTonne = opp.cost_per_tco2e_inr ?? opp.cost_per_tco2e ?? Math.round((capex * 1e7) / Math.max(1, (opp.annual_reduction_tco2e || 1000) * 10));
+      const tier = getPaybackTier(payback);
 
-    return {
-      id: opp.opportunity_id || `opp-${idx}`,
-      title: opp.title,
-      category: opp.category,
-      timeline,
-      abatement_kt: abatementKt,
-      abatement_tco2e: opp.annual_reduction_tco2e,
-      npv_cr: npv,
-      capex_cr: capex,
-      opex_change_cr: opp.annual_opex_change_cr || 0,
-      energy_savings_cr: opp.annual_energy_savings_cr || 0,
-      payback_years: payback,
-      cost_per_tco2e_inr: opp.cost_per_tco2e_inr,
-      methodology: opp.applicable_methodology || 'BEE Compliance Pathway',
-      mrv_complexity: opp.mrv_complexity || 'MEDIUM',
-      confidence_tier: opp.confidence_tier || 'CALIBRATED',
-      tierLabel: tier.label,
-      color: tier.color,
-      zScore: Math.max(10, Math.min(100, Math.abs(npv) * 2 + 20))
-    };
-  });
+      // Short label for chart X-axis
+      const shortTitle = opp.title.length > 28
+        ? opp.title.split('(')[0].trim()
+        : opp.title;
 
-  // Custom 2D Scatter Tooltip
-  const CustomScatterTooltip = ({ active, payload }: any) => {
+      return {
+        id: opp.opportunity_id || opp.id || `opp-${idx}`,
+        fullTitle: opp.title,
+        shortTitle,
+        category: opp.category,
+        cost_per_tco2e: costPerTonne,
+        abatement_kt: abatementKt,
+        abatement_tco2e: opp.annual_reduction_tco2e || 0,
+        npv_cr: npv,
+        capex_cr: capex,
+        opex_change_cr: opp.annual_opex_change_cr || 0,
+        energy_savings_cr: opp.annual_energy_savings_cr || 0,
+        payback_years: payback,
+        timeline_months: opp.implementation_months || opp.timeline_months || 12,
+        methodology: opp.applicable_methodology || opp.bee_methodology_code || 'BEE Compliance Pathway',
+        mrv_complexity: opp.mrv_complexity || 'MEDIUM',
+        confidence_tier: opp.confidence_tier || 'CALIBRATED',
+        tierLabel: tier.label,
+        tierShort: tier.shortLabel,
+        color: tier.color,
+      };
+    })
+    .sort((a, b) => a.cost_per_tco2e - b.cost_per_tco2e);
+
+  // Portfolio Totals
+  const totalAbatementKt = macData.reduce((acc, curr) => acc + curr.abatement_kt, 0);
+  const totalCapexCr = macData.reduce((acc, curr) => acc + curr.capex_cr, 0);
+  const totalNpvCr = macData.reduce((acc, curr) => acc + curr.npv_cr, 0);
+
+  // Custom MAC Tooltip
+  const CustomMACTooltip = ({ active, payload }: any) => {
     if (!active || !payload || !payload.length) return null;
     const d = payload[0].payload;
     const tier = getPaybackTier(d.payback_years);
@@ -112,7 +127,6 @@ export function DecarbonisationMatrix({ opportunities }: DecarbonisationMatrixPr
     return (
       <div className="bg-white border border-[#E8E2DC] rounded-xl p-4 text-xs shadow-2xl max-w-sm z-50 pointer-events-none">
         <div className="flex items-center justify-between gap-2 mb-2">
-
           <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-[#E8F2EB] text-[#1F4D2E] border border-[#1F4D2E]/25">
             {d.category}
           </span>
@@ -124,22 +138,18 @@ export function DecarbonisationMatrix({ opportunities }: DecarbonisationMatrixPr
           </span>
         </div>
 
-        <div className="font-bold text-[#1A1C18] mb-2 leading-snug text-xs">{d.title}</div>
+        <div className="font-bold text-[#1A1C18] mb-2 leading-snug text-xs">{d.fullTitle}</div>
 
         <div className="space-y-1.5 font-mono text-[11px] bg-[#F6F8F7] p-2.5 rounded-lg border border-[#E8E2DC]">
+          <div className="flex justify-between text-[#4A5446]">
+            <span>Marginal Abatement Cost:</span>
+            <span className="text-[#D9531E] font-bold">{formatPricePerTonne(d.cost_per_tco2e)}</span>
+          </div>
           <div className="flex justify-between text-[#4A5446]">
             <span>Annual Abatement:</span>
             <span className="text-[#1F4D2E] font-bold">
               {d.abatement_kt} kt/yr ({formatEmissions(d.abatement_tco2e)})
             </span>
-          </div>
-          <div className="flex justify-between text-[#4A5446]">
-            <span>Implementation Timeline:</span>
-            <span className="text-[#2E6BA8] font-semibold">{d.timeline.toFixed(0)} months</span>
-          </div>
-          <div className="flex justify-between text-[#4A5446]">
-            <span>10-Yr NPV @ 9.5%:</span>
-            <span className="text-[#1F4D2E] font-bold">{formatCurrencyCr(d.npv_cr)}</span>
           </div>
           <div className="flex justify-between text-[#4A5446]">
             <span>Capital Cost (CAPEX):</span>
@@ -149,12 +159,14 @@ export function DecarbonisationMatrix({ opportunities }: DecarbonisationMatrixPr
             <span>Capital Payback:</span>
             <span className="text-[#1A1C18] font-semibold">{formatYears(d.payback_years)}</span>
           </div>
-          {d.cost_per_tco2e_inr !== undefined && (
-            <div className="flex justify-between text-[#4A5446] pt-1 border-t border-[#E8E2DC]">
-              <span>Abatement Cost / tCO₂e:</span>
-              <span className="text-[#D9531E] font-semibold">{formatPricePerTonne(d.cost_per_tco2e_inr)}</span>
-            </div>
-          )}
+          <div className="flex justify-between text-[#4A5446]">
+            <span>10-Yr NPV @ 9.5%:</span>
+            <span className="text-[#1F4D2E] font-bold">{formatCurrencyCr(d.npv_cr)}</span>
+          </div>
+          <div className="flex justify-between text-[#4A5446]">
+            <span>Implementation Timeline:</span>
+            <span className="text-[#2E6BA8] font-semibold">{d.timeline_months} months</span>
+          </div>
         </div>
 
         <div className="mt-2 text-[10px] text-[#6B7268] font-mono flex items-center space-x-1.5">
@@ -177,14 +189,14 @@ export function DecarbonisationMatrix({ opportunities }: DecarbonisationMatrixPr
             <div>
               <div className="flex items-center space-x-2">
                 <h3 className="text-lg font-bold text-[#1A1C18] tracking-tight">
-                  Techno-Economic Decarbonisation Matrix
+                  Marginal Abatement Cost (MAC) Curve
                 </h3>
                 <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-[#E8F2EB] text-[#1F4D2E] border border-[#1F4D2E]/25">
                   CAPITAL ALLOCATION
                 </span>
               </div>
               <p className="text-xs text-[#4A5446] mt-1 font-medium">
-                Marginal Abatement & Feasibility Map: CAPEX, energy savings, payback period, 10-Yr NPV & BEE methodologies.
+                Industry-standard MAC curve: ordered left-to-right from lowest cost / fastest payback to strategic decarbonisation initiatives.
               </p>
             </div>
           </div>
@@ -199,16 +211,49 @@ export function DecarbonisationMatrix({ opportunities }: DecarbonisationMatrixPr
 
       <div className="px-5 sm:px-6 space-y-6">
 
-        {/* 2D Recharts Marginal Abatement & Feasibility Map */}
+        {/* Portfolio Summary Metric Strips */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div className="bg-[#F6F8F7] p-3.5 rounded-xl border border-[#E8E2DC] flex items-center justify-between">
+            <div>
+              <div className="text-[10px] font-mono text-[#6B7268] uppercase font-bold">Total Abatement Potential</div>
+              <div className="text-lg font-black text-[#1F4D2E] font-mono mt-0.5">{totalAbatementKt.toFixed(1)} kt CO₂e/yr</div>
+            </div>
+            <div className="p-2 rounded-lg bg-[#E8F2EB] text-[#1F4D2E]">
+              <TrendingDown className="w-4 h-4" />
+            </div>
+          </div>
+
+          <div className="bg-[#F6F8F7] p-3.5 rounded-xl border border-[#E8E2DC] flex items-center justify-between">
+            <div>
+              <div className="text-[10px] font-mono text-[#6B7268] uppercase font-bold">Total Upfront CAPEX</div>
+              <div className="text-lg font-black text-[#1A1C18] font-mono mt-0.5">{formatCurrencyCr(totalCapexCr)}</div>
+            </div>
+            <div className="p-2 rounded-lg bg-white text-[#1A1C18] border border-[#E8E2DC]">
+              <Coins className="w-4 h-4" />
+            </div>
+          </div>
+
+          <div className="bg-[#F6F8F7] p-3.5 rounded-xl border border-[#E8E2DC] flex items-center justify-between">
+            <div>
+              <div className="text-[10px] font-mono text-[#6B7268] uppercase font-bold">Total 10-Yr Lifecycle NPV</div>
+              <div className="text-lg font-black text-[#1F4D2E] font-mono mt-0.5">{formatCurrencyCr(totalNpvCr)}</div>
+            </div>
+            <div className="p-2 rounded-lg bg-[#E8F2EB] text-[#1F4D2E]">
+              <Sparkles className="w-4 h-4" />
+            </div>
+          </div>
+        </div>
+
+        {/* Marginal Abatement Cost (MAC) Bar Chart */}
         <div className="bg-[#F6F8F7] rounded-xl p-4 sm:p-5 border border-[#E8E2DC]">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-4 pb-3 border-b border-[#E8E2DC] gap-2">
             <div>
               <h4 className="text-sm font-bold text-[#1A1C18] flex items-center space-x-2">
-                <BarChart2 className="w-4 h-4 text-[#1F4D2E]" />
-                <span>Decarbonisation Marginal Abatement & Feasibility Map</span>
+                <BarChart3 className="w-4 h-4 text-[#1F4D2E]" />
+                <span>Marginal Abatement Cost &amp; Payback Trajectory</span>
               </h4>
               <p className="text-[11px] text-[#6B7268] mt-0.5">
-                X-axis: Timeline (Months) • Y-axis: Annual CO₂e Reduction (kt/yr) • Bubble Size: 10-Yr NPV (₹ Cr) • Color: Payback Tier
+                Y-axis: Marginal Abatement Cost (₹/tCO₂e) • Bars ordered by cost-efficiency • Color: Payback Tier
               </p>
             </div>
 
@@ -229,50 +274,48 @@ export function DecarbonisationMatrix({ opportunities }: DecarbonisationMatrixPr
             </div>
           </div>
 
-          {/* Recharts Scatter/Bubble Chart Container */}
+          {/* Recharts MAC Bar Chart */}
           <div className="w-full overflow-x-auto pb-2">
-            <div className="h-72 min-w-[620px] w-full">
+            <div className="h-72 min-w-[580px] w-full">
               <ClientChartWrapper>
                 <ResponsiveContainer width="100%" height="100%">
-                  <ScatterChart margin={{ top: 20, right: 30, bottom: 20, left: 10 }}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#E8E2DC" />
+                  <BarChart data={macData} margin={{ top: 20, right: 30, bottom: 25, left: 15 }}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="#E8E2DC" vertical={false} />
                     <XAxis
-                      type="number"
-                      dataKey="timeline"
-                      name="Implementation Timeline"
-                      unit="m"
+                      dataKey="shortTitle"
                       stroke="#6B7268"
-                      tick={{ fill: '#4A5446', fontSize: 11 }}
-                      label={{ value: 'Implementation Timeline (Months)', position: 'insideBottom', offset: -12, fill: '#1A1C18', fontSize: 11, fontWeight: 500 }}
+                      tick={{ fill: '#1A1C18', fontSize: 11, fontWeight: 500 }}
+                      interval={0}
                     />
                     <YAxis
-                      type="number"
-                      dataKey="abatement_kt"
-                      name="Annual CO₂e Reduction"
-                      unit=" kt"
                       stroke="#6B7268"
                       tick={{ fill: '#4A5446', fontSize: 11 }}
-                      label={{ value: 'Annual CO₂e Reduction (kt/yr)', angle: -90, position: 'insideLeft', offset: 0, fill: '#1A1C18', fontSize: 11, fontWeight: 500 }}
+                      tickFormatter={(val) => `₹${val.toLocaleString('en-IN')}`}
+                      label={{ value: 'Abatement Cost (₹/tCO₂e)', angle: -90, position: 'insideLeft', offset: 0, fill: '#1A1C18', fontSize: 11, fontWeight: 500 }}
                     />
-                    <ZAxis
-                      type="number"
-                      dataKey="zScore"
-                      range={[200, 1000]}
-                      name="NPV Scale"
+                    <ReferenceLine
+                      y={1000}
+                      stroke="#D9531E"
+                      strokeDasharray="4 4"
+                      label={{ value: 'Market CCC Baseline (₹1,000/t)', position: 'insideTopRight', fill: '#D9531E', fontSize: 10, fontWeight: 600 }}
                     />
-                    <Tooltip content={<CustomScatterTooltip />} cursor={{ strokeDasharray: '3 3', stroke: '#1F4D2E' }} />
-                    <Scatter name="Projects" data={scatterData}>
-                      {scatterData.map((entry) => (
+                    <Tooltip content={<CustomMACTooltip />} cursor={{ fill: 'rgba(31, 77, 46, 0.05)' }} />
+                    <Bar
+                      dataKey="cost_per_tco2e"
+                      radius={[6, 6, 0, 0]}
+                      barSize={48}
+                    >
+                      {macData.map((entry) => (
                         <Cell
                           key={entry.id}
                           fill={entry.color}
                           stroke="#ffffff"
-                          strokeWidth={2}
-                          className="transition-all hover:opacity-90 hover:scale-110 cursor-pointer"
+                          strokeWidth={1.5}
+                          className="transition-all hover:opacity-85 cursor-pointer"
                         />
                       ))}
-                    </Scatter>
-                  </ScatterChart>
+                    </Bar>
+                  </BarChart>
                 </ResponsiveContainer>
               </ClientChartWrapper>
             </div>
@@ -309,7 +352,7 @@ export function DecarbonisationMatrix({ opportunities }: DecarbonisationMatrixPr
 
             return (
               <div
-                key={opp.opportunity_id}
+                key={opp.opportunity_id || opp.id}
                 className="bg-white rounded-xl p-5 border border-[#E8E2DC] hover:border-[#CFC8C2] transition-all flex flex-col justify-between shadow-sm hover:shadow-md"
               >
                 <div>
@@ -371,7 +414,7 @@ export function DecarbonisationMatrix({ opportunities }: DecarbonisationMatrixPr
                     <div className="bg-white p-2 rounded-lg border border-[#E8E2DC]">
                       <div className="text-[10px] text-[#6B7268] uppercase">Abatement Cost</div>
                       <div className="text-xs font-bold text-[#D9531E] mt-0.5">
-                        {opp.cost_per_tco2e_inr !== undefined ? formatPricePerTonne(opp.cost_per_tco2e_inr) : '—'}
+                        {opp.cost_per_tco2e_inr !== undefined ? formatPricePerTonne(opp.cost_per_tco2e_inr) : opp.cost_per_tco2e ? formatPricePerTonne(opp.cost_per_tco2e) : '—'}
                       </div>
                     </div>
                   </div>
@@ -381,14 +424,14 @@ export function DecarbonisationMatrix({ opportunities }: DecarbonisationMatrixPr
                     <div className="flex items-center space-x-1.5 text-[#4A5446]">
                       <FileCheck className="w-3.5 h-3.5 text-[#1F4D2E] flex-shrink-0" />
                       <span className="font-mono text-[#4A5446] truncate max-w-[240px]">
-                        {opp.applicable_methodology || 'BEE Compliance Protocol'}
+                        {opp.applicable_methodology || opp.bee_methodology_code || 'BEE Compliance Protocol'}
                       </span>
                     </div>
 
                     <div className="flex items-center space-x-2">
                       <span className="text-[#4A5446] font-mono flex items-center space-x-1">
                         <Clock className="w-3 h-3 text-[#6B7268]" />
-                        <span>{opp.implementation_months || 12}m</span>
+                        <span>{opp.implementation_months || opp.timeline_months || 12}m</span>
                       </span>
                       <span className="px-1.5 py-0.5 rounded text-[10px] font-mono font-bold bg-white border border-[#E8E2DC] text-[#4A5446]">
                         MRV: {opp.mrv_complexity || 'MEDIUM'}

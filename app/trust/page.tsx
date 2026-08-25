@@ -19,7 +19,8 @@ export default function TrustCenterPage() {
             <ShieldCheck className="w-6 h-6 text-[#1F4D2E]" />
             <h1 className="text-2xl font-bold text-[#10231C] tracking-tight">AANGARA Trust Center</h1>
           </div>
-          <p className="text-sm text-[#4B5A54] mt-2">Technical Evidence, Data Provenance, and Regulatory Alignment · Produced by Terranex</p>
+          <p className="text-sm text-[#4B5A54] mt-2">Technical Evidence, Data Provenance, and Regulatory Alignment</p>
+
         </div>
 
         <div className="space-y-6">
