@@ -4,9 +4,10 @@ import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 
 const TOTAL_FRAMES = 50;
-const INTRO_DURATION_MS = 4500; // 0s - 4.5s plays smooth intro frames 1-50
-const LOGO_EMERGE_TIME_MS = 3200; // Logo starts emerging smoothly
-const SETTLED_HOLD_FRAME = 28; // The centered, well-composed flame & eye frame
+const INTRO_DURATION_MS = 4200; // 0s - 4.2s plays smooth intro sequence frames 1-50
+const LOGO_EMERGE_TIME_MS = 3000; // Logo emerges smoothly
+const LOOP_START_FRAME = 16; // Start of living flame loop
+const LOOP_END_FRAME = 38; // End of living flame loop
 
 export function AangaraHeroCore() {
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -69,11 +70,14 @@ export function AangaraHeroCore() {
     };
   }, []);
 
-  // Play entry animation once, then hold at the optimal settled position (no continuous looping)
+  // Coordinated intro animation followed by an infinite, smooth continuous flame loop
   useEffect(() => {
     if (!framesLoaded) return;
 
     const startTime = performance.now();
+    let isLoopingReverse = false;
+    let currentLoopFrame = LOOP_START_FRAME;
+    let lastLoopTick = performance.now();
 
     // Trigger logo emergence
     const logoTimer = setTimeout(() => {
@@ -81,9 +85,10 @@ export function AangaraHeroCore() {
     }, LOGO_EMERGE_TIME_MS);
 
     const render = (now: number) => {
+      animFrameIdRef.current = requestAnimationFrame(render);
+
       // Performance guard: Skip drawing if tab hidden or off-screen
       if (!isVisibleRef.current || !isIntersectingRef.current) {
-        animFrameIdRef.current = requestAnimationFrame(render);
         return;
       }
 
@@ -93,33 +98,39 @@ export function AangaraHeroCore() {
       if (!ctx) return;
 
       const elapsed = now - startTime;
+      let frameIndex = 0;
 
       if (elapsed < INTRO_DURATION_MS) {
-        // Intro phase: progress smoothly through frames towards settled position
+        // Intro phase: progress smoothly through all 50 frames
         const progress = Math.min(1, elapsed / INTRO_DURATION_MS);
-        // Easing out so the animation slows down gracefully into the settled frame
-        const easeOutProgress = 1 - Math.pow(1 - progress, 2.5);
-        const frameIndex = Math.min(
+        frameIndex = Math.min(
           TOTAL_FRAMES - 1,
-          Math.floor(easeOutProgress * (TOTAL_FRAMES - 1))
+          Math.floor(progress * (TOTAL_FRAMES - 1))
         );
-
-        const img = framesRef.current[frameIndex];
-        if (img && img.complete && img.naturalWidth > 0) {
-          ctx.clearRect(0, 0, canvas.width, canvas.height);
-          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-        }
-
-        animFrameIdRef.current = requestAnimationFrame(render);
       } else {
-        // Settled state: draw the final centered hold frame once, then stop RAF
-        const settledImg = framesRef.current[SETTLED_HOLD_FRAME] || framesRef.current[TOTAL_FRAMES - 1];
-        if (settledImg && settledImg.complete && settledImg.naturalWidth > 0) {
-          ctx.clearRect(0, 0, canvas.width, canvas.height);
-          ctx.drawImage(settledImg, 0, 0, canvas.width, canvas.height);
+        // Infinite continuous flame loop: oscillate between frame 16 and 38
+        const loopDt = now - lastLoopTick;
+        if (loopDt > 70) { // ~14 fps for organic, living flame flicker
+          lastLoopTick = now;
+          if (!isLoopingReverse) {
+            currentLoopFrame++;
+            if (currentLoopFrame >= LOOP_END_FRAME) {
+              isLoopingReverse = true;
+            }
+          } else {
+            currentLoopFrame--;
+            if (currentLoopFrame <= LOOP_START_FRAME) {
+              isLoopingReverse = false;
+            }
+          }
         }
-        // Stop the animation loop — holds steady indefinitely with 0 CPU usage
-        animFrameIdRef.current = null;
+        frameIndex = currentLoopFrame;
+      }
+
+      const img = framesRef.current[frameIndex];
+      if (img && img.complete && img.naturalWidth > 0) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
       }
     };
 
@@ -138,7 +149,7 @@ export function AangaraHeroCore() {
       ref={containerRef}
       className="relative w-full h-full flex items-center justify-center min-h-[460px] sm:min-h-[520px] lg:min-h-[580px] select-none"
     >
-      {/* ── Transparent Canvas Eye Animation (Unified background — zero isolated boxes or blur rings) ── */}
+      {/* ── Transparent Canvas Eye Animation (Unified background, continuous living flame) ── */}
       <div className="relative z-10 w-full max-w-[680px] lg:max-w-[760px] aspect-[16/9] flex items-center justify-center">
         <canvas
           ref={canvasRef}
@@ -149,7 +160,7 @@ export function AangaraHeroCore() {
         />
       </div>
 
-      {/* ── High-Resolution AANGARA Logo Reveal (Centered and settled) ── */}
+      {/* ── High-Resolution AANGARA Logo Reveal (Centered over the living flame) ── */}
       <div
         className="absolute z-20 flex flex-col items-center pointer-events-none"
         style={{

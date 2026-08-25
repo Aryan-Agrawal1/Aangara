@@ -62,7 +62,7 @@ const TEAM_MEMBERS = [
 export function TeamSection() {
   return (
     <section className="mb-14 pt-8">
-      <div className="flex items-center justify-between mb-16 border-b border-[#E8E2DC] pb-3">
+      <div className="flex items-center justify-between mb-12 border-b border-[#E8E2DC] pb-3">
         <div>
           <h2 className="text-xl font-bold text-[#1A1C18] tracking-tight">Core Engineering Team</h2>
           <p className="text-xs text-[#6B7268] mt-1">Systems Architecture, Carbon Economics &amp; Decision Intelligence</p>
@@ -70,15 +70,15 @@ export function TeamSection() {
       </div>
       
       {/* 3x2 Grid on desktop/tablet, 1-col on mobile - Compact Portrait Vertical Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-16 pt-4 max-w-5xl mx-auto">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 pt-2 max-w-5xl mx-auto">
         {TEAM_MEMBERS.map((member) => (
           <div 
             key={member.id} 
-            className="group team-blue-glass-card rounded-2xl px-5 pb-5 pt-0 flex flex-col items-center text-center max-w-[300px] w-full mx-auto"
+            className="group team-blue-glass-card rounded-2xl pt-6 pb-5 px-5 flex flex-col items-center text-center max-w-[300px] w-full mx-auto shadow-sm"
           >
-            {/* Avatar overlapping top edge */}
-            <div className="-mt-10 w-20 h-20 relative z-10 rounded-full bg-gradient-to-br from-[#1F4D2E] via-[#27643A] to-[#10231C] flex flex-shrink-0 items-center justify-center text-[#F5F2F3] font-bold text-xl mb-3 shadow-md ring-4 ring-white transition-all duration-300 group-hover:scale-105 group-hover:shadow-[0_8px_20px_rgba(31,77,46,0.30)] group-hover:ring-[#E0EEFF]">
-              <span className="font-mono tracking-wider">{member.initials}</span>
+            {/* Avatar Circle (100% Fully Visible, No Overflow Clipping) */}
+            <div className="w-20 h-20 rounded-full bg-gradient-to-br from-[#1F4D2E] via-[#27643A] to-[#10231C] flex flex-shrink-0 items-center justify-center text-white font-bold text-xl mb-3 shadow-md ring-4 ring-white/90 border border-[#BAE0FD] transition-all duration-300 group-hover:scale-105 group-hover:shadow-[0_8px_20px_rgba(31,77,46,0.30)] group-hover:ring-[#BAE0FD]">
+              <span className="font-mono tracking-widest text-white text-xl font-black">{member.initials}</span>
             </div>
             
             {/* Name & Title Container with NO clipping */}
