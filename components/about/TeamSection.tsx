@@ -6,7 +6,6 @@ const TEAM_MEMBERS = [
   { 
     id: 1, 
     name: 'Aryan Agrawal', 
-    title: 'Lead Architect & Systems',
     initials: 'AA',
     linkedin: 'https://www.linkedin.com/in/aryan-agrawal-286685371',
     github: 'https://github.com/Aryan-Agrawal1',
@@ -15,7 +14,6 @@ const TEAM_MEMBERS = [
   { 
     id: 2, 
     name: 'Arko Roy Chowdhury', 
-    title: 'Core Infrastructure & Data Engine',
     initials: 'AR',
     linkedin: 'https://www.linkedin.com/in/arkoroychowdhury/',
     github: 'https://github.com/Max-Rex-2006',
@@ -24,7 +22,6 @@ const TEAM_MEMBERS = [
   { 
     id: 3, 
     name: 'Biswajit Baral', 
-    title: 'Machine Learning & Benchmarking',
     initials: 'BB',
     linkedin: 'https://www.linkedin.com/in/biswajit-baral-540991367',
     github: 'https://github.com/BISWAJIT-BARAL01',
@@ -33,7 +30,6 @@ const TEAM_MEMBERS = [
   { 
     id: 4, 
     name: 'Subhankar Das Mohanty', 
-    title: 'Full-Stack & Systems Engineering',
     initials: 'SD',
     linkedin: 'https://www.linkedin.com/in/subhankar-das-mohanty/',
     github: 'https://github.com/subhankardasmohanty',
@@ -42,7 +38,6 @@ const TEAM_MEMBERS = [
   { 
     id: 5, 
     name: 'Monami Jana', 
-    title: 'Regulatory & Carbon Modeling',
     initials: 'MJ',
     linkedin: 'https://www.linkedin.com/in/monami-jana-8069a223b',
     github: 'https://github.com/monamiJ',
@@ -51,7 +46,6 @@ const TEAM_MEMBERS = [
   { 
     id: 6, 
     name: 'S.V.S. Praveenya', 
-    title: 'Optimization & Decision Engines',
     initials: 'SP',
     linkedin: 'https://www.linkedin.com/in/praveenya-s-92016737a',
     github: 'https://github.com/praveenya5577-coder',
@@ -74,21 +68,18 @@ export function TeamSection() {
         {TEAM_MEMBERS.map((member) => (
           <div 
             key={member.id} 
-            className="group team-blue-glass-card rounded-2xl pt-6 pb-5 px-5 flex flex-col items-center text-center max-w-[300px] w-full mx-auto shadow-sm"
+            className="group team-blue-glass-card rounded-2xl pt-6 pb-5 px-5 flex flex-col items-center text-center max-w-[280px] w-full mx-auto shadow-sm"
           >
             {/* Avatar Circle (100% Fully Visible, No Overflow Clipping) */}
-            <div className="w-20 h-20 rounded-full bg-gradient-to-br from-[#1F4D2E] via-[#27643A] to-[#10231C] flex flex-shrink-0 items-center justify-center text-white font-bold text-xl mb-3 shadow-md ring-4 ring-white/90 border border-[#BAE0FD] transition-all duration-300 group-hover:scale-105 group-hover:shadow-[0_8px_20px_rgba(31,77,46,0.30)] group-hover:ring-[#BAE0FD]">
+            <div className="w-20 h-20 rounded-full bg-gradient-to-br from-[#1F4D2E] via-[#27643A] to-[#10231C] flex flex-shrink-0 items-center justify-center text-white font-bold text-xl mb-3.5 shadow-md ring-4 ring-white/90 border border-[#BAE0FD] transition-all duration-300 group-hover:scale-105 group-hover:shadow-[0_8px_20px_rgba(31,77,46,0.30)] group-hover:ring-[#BAE0FD]">
               <span className="font-mono tracking-widest text-white text-xl font-black">{member.initials}</span>
             </div>
             
-            {/* Name & Title Container with NO clipping */}
+            {/* Member Name */}
             <div className="flex flex-col flex-1 justify-center w-full mb-4 px-1">
               <h3 className="text-base font-bold text-[#1A1C18] tracking-tight transition-colors duration-200 group-hover:text-[#1F4D2E]">
                 {member.name}
               </h3>
-              <p className="text-xs font-semibold text-[#2E6BA8] mt-1 leading-snug">
-                {member.title}
-              </p>
             </div>
             
             {/* Direct Official Brand Social Icons (No circular container wrapping) */}
