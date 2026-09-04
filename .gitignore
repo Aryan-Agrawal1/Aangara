@@ -34,7 +34,6 @@ scripts/
 docs/
 e2e/
 __tests__/
-types/
 docker-compose.yml
 vitest.config.ts
 vitest.setup.ts
