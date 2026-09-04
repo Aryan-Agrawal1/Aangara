@@ -39,8 +39,9 @@ interface PeerBenchmarkCardProps {
 export function PeerBenchmarkCard({ benchmark, actualGei, targetGei }: PeerBenchmarkCardProps) {
   if (!benchmark) return null;
 
-  const isLeader = benchmark.peer_percentile < 35;
-  const isLagging = benchmark.peer_percentile > 70;
+  const percentile = benchmark.peer_percentile ?? 50;
+  const isLeader = percentile < 35;
+  const isLagging = percentile > 70;
   const median = benchmark.peer_median_gei || 1.0;
   const p25 = benchmark.peer_p25_gei || median * 0.85;
   const p75 = benchmark.peer_p75_gei || median * 1.15;
@@ -175,10 +176,10 @@ export function PeerBenchmarkCard({ benchmark, actualGei, targetGei }: PeerBench
             <HelpCircle className="w-3 h-3 text-[#6B7A72]" />
           </div>
           <div className="text-xl font-bold text-[#2E6BA8] font-mono mt-1">
-            {formatGEI(benchmark.peer_median_gei)}
+            {formatGEI(median)}
           </div>
           <div className="text-[10px] text-[#4B5A54] mt-1 font-mono">
-            IQR: {benchmark.peer_p25_gei.toFixed(3)} – {benchmark.peer_p75_gei.toFixed(3)}
+            IQR: {p25.toFixed(3)} – {p75.toFixed(3)}
           </div>
         </div>
 
@@ -195,7 +196,7 @@ export function PeerBenchmarkCard({ benchmark, actualGei, targetGei }: PeerBench
             Peer Percentile Rank
           </div>
           <div className="text-xl font-bold font-mono mt-1 flex items-center space-x-2">
-            <span>{benchmark.peer_percentile.toFixed(0)}th Percentile</span>
+            <span>{percentile.toFixed(0)}th Percentile</span>
             {isLeader ? (
               <Award className="w-4 h-4 text-[#0B4A3D]" />
             ) : isLagging ? (
@@ -350,9 +351,9 @@ export function PeerBenchmarkCard({ benchmark, actualGei, targetGei }: PeerBench
 
         {/* Statistical Range Scale Bar */}
         <div className="flex justify-between text-[11px] font-mono text-[#4B5A54] mt-2 px-1">
-          <span className="text-[#0B4A3D]">P25 Leader Threshold: {benchmark.peer_p25_gei.toFixed(4)}</span>
-          <span className="text-[#2E6BA8] font-bold">P50 Sector Median: {benchmark.peer_median_gei.toFixed(4)}</span>
-          <span className="text-[#C33B2E]">P75 Lagging Threshold: {benchmark.peer_p75_gei.toFixed(4)}</span>
+          <span className="text-[#0B4A3D]">P25 Leader Threshold: {p25.toFixed(4)}</span>
+          <span className="text-[#2E6BA8] font-bold">P50 Sector Median: {median.toFixed(4)}</span>
+          <span className="text-[#C33B2E]">P75 Lagging Threshold: {p75.toFixed(4)}</span>
         </div>
       </div>
 

@@ -3,7 +3,7 @@ import { REGULATORY_STATUS_DATA, REGULATORY_TARGETS_DATA } from '@/lib/engines/d
 
 export async function GET(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const statusDict = REGULATORY_STATUS_DATA.sectors || {};
+  const statusDict = (REGULATORY_STATUS_DATA.sectors || {}) as Record<string, any>;
   const sec = statusDict[id];
   if (!sec) {
     return NextResponse.json({ success: false, error: `Sector '${id}' not found` }, { status: 404 });

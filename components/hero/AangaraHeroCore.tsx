@@ -160,29 +160,7 @@ export function AangaraHeroCore() {
         />
       </div>
 
-      {/* ── High-Resolution AANGARA Logo Reveal (Centered over the living flame) ── */}
-      <div
-        className="absolute z-20 flex flex-col items-center pointer-events-none"
-        style={{
-          opacity: logoVisible ? 1 : 0,
-          transform: logoVisible
-            ? 'scale(1) translateY(0)'
-            : 'scale(1.08) translateY(8px)',
-          transition:
-            'opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1)',
-        }}
-      >
-        <div className="relative w-48 h-48 sm:w-60 sm:h-60 lg:w-72 lg:h-72 xl:w-80 xl:h-80">
-          <Image
-            src="/aangara-logo-transparent.png"
-            alt="AANGARA Logo"
-            fill
-            priority
-            className="object-contain filter drop-shadow-[0_10px_24px_rgba(217,83,30,0.22)]"
-            sizes="(max-width: 640px) 192px, (max-width: 1024px) 240px, 320px"
-          />
-        </div>
-      </div>
+
     </div>
   );
 }

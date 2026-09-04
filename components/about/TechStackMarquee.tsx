@@ -3,7 +3,7 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
 
-const LogoLoop = dynamic(() => import('@/components/ui/LogoLoop'), { ssr: false });
+const LogoLoop = dynamic<any>(() => import('@/components/ui/LogoLoop'), { ssr: false });
 
 export function TechStackMarquee() {
   const TECH_STACK_ITEMS = [

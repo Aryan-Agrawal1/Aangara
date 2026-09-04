@@ -9,7 +9,8 @@ export async function POST(request: NextRequest) {
     const entity = (MASTER_ENTITIES_DATA.entities || []).find((e: any) => e.entity_id === req.entity_id) 
       || (MASTER_ENTITIES_DATA.entities || [])[0];
 
-    const rp = entity?.reporting_periods?.[req.reporting_year || '2025-26'] || Object.values(entity?.reporting_periods || {})[0] || {
+    const periods = (entity?.reporting_periods || {}) as Record<string, any>;
+    const rp = periods[req.reporting_year || '2025-26'] || Object.values(periods)[0] || {
       actual_output: 1000000,
       total_ghg_tco2e: 760000,
       target_gei: 0.72,

@@ -1,22 +1,52 @@
+/**
+ * AANGARA Opportunity Engine v3.0
+ * ─────────────────────────────────────────────────────────
+ * Generates engineering decarbonisation opportunities across industrial sectors.
+ *
+ * Implements:
+ *   §37: Industrial Energy Efficiency & WHRS Models
+ *   §38: Renewable Power Integration (Solar, Wind, Battery Storage)
+ *   §47: Marginal Abatement Cost (Lifecycle & Discounted)
+ *
+ * Prototype constants removed (§77):
+ *   - Universal 7500 operating hours → replaced by (8760 × Availability)
+ *   - 0.716 grid factor → replaced by factor registry lookup
+ *   - Fixed NPV multipliers → replaced by FinanceEngine DCF evaluation
+ */
+
+import { resolveElectricityFactor } from '@/lib/registries/factor-registry';
+import { FinanceEngine } from './finance';
+
 export interface Opportunity {
   id: string;
   title: string;
-  category: string;
+  category: 'ENERGY_EFFICIENCY' | 'RENEWABLE_POWER' | 'FUEL_SWITCH' | 'PROCESS_OPTIMIZATION' | 'CIRCULAR_ECONOMY';
   capex_cr: number;
   annual_opex_change_cr: number;
   annual_energy_savings_cr: number;
   annual_reduction_tco2e: number;
   payback_years: number;
   npv_10yr_cr: number;
-  cost_per_tco2e: number;
+  cost_per_tco2e: number; // Marginal Abatement Cost (₹/tCO2e)
+  profitability_index?: number;
   bee_methodology_code: string;
   timeline_months: number;
-  feasibility_tier: string;
+  feasibility_tier: 'HIGH' | 'MEDIUM' | 'COMPLEX';
   technology_readiness: string;
   description: string;
+  key_assumptions?: {
+    capacity_mw?: number;
+    annual_generation_mwh?: number;
+    availability_pct?: number;
+    grid_ef_used?: number;
+  };
 }
 
 export class OpportunityEngine {
+
+  /**
+   * Identifies prioritized techno-economic decarbonisation opportunities
+   */
   static identifyOpportunities(params: {
     sector: string;
     annual_production: number;
@@ -24,132 +54,167 @@ export class OpportunityEngine {
     actual_gei: number;
     electricity_mwh: number;
     renewable_pct: number;
-    whrs_mw: number;
+    whrs_mw?: number;
+    state?: string;
   }): Opportunity[] {
-    const { sector, annual_production, current_emissions_tco2e, electricity_mwh, renewable_pct, whrs_mw } = params;
-    const sec = sector.toLowerCase();
+    const {
+      sector,
+      annual_production,
+      current_emissions_tco2e,
+      electricity_mwh,
+      renewable_pct,
+      whrs_mw = 0,
+      state,
+    } = params;
 
+    const sec = sector.toLowerCase();
     const opps: Opportunity[] = [];
 
-    // 1. WHRS
-    if (['cement', 'iron_steel', 'refinery'].includes(sec) && whrs_mw < 10) {
-      const pot_mw = sec === 'cement' ? Math.max(5.0, (annual_production / 1e6) * 8.0) : 15.0;
-      const capex = pot_mw * 8.5;
-      const gen_mwh = pot_mw * 7500;
-      const savings = (gen_mwh * 6500) / 1e7;
-      const red = gen_mwh * 0.716;
-      const npv = savings * 6.5 - capex;
+    // Dynamically resolve grid emission factor from factor registry (§77.1)
+    const grid_ef = resolveElectricityFactor('GRID_DISCOM', false, state).value;
+
+    // ── 1. Waste Heat Recovery System (WFRS / WHRS) ──
+    // Spec §37.4, §77.3: Replace 7500h with (8760 × Availability)
+    if (['cement', 'iron_steel', 'petroleum_refinery'].includes(sec) && whrs_mw < 8) {
+      const pot_mw = sec === 'cement'
+        ? Math.max(4.0, (annual_production / 1e6) * 7.5)
+        : (sec === 'iron_steel' ? 14.0 : 8.0);
+
+      const capex = pot_mw * 8.5; // ₹8.5 Cr / MW for boiler + steam turbine generator
+      const availability = 0.85;  // 85% availability factor (7,446 annual operating hours)
+      const annual_gen_mwh = pot_mw * 8760 * availability;
+      const power_cost_inr_per_kwh = 6.80; // ₹6.80/kWh grid displaced
+      const energy_savings_cr = (annual_gen_mwh * 1000 * power_cost_inr_per_kwh) / 1e7;
+      const opex_cr = capex * 0.035; // 3.5% of CAPEX annual O&M
+      const annual_abatement_tco2e = annual_gen_mwh * grid_ef;
+
+      // Evaluate cashflows using DCF Finance Engine
+      const fin = FinanceEngine.evaluateProject(
+        capex,
+        opex_cr,
+        energy_savings_cr,
+        annual_abatement_tco2e,
+        9.5,
+        15
+      );
+
       opps.push({
         id: 'OPP-WHRS-01',
         title: `Waste Heat Recovery System (${pot_mw.toFixed(1)} MW)`,
         category: 'ENERGY_EFFICIENCY',
         capex_cr: Number(capex.toFixed(1)),
-        annual_opex_change_cr: Number((capex * 0.03).toFixed(2)),
-        annual_energy_savings_cr: Number(savings.toFixed(2)),
-        annual_reduction_tco2e: Number(red.toFixed(0)),
-        payback_years: Number((capex / savings).toFixed(1)),
-        npv_10yr_cr: Number(npv.toFixed(1)),
-        cost_per_tco2e: Number(((capex * 1e7) / (red * 10)).toFixed(0)),
+        annual_opex_change_cr: Number(opex_cr.toFixed(2)),
+        annual_energy_savings_cr: Number(energy_savings_cr.toFixed(2)),
+        annual_reduction_tco2e: Number(annual_abatement_tco2e.toFixed(0)),
+        payback_years: fin.simple_payback_years,
+        npv_10yr_cr: fin.npv_cr,
+        cost_per_tco2e: fin.mac_inr_per_tco2e,
+        profitability_index: fin.profitability_index,
         bee_methodology_code: 'BEE-CCTS-M-01-EE',
         timeline_months: 18,
         feasibility_tier: 'HIGH',
         technology_readiness: 'TRL-9 Commercial',
-        description: 'Captures pre-heater and cooler exhaust gas to generate captive power, displacing grid electricity.'
+        description: 'Recovers high-enthalpy flue gas from preheater and clinker cooler to generate captive power, displacing grid electricity.',
+        key_assumptions: {
+          capacity_mw: Number(pot_mw.toFixed(1)),
+          annual_generation_mwh: Number(annual_gen_mwh.toFixed(0)),
+          availability_pct: 85,
+          grid_ef_used: grid_ef,
+        },
       });
     }
 
-    // 2. Renewable PPA / Captive Solar-Wind
-    if (renewable_pct < 50) {
-      const target_ren_pct = 50.0;
-      const add_pct = target_ren_pct - renewable_pct;
-      const add_mwh = electricity_mwh * (add_pct / 100.0);
-      const solar_mw = Math.max(1.0, add_mwh / 1750.0);
-      const capex = solar_mw * 3.8;
-      // Tariff savings: ₹3.60/kWh differential over industrial grid tariff (1 MWh = 1000 kWh, 1 Cr = 1e7 INR)
-      const savings = (add_mwh * 1000 * 3.60) / 1e7;
-      const opex = capex * 0.015;
-      const net_annual_savings = Math.max(0.5, savings - opex);
-      const red = add_mwh * 0.716;
-      const npv = net_annual_savings * 6.5 - capex;
-      const payback = capex / net_annual_savings;
+    // ── 2. Captive / Group Captive Solar PV ──
+    // Spec §38: Solar capacity factor ~ 21% (1,840 annual generation hours)
+    if (renewable_pct < 60 && electricity_mwh > 20000) {
+      const target_re_mwh = Math.min(electricity_mwh * 0.35, 150000);
+      const solar_cf = 0.21; // 21% AC Capacity Utilization Factor
+      const solar_mw = target_re_mwh / (8760 * solar_cf);
+      const capex = solar_mw * 3.8; // ₹3.8 Cr / MWp ground-mounted solar
+      const annual_gen_mwh = solar_mw * 8760 * solar_cf;
+      const grid_tariff_inr = 7.00;
+      const solar_lcoe_inr = 3.20;
+      const net_unit_saving = grid_tariff_inr - solar_lcoe_inr;
+      const energy_savings_cr = (annual_gen_mwh * 1000 * net_unit_saving) / 1e7;
+      const opex_cr = capex * 0.018; // 1.8% O&M
+      const annual_abatement_tco2e = annual_gen_mwh * grid_ef;
+
+      const fin = FinanceEngine.evaluateProject(
+        capex,
+        opex_cr,
+        energy_savings_cr,
+        annual_abatement_tco2e,
+        9.0,
+        20
+      );
+
       opps.push({
-        id: 'OPP-RE-02',
-        title: `Group Captive Solar-Wind Hybrid (${solar_mw.toFixed(1)} MWp)`,
-        category: 'FUEL_SWITCHING',
+        id: 'OPP-SOLAR-01',
+        title: `Captive Group Solar PV (${solar_mw.toFixed(1)} MWp)`,
+        category: 'RENEWABLE_POWER',
         capex_cr: Number(capex.toFixed(1)),
-        annual_opex_change_cr: Number(opex.toFixed(2)),
-        annual_energy_savings_cr: Number(savings.toFixed(2)),
-        annual_reduction_tco2e: Number(red.toFixed(0)),
-        payback_years: Number(payback.toFixed(1)),
-        npv_10yr_cr: Number(npv.toFixed(1)),
-        cost_per_tco2e: Number(((capex * 1e7) / (red * 10)).toFixed(0)),
-        bee_methodology_code: 'BEE-CCTS-M-02-RE',
+        annual_opex_change_cr: Number(opex_cr.toFixed(2)),
+        annual_energy_savings_cr: Number(energy_savings_cr.toFixed(2)),
+        annual_reduction_tco2e: Number(annual_abatement_tco2e.toFixed(0)),
+        payback_years: fin.simple_payback_years,
+        npv_10yr_cr: fin.npv_cr,
+        cost_per_tco2e: fin.mac_inr_per_tco2e,
+        profitability_index: fin.profitability_index,
+        bee_methodology_code: 'BEE-CCTS-M-04-RE',
         timeline_months: 12,
-        feasibility_tier: 'VERY_HIGH',
-        technology_readiness: 'TRL-9 Commercial',
-        description: 'Open access green tariff and hybrid group captive RE sourcing to achieve Scope 2 decarbonisation.'
-      });
-    }
-
-
-    // 3. Sector Specific Process Upgrade
-    if (sec === 'cement') {
-      const red = annual_production * 0.08 * 0.525;
-      opps.push({
-        id: 'OPP-CEM-LC3',
-        title: 'Low-Clinker LC3 / Composite Cement Transition',
-        category: 'PROCESS_UPGRADE',
-        capex_cr: 18.5,
-        annual_opex_change_cr: -4.2,
-        annual_energy_savings_cr: 8.5,
-        annual_reduction_tco2e: Number(red.toFixed(0)),
-        payback_years: 1.5,
-        npv_10yr_cr: 64.2,
-        cost_per_tco2e: 420.0,
-        bee_methodology_code: 'BEE-CCTS-M-04-PROCESS',
-        timeline_months: 9,
         feasibility_tier: 'HIGH',
-        technology_readiness: 'TRL-8 Scaled',
-        description: 'Blended limestone calcined clay formulation reducing clinker factor from 74% to 58%.'
-      });
-    } else if (sec === 'iron_steel') {
-      opps.push({
-        id: 'OPP-STL-DRI',
-        title: 'Top Gas Recovery Turbine & Coal Moisture Control',
-        category: 'PROCESS_UPGRADE',
-        capex_cr: 42.0,
-        annual_opex_change_cr: 1.2,
-        annual_energy_savings_cr: 14.8,
-        annual_reduction_tco2e: 38000,
-        payback_years: 3.1,
-        npv_10yr_cr: 58.4,
-        cost_per_tco2e: 1100.0,
-        bee_methodology_code: 'BEE-CCTS-M-03-STEEL',
-        timeline_months: 24,
-        feasibility_tier: 'MODERATE',
         technology_readiness: 'TRL-9 Commercial',
-        description: 'Installation of TRT on Blast Furnace top gas to recover kinetic and pressure energy.'
-      });
-    } else {
-      opps.push({
-        id: 'OPP-GEN-VFD',
-        title: 'VFD Retrofits & Premium Efficiency IE4 Motor Drives',
-        category: 'ENERGY_EFFICIENCY',
-        capex_cr: 8.5,
-        annual_opex_change_cr: 0.2,
-        annual_energy_savings_cr: 3.8,
-        annual_reduction_tco2e: 4100,
-        payback_years: 2.3,
-        npv_10yr_cr: 16.5,
-        cost_per_tco2e: 2070.0,
-        bee_methodology_code: 'BEE-CCTS-M-01-EE',
-        timeline_months: 6,
-        feasibility_tier: 'VERY_HIGH',
-        technology_readiness: 'TRL-9 Commercial',
-        description: 'Replacement of standard motors with IE4 Super Premium Efficiency motors with intelligent VFD controls.'
+        description: 'Utility-scale off-site group captive solar power wheeled through state Open Access framework.',
+        key_assumptions: {
+          capacity_mw: Number(solar_mw.toFixed(1)),
+          annual_generation_mwh: Number(annual_gen_mwh.toFixed(0)),
+          availability_pct: 98,
+          grid_ef_used: grid_ef,
+        },
       });
     }
 
-    return opps;
+    // ── 3. Thermal Biomass / Alternate Fuel Substitution (TSR) ──
+    if (['cement', 'pulp_paper', 'textile'].includes(sec)) {
+      const sub_tonnes_fuel = Math.min(25000, annual_production * 0.02);
+      const capex = 18.0; // Pre-processing, shredding & burner modification
+      const coal_landed_inr_per_tonne = 7800;
+      const biomass_landed_inr_per_tonne = 4800;
+      // Net landed fuel cost savings (scaled by calorific ratio ~0.70)
+      const annual_savings_cr = (sub_tonnes_fuel * (coal_landed_inr_per_tonne - biomass_landed_inr_per_tonne / 0.70)) / 1e7;
+      const annual_opex_cr = 1.20;
+      const annual_abatement_tco2e = sub_tonnes_fuel * 1.82; // Displaced coal fossil emissions
+
+      const fin = FinanceEngine.evaluateProject(
+        capex,
+        annual_opex_cr,
+        Math.max(2.5, annual_savings_cr),
+        annual_abatement_tco2e,
+        9.5,
+        10
+      );
+
+      opps.push({
+        id: 'OPP-AFR-01',
+        title: 'Alternate Fuel / Biomass Co-Processing System',
+        category: 'FUEL_SWITCH',
+        capex_cr: capex,
+        annual_opex_change_cr: annual_opex_cr,
+        annual_energy_savings_cr: Number(Math.max(2.5, annual_savings_cr).toFixed(2)),
+        annual_reduction_tco2e: Number(annual_abatement_tco2e.toFixed(0)),
+        payback_years: fin.simple_payback_years,
+        npv_10yr_cr: fin.npv_cr,
+        cost_per_tco2e: fin.mac_inr_per_tco2e,
+        profitability_index: fin.profitability_index,
+        bee_methodology_code: 'BEE-CCTS-M-02-FS',
+        timeline_months: 14,
+        feasibility_tier: 'MEDIUM',
+        technology_readiness: 'TRL-9 Commercial',
+        description: 'Replaces fossil coal with agricultural residue briquettes & RDF to achieve 15% Thermal Substitution Rate (TSR).',
+      });
+    }
+
+    // Sort by NPV and Profitability Index
+    return opps.sort((a, b) => b.npv_10yr_cr - a.npv_10yr_cr);
   }
 }

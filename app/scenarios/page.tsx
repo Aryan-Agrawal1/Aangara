@@ -8,8 +8,9 @@ import { Header } from '@/components/navigation/Header';
 import { ScenarioSliders } from '@/components/cockpit/ScenarioSliders';
 import { runScenarioSimulation, getEntities, getSectors } from '@/lib/api';
 import { ScenarioParams, ScenarioSimulationResult } from '@/lib/types';
-import { formatCurrencyCr, formatEmissions, formatPricePerTonne } from '@/lib/formatters';
+import { formatEmissions, formatPricePerTonne } from '@/lib/formatters';
 import { useAppStore } from '@/lib/store';
+import { useCurrency } from '@/lib/context/CurrencyContext';
 import {
   LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid,
   Tooltip, ResponsiveContainer, Legend, Cell
@@ -25,8 +26,8 @@ const STRATEGY_COLORS: Record<string, string> = {
 const CHART_GRID = '#E4E9E6';
 const CHART_TEXT = '#6B7A72';
 
-// Custom dark tooltip
 const ScenarioTooltip = ({ active, payload, label }: any) => {
+  const { symbol, formatCr } = useCurrency();
   if (!active || !payload?.length) return null;
   return (
     <div className="bg-white border border-[#E4E9E6] shadow-lg border border-[#E4E9E6] rounded-lg p-3 text-xs shadow-2xl">
@@ -35,7 +36,7 @@ const ScenarioTooltip = ({ active, payload, label }: any) => {
         <div key={i} className="flex justify-between items-center space-x-3 py-0.5">
           <span style={{ color: p.color }} className="font-medium">{p.name}:</span>
           <span className="font-mono text-[#10231C] font-bold">
-            {typeof p.value === 'number' ? `₹${p.value.toFixed(2)} Cr` : p.value}
+            {typeof p.value === 'number' ? formatCr(p.value) : p.value}
           </span>
         </div>
       ))}
@@ -55,6 +56,7 @@ export default function ScenariosPage() {
   const [sensitivityData, setSensitivityData] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const { symbol, formatCr } = useCurrency();
 
   // Initialize sectors/entities if not already populated
   useEffect(() => {
@@ -85,7 +87,7 @@ export default function ScenariosPage() {
           ccc_price_inr: p
         });
         curve.push({
-          priceLabel: `₹${p}/t`,
+          priceLabel: `${symbol}${p}/t`,
           price: p,
           BUY: sim.strategies.BUY?.total_cost_cr || 0,
           BUILD: sim.strategies.BUILD?.total_cost_cr || 0,
@@ -124,7 +126,7 @@ export default function ScenariosPage() {
         currentSector={currentSector}
         currentEntityId={currentEntityId}
         reportingYear={reportingYear}
-        onSectorChange={async (sec) => {
+        onSectorChange={async (sec: string) => {
           setSector(sec);
           const ents = await getEntities(sec);
           setEntities(ents);
@@ -198,7 +200,7 @@ export default function ScenariosPage() {
                     <Activity className="w-4 h-4" />
                   </div>
                   <div>
-                    <h3 className="text-sm font-bold text-[#10231C]">Carbon Market Price Sensitivity Curve (₹200 – ₹2,600 / tCO₂e)</h3>
+                    <h3 className="text-sm font-bold text-[#10231C]">Carbon Market Price Sensitivity Curve ({symbol}200 – {symbol}2,600 / tCO₂e)</h3>
                     <p className="text-xs text-[#4B5A54]">Shows total 3-year lifecycle cost trajectory and economic switching points across strategies</p>
                   </div>
                 </div>
@@ -214,7 +216,7 @@ export default function ScenariosPage() {
                       <LineChart data={sensitivityData} margin={{ top: 10, right: 20, left: 10, bottom: 5 }}>
                         <CartesianGrid strokeDasharray="3 3" stroke={CHART_GRID} vertical={false} />
                         <XAxis dataKey="priceLabel" tick={{ fill: CHART_TEXT, fontSize: 11 }} axisLine={false} tickLine={false} />
-                        <YAxis tick={{ fill: CHART_TEXT, fontSize: 10 }} axisLine={false} tickLine={false} tickFormatter={(v) => `₹${v.toFixed(0)}Cr`} />
+                        <YAxis tick={{ fill: CHART_TEXT, fontSize: 10 }} axisLine={false} tickLine={false} tickFormatter={(v) => `${symbol}${v.toFixed(0)}Cr`} />
                         <Tooltip content={<ScenarioTooltip />} />
                         <Legend formatter={(val) => <span style={{ color: STRATEGY_COLORS[val], fontSize: 12 }}>{val} Strategy</span>} />
                         <Line type="monotone" dataKey="BUY" stroke={STRATEGY_COLORS.BUY} strokeWidth={2} dot={{ r: 3 }} />
@@ -260,7 +262,7 @@ export default function ScenariosPage() {
                       <div className="bg-[#F6F8F7]/90 rounded-lg p-3 border border-[#E4E9E6] my-3">
                         <div className="text-[10px] text-[#4B5A54] uppercase font-medium">Scenario 3-Yr Cost</div>
                         <div className="text-xl font-bold text-[#10231C] tnum mt-0.5">
-                          {formatCurrencyCr(s.total_cost_cr)}
+                          {formatCr(s.total_cost_cr)}
                         </div>
                         <div className="text-[11px] text-[#4B5A54] mt-1 flex justify-between">
                           <span>Cost / tCO₂e:</span>

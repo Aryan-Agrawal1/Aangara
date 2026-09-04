@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { ChevronDown, Menu, X, ArrowRight } from "lucide-react";
+import { CurrencySelector } from "@/components/ui/CurrencySelector";
 
 // Primary navigation — 5 core product modules
 const PRIMARY_NAV = [
@@ -88,7 +89,7 @@ export function Header({ currentSector, currentEntityId, reportingYear, onSector
 
           {/* ── Desktop nav ── */}
           <nav
-            className="hidden lg:flex items-center gap-0.5 flex-1"
+            className="hidden md:flex items-center gap-0.5 flex-1"
             role="navigation"
             aria-label="Main navigation"
           >
@@ -154,20 +155,23 @@ export function Header({ currentSector, currentEntityId, reportingYear, onSector
             </div>
           </nav>
 
-          {/* ── Right: CTA + Mobile trigger ── */}
-          <div className="flex items-center gap-2.5 ml-auto lg:ml-0">
+          {/* ── Right: Currency Selector + CTA + Mobile trigger ── */}
+          <div className="flex items-center gap-2.5 ml-auto md:ml-0">
+            {/* Currency Selector */}
+            <CurrencySelector />
+
             {/* Primary CTA — desktop only */}
             <Link
-              href="/industrial-intelligence"
-              className="hidden lg:inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-[#1F4D2E] hover:bg-[#27643A] text-white text-[13px] font-semibold transition-all duration-150 shadow-sm hover:shadow-[0_4px_12px_rgba(31,77,46,0.3)] transform hover:-translate-y-px"
+              href="/decision"
+              className="hidden md:inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-[#1F4D2E] hover:bg-[#27643A] text-white text-[13px] font-semibold transition-all duration-150 shadow-sm hover:shadow-[0_4px_12px_rgba(31,77,46,0.3)] transform hover:-translate-y-px"
             >
-              Launch Platform
+              Launch Decision Twin
               <ArrowRight className="w-3.5 h-3.5" />
             </Link>
 
             {/* Mobile hamburger */}
             <button
-              className="lg:hidden w-10 h-10 flex items-center justify-center rounded-lg hover:bg-[#F0EDE9] text-[#4A5446] border border-[#E8E2DC] transition-colors"
+              className="md:hidden w-10 h-10 flex items-center justify-center rounded-lg hover:bg-[#F0EDE9] text-[#4A5446] border border-[#E8E2DC] transition-colors"
               onClick={() => setMobileOpen(!mobileOpen)}
               aria-label="Toggle navigation"
               aria-expanded={mobileOpen}
@@ -180,7 +184,7 @@ export function Header({ currentSector, currentEntityId, reportingYear, onSector
 
       {/* ── Mobile nav panel ── */}
       {mobileOpen && (
-        <div className="lg:hidden border-t border-[#E8E2DC] bg-white">
+        <div className="md:hidden border-t border-[#E8E2DC] bg-white">
           <nav className="px-4 py-3 flex flex-col gap-0.5">
             {[...PRIMARY_NAV, ...SECONDARY_NAV].map(({ href, label }) => (
               <Link
@@ -199,11 +203,11 @@ export function Header({ currentSector, currentEntityId, reportingYear, onSector
           </nav>
           <div className="px-4 pb-4">
             <Link
-              href="/industrial-intelligence"
+              href="/decision"
               onClick={() => setMobileOpen(false)}
               className="flex items-center justify-center gap-2 w-full py-3 rounded-lg bg-[#1F4D2E] hover:bg-[#27643A] text-white text-sm font-semibold transition-colors"
             >
-              Launch Platform
+              Launch Decision Twin
               <ArrowRight className="w-4 h-4" />
             </Link>
           </div>

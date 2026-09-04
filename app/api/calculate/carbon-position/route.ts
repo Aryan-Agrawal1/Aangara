@@ -10,7 +10,8 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ success: false, error: `Entity '${req.entity_id}' not found` }, { status: 404 });
     }
 
-    const rp = entity.reporting_periods?.[req.reporting_year || '2025-26'];
+    const periods = (entity.reporting_periods || {}) as Record<string, any>;
+    const rp = periods[req.reporting_year || '2025-26'];
     if (!rp) {
       return NextResponse.json({ success: false, error: `Reporting period not found` }, { status: 404 });
     }

@@ -8,7 +8,8 @@ export async function POST(request: NextRequest) {
     const entity = (MASTER_ENTITIES_DATA.entities || []).find((e: any) => e.entity_id === req.entity_id) 
       || (MASTER_ENTITIES_DATA.entities || [])[0];
 
-    const rp = entity?.reporting_periods?.[req.reporting_year || '2025-26'] || {
+    const periods = (entity?.reporting_periods || {}) as Record<string, any>;
+    const rp = periods[req.reporting_year || '2025-26'] || {
       actual_output: 1000000,
       total_ghg_tco2e: 760000,
       target_gei: 0.72
@@ -54,8 +55,8 @@ export async function POST(request: NextRequest) {
         strategies: decision.strategies,
         recommended_strategy: decision.recommended_strategy,
         delta_vs_baseline: {
-          buy_cost_delta_cr: Number((decision.strategies.BUY.total_cost_3yr_cr - (output * Math.max(0, actual_gei - target_gei) * 1000 * 3 / 1e7)).toFixed(2)),
-          build_cost_delta_cr: Number((decision.strategies.BUILD.total_cost_3yr_cr - 50.0).toFixed(2)),
+          buy_cost_delta_cr: Number((decision.strategies.BUY.total_cost_cr - (output * Math.max(0, actual_gei - target_gei) * 1000 * 3 / 1e7)).toFixed(2)),
+          build_cost_delta_cr: Number((decision.strategies.BUILD.total_cost_cr - 50.0).toFixed(2)),
           recommendation_changed: false
         }
       },

@@ -3,6 +3,7 @@
 import React from 'react';
 import { ScenarioParams } from '@/lib/types';
 import { Sliders, RotateCcw } from 'lucide-react';
+import { useCurrency } from '@/lib/context/CurrencyContext';
 
 interface ScenarioSlidersProps {
   params: ScenarioParams;
@@ -12,6 +13,8 @@ interface ScenarioSlidersProps {
 }
 
 export function ScenarioSliders({ params, onChange, onReset }: ScenarioSlidersProps) {
+  const { format, convert } = useCurrency();
+
   const handleSlider = (key: keyof ScenarioParams, value: number) => {
     onChange({
       ...params,
@@ -50,7 +53,7 @@ export function ScenarioSliders({ params, onChange, onReset }: ScenarioSlidersPr
               <span>CCC Market Price</span>
               <span className="px-1 py-0.5 rounded text-[8px] bg-[#FEF7E8] text-amber-500 border border-amber-900/50 uppercase tracking-wider">Assumption</span>
             </span>
-            <span className="font-mono font-bold text-[#2E6BA8]">\u20B9{params.ccc_price_inr.toLocaleString('en-IN')}/t</span>
+            <span className="font-mono font-bold text-[#2E6BA8]">{convert(params.ccc_price_inr).formatted}/t</span>
           </div>
           <input
             type="range"
@@ -63,9 +66,9 @@ export function ScenarioSliders({ params, onChange, onReset }: ScenarioSlidersPr
             className="w-full h-1.5 bg-white border border-[#E4E9E6] rounded-lg appearance-none cursor-pointer accent-sky-500"
           />
           <div className="flex justify-between text-[10px] text-[#6B7A72] mt-1">
-            <span>\u20B9300 (Bear)</span>
-            <span>\u20B91,000 (Base)</span>
-            <span>\u20B93,500 (Bull)</span>
+            <span>{format(300)} (Bear)</span>
+            <span>{format(1000)} (Base)</span>
+            <span>{format(3500)} (Bull)</span>
           </div>
         </div>
 

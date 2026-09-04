@@ -9,8 +9,9 @@ import {
   PolarRadiusAxis
 } from 'recharts';
 import { StrategyResult, Project } from '@/lib/types';
-import { formatCurrencyCr, formatEmissions, formatPricePerTonne, formatYears, formatGEI } from '@/lib/formatters';
+import { formatEmissions, formatYears, formatGEI } from '@/lib/formatters';
 import { Crown, ShoppingCart, Hammer, GitMerge, ArrowRight, Zap, BarChart2, Activity } from 'lucide-react';
+import { useCurrency } from '@/lib/context/CurrencyContext';
 
 // ── Colour palette (preserves existing dark glass-panel design system) ──
 const STRATEGY_COLORS: Record<string, string> = {
@@ -53,6 +54,7 @@ export function DecisionTwinHero({
   onSelectStrategy,
   onOpenCalculationTrace,
 }: DecisionTwinHeroProps) {
+  const { symbol, formatCr } = useCurrency();
   const [chartView, setChartView] = useState<'bars' | 'radar'>('bars');
   const strategyList = ['BUY', 'BUILD', 'HYBRID'];
 
@@ -138,7 +140,7 @@ export function DecisionTwinHero({
                   <CartesianGrid strokeDasharray="3 3" stroke={CHART_GRID} vertical={false} />
                   <XAxis dataKey="name" tick={{ fill: CHART_TEXT, fontSize: 11 }} axisLine={false} tickLine={false} />
                   <YAxis tick={{ fill: CHART_TEXT, fontSize: 10 }} axisLine={false} tickLine={false} width={55}
-                    tickFormatter={(v) => `₹${v.toFixed(0)}Cr`} />
+                    tickFormatter={(v) => `${symbol}${v.toFixed(0)}Cr`} />
                   <Tooltip content={<DarkTooltip />} />
                   <Bar dataKey="Lifecycle Cost (Cr)" radius={[4, 4, 0, 0]} maxBarSize={56}>
                     {costData.map((entry) => (
@@ -259,10 +261,10 @@ export function DecisionTwinHero({
                     Modelled 3-Year Lifecycle Cost
                     <span className="ml-1.5 px-1.5 py-0.5 rounded text-[9px] bg-[#FEF7E8] text-[#C98A1E] border border-amber-500/30 font-mono font-bold">MODEL</span>
                   </div>
-                  <div className="text-2xl font-black text-[#1A1C18] tnum mt-0.5">{formatCurrencyCr(strat.total_cost_cr)}</div>
+                  <div className="text-2xl font-black text-[#1A1C18] tnum mt-0.5">{formatCr(strat.total_cost_cr)}</div>
                   <div className="text-[11px] text-[#6B7268] mt-1 flex items-center justify-between">
                     <span>Cost / tCO₂e:</span>
-                    <span className="font-mono font-semibold text-[#1A1C18]">{formatPricePerTonne(strat.cost_per_tco2e)}</span>
+                    <span className="font-mono font-semibold text-[#1A1C18]">{strat.cost_per_tco2e ? `${symbol}${Math.round(strat.cost_per_tco2e).toLocaleString('en-IN')}/tCO₂e` : `${symbol}0/tCO₂e`}</span>
                   </div>
                 </div>
 
@@ -272,7 +274,7 @@ export function DecisionTwinHero({
                     { label: 'Internal Decarbonisation', value: strat.internal_abatement_tco2e > 0 ? formatEmissions(strat.internal_abatement_tco2e) : '0 tCO₂e', color: '#1F4D2E' },
                     { label: 'Market CCC Procurement', value: (strat.ccc_procured_tco2e || 0) > 0 ? `${(strat.ccc_procured_tco2e || 0).toLocaleString('en-IN')} CCCs/yr` : '0 CCCs', color: '#2E6BA8' },
                     { label: 'Post-Strategy GEI', value: formatGEI(strat.post_strategy_gei), color: '#1A1C18' },
-                    strat.npv_cr !== null && strat.npv_cr !== undefined ? { label: '10-Yr NPV', value: formatCurrencyCr(strat.npv_cr), color: '#1F4D2E' } : null,
+                    strat.npv_cr !== null && strat.npv_cr !== undefined ? { label: '10-Yr NPV', value: formatCr(strat.npv_cr), color: '#1F4D2E' } : null,
                     strat.payback_years !== null && strat.payback_years !== undefined ? { label: 'Capital Payback', value: formatYears(strat.payback_years), color: '#1A1C18' } : null,
                     { label: 'Risk Index', value: `${strat.risk_score.toFixed(0)} / 100`, color: strat.risk_score < 40 ? '#1F4D2E' : strat.risk_score < 60 ? '#C98A1E' : '#D9531E' },
                   ].filter(Boolean).map((row: any, i) => (

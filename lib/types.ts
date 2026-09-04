@@ -53,6 +53,8 @@ export interface MRVReadiness {
   composite_score: number;
   status: string;
   notes?: string;
+  metering_coverage_pct?: number;
+  calibration_status?: string;
 }
 
 export interface RegulatoryProfile {
@@ -107,30 +109,45 @@ export interface CarbonPosition {
   potential_shortfall_tco2e: number;
   calculation_trace: CalculationTrace[];
   data_status: string;
+  // Compatibility fields
+  production_volume?: number;
+  production_unit?: string;
+  ccc_liability?: number;
+  shortfall_tco2e?: number;
+  scope1_fuel_tco2e?: number;
+  scope1_process_tco2e?: number;
+  scope2_electricity_tco2e?: number;
 }
 
 export interface StrategyResult {
   strategy: string;
+  name?: string;
+  strategy_id?: string;
   total_cost_cr: number;
+  total_cost_3yr_cr?: number;
+  annual_cost_cr?: number;
+  capex_cr?: number;
   internal_abatement_tco2e: number;
-  residual_shortfall_tco2e: number;
+  residual_shortfall_tco2e?: number;
   ccc_procured_tco2e: number;
   post_strategy_gei: number;
-  payback_years: number | null;
+  post_intervention_gei?: number;
+  payback_years?: number | null;
   npv_cr: number | null;
-  irr_pct: number | null;
-  cost_per_tco2e: number;
+  irr_pct?: number | null;
+  cost_per_tco2e?: number;
   risk_score: number;
   utility_score: number;
-  rank: number;
-  sub_scores: {
+  rank?: number;
+  sub_scores?: {
     financial: number;
     climate: number;
     compliance: number;
     mrv: number;
     timing: number;
   };
-  summary: string;
+  summary?: string;
+  is_recommended?: boolean;
 }
 
 export interface AnomalyIntelligence {

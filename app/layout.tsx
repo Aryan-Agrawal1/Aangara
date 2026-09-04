@@ -42,13 +42,17 @@ export const metadata: Metadata = {
   },
 };
 
+import { CurrencyProvider } from "@/lib/context/CurrencyContext";
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`light ${newsreader.variable} ${inter.variable}`} suppressHydrationWarning>
       <body className="bg-surface-base text-text-primary min-h-screen antialiased flex flex-col font-sans selection:bg-leaf-primary selection:text-white relative">
         <ThemeProvider>
-          {children}
-          <JudgeModeFAB />
+          <CurrencyProvider>
+            {children}
+            <JudgeModeFAB />
+          </CurrencyProvider>
           {/* Sitewide footer */}
           <footer className="w-full border-t border-[#E8E2DC] bg-white/70 backdrop-blur-sm py-4 px-6">
             <div className="max-w-[1400px] mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">

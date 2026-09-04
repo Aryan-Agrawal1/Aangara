@@ -117,7 +117,7 @@ export default function EntityInputPage() {
         currentSector={currentSector}
         currentEntityId={currentEntityId}
         reportingYear={reportingYear}
-        onSectorChange={async (sec) => {
+        onSectorChange={async (sec: string) => {
           setSector(sec);
           const ents = await getEntities(sec);
           setEntities(ents);

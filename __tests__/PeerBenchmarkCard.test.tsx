@@ -3,6 +3,7 @@ import { expect, test } from 'vitest';
 import { PeerBenchmarkCard } from '../components/intelligence/PeerBenchmarkCard';
 
 const mockBenchmark = {
+  facility_gei: 1.4,
   benchmark_model: 'CA-GEI-BENCHMARK-V2',
   peer_sample_count: 25000,
   peer_median_gei: 1.5,
