@@ -8,6 +8,27 @@
 import { create } from 'zustand';
 import { DecisionTwinData, Entity, ScenarioParams } from '@/lib/types';
 
+export type ManagementObjectiveType =
+  | 'BALANCED'
+  | 'LOWEST_CASH_COST'
+  | 'MINIMUM_CAPEX'
+  | 'MAXIMUM_NPV'
+  | 'MAXIMUM_IRR'
+  | 'MINIMUM_EXECUTION_RISK'
+  | 'MAXIMUM_CO2_REDUCTION'
+  | 'FASTEST_COMPLIANCE';
+
+export const MANAGEMENT_OBJECTIVE_LABELS: Record<ManagementObjectiveType, { label: string; description: string; icon: string }> = {
+  BALANCED:              { label: 'Balanced',          description: 'Equal weight across cost, climate, compliance, and timing', icon: '⚖️' },
+  LOWEST_CASH_COST:      { label: 'Lowest Cash Cost',   description: 'Minimise total cash outflow — ideal for capital-constrained facilities', icon: '💸' },
+  MINIMUM_CAPEX:         { label: 'Minimum CapEx',      description: 'Minimise upfront capital — prioritises BUY and lighter BUILD projects', icon: '📉' },
+  MAXIMUM_NPV:           { label: 'Maximum NPV',        description: 'Optimise long-term net present value over 10 years', icon: '📈' },
+  MAXIMUM_IRR:           { label: 'Maximum IRR',        description: 'Maximise internal rate of return on invested capital', icon: '🎯' },
+  MINIMUM_EXECUTION_RISK:{ label: 'Minimum Risk',       description: 'Prioritise lowest execution, technology, and regulatory risk', icon: '🛡️' },
+  MAXIMUM_CO2_REDUCTION: { label: 'Max CO₂ Reduction',  description: 'Maximise total tCO₂e abated — ESG / climate-first priority', icon: '🌿' },
+  FASTEST_COMPLIANCE:    { label: 'Fastest Compliance', description: 'Achieve GEI target by earliest possible date — regulatory urgency', icon: '⚡' },
+};
+
 interface AppState {
   // ── Selection State ──
   currentSector: string;
@@ -19,8 +40,13 @@ interface AppState {
   // ── Decision / Scenario State ──
   decisionData: DecisionTwinData | null;
   scenarioParams: ScenarioParams;
+  managementObjective: ManagementObjectiveType;
   decisionLoading: boolean;
   decisionError: string | null;
+
+  // ── Facility Intelligence Analysis Bridge ──
+  // Stores the last analysis result from /industrial-intelligence so /decision can pick it up
+  facilityAnalysisResult: any | null;
 
   // ── Actions ──
   setSector: (sector: string) => void;
@@ -30,6 +56,8 @@ interface AppState {
   setEntities: (entities: Entity[]) => void;
   setDecisionData: (data: DecisionTwinData | null) => void;
   setScenarioParams: (params: ScenarioParams) => void;
+  setManagementObjective: (objective: ManagementObjectiveType) => void;
+  setFacilityAnalysisResult: (result: any | null) => void;
   updateDecisionStrategies: (simResult: any, params: ScenarioParams) => void;
   setDecisionLoading: (loading: boolean) => void;
   setDecisionError: (error: string | null) => void;
@@ -52,8 +80,10 @@ export const useAppStore = create<AppState>((set) => ({
   entities: [],
   decisionData: null,
   scenarioParams: DEFAULT_SCENARIO_PARAMS,
+  managementObjective: 'BALANCED',
   decisionLoading: false,
   decisionError: null,
+  facilityAnalysisResult: null,
 
   // Actions
   setSector: (sector) => set({ currentSector: sector }),
@@ -63,23 +93,27 @@ export const useAppStore = create<AppState>((set) => ({
   setEntities: (entities) => set({ entities }),
   setDecisionData: (data) => set({ decisionData: data }),
   setScenarioParams: (params) => set({ scenarioParams: params }),
+  setManagementObjective: (objective) => set({ managementObjective: objective }),
+  setFacilityAnalysisResult: (result) => set({ facilityAnalysisResult: result }),
+
   updateDecisionStrategies: (simResult, params) => set((state) => {
     if (!state.decisionData) return state;
     return {
       decisionData: {
         ...state.decisionData,
         strategies: simResult.strategies,
-        recommended_strategy: simResult.winner_strategy,
-        recommendation_reason: simResult.winner_summary,
+        recommended_strategy: simResult.winner_strategy ?? simResult.recommended_strategy,
+        recommendation_reason: simResult.winner_summary ?? simResult.recommendation_reason,
         assumptions_applied: {
           ccc_price_inr: params.ccc_price_inr,
           project_output_delivery_pct: params.project_output_pct,
           project_delay_months: params.project_delay_months,
-          financing_rate_pct: params.financing_rate_pct
+          financing_rate_pct: params.financing_rate_pct,
         }
       }
     };
   }),
+
   setDecisionLoading: (loading) => set({ decisionLoading: loading }),
   setDecisionError: (error) => set({ decisionError: error }),
   resetScenarioParams: () => set({ scenarioParams: DEFAULT_SCENARIO_PARAMS }),

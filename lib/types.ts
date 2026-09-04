@@ -148,6 +148,14 @@ export interface StrategyResult {
   };
   summary?: string;
   is_recommended?: boolean;
+  risk_breakdown?: {
+    execution_risk: number;
+    technology_risk: number;
+    regulatory_risk: number;
+    market_risk: number;
+    composite_risk: number;
+    expected_loss_cr: number;
+  };
 }
 
 export interface AnomalyIntelligence {
@@ -197,11 +205,25 @@ export interface ScenarioSimulationResult {
   strategies: Record<string, StrategyResult>;
   winner_strategy: string;
   winner_summary: string;
+  // Aliases for backward compatibility
+  recommended_strategy?: string;
+  recommendation_reason?: string;
   sensitivity_insights: string[];
   delta_vs_base: {
     buy_cost_delta_cr: number;
     build_cost_delta_cr: number;
     hybrid_cost_delta_cr: number;
+    recommendation_changed?: boolean;
+    baseline_winner?: string;
+    simulated_winner?: string;
+  };
+  delta_vs_baseline?: {
+    buy_cost_delta_cr: number;
+    build_cost_delta_cr: number;
+    hybrid_cost_delta_cr: number;
+    recommendation_changed?: boolean;
+    baseline_winner?: string;
+    simulated_winner?: string;
   };
 }
 

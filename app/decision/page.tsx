@@ -15,7 +15,7 @@ import { getSectors, getEntities, getDecisionTwin, runScenarioSimulation } from 
 const SourceTraceDrawer = dynamic(() => import('@/components/drawers/SourceTraceDrawer').then(mod => mod.SourceTraceDrawer), { ssr: false });
 const StrategyTraceDrawer = dynamic(() => import('@/components/drawers/StrategyTraceDrawer').then(mod => mod.StrategyTraceDrawer), { ssr: false });
 import { ScenarioParams } from '@/lib/types';
-import { useAppStore } from '@/lib/store';
+import { useAppStore, ManagementObjectiveType } from '@/lib/store';
 import { Loader2, AlertTriangle, RefreshCw } from 'lucide-react';
 import { ProvenanceFooter } from '@/components/ui/ProvenanceFooter';
 import { exportACVAVerificationDossier, exportBoardroomReport } from '@/lib/exportPdf';
@@ -24,10 +24,10 @@ export default function DecisionCockpitPage() {
   const {
     currentSector, currentEntityId, reportingYear,
     sectors, entities, decisionData, scenarioParams,
-    decisionLoading, decisionError,
+    managementObjective, decisionLoading, decisionError,
     setSector, setEntityId, setReportingYear,
     setSectors, setEntities, setDecisionData, setScenarioParams,
-    setDecisionLoading, setDecisionError, resetScenarioParams
+    setManagementObjective, setDecisionLoading, setDecisionError, resetScenarioParams
   } = useAppStore();
 
   const [isSourceDrawerOpen, setIsSourceDrawerOpen] = React.useState(false);
@@ -64,7 +64,7 @@ export default function DecisionCockpitPage() {
     }
   };
 
-  // Load decision data when entity or year changes
+  // Load decision data when entity or year changes — passes live scenario params on initial load
   useEffect(() => {
     if (!currentEntityId) return;
 
@@ -78,7 +78,11 @@ export default function DecisionCockpitPage() {
 
     setDecisionLoading(true);
     setDecisionError(null);
-    getDecisionTwin(currentEntityId, reportingYear)
+    // Pass live scenarioParams (including CCC price) so first render matches slider state
+    getDecisionTwin(currentEntityId, reportingYear, {
+      ...scenarioParams,
+      management_objective: managementObjective,
+    })
       .then((data) => setDecisionData(data))
       .catch((e) => {
         console.error('Decision fetch failed:', e);
@@ -86,6 +90,7 @@ export default function DecisionCockpitPage() {
         setDecisionData(null);
       })
       .finally(() => setDecisionLoading(false));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentEntityId, reportingYear]);
 
   // Scenario slider changes — live recalculate
@@ -93,21 +98,45 @@ export default function DecisionCockpitPage() {
     setScenarioParams(newParams);
     if (!currentEntityId || !decisionData) return;
     try {
-      const simResult = await runScenarioSimulation(currentEntityId, reportingYear, newParams);
+      const simResult = await runScenarioSimulation(currentEntityId, reportingYear, {
+        ...newParams,
+        management_objective: managementObjective,
+      });
       setDecisionData({
         ...decisionData,
         strategies: simResult.strategies,
-        recommended_strategy: simResult.winner_strategy,
-        recommendation_reason: simResult.winner_summary,
+        recommended_strategy: simResult.winner_strategy ?? simResult.recommended_strategy,
+        recommendation_reason: simResult.winner_summary ?? simResult.recommendation_reason,
         assumptions_applied: {
           ccc_price_inr: newParams.ccc_price_inr,
           project_output_delivery_pct: newParams.project_output_pct,
           project_delay_months: newParams.project_delay_months,
-          financing_rate_pct: newParams.financing_rate_pct
+          financing_rate_pct: newParams.financing_rate_pct,
         }
       });
     } catch (e) {
       console.error('Scenario simulation failed:', e);
+    }
+  };
+
+  // Management objective change — triggers full re-simulation
+  const handleObjectiveChange = async (objective: ManagementObjectiveType) => {
+    setManagementObjective(objective);
+    if (!currentEntityId || !decisionData) return;
+    try {
+      const simResult = await runScenarioSimulation(currentEntityId, reportingYear, {
+        ...scenarioParams,
+        management_objective: objective,
+      });
+      setDecisionData({
+        ...decisionData,
+        strategies: simResult.strategies,
+        recommended_strategy: simResult.winner_strategy ?? simResult.recommended_strategy,
+        recommendation_reason: simResult.winner_summary ?? simResult.recommendation_reason,
+        assumptions_applied: decisionData.assumptions_applied,
+      });
+    } catch (e) {
+      console.error('Objective change simulation failed:', e);
     }
   };
 
@@ -190,10 +219,12 @@ export default function DecisionCockpitPage() {
               }}
             />
 
-            {/* Scenario Sliders */}
+            {/* Scenario Sliders + Management Objective */}
             <ScenarioSliders
               params={scenarioParams}
+              managementObjective={managementObjective}
               onChange={handleScenarioChange}
+              onObjectiveChange={handleObjectiveChange}
               onReset={resetScenarioParams}
             />
 

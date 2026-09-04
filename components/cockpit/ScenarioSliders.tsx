@@ -4,15 +4,19 @@ import React from 'react';
 import { ScenarioParams } from '@/lib/types';
 import { Sliders, RotateCcw } from 'lucide-react';
 import { useCurrency } from '@/lib/context/CurrencyContext';
+import { ManagementObjectiveSelector } from '@/components/ui/ManagementObjectiveSelector';
+import { ManagementObjectiveType } from '@/lib/store';
 
 interface ScenarioSlidersProps {
   params: ScenarioParams;
+  managementObjective?: ManagementObjectiveType;
   onChange: (newParams: ScenarioParams) => void;
+  onObjectiveChange?: (objective: ManagementObjectiveType) => void;
   onReset: () => void;
   isSimulating?: boolean;
 }
 
-export function ScenarioSliders({ params, onChange, onReset }: ScenarioSlidersProps) {
+export function ScenarioSliders({ params, managementObjective = 'BALANCED', onChange, onObjectiveChange, onReset }: ScenarioSlidersProps) {
   const { format, convert } = useCurrency();
 
   const handleSlider = (key: keyof ScenarioParams, value: number) => {
@@ -26,26 +30,26 @@ export function ScenarioSliders({ params, onChange, onReset }: ScenarioSlidersPr
     <div className="glass-panel rounded-xl p-5 mt-6 transition-all hover:border-[#E4E9E6]">
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center space-x-2">
-          <div className="p-2 rounded-lg bg-white border border-[#E4E9E6] border border-[#E4E9E6] text-[#2E6BA8]">
+          <div className="p-2 rounded-lg bg-white border border-[#E4E9E6] text-[#2E6BA8]">
             <Sliders className="w-4 h-4" />
           </div>
           <div>
             <h3 className="text-sm font-semibold text-[#10231C] tracking-tight">Interactive Scenario Controls</h3>
-            <p className="text-xs text-[#4B5A54]">Stress-test strategy rankings across 4 core carbon-finance variables in real-time</p>
+            <p className="text-xs text-[#4B5A54]">Stress-test strategy rankings across core carbon-finance variables in real-time</p>
           </div>
         </div>
 
         <button
           onClick={onReset}
-          className="text-xs text-[#4B5A54] hover:text-[#10231C] flex items-center space-x-1 bg-[#F6F8F7] hover:bg-white border border-[#E4E9E6] px-2.5 py-1 rounded border border-[#E4E9E6] transition-colors cursor-pointer"
+          className="text-xs text-[#4B5A54] hover:text-[#10231C] flex items-center space-x-1 bg-[#F6F8F7] hover:bg-white border border-[#E4E9E6] px-2.5 py-1 rounded transition-colors cursor-pointer"
         >
           <RotateCcw className="w-3 h-3" />
           <span>Reset Defaults</span>
         </button>
       </div>
 
-      {/* 4 Interactive Controls */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      {/* 5 Interactive Controls: 4 sliders + 1 objective selector */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5">
         {/* Slider 1: CCC Price */}
         <div className="bg-[#F6F8F7]/70 p-3.5 rounded-lg border border-[#E4E9E6]/80">
           <div className="flex justify-between items-center text-xs mb-1.5">
@@ -140,6 +144,12 @@ export function ScenarioSliders({ params, onChange, onReset }: ScenarioSlidersPr
             <span>18.0% (Tight)</span>
           </div>
         </div>
+
+        {/* Control 5: Management Objective */}
+        <ManagementObjectiveSelector
+          value={managementObjective}
+          onChange={onObjectiveChange ?? (() => {})}
+        />
       </div>
     </div>
   );

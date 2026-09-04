@@ -10,6 +10,8 @@ import { DecarbonisationMatrix } from '@/components/intelligence/Decarbonisation
 import { DecisionTwinHero } from '@/components/cockpit/DecisionTwinHero';
 import dynamic from 'next/dynamic';
 import { formatCurrencyCr, formatEmissions, formatGEI } from '@/lib/formatters';
+import { useAppStore } from '@/lib/store';
+import Link from 'next/link';
 
 const SourceTraceDrawer = dynamic(() => import('@/components/drawers/SourceTraceDrawer').then(mod => mod.SourceTraceDrawer), { ssr: false });
 const StrategyTraceDrawer = dynamic(() => import('@/components/drawers/StrategyTraceDrawer').then(mod => mod.StrategyTraceDrawer), { ssr: false });
@@ -21,6 +23,7 @@ import { Sparkles, ShieldCheck, AlertTriangle, CheckCircle2, TrendingUp, Trendin
 const API_BASE = '';
 
 export default function IndustrialIntelligencePage() {
+  const { setFacilityAnalysisResult, setEntityId } = useAppStore();
   const [formData, setFormData] = useState<FacilityFormData>({
     facility_name: 'Western Rajasthan Cement Works',
     sector: 'cement',
@@ -59,6 +62,8 @@ export default function IndustrialIntelligencePage() {
       const json = await res.json();
       if (json.success) {
         setAnalysisResult(json.data);
+        // Bridge to Decision Cockpit — store result in global Zustand state
+        setFacilityAnalysisResult(json.data);
       } else {
         throw new Error(json.message || 'Failed to process intelligence request.');
       }
@@ -117,6 +122,15 @@ export default function IndustrialIntelligencePage() {
               Enter plant-specific production and fuel parameters to receive bespoke carbon accounting, ML peer benchmarks, decarbonisation plans, and capital allocation strategies.
             </p>
           </div>
+          {analysisResult && (
+            <Link
+              href="/decision"
+              className="flex items-center space-x-2 px-4 py-2 bg-[#1F4D2E] hover:bg-[#27643A] text-white rounded-lg text-sm font-semibold transition-all shadow-sm flex-shrink-0"
+            >
+              <Sparkles className="w-4 h-4" />
+              <span>Open in Decision Twin</span>
+            </Link>
+          )}
         </div>
 
         {/* Top Input Form */}
@@ -143,7 +157,7 @@ export default function IndustrialIntelligencePage() {
               <div className="lg:col-span-2 glass-panel rounded-xl p-5 border-[#E4E9E6]">
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center space-x-2">
-                    <div className="p-2 rounded-lg bg-white border border-[#E4E9E6] border border-[#E4E9E6] text-[#1F8A5F]">
+                    <div className="p-2 rounded-lg bg-white border border-[#E4E9E6] text-[#1F8A5F]">
                       <Target className="w-4 h-4" />
                     </div>
                     <div>

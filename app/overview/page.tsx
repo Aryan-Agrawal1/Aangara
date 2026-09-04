@@ -141,10 +141,15 @@ export default function OverviewPage() {
             <div className="h-64 w-full">
               <ClientChartWrapper>
 <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={chartData} margin={{ top: 10, right: 20, left: 10, bottom: 5 }}>
+                <BarChart data={chartData} margin={{ top: 10, right: 20, left: 20, bottom: 5 }}>
                   <CartesianGrid strokeDasharray="3 3" stroke={CHART_GRID} vertical={false} />
                   <XAxis dataKey="name" tick={{ fill: CHART_TEXT, fontSize: 11 }} axisLine={false} tickLine={false} />
-                  <YAxis tick={{ fill: CHART_TEXT, fontSize: 10 }} axisLine={false} tickLine={false} />
+                  <YAxis
+                    tick={{ fill: CHART_TEXT, fontSize: 10 }}
+                    axisLine={false}
+                    tickLine={false}
+                    label={{ value: 'tCO₂e / tonne output', angle: -90, position: 'insideLeft', offset: -5, style: { fill: CHART_TEXT, fontSize: 9 } }}
+                  />
                   <Tooltip content={<SectorTooltip />} />
                   <Legend formatter={(val) => <span style={{ color: CHART_TEXT, fontSize: 11 }}>{val}</span>} />
                   <Bar dataKey="Baseline GEI" fill="#64748b" radius={[3, 3, 0, 0]} maxBarSize={28} />
@@ -154,6 +159,9 @@ export default function OverviewPage() {
               </ResponsiveContainer>
 </ClientChartWrapper>
             </div>
+            <p className="text-[10px] text-[#6B7A72] mt-2 italic text-center">
+              Bars show baseline GEI (2023-24) vs notified statutory targets for 2025-26 and 2026-27. Lower GEI = more efficient. Source: MoEFCC Gazette G.S.R. 25(E).
+            </p>
           </div>
         )}
 

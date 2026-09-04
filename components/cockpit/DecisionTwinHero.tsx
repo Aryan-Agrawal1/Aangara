@@ -24,11 +24,11 @@ const CHART_GRID = '#E4E9E6';      // slate-800
 const CHART_TEXT = '#6B7A72';      // slate-400
 const CHART_BG = 'rgba(15,23,42,0)'; // transparent — panels handle background
 
-// Custom tooltip for dark theme
+// Custom tooltip for charts
 const DarkTooltip = ({ active, payload, label }: any) => {
   if (!active || !payload?.length) return null;
   return (
-    <div className="bg-white border border-[#E4E9E6] shadow-lg border border-[#E4E9E6] rounded-lg px-3 py-2 text-xs shadow-xl">
+    <div className="bg-white border border-[#E4E9E6] shadow-lg rounded-lg px-3 py-2 text-xs shadow-xl">
       <p className="text-[#4B5A54] font-semibold mb-1">{label}</p>
       {payload.map((p: any, i: number) => (
         <p key={i} style={{ color: p.color }} className="font-mono">
@@ -133,14 +133,16 @@ export function DecisionTwinHero({
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {/* Cost comparison */}
             <div>
-              <p className="text-[11px] font-semibold text-[#4B5A54] uppercase tracking-widest mb-2">3-Year Lifecycle Cost (₹ Crore)</p>
+              <p className="text-[11px] font-semibold text-[#4B5A54] uppercase tracking-widest mb-2">3-Year Lifecycle Cost</p>
               <ClientChartWrapper>
 <ResponsiveContainer width="100%" height={180}>
-                <BarChart data={costData} margin={{ top: 4, right: 8, left: 0, bottom: 4 }}>
+                <BarChart data={costData} margin={{ top: 4, right: 8, left: 16, bottom: 4 }}>
                   <CartesianGrid strokeDasharray="3 3" stroke={CHART_GRID} vertical={false} />
                   <XAxis dataKey="name" tick={{ fill: CHART_TEXT, fontSize: 11 }} axisLine={false} tickLine={false} />
-                  <YAxis tick={{ fill: CHART_TEXT, fontSize: 10 }} axisLine={false} tickLine={false} width={55}
-                    tickFormatter={(v) => `${symbol}${v.toFixed(0)}Cr`} />
+                  <YAxis tick={{ fill: CHART_TEXT, fontSize: 10 }} axisLine={false} tickLine={false} width={60}
+                    tickFormatter={(v) => `${symbol}${v.toFixed(0)}Cr`}
+                    label={{ value: `${symbol} Crore`, angle: -90, position: 'insideLeft', offset: 0, style: { fill: CHART_TEXT, fontSize: 9 } }}
+                  />
                   <Tooltip content={<DarkTooltip />} />
                   <Bar dataKey="Lifecycle Cost (Cr)" radius={[4, 4, 0, 0]} maxBarSize={56}>
                     {costData.map((entry) => (
@@ -151,18 +153,21 @@ export function DecisionTwinHero({
                 </BarChart>
               </ResponsiveContainer>
 </ClientChartWrapper>
+              <p className="text-[10px] text-[#6B7A72] mt-1 italic">3-year total cost including CapEx, OpEx changes, energy savings, and CCC market purchases.</p>
             </div>
 
             {/* CO2 abatement comparison */}
             <div>
-              <p className="text-[11px] font-semibold text-[#4B5A54] uppercase tracking-widest mb-2">Internal CO₂ Abatement (kt CO₂e/yr)</p>
+              <p className="text-[11px] font-semibold text-[#4B5A54] uppercase tracking-widest mb-2">Internal CO₂ Abatement</p>
               <ClientChartWrapper>
 <ResponsiveContainer width="100%" height={180}>
-                <BarChart data={co2Data} margin={{ top: 4, right: 8, left: 0, bottom: 4 }}>
+                <BarChart data={co2Data} margin={{ top: 4, right: 8, left: 16, bottom: 4 }}>
                   <CartesianGrid strokeDasharray="3 3" stroke={CHART_GRID} vertical={false} />
                   <XAxis dataKey="name" tick={{ fill: CHART_TEXT, fontSize: 11 }} axisLine={false} tickLine={false} />
                   <YAxis tick={{ fill: CHART_TEXT, fontSize: 10 }} axisLine={false} tickLine={false} width={45}
-                    tickFormatter={(v) => `${v}kt`} />
+                    tickFormatter={(v) => `${v}kt`}
+                    label={{ value: 'kt CO₂e / yr', angle: -90, position: 'insideLeft', offset: 0, style: { fill: CHART_TEXT, fontSize: 9 } }}
+                  />
                   <Tooltip content={<DarkTooltip />} />
                   <Bar dataKey="Internal Abatement (kt)" radius={[4, 4, 0, 0]} maxBarSize={56}>
                     {co2Data.map((entry) => (
@@ -173,6 +178,7 @@ export function DecisionTwinHero({
                 </BarChart>
               </ResponsiveContainer>
 </ClientChartWrapper>
+              <p className="text-[10px] text-[#6B7A72] mt-1 italic">Tonnes of CO₂e physically abated per year through internal decarbonisation projects (excludes market CCC purchases).</p>
             </div>
           </div>
         ) : (
@@ -208,7 +214,6 @@ export function DecisionTwinHero({
         )}
       </div>
 
-      {/* ── 3-Column Strategy Cards ── */}
       {/* ── 3-Column Strategy Cards ── */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
         {strategyList.map((stratKey) => {
@@ -286,7 +291,7 @@ export function DecisionTwinHero({
                 </div>
 
                 <p className="text-xs text-[#4A5446] mt-3 pt-2 border-t border-[#E8E2DC] leading-relaxed italic">
-                  "{strat.summary || strat.name}"
+                  &ldquo;{strat.summary || strat.name}&rdquo;
                 </p>
               </div>
 
@@ -306,6 +311,32 @@ export function DecisionTwinHero({
         })}
       </div>
 
+      {/* DEFER Strategy — always shown, collapsed to signal inaction cost */}
+      {strategies['DEFER'] && (
+        <div className="mt-4 rounded-xl p-4 border border-dashed border-[#C33B2E]/40 bg-[#FDECEA]/40 flex items-start justify-between gap-4">
+          <div className="flex items-center space-x-3">
+            <div className="p-2 rounded-lg bg-[#FDECEA] border border-[#C33B2E]/20">
+              <Zap className="w-4 h-4 text-[#C33B2E]" />
+            </div>
+            <div>
+              <div className="flex items-center space-x-2">
+                <h4 className="text-sm font-bold text-[#C33B2E]">DEFER — Cost of Inaction</h4>
+                <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-[#FDECEA] text-[#C33B2E] border border-[#C33B2E]/30 font-bold">HIGH RISK</span>
+              </div>
+              <p className="text-xs text-[#4B5A54] mt-0.5">
+                Deferring all capital action results in a modelled 3-year compounding compliance exposure of{' '}
+                <strong className="text-[#C33B2E]">{formatCr(strategies['DEFER'].total_cost_cr)}</strong> and a Risk Index of{' '}
+                <strong className="text-[#C33B2E]">{strategies['DEFER'].risk_score.toFixed(0)}/100</strong>.
+                Environmental compensation (2× shortfall penalty) may apply under CCTS if shortfall remains unresolved.
+              </p>
+            </div>
+          </div>
+          <div className="text-right flex-shrink-0">
+            <div className="text-[10px] text-[#6B7A72]">Regulatory Risk</div>
+            <div className="text-lg font-black text-[#C33B2E] tnum">{strategies['DEFER'].risk_breakdown?.regulatory_risk.toFixed(0) ?? 95}/100</div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
