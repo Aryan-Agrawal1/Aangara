@@ -30,7 +30,7 @@ const ScenarioTooltip = ({ active, payload, label }: any) => {
   const { symbol, formatCr } = useCurrency();
   if (!active || !payload?.length) return null;
   return (
-    <div className="bg-white border border-[#E4E9E6] shadow-lg border border-[#E4E9E6] rounded-lg p-3 text-xs shadow-2xl">
+    <div className="bg-white border border-[#E4E9E6] rounded-lg p-3 text-xs shadow-xl">
       <p className="text-[#4B5A54] font-semibold mb-1.5">{label}</p>
       {payload.map((p: any, i: number) => (
         <div key={i} className="flex justify-between items-center space-x-3 py-0.5">
@@ -196,7 +196,7 @@ export default function ScenariosPage() {
             <div className="glass-panel rounded-xl p-5 border-[#E4E9E6]">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-4 pb-3 border-b border-[#E4E9E6] gap-2">
                 <div className="flex items-center space-x-2">
-                  <div className="p-1.5 rounded-lg bg-white border border-[#E4E9E6] text-[#2E6BA8] border border-[#E4E9E6]">
+                  <div className="p-1.5 rounded-lg bg-white border border-[#E4E9E6] text-[#2E6BA8]">
                     <Activity className="w-4 h-4" />
                   </div>
                   <div>
@@ -213,10 +213,22 @@ export default function ScenariosPage() {
                 <div className="h-64 w-full">
                   {mounted && (
                     <ResponsiveContainer width="100%" height="100%">
-                      <LineChart data={sensitivityData} margin={{ top: 10, right: 20, left: 10, bottom: 5 }}>
+                      <LineChart data={sensitivityData} margin={{ top: 10, right: 20, left: 20, bottom: 20 }}>
                         <CartesianGrid strokeDasharray="3 3" stroke={CHART_GRID} vertical={false} />
-                        <XAxis dataKey="priceLabel" tick={{ fill: CHART_TEXT, fontSize: 11 }} axisLine={false} tickLine={false} />
-                        <YAxis tick={{ fill: CHART_TEXT, fontSize: 10 }} axisLine={false} tickLine={false} tickFormatter={(v) => `${symbol}${v.toFixed(0)}Cr`} />
+                        <XAxis
+                          dataKey="priceLabel"
+                          tick={{ fill: CHART_TEXT, fontSize: 11 }}
+                          axisLine={false}
+                          tickLine={false}
+                          label={{ value: 'CCC Market Price (per tCO₂e)', position: 'insideBottom', offset: -10, style: { fill: CHART_TEXT, fontSize: 10 } }}
+                        />
+                        <YAxis
+                          tick={{ fill: CHART_TEXT, fontSize: 10 }}
+                          axisLine={false}
+                          tickLine={false}
+                          tickFormatter={(v) => `${symbol}${v.toFixed(0)}Cr`}
+                          label={{ value: `${symbol} Crore (3-yr)`, angle: -90, position: 'insideLeft', offset: 0, style: { fill: CHART_TEXT, fontSize: 9 } }}
+                        />
                         <Tooltip content={<ScenarioTooltip />} />
                         <Legend formatter={(val) => <span style={{ color: STRATEGY_COLORS[val], fontSize: 12 }}>{val} Strategy</span>} />
                         <Line type="monotone" dataKey="BUY" stroke={STRATEGY_COLORS.BUY} strokeWidth={2} dot={{ r: 3 }} />
@@ -293,7 +305,7 @@ export default function ScenariosPage() {
                     </div>
 
                     <p className="text-xs text-[#4B5A54] italic mt-3 pt-2 border-t border-[#E4E9E6] leading-relaxed">
-                      "{s.summary}"
+                      &ldquo;{s.summary}&rdquo;
                     </p>
                   </div>
                 );

@@ -199,9 +199,13 @@ export default function IndustrialIntelligencePage() {
                   </div>
 
                   <div className={`p-3 rounded-lg border ${
-                    isSurplus ? 'bg-emerald-950/30 border-emerald-800/40 text-[#1F8A5F]' : 'bg-rose-950/30 border-rose-800/40 text-rose-400'
+                    isSurplus
+                      ? 'bg-[#E8F5EE] border-[#0B4A3D]/20 text-[#0B4A3D]'
+                      : 'bg-[#FDECEA] border-[#C33B2E]/20 text-[#C33B2E]'
                   }`}>
-                    <div className="text-[11px] uppercase font-semibold">{isSurplus ? 'Surplus Scope' : 'Shortfall Obligation'}</div>
+                    <div className="text-[11px] uppercase font-semibold flex items-center justify-between">
+                      <span>{isSurplus ? 'Surplus Scope' : 'Shortfall Obligation'}</span>
+                    </div>
                     <div className="text-lg font-bold font-mono mt-0.5">
                       {isSurplus ? formatEmissions(carbon.potential_surplus_tco2e) : formatEmissions(carbon.potential_shortfall_tco2e)}
                     </div>
@@ -221,7 +225,9 @@ export default function IndustrialIntelligencePage() {
                   <div className={`p-3 rounded-lg border text-xs mb-3 ${
                     analysisResult.anomaly_intelligence?.status === 'NORMAL'
                       ? 'bg-[#F6F8F7] border-[#E4E9E6] text-[#4B5A54]'
-                      : 'bg-amber-950/40 border-amber-800/60 text-amber-300'
+                      : analysisResult.anomaly_intelligence?.status === 'ANOMALY'
+                      ? 'bg-[#FDECEA] border-[#C33B2E]/30 text-[#C33B2E]'
+                      : 'bg-[#FEF7E8] border-[#C98A1E]/30 text-[#C98A1E]'
                   }`}>
                     <div className="font-semibold text-[#10231C] mb-1">
                       Status: {analysisResult.anomaly_intelligence?.status}

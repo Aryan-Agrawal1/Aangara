@@ -27,7 +27,7 @@ export function ScenarioSliders({ params, managementObjective = 'BALANCED', onCh
   };
 
   return (
-    <div className="glass-panel rounded-xl p-5 mt-6 transition-all hover:border-[#E4E9E6]">
+    <div className="glass-panel rounded-xl p-5 transition-all hover:border-[#E4E9E6]">
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center space-x-2">
           <div className="p-2 rounded-lg bg-white border border-[#E4E9E6] text-[#2E6BA8]">

@@ -21,12 +21,12 @@ const EMISSION_COLORS = ['#38bdf8', '#fbbf24', '#34d399'];
 const CHART_GRID = '#E4E9E6';
 const CHART_TEXT = '#6B7A72';
 
-// Custom dark tooltip
+// Custom tooltip — white card matching light design system
 const PieCustomTooltip = ({ active, payload }: any) => {
   if (!active || !payload?.length) return null;
   const data = payload[0];
   return (
-    <div className="bg-white border border-[#E4E9E6] shadow-lg border border-[#E4E9E6] rounded-lg p-2.5 text-xs shadow-xl">
+    <div className="bg-white border border-[#E4E9E6] rounded-lg p-2.5 text-xs shadow-xl">
       <div className="flex items-center space-x-2">
         <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: data.payload.fill }} />
         <span className="text-[#10231C] font-bold">{data.name}</span>
@@ -300,9 +300,9 @@ export default function EntityInputPage() {
                         paddingAngle={4}
                         dataKey="value"
                       >
-                        {emissionsBreakdown.map((entry, index) => (
-                          <Cell key={`cell-${index}`} fill={entry.fill} stroke="#0B0F17" strokeWidth={2} />
-                        ))}
+                          {emissionsBreakdown.map((entry, index) => (
+                            <Cell key={`cell-${index}`} fill={entry.fill} stroke="#FFFFFF" strokeWidth={2} />
+                          ))}
                       </Pie>
                       <Tooltip content={<PieCustomTooltip />} />
                     </PieChart>

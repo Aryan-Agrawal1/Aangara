@@ -94,7 +94,7 @@ export function DecisionTwinHero({
   };
 
   return (
-    <div className="mt-6">
+    <div>
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
         <div>

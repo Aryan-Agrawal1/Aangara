@@ -15,11 +15,8 @@ export function CarbonPositionCard({ position, onOpenSourceTrace }: CarbonPositi
 
   return (
     <div className="glass-panel rounded-xl p-5 relative overflow-hidden transition-all duration-300 hover:border-[#E4E9E6] border-[#E4E9E6] bg-white">
-      {/* Subtle industrial image as right-side accent */}
-      <div className="absolute right-0 top-0 bottom-0 w-1/3 bg-[url('https://images.unsplash.com/photo-1542361345-89e58247f2d5?q=80&w=600&auto=format&fit=crop')] bg-cover bg-center opacity-8 pointer-events-none"></div>
-      <div className="absolute right-0 top-0 bottom-0 w-1/2 bg-gradient-to-l from-transparent to-white pointer-events-none"></div>
 
-      <div className="flex items-center justify-between mb-4 relative z-10">
+      <div className="flex items-center justify-between mb-4">
         <div className="flex items-center space-x-2">
           <div className="p-2 rounded-lg bg-[#E8F5F2] border border-[#0B4A3D]/20 text-[#0B4A3D]">
             <Target className="w-4 h-4" />
@@ -40,9 +37,9 @@ export function CarbonPositionCard({ position, onOpenSourceTrace }: CarbonPositi
       </div>
 
       {/* Main KPI Grid */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-1 relative z-10">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-1">
         {/* Actual GEI */}
-        <div className="bg-white/80 backdrop-blur-sm rounded-lg p-3 border border-[#E4E9E6]/50">
+        <div className="bg-[#F6F8F7] rounded-lg p-3 border border-[#E4E9E6]">
           <div className="text-[11px] font-medium text-[#4B5A54] uppercase tracking-wider">Actual GEI</div>
           <div className="text-lg font-bold text-[#10231C] tnum mt-0.5">
             {formatGEI(position.actual_gei)}
@@ -53,7 +50,7 @@ export function CarbonPositionCard({ position, onOpenSourceTrace }: CarbonPositi
         </div>
 
         {/* Notified Target GEI */}
-        <div className="bg-white/80 backdrop-blur-sm rounded-lg p-3 border border-[#E4E9E6]/50">
+        <div className="bg-[#F6F8F7] rounded-lg p-3 border border-[#E4E9E6]">
           <div className="text-[11px] font-medium text-[#4B5A54] uppercase tracking-wider">Notified Target</div>
           <div className="text-lg font-bold text-[#2E6BA8] tnum mt-0.5">
             {formatGEI(position.target_gei)}

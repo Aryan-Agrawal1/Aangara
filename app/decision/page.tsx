@@ -194,7 +194,7 @@ export default function DecisionCockpitPage() {
             <span className="text-sm text-[#4B5A54] font-mono">Loading Decision Twin analysis...</span>
           </div>
         ) : (
-          <div>
+          <div className="space-y-5">
             {/* Top Grid: Carbon Position & MRV Readiness */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
               <div className="lg:col-span-2">
@@ -234,8 +234,7 @@ export default function DecisionCockpitPage() {
               onOpenSourceTrace={() => setIsSourceDrawerOpen(true)}
             />
 
-            {/* Bottom CTA for Dead End Test */}
-
+            {/* Bottom CTA */}
             <div className="mt-8 flex flex-col sm:flex-row items-center justify-between bg-[#E8F2EB] border border-[#1F4D2E]/20 rounded-xl p-6 shadow-sm">
               <div className="text-center sm:text-left mb-4 sm:mb-0">
                 <h3 className="text-lg font-bold text-[#1A1C18] mb-1">Ready to Finalize Strategy?</h3>

@@ -91,7 +91,7 @@ export function PeerBenchmarkCard({ benchmark, actualGei, targetGei }: PeerBench
   const deltaVsMedian = actualGei - median;
   const deltaPct = ((deltaVsMedian / median) * 100).toFixed(1);
 
-  // Custom Chart Tooltip
+  // Custom Chart Tooltip — white card to match light design system
   const CustomCurveTooltip = ({ active, payload }: any) => {
     if (!active || !payload || !payload.length) return null;
     const pt = payload[0].payload;
@@ -101,12 +101,13 @@ export function PeerBenchmarkCard({ benchmark, actualGei, targetGei }: PeerBench
         : pt.gei <= p75
         ? 'Middle 50% Benchmark Core'
         : 'Bottom 25% (High Carbon Intensity)';
+    const zoneColor = pt.gei <= p25 ? '#0B4A3D' : pt.gei <= p75 ? '#2E6BA8' : '#C33B2E';
 
     return (
-      <div className="bg-[#0B132B] border border-[#E4E9E6]/90 rounded-xl p-3 text-xs shadow-2xl backdrop-blur-md z-50">
-        <div className="text-[10px] font-mono uppercase text-[#4B5A54] mb-1">Peer Distribution Density</div>
-        <div className="text-sm font-bold text-white font-mono">{formatGEI(pt.gei)}</div>
-        <div className="text-[11px] text-[#2E6BA8] mt-1 font-semibold">{zoneName}</div>
+      <div className="bg-white border border-[#E4E9E6] rounded-xl p-3 text-xs shadow-xl z-50">
+        <div className="text-[10px] font-mono uppercase text-[#6B7A72] mb-1">Peer Distribution Density</div>
+        <div className="text-sm font-bold text-[#10231C] font-mono">{formatGEI(pt.gei)}</div>
+        <div className="text-[11px] font-semibold mt-1" style={{ color: zoneColor }}>{zoneName}</div>
       </div>
     );
   };
@@ -154,12 +155,12 @@ export function PeerBenchmarkCard({ benchmark, actualGei, targetGei }: PeerBench
 
       {/* KPI Metric Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
-        <div className="bg-white/95 rounded-xl p-4 border border-[#E4E9E6]">
+        <div className="bg-white rounded-xl p-4 border border-[#E4E9E6]">
           <div className="text-[10px] font-mono uppercase text-[#4B5A54] font-semibold tracking-wider flex items-center space-x-1 cursor-help" title="Your audited Greenhouse Gas Emission Intensity. Direct factor for CCTS compliance risk.">
             <span>Your Facility GEI</span>
             <HelpCircle className="w-3 h-3 text-[#6B7A72]" />
           </div>
-          <div className="text-xl font-bold text-white font-mono mt-1">
+          <div className="text-xl font-bold text-[#10231C] font-mono mt-1">
             {formatGEI(actualGei)}
           </div>
           <div className="text-[10px] text-[#4B5A54] mt-1 flex items-center space-x-1">
@@ -170,7 +171,7 @@ export function PeerBenchmarkCard({ benchmark, actualGei, targetGei }: PeerBench
           </div>
         </div>
 
-        <div className="bg-white/95 rounded-xl p-4 border border-[#E4E9E6]">
+        <div className="bg-white rounded-xl p-4 border border-[#E4E9E6]">
           <div className="text-[10px] font-mono uppercase text-[#4B5A54] font-semibold tracking-wider flex items-center space-x-1 cursor-help" title="50th percentile of the audited benchmark distribution. Represents the middle of the market.">
             <span>Sector Median (P50)</span>
             <HelpCircle className="w-3 h-3 text-[#6B7A72]" />
@@ -208,11 +209,11 @@ export function PeerBenchmarkCard({ benchmark, actualGei, targetGei }: PeerBench
           </div>
         </div>
 
-        <div className="bg-white/95 rounded-xl p-4 border border-[#E4E9E6]">
+        <div className="bg-white rounded-xl p-4 border border-[#E4E9E6]">
           <div className="text-[10px] font-mono uppercase text-[#4B5A54] font-semibold tracking-wider">
             Notified Target GEI
           </div>
-          <div className="text-xl font-bold text-teal-300 font-mono mt-1">
+          <div className="text-xl font-bold text-[#0B4A3D] font-mono mt-1">
             {formatGEI(targetGei)}
           </div>
           <div className="text-[10px] text-[#4B5A54] mt-1">
@@ -229,7 +230,7 @@ export function PeerBenchmarkCard({ benchmark, actualGei, targetGei }: PeerBench
       <div className="bg-[#F6F8F7] rounded-xl p-4 sm:p-5 border border-[#E4E9E6]/80">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-4 pb-3 border-b border-[#E4E9E6]/70 gap-2">
           <div>
-            <h4 className="text-sm font-bold text-white flex items-center space-x-2">
+            <h4 className="text-sm font-bold text-[#10231C] flex items-center space-x-2">
               <Activity className="w-4 h-4 text-[#2E6BA8]" />
               <span>Continuous Peer Density Distribution (GEI tCO₂e/t)</span>
             </h4>
@@ -278,15 +279,17 @@ export function PeerBenchmarkCard({ benchmark, actualGei, targetGei }: PeerBench
                   <stop offset="100%" stopColor="#f43f5e" />
                 </linearGradient>
               </defs>
-              <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
+              <CartesianGrid strokeDasharray="3 3" stroke="#E4E9E6" />
               <XAxis
                 dataKey="gei"
                 type="number"
                 domain={[minVal, maxVal]}
                 tickCount={8}
-                stroke="#64748b"
-                tick={{ fill: '#94a3b8', fontSize: 11 }}
+                axisLine={false}
+                tickLine={false}
+                tick={{ fill: '#4B5A54', fontSize: 11 }}
                 tickFormatter={(val) => val.toFixed(3)}
+                label={{ value: 'GEI (tCO₂e / tonne output)', position: 'insideBottom', offset: -2, style: { fill: '#6B7A72', fontSize: 10 } }}
               />
               <YAxis hide domain={[0, 'auto']} />
               <Tooltip content={<CustomCurveTooltip />} />
@@ -359,15 +362,15 @@ export function PeerBenchmarkCard({ benchmark, actualGei, targetGei }: PeerBench
 
       {/* AI Statistical Narrative */}
       <div className="bg-[#F6F8F7] p-4 rounded-xl border border-[#E4E9E6]/80 text-xs flex items-start space-x-3">
-        <div className="p-1.5 rounded-lg bg-[#E8F5EE] border border-emerald-800/50 text-[#0B4A3D] mt-0.5 flex-shrink-0">
+        <div className="p-1.5 rounded-lg bg-[#E8F5EE] border border-[#0B4A3D]/20 text-[#0B4A3D] mt-0.5 flex-shrink-0">
           <ShieldCheck className="w-4 h-4" />
         </div>
         <div>
-          <div className="font-bold text-white mb-1">
+          <div className="font-bold text-[#10231C] mb-1">
             Empirical Benchmark Assessment
           </div>
           <p className="text-[#4B5A54] leading-relaxed italic">
-            "{benchmark.interpretation}"
+            &ldquo;{benchmark.interpretation}&rdquo;
           </p>
         </div>
       </div>
