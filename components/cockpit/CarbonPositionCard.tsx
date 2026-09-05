@@ -4,17 +4,29 @@ import React from 'react';
 import { CarbonPosition } from '@/lib/types';
 import { formatGEI, formatEmissions } from '@/lib/formatters';
 import { Target, TrendingDown, TrendingUp, HelpCircle, ShieldAlert, CheckCircle2 } from 'lucide-react';
+import { InfoTooltip } from '@/components/ui/InfoTooltip';
 
 interface CarbonPositionCardProps {
   position: CarbonPosition;
   onOpenSourceTrace: () => void;
 }
 
+const TOOLTIPS = {
+  actualGei:
+    'Gross Emission Intensity (GEI): your facility\'s total verified GHG emissions (Scope 1 + Scope 2) divided by annual production output. Unit: tCO₂e per tonne of product. Computed from your reported fuel consumption, process emissions, and purchased grid electricity at CEA factor 0.716 tCO₂e/MWh.',
+  target:
+    'The statutory maximum GEI ceiling set by MoEFCC in Gazette G.S.R. 25(E). If your Actual GEI exceeds this value you are in shortfall and must surrender Carbon Credit Certificates (CCCs) or face environmental compensation (2× the shortfall). Source: BEE Gazette Reference.',
+  delta:
+    'Intensity Delta = Actual GEI − Notified Target GEI. Positive (+) means you are above the ceiling and in shortfall. Negative (−) means you are below the ceiling and potentially eligible for surplus CCC issuance. Unit: tCO₂e per tonne of output.',
+  shortfall:
+    'Modelled compliance quantity = GEI Delta × Annual Production. Shortfall → you must surrender this many CCC units by the compliance deadline, or face 2× environmental compensation under CCTS. Surplus → potential CCC issuance for trading on the IEXGREEN / PXIL exchange.',
+};
+
 export function CarbonPositionCard({ position, onOpenSourceTrace }: CarbonPositionCardProps) {
   const isSurplus = position.gei_delta <= 0;
 
   return (
-    <div className="glass-panel rounded-xl p-5 relative overflow-hidden transition-all duration-300 hover:border-[#E4E9E6] border-[#E4E9E6] bg-white">
+    <div className="glass-panel rounded-xl p-5 relative overflow-hidden transition-all duration-300 hover:border-[#E4E9E6] border-[#E4E9E6] bg-white h-full">
 
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center space-x-2">
@@ -38,9 +50,13 @@ export function CarbonPositionCard({ position, onOpenSourceTrace }: CarbonPositi
 
       {/* Main KPI Grid */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-1">
+
         {/* Actual GEI */}
         <div className="bg-[#F6F8F7] rounded-lg p-3 border border-[#E4E9E6]">
-          <div className="text-[11px] font-medium text-[#4B5A54] uppercase tracking-wider">Actual GEI</div>
+          <div className="text-[11px] font-medium text-[#4B5A54] uppercase tracking-wider flex items-center gap-1.5">
+            Actual GEI
+            <InfoTooltip content={TOOLTIPS.actualGei} iconSize="w-3 h-3" />
+          </div>
           <div className="text-lg font-bold text-[#10231C] tnum mt-0.5">
             {formatGEI(position.actual_gei)}
           </div>
@@ -51,7 +67,10 @@ export function CarbonPositionCard({ position, onOpenSourceTrace }: CarbonPositi
 
         {/* Notified Target GEI */}
         <div className="bg-[#F6F8F7] rounded-lg p-3 border border-[#E4E9E6]">
-          <div className="text-[11px] font-medium text-[#4B5A54] uppercase tracking-wider">Notified Target</div>
+          <div className="text-[11px] font-medium text-[#4B5A54] uppercase tracking-wider flex items-center gap-1.5">
+            Notified Target
+            <InfoTooltip content={TOOLTIPS.target} iconSize="w-3 h-3" />
+          </div>
           <div className="text-lg font-bold text-[#2E6BA8] tnum mt-0.5">
             {formatGEI(position.target_gei)}
           </div>
@@ -62,7 +81,10 @@ export function CarbonPositionCard({ position, onOpenSourceTrace }: CarbonPositi
 
         {/* Delta */}
         <div className="bg-[#F6F8F7] rounded-lg p-3 border border-[#E4E9E6]">
-          <div className="text-[11px] font-medium text-[#4B5A54] uppercase tracking-wider">Intensity Delta (Delta)</div>
+          <div className="text-[11px] font-medium text-[#4B5A54] uppercase tracking-wider flex items-center gap-1.5">
+            Intensity Delta
+            <InfoTooltip content={TOOLTIPS.delta} iconSize="w-3 h-3" />
+          </div>
           <div className={`text-lg font-bold tnum mt-0.5 flex items-center space-x-1 ${
             isSurplus ? 'text-[#0B4A3D]' : 'text-[#C33B2E]'
           }`}>
@@ -80,9 +102,9 @@ export function CarbonPositionCard({ position, onOpenSourceTrace }: CarbonPositi
             ? 'bg-[#E8F5EE] border-[#0B4A3D]/20 text-[#0B4A3D]'
             : 'bg-[#FDECEA] border-[#C33B2E]/20 text-[#C33B2E]'
         }`}>
-          <div className="text-[11px] font-medium uppercase tracking-wider flex items-center justify-between cursor-help" title={isSurplus ? "Estimated compliance surplus before ACVA verification. Potential for trading." : "Estimated shortfall before ACVA verification. Potential compliance penalty risk."}>
-            <span>{isSurplus ? 'Modelled Potential Surplus' : 'Modelled Shortfall'}</span>
-            <HelpCircle className="w-3 h-3 opacity-70" />
+          <div className="text-[11px] font-medium uppercase tracking-wider flex items-center gap-1.5">
+            <span>{isSurplus ? 'Potential Surplus' : 'Modelled Shortfall'}</span>
+            <InfoTooltip content={TOOLTIPS.shortfall} iconSize="w-3 h-3" />
           </div>
           <div className="text-lg font-bold tnum mt-0.5">
             {isSurplus
@@ -94,6 +116,7 @@ export function CarbonPositionCard({ position, onOpenSourceTrace }: CarbonPositi
             <span>{isSurplus ? 'Potential CCC Issuance Scope' : 'CCC Surrender Obligation'}</span>
           </div>
         </div>
+
       </div>
     </div>
   );

@@ -196,14 +196,14 @@ export default function DecisionCockpitPage() {
         ) : (
           <div className="space-y-5">
             {/* Top Grid: Carbon Position & MRV Readiness */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 items-start">
-              <div className="lg:col-span-2" data-autopilot="carbon-position">
+            <div className="grid grid-cols-1 lg:grid-cols-5 gap-5">
+              <div className="lg:col-span-3" data-autopilot="carbon-position">
                 <CarbonPositionCard
                   position={decisionData.baseline_position}
                   onOpenSourceTrace={() => setIsSourceDrawerOpen(true)}
                 />
               </div>
-              <div data-autopilot="mrv-card">
+              <div className="lg:col-span-2" data-autopilot="mrv-card">
                 <MRVReadinessCard mrv={decisionData.mrv_readiness} />
               </div>
             </div>

@@ -29,6 +29,7 @@ import {
   Layers,
   HelpCircle
 } from 'lucide-react';
+import { InfoTooltip } from '@/components/ui/InfoTooltip';
 
 interface PeerBenchmarkCardProps {
   benchmark: PeerBenchmarkResult;
@@ -140,12 +141,14 @@ export function PeerBenchmarkCard({ benchmark, actualGei, targetGei }: PeerBench
             <span className="text-[11px] font-mono px-2.5 py-1.5 rounded-md bg-white/80 text-[#2E6BA8] border border-[#E4E9E6] backdrop-blur-md font-semibold shadow-inner">
               {benchmark.benchmark_model}
             </span>
-            <span 
+            <span
               className="text-[11px] font-mono px-2.5 py-1.5 rounded-md bg-[#E8F5EE] text-[#0B4A3D] border border-emerald-800/50 backdrop-blur-md font-bold shadow-inner flex items-center space-x-1 cursor-help"
-              title="Confidence level indicates ML model prediction robustness. High means strong statistical historical backing, Calibrated means tuned via limited parameters."
             >
               <span>Confidence: {benchmark.confidence || 'HIGH'}</span>
-              <HelpCircle className="w-3 h-3 text-[#0B4A3D] opacity-80" />
+              <InfoTooltip
+                content="ML model confidence level. HIGH = strong statistical backing from large audited dataset with low prediction error. CALIBRATED = tuned via limited sector-specific parameters; wider uncertainty bands apply."
+                iconSize="w-3 h-3"
+              />
             </span>
           </div>
         </div>
@@ -156,9 +159,12 @@ export function PeerBenchmarkCard({ benchmark, actualGei, targetGei }: PeerBench
       {/* KPI Metric Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
         <div className="bg-white rounded-xl p-4 border border-[#E4E9E6]">
-          <div className="text-[10px] font-mono uppercase text-[#4B5A54] font-semibold tracking-wider flex items-center space-x-1 cursor-help" title="Your audited Greenhouse Gas Emission Intensity. Direct factor for CCTS compliance risk.">
+          <div className="text-[10px] font-mono uppercase text-[#4B5A54] font-semibold tracking-wider flex items-center space-x-1">
             <span>Your Facility GEI</span>
-            <HelpCircle className="w-3 h-3 text-[#6B7A72]" />
+            <InfoTooltip
+              content="Your facility's Gross Emission Intensity (GEI): total GHG (Scope 1 + Scope 2) ÷ annual production. Direct CCTS compliance metric. Compared against the sector peer distribution to determine your competitive carbon position."
+              iconSize="w-3 h-3"
+            />
           </div>
           <div className="text-xl font-bold text-[#10231C] font-mono mt-1">
             {formatGEI(actualGei)}
@@ -172,9 +178,12 @@ export function PeerBenchmarkCard({ benchmark, actualGei, targetGei }: PeerBench
         </div>
 
         <div className="bg-white rounded-xl p-4 border border-[#E4E9E6]">
-          <div className="text-[10px] font-mono uppercase text-[#4B5A54] font-semibold tracking-wider flex items-center space-x-1 cursor-help" title="50th percentile of the audited benchmark distribution. Represents the middle of the market.">
+          <div className="text-[10px] font-mono uppercase text-[#4B5A54] font-semibold tracking-wider flex items-center space-x-1">
             <span>Sector Median (P50)</span>
-            <HelpCircle className="w-3 h-3 text-[#6B7A72]" />
+            <InfoTooltip
+              content="50th percentile of the audited peer GEI distribution. Exactly half the sector operates above this value, half below. IQR (Interquartile Range) shows P25–P75: the middle 50% of facilities."
+              iconSize="w-3 h-3"
+            />
           </div>
           <div className="text-xl font-bold text-[#2E6BA8] font-mono mt-1">
             {formatGEI(median)}
@@ -193,8 +202,12 @@ export function PeerBenchmarkCard({ benchmark, actualGei, targetGei }: PeerBench
               : 'bg-white/95 border-[#E4E9E6] text-[#10231C]'
           }`}
         >
-          <div className="text-[10px] font-mono uppercase font-semibold tracking-wider">
+          <div className="text-[10px] font-mono uppercase font-semibold tracking-wider flex items-center gap-1.5">
             Peer Percentile Rank
+            <InfoTooltip
+              content="Your facility's GEI ranked within the sector peer distribution. P10 = top 10% most efficient (Leader). P50 = median (average). P80+ = high-carbon intensity (Lagging). Lower percentile = cleaner facility."
+              iconSize="w-3 h-3"
+            />
           </div>
           <div className="text-xl font-bold font-mono mt-1 flex items-center space-x-2">
             <span>{percentile.toFixed(0)}th Percentile</span>

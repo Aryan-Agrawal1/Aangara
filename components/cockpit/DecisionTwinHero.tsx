@@ -12,6 +12,7 @@ import { StrategyResult, Project } from '@/lib/types';
 import { formatEmissions, formatYears, formatGEI } from '@/lib/formatters';
 import { Crown, ShoppingCart, Hammer, GitMerge, ArrowRight, Zap, BarChart2, Activity } from 'lucide-react';
 import { useCurrency } from '@/lib/context/CurrencyContext';
+import { InfoTooltip } from '@/components/ui/InfoTooltip';
 
 // ── Colour palette (preserves existing dark glass-panel design system) ──
 const STRATEGY_COLORS: Record<string, string> = {
@@ -46,6 +47,28 @@ interface DecisionTwinHeroProps {
   onSelectStrategy?: (strategy: string) => void;
   onOpenCalculationTrace?: (strategy: string) => void;
 }
+
+// ── Tooltip definitions for all strategy metrics ──
+const TT = {
+  utility:
+    'Multi-criteria optimization score (0–100) computed by the AANGARA Capital Optimizer. Weights cost efficiency, CO₂ reduction, compliance speed, and execution risk based on your selected Management Objective. Higher = better overall fit for your compliance strategy.',
+  lifecycleCost:
+    'Total modelled cost over 3 years including CapEx, change in annual OpEx, energy savings (negative cost), and carbon credit purchases at the scenario CCC price. In Indian Rupees Crore (₹ Cr). Source: AANGARA Financial Model v3 (CALCULATION label).',
+  internalDecarb:
+    'Actual CO₂e reduction achieved within the facility boundary through BUILD projects — e.g., Waste Heat Recovery (WHRS), renewable PPA, fuel switch from petcoke to natural gas. Counted toward lowering your GEI for CCTS compliance. Unit: tCO₂e per year.',
+  cccProcured:
+    'Carbon Credit Certificates purchased from the CCTS market (IEXGREEN / PXIL exchange). Each CCC = 1 tCO₂e of verified abatement from a BEE-registered offset project. Used to close the compliance shortfall without on-site capital investment.',
+  postGei:
+    'Projected Gross Emission Intensity after full strategy implementation. Must be ≤ Notified Target GEI for CCTS compliance. Lower is better. Unit: tCO₂e / tonne of product.',
+  npv:
+    'Net Present Value over 10 years, discounting all strategy cash flows (CapEx, OpEx savings, energy savings, avoided penalty costs) at the WACC/financing rate. Positive NPV = the strategy creates financial value beyond compliance. In ₹ Crore.',
+  payback:
+    'Number of years to recover the capital investment from energy savings, OpEx reductions, and avoided carbon costs. Shorter payback = lower financial risk. Typical threshold for industrial projects: <5 years.',
+  risk:
+    'Composite risk score (0–100) across four sub-dimensions: execution risk (technology readiness, contractor availability), market risk (CCC price volatility), regulatory risk (policy change, audit failure), and financial risk (cost overrun). Lower = safer strategy.',
+  defer:
+    'Reference scenario assuming no capital action is taken. Compliance shortfall compounds at 2× environmental compensation rate under CCTS if unresolved by deadline. Risk Index typically 85–95/100. This is the baseline cost of doing nothing.',
+};
 
 export function DecisionTwinHero({
   strategies,
@@ -255,16 +278,20 @@ export function DecisionTwinHero({
                     </div>
                   </div>
                   <div className="text-right">
-                    <div className="text-xs text-[#6B7268]">Utility</div>
+                    <div className="text-xs text-[#6B7268] flex items-center justify-end gap-1">
+                      Utility
+                      <InfoTooltip content={TT.utility} iconSize="w-3 h-3" />
+                    </div>
                     <div className="text-base font-mono font-bold text-[#1A1C18]">{strat.utility_score.toFixed(1)}<span className="text-xs text-[#6B7268]">/100</span></div>
                   </div>
                 </div>
 
                 {/* Primary Cost */}
                 <div className="bg-[#F6F8F7] rounded-lg p-3.5 border border-[#E8E2DC] my-3">
-                  <div className="text-[11px] font-medium text-[#6B7268] uppercase tracking-wider">
+                  <div className="text-[11px] font-medium text-[#6B7268] uppercase tracking-wider flex items-center gap-1.5">
                     Modelled 3-Year Lifecycle Cost
-                    <span className="ml-1.5 px-1.5 py-0.5 rounded text-[9px] bg-[#FEF7E8] text-[#C98A1E] border border-amber-500/30 font-mono font-bold">MODEL</span>
+                    <InfoTooltip content={TT.lifecycleCost} iconSize="w-3 h-3" />
+                    <span className="ml-1 px-1.5 py-0.5 rounded text-[9px] bg-[#FEF7E8] text-[#C98A1E] border border-amber-500/30 font-mono font-bold">MODEL</span>
                   </div>
                   <div className="text-2xl font-black text-[#1A1C18] tnum mt-0.5">{formatCr(strat.total_cost_cr)}</div>
                   <div className="text-[11px] text-[#6B7268] mt-1 flex items-center justify-between">
@@ -276,15 +303,18 @@ export function DecisionTwinHero({
                 {/* Metrics */}
                 <div className="space-y-2 text-xs">
                   {[
-                    { label: 'Internal Decarbonisation', value: strat.internal_abatement_tco2e > 0 ? formatEmissions(strat.internal_abatement_tco2e) : '0 tCO₂e', color: '#1F4D2E' },
-                    { label: 'Market CCC Procurement', value: (strat.ccc_procured_tco2e || 0) > 0 ? `${(strat.ccc_procured_tco2e || 0).toLocaleString('en-IN')} CCCs/yr` : '0 CCCs', color: '#2E6BA8' },
-                    { label: 'Post-Strategy GEI', value: formatGEI(strat.post_strategy_gei), color: '#1A1C18' },
-                    strat.npv_cr !== null && strat.npv_cr !== undefined ? { label: '10-Yr NPV', value: formatCr(strat.npv_cr), color: '#1F4D2E' } : null,
-                    strat.payback_years !== null && strat.payback_years !== undefined ? { label: 'Capital Payback', value: formatYears(strat.payback_years), color: '#1A1C18' } : null,
-                    { label: 'Risk Index', value: `${strat.risk_score.toFixed(0)} / 100`, color: strat.risk_score < 40 ? '#1F4D2E' : strat.risk_score < 60 ? '#C98A1E' : '#D9531E' },
+                    { label: 'Internal Decarbonisation', tooltip: TT.internalDecarb, value: strat.internal_abatement_tco2e > 0 ? formatEmissions(strat.internal_abatement_tco2e) : '0 tCO₂e', color: '#1F4D2E' },
+                    { label: 'Market CCC Procurement', tooltip: TT.cccProcured, value: (strat.ccc_procured_tco2e || 0) > 0 ? `${(strat.ccc_procured_tco2e || 0).toLocaleString('en-IN')} CCCs/yr` : '0 CCCs', color: '#2E6BA8' },
+                    { label: 'Post-Strategy GEI', tooltip: TT.postGei, value: formatGEI(strat.post_strategy_gei), color: '#1A1C18' },
+                    strat.npv_cr !== null && strat.npv_cr !== undefined ? { label: '10-Yr NPV', tooltip: TT.npv, value: formatCr(strat.npv_cr), color: '#1F4D2E' } : null,
+                    strat.payback_years !== null && strat.payback_years !== undefined ? { label: 'Capital Payback', tooltip: TT.payback, value: formatYears(strat.payback_years), color: '#1A1C18' } : null,
+                    { label: 'Risk Index', tooltip: TT.risk, value: `${strat.risk_score.toFixed(0)} / 100`, color: strat.risk_score < 40 ? '#1F4D2E' : strat.risk_score < 60 ? '#C98A1E' : '#D9531E' },
                   ].filter(Boolean).map((row: any, i) => (
-                    <div key={i} className="flex justify-between py-1 border-b border-[#E8E2DC]/70 last:border-0">
-                      <span className="text-[#6B7268]">{row.label}:</span>
+                    <div key={i} className="flex justify-between items-center py-1 border-b border-[#E8E2DC]/70 last:border-0">
+                      <span className="text-[#6B7268] flex items-center gap-1">
+                        {row.label}:
+                        <InfoTooltip content={row.tooltip} iconSize="w-2.5 h-2.5" />
+                      </span>
                       <span className="font-mono font-bold" style={{ color: row.color }}>{row.value}</span>
                     </div>
                   ))}
@@ -311,7 +341,7 @@ export function DecisionTwinHero({
         })}
       </div>
 
-      {/* DEFER Strategy — always shown, collapsed to signal inaction cost */}
+      {/* DEFER Strategy — always shown */}
       {strategies['DEFER'] && (
         <div className="mt-4 rounded-xl p-4 border border-dashed border-[#C33B2E]/40 bg-[#FDECEA]/40 flex items-start justify-between gap-4">
           <div className="flex items-center space-x-3">
@@ -321,6 +351,7 @@ export function DecisionTwinHero({
             <div>
               <div className="flex items-center space-x-2">
                 <h4 className="text-sm font-bold text-[#C33B2E]">DEFER — Cost of Inaction</h4>
+                <InfoTooltip content={TT.defer} iconSize="w-3.5 h-3.5" />
                 <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-[#FDECEA] text-[#C33B2E] border border-[#C33B2E]/30 font-bold">HIGH RISK</span>
               </div>
               <p className="text-xs text-[#4B5A54] mt-0.5">

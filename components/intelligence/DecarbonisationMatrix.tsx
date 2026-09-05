@@ -25,6 +25,7 @@ import {
   Coins,
   Sparkles
 } from 'lucide-react';
+import { InfoTooltip } from '@/components/ui/InfoTooltip';
 
 interface DecarbonisationMatrixProps {
   opportunities: any[];
@@ -191,6 +192,10 @@ export function DecarbonisationMatrix({ opportunities }: DecarbonisationMatrixPr
                 <h3 className="text-lg font-bold text-[#1A1C18] tracking-tight">
                   Marginal Abatement Cost (MAC) Curve
                 </h3>
+                <InfoTooltip
+                  content="Industry-standard tool ranking all decarbonisation initiatives by their marginal cost (₹/tCO₂e abated). Left = lowest cost, fastest payback. Right = higher cost, longer payback. Width = annual abatement volume. Build from left to right for cost-optimal compliance."
+                  iconSize="w-4 h-4"
+                />
                 <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-[#E8F2EB] text-[#1F4D2E] border border-[#1F4D2E]/25">
                   CAPITAL ALLOCATION
                 </span>
@@ -215,7 +220,10 @@ export function DecarbonisationMatrix({ opportunities }: DecarbonisationMatrixPr
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           <div className="bg-[#F6F8F7] p-3.5 rounded-xl border border-[#E8E2DC] flex items-center justify-between">
             <div>
-              <div className="text-[10px] font-mono text-[#6B7268] uppercase font-bold">Total Abatement Potential</div>
+              <div className="text-[10px] font-mono text-[#6B7268] uppercase font-bold flex items-center gap-1.5">
+                Total Abatement Potential
+                <InfoTooltip content="Sum of annual CO₂e reductions across all validated BUILD initiatives in this MAC curve. Represents the maximum possible internal decarbonisation if all projects are implemented. Unit: kt CO₂e per year." iconSize="w-3 h-3" />
+              </div>
               <div className="text-lg font-black text-[#1F4D2E] font-mono mt-0.5">{totalAbatementKt.toFixed(1)} kt CO₂e/yr</div>
             </div>
             <div className="p-2 rounded-lg bg-[#E8F2EB] text-[#1F4D2E]">
@@ -225,7 +233,10 @@ export function DecarbonisationMatrix({ opportunities }: DecarbonisationMatrixPr
 
           <div className="bg-[#F6F8F7] p-3.5 rounded-xl border border-[#E8E2DC] flex items-center justify-between">
             <div>
-              <div className="text-[10px] font-mono text-[#6B7268] uppercase font-bold">Total Upfront CAPEX</div>
+              <div className="text-[10px] font-mono text-[#6B7268] uppercase font-bold flex items-center gap-1.5">
+                Total Upfront CAPEX
+                <InfoTooltip content="Sum of capital expenditure required to implement all BUILD initiatives. This is the total investment needed for full internal decarbonisation. In ₹ Crore. Source: BEE technology benchmarks + CPCB project cost databases." iconSize="w-3 h-3" />
+              </div>
               <div className="text-lg font-black text-[#1A1C18] font-mono mt-0.5">{formatCurrencyCr(totalCapexCr)}</div>
             </div>
             <div className="p-2 rounded-lg bg-white text-[#1A1C18] border border-[#E8E2DC]">
@@ -235,7 +246,10 @@ export function DecarbonisationMatrix({ opportunities }: DecarbonisationMatrixPr
 
           <div className="bg-[#F6F8F7] p-3.5 rounded-xl border border-[#E8E2DC] flex items-center justify-between">
             <div>
-              <div className="text-[10px] font-mono text-[#6B7268] uppercase font-bold">Total 10-Yr Lifecycle NPV</div>
+              <div className="text-[10px] font-mono text-[#6B7268] uppercase font-bold flex items-center gap-1.5">
+                Total 10-Yr Lifecycle NPV
+                <InfoTooltip content="Net Present Value of the full decarbonisation portfolio over 10 years, discounting energy savings, avoided carbon costs, and capex at WACC. Positive = the portfolio pays back more than it costs. In ₹ Crore." iconSize="w-3 h-3" />
+              </div>
               <div className="text-lg font-black text-[#1F4D2E] font-mono mt-0.5">{formatCurrencyCr(totalNpvCr)}</div>
             </div>
             <div className="p-2 rounded-lg bg-[#E8F2EB] text-[#1F4D2E]">
