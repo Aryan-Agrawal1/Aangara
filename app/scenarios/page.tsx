@@ -138,7 +138,7 @@ export default function ScenariosPage() {
         entitiesList={entities}
       />
 
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main data-page-ready className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <Breadcrumb items={[{ label: "Stress Scenarios" }]} />
         <div className="mb-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
           <div>
@@ -158,17 +158,19 @@ export default function ScenariosPage() {
         </div>
 
         {/* Sliders Control Panel */}
-        <ScenarioSliders
-          params={scenarioParams}
-          onChange={runSim}
-          onReset={resetScenarioParams}
-        />
+        <div data-autopilot="scenario-sliders">
+          <ScenarioSliders
+            params={scenarioParams}
+            onChange={runSim}
+            onReset={resetScenarioParams}
+          />
+        </div>
         <p className="text-xs text-[#6B7A72] mt-4">These scenario parameters sync with the Decision Twin. Navigate to Decision Twin to see updated recommendations.</p>
 
         {result && (
           <div className="mt-8 space-y-6">
             {/* Winner Banner */}
-            <div className="glass-panel-elevated winner-card-glow rounded-xl p-5 border-emerald-500/70">
+            <div data-autopilot="scenario-results" className="glass-panel-elevated winner-card-glow rounded-xl p-5 border-emerald-500/70">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                 <div className="flex items-center space-x-3">
                   <div className="p-2.5 rounded-xl bg-emerald-900/60 border border-emerald-400/40 text-[#0B4A3D]">
@@ -193,7 +195,7 @@ export default function ScenariosPage() {
             </div>
 
             {/* Sensitivity Curve Chart */}
-            <div className="glass-panel rounded-xl p-5 border-[#E4E9E6]">
+            <div data-autopilot="sensitivity-chart" className="glass-panel rounded-xl p-5 border-[#E4E9E6]">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-4 pb-3 border-b border-[#E4E9E6] gap-2">
                 <div className="flex items-center space-x-2">
                   <div className="p-1.5 rounded-lg bg-white border border-[#E4E9E6] text-[#2E6BA8]">

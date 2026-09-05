@@ -154,7 +154,7 @@ export default function DecisionCockpitPage() {
         entitiesList={entities}
       />
 
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <main data-page-ready className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
         <Breadcrumb items={[{ label: "Decision Twin" }]} />
         {decisionLoading ? (
           /* Loading skeleton */
@@ -196,28 +196,30 @@ export default function DecisionCockpitPage() {
         ) : (
           <div className="space-y-5">
             {/* Top Grid: Carbon Position & MRV Readiness */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
-              <div className="lg:col-span-2">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 items-start">
+              <div className="lg:col-span-2" data-autopilot="carbon-position">
                 <CarbonPositionCard
                   position={decisionData.baseline_position}
                   onOpenSourceTrace={() => setIsSourceDrawerOpen(true)}
                 />
               </div>
-              <div>
+              <div data-autopilot="mrv-card">
                 <MRVReadinessCard mrv={decisionData.mrv_readiness} />
               </div>
             </div>
 
             {/* Decision Twin with recharts */}
-            <DecisionTwinHero
-              strategies={decisionData.strategies}
-              recommendedStrategy={decisionData.recommended_strategy}
-              project={decisionData.project_profile}
-              onOpenCalculationTrace={(stratKey) => {
-                setActiveStrategyName(stratKey);
-                setIsStrategyDrawerOpen(true);
-              }}
-            />
+            <div data-autopilot="decision-hero">
+              <DecisionTwinHero
+                strategies={decisionData.strategies}
+                recommendedStrategy={decisionData.recommended_strategy}
+                project={decisionData.project_profile}
+                onOpenCalculationTrace={(stratKey) => {
+                  setActiveStrategyName(stratKey);
+                  setIsStrategyDrawerOpen(true);
+                }}
+              />
+            </div>
 
             {/* Scenario Sliders + Management Objective */}
             <ScenarioSliders

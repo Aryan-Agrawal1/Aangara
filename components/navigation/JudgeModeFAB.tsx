@@ -1,17 +1,19 @@
 "use client";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Zap, FileText, Activity, X, ShieldCheck } from "lucide-react";
+import { Zap, FileText, Activity, X, ShieldCheck, PlayCircle } from "lucide-react";
+import { useAutopilot } from "@/lib/autopilot/context";
 
 export function JudgeModeFAB() {
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
+  const autopilot = useAutopilot();
 
   return (
     <aside aria-label="Quick evaluation shortcuts" className="fixed bottom-8 right-6 z-40 flex flex-col items-end font-sans pointer-events-none">
       <div className="pointer-events-auto flex flex-col items-end">
       {isOpen && (
-        <div className="mb-3 bg-white border border-[#E8E2DC] p-3 rounded-xl shadow-elevated flex flex-col gap-1.5 min-w-[260px] animate-in slide-in-from-bottom-2 fade-in duration-200">
+        <div className="mb-3 bg-white border border-[#E8E2DC] p-3 rounded-xl shadow-elevated flex flex-col gap-1.5 min-w-[268px] animate-in slide-in-from-bottom-2 fade-in duration-200">
           <div className="px-2 py-1.5 border-b border-[#E8E2DC] mb-1 flex justify-between items-center">
             <div className="flex items-center gap-1.5">
               <ShieldCheck className="w-3.5 h-3.5 text-[#1F4D2E]" />
@@ -22,6 +24,27 @@ export function JudgeModeFAB() {
             </button>
           </div>
 
+          {/* ── Autopilot Showcase ── */}
+          <button
+            onClick={() => {
+              setIsOpen(false);
+              autopilot.start();
+            }}
+            className="flex items-center gap-2.5 px-3 py-2 rounded-lg hover:bg-[#F6F8F7] text-xs font-medium text-[#1A1C18] transition-colors text-left group"
+          >
+            <div className="w-7 h-7 rounded-md bg-gradient-to-br from-[#1F4D2E] to-[#2E6BA8] flex items-center justify-center flex-shrink-0 shadow-sm group-hover:shadow-md transition-shadow">
+              <PlayCircle className="w-3.5 h-3.5 text-white" />
+            </div>
+            <div>
+              <div className="font-semibold flex items-center gap-1.5">
+                Autopilot Showcase
+                <span className="text-[9px] font-bold bg-[#E8F2EB] text-[#1F4D2E] px-1.5 py-0.5 rounded font-mono uppercase tracking-wide">DEMO</span>
+              </div>
+              <div className="text-[10px] text-[#6B7268]">Full hands-off product tour</div>
+            </div>
+          </button>
+
+          {/* ── Load Reference Facility ── */}
           <button
             onClick={() => {
               setIsOpen(false);
@@ -38,6 +61,7 @@ export function JudgeModeFAB() {
             </div>
           </button>
 
+          {/* ── Open Decision Twin ── */}
           <button
             onClick={() => {
               setIsOpen(false);

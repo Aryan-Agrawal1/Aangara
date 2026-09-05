@@ -43,7 +43,7 @@ export default function SourcesPage() {
       <UtilityBar />
       <Header />
 
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main data-page-ready className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <Breadcrumb items={[{ label: "Evidence Center" }]} />
         <div className="mb-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
           <div>
@@ -62,7 +62,7 @@ export default function SourcesPage() {
         
         
         
-        <div className="mb-8 p-4 bg-[#F6F8F7] border border-[#E4E9E6] rounded-xl">
+        <div data-autopilot="source-register" className="mb-8 p-4 bg-[#F6F8F7] border border-[#E4E9E6] rounded-xl">
           <div className="flex items-center gap-2 mb-3">
             <span className="text-[9px] font-mono font-bold px-2 py-0.5 rounded bg-[#E8F5F2] text-[#0B4A3D] border-[#0B4A3D]/20">REGULATORY WATCH</span>
             <h2 className="text-sm font-bold text-[#10231C]">Recent Regulatory Changes</h2>

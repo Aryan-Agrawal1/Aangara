@@ -3,6 +3,9 @@ import { Newsreader, Inter } from "next/font/google";
 import "../styles/globals.css";
 import { JudgeModeFAB } from "@/components/navigation/JudgeModeFAB";
 import { ThemeProvider } from "@/lib/theme";
+import { AutopilotProvider } from "@/lib/autopilot/context";
+import { AutopilotHUD } from "@/components/autopilot/AutopilotHUD";
+import { AutopilotSpotlight } from "@/components/autopilot/AutopilotSpotlight";
 
 const newsreader = Newsreader({
   subsets: ["latin"],
@@ -50,8 +53,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="bg-surface-base text-text-primary min-h-screen antialiased flex flex-col font-sans selection:bg-leaf-primary selection:text-white relative">
         <ThemeProvider>
           <CurrencyProvider>
-            {children}
-            <JudgeModeFAB />
+            <AutopilotProvider>
+              {children}
+              <JudgeModeFAB />
+              <AutopilotHUD />
+              <AutopilotSpotlight />
+            </AutopilotProvider>
           </CurrencyProvider>
           {/* Sitewide footer */}
           <footer className="w-full border-t border-[#E8E2DC] bg-white/70 backdrop-blur-sm py-4 px-6">

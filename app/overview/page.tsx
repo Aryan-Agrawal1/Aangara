@@ -81,7 +81,7 @@ export default function OverviewPage() {
       <UtilityBar />
       <Header sectorsList={sectors} />
 
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main data-page-ready className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <Breadcrumb items={[{ label: "Portfolio Overview" }]} />
         {/* Page Banner */}
         <div className="mb-8">
@@ -97,7 +97,7 @@ export default function OverviewPage() {
         </div>
 
         {/* National Macro KPIs */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+        <div data-autopilot="portfolio-chart" className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
           <div className="glass-panel rounded-xl p-4 border-[#E4E9E6]">
             <div className="text-[11px] text-[#4B5A54] font-medium">Notified Compliance Units</div>
             <div className="text-2xl font-bold text-[#10231C] font-mono mt-1">490+</div>

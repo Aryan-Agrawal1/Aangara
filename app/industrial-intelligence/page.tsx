@@ -107,7 +107,7 @@ export default function IndustrialIntelligencePage() {
       <UtilityBar />
       <Header />
 
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main data-page-ready className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <Breadcrumb items={[{ label: "Facility Analysis" }]} />
         {/* Page Banner */}
         <div className="mb-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
@@ -134,15 +134,17 @@ export default function IndustrialIntelligencePage() {
         </div>
 
         {/* Top Input Form */}
-        <FacilityInputForm
-          formData={formData}
-          onChange={(newForm: FacilityFormData) => {
-            setFormData(newForm);
-          }}
-          onSubmit={() => runAnalysis(formData)}
-          isLoading={isLoading}
-          dataQuality={analysisResult?.data_quality}
-        />
+        <div data-autopilot="facility-form">
+          <FacilityInputForm
+            formData={formData}
+            onChange={(newForm: FacilityFormData) => {
+              setFormData(newForm);
+            }}
+            onSubmit={() => runAnalysis(formData)}
+            isLoading={isLoading}
+            dataQuality={analysisResult?.data_quality}
+          />
+        </div>
 
         {/* Personalized Analysis Results */}
         {apiError && (
@@ -153,8 +155,8 @@ export default function IndustrialIntelligencePage() {
           <div className="mt-8 space-y-6">
             {/* Carbon Position & Anomaly Banner */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
-              {/* Carbon Compliance Position */}
-              <div className="lg:col-span-2 glass-panel rounded-xl p-5 border-[#E4E9E6]">
+            {/* Carbon Compliance Position */}
+              <div data-autopilot="carbon-position" className="lg:col-span-2 glass-panel rounded-xl p-5 border-[#E4E9E6]">
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center space-x-2">
                     <div className="p-2 rounded-lg bg-white border border-[#E4E9E6] text-[#1F8A5F]">
@@ -243,26 +245,32 @@ export default function IndustrialIntelligencePage() {
             </div>
 
             {/* ML Peer Benchmark */}
-            <PeerBenchmarkCard
-              benchmark={analysisResult.peer_benchmark}
-              actualGei={carbon.actual_gei}
-              targetGei={carbon.target_gei}
-            />
+            <div data-autopilot="peer-benchmark">
+              <PeerBenchmarkCard
+                benchmark={analysisResult.peer_benchmark}
+                actualGei={carbon.actual_gei}
+                targetGei={carbon.target_gei}
+              />
+            </div>
 
             {/* Decarbonisation Opportunities Matrix */}
-            <DecarbonisationMatrix opportunities={analysisResult.opportunities} />
+            <div data-autopilot="decarb-matrix">
+              <DecarbonisationMatrix opportunities={analysisResult.opportunities} />
+            </div>
 
             {/* Capital Allocation: BUY vs BUILD vs HYBRID */}
             {analysisResult.strategy_recommendation && (
-              <DecisionTwinHero
-                strategies={analysisResult.strategy_recommendation.strategies}
-                recommendedStrategy={analysisResult.strategy_recommendation.recommended_strategy}
-                project={analysisResult.opportunities?.[0] || {}}
-                onOpenCalculationTrace={(stratKey) => {
-                  setActiveStrategyName(stratKey);
-                  setIsStrategyDrawerOpen(true);
-                }}
-              />
+              <div data-autopilot="strategy-hero">
+                <DecisionTwinHero
+                  strategies={analysisResult.strategy_recommendation.strategies}
+                  recommendedStrategy={analysisResult.strategy_recommendation.recommended_strategy}
+                  project={analysisResult.opportunities?.[0] || {}}
+                  onOpenCalculationTrace={(stratKey) => {
+                    setActiveStrategyName(stratKey);
+                    setIsStrategyDrawerOpen(true);
+                  }}
+                />
+              </div>
             )}
 
             {/* Executive Explanation */}

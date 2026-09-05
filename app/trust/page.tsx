@@ -58,11 +58,11 @@ export default function TrustCenterPage() {
     <div className="min-h-screen bg-white flex flex-col">
       <UtilityBar />
       <Header />
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8" id="main-content">
+      <main data-page-ready className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8" id="main-content">
         <Breadcrumb items={[{ label: "Trust Center" }]} />
 
         {/* Page header */}
-        <div className="mb-8">
+        <div data-autopilot="trust-content" className="mb-8">
           <div className="flex items-center gap-2">
             <ShieldCheck className="w-6 h-6 text-[#1F4D2E]" />
             <h1 className="text-2xl font-bold text-[#10231C] tracking-tight">AANGARA Trust Center</h1>
