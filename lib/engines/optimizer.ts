@@ -295,11 +295,35 @@ export class CapitalOptimizer {
     });
 
     // ── 3. HYBRID STRATEGY ──
-    // Internal project execution + planned target procurement for residual
-    // Enforce invariant: Hybrid Cost = Build Cash Outflow + Residual CCC Cost (§63, §108)
-    const hybrid_residual_ccc_volume_annual = steady_state_residual_shortfall;
-    const hybrid_residual_ccc_cost_3yr = (total_residual_shortfall_3yr * ccc_price_inr * transaction_multiplier) / 1e7;
-    const hybrid_cost_3yr_cr = project_capex_cr + build_net_operational_cost_3yr + hybrid_residual_ccc_cost_3yr;
+    // High-ROI Phase 1 Build (capturing diminishing returns) + Sustained Market Hedge
+    const hybrid_capex_cr = project_capex_cr * 0.60; // 60% of capital commitment
+    const hybrid_reduction_tco2e = effective_reduction_tco2e * 0.75; // Captures 75% of abatement
+    const hybrid_energy_savings_cr = project_energy_savings_cr * 0.70;
+    const hybrid_opex_change_cr = project_opex_change_cr * 0.70;
+    
+    const hybrid_year1_savings = hybrid_energy_savings_cr * year1_op_fraction;
+    const hybrid_year1_opex = hybrid_opex_change_cr * year1_op_fraction;
+    const hybrid_net_operational_cost_3yr = (hybrid_year1_opex - hybrid_year1_savings) + (hybrid_opex_change_cr - hybrid_energy_savings_cr) * 2.0;
+
+    const hybrid_post_emissions = baseline_emissions_tco2e - hybrid_reduction_tco2e;
+    const hybrid_post_gei = Number((hybrid_post_emissions / Math.max(1, entity_output)).toFixed(4));
+    const hybrid_steady_state_residual_shortfall = Math.max(0.0, hybrid_post_gei - target_gei) * entity_output;
+    
+    const hybrid_delay_shortfall_year1 = (base_shortfall_tco2e - hybrid_steady_state_residual_shortfall) * (1 - year1_op_fraction);
+    const hybrid_total_residual_shortfall_3yr = (hybrid_steady_state_residual_shortfall * 3.0) + hybrid_delay_shortfall_year1;
+
+    const hybrid_residual_ccc_cost_3yr = (hybrid_total_residual_shortfall_3yr * ccc_price_inr * transaction_multiplier) / 1e7;
+    const hybrid_cost_3yr_cr = hybrid_capex_cr + hybrid_net_operational_cost_3yr + hybrid_residual_ccc_cost_3yr;
+
+    // Finance evaluation for hybrid project
+    const hybrid_eval = FinanceEngine.evaluateProject(
+      hybrid_capex_cr,
+      hybrid_opex_change_cr,
+      hybrid_energy_savings_cr,
+      hybrid_reduction_tco2e,
+      financing_rate_pct,
+      10
+    );
 
     const hybrid_risk_profile = this.evaluateRiskProfile('HYBRID', {
       delay_months: project_delay_months,
@@ -307,9 +331,9 @@ export class CapitalOptimizer {
       trl: technology_trl,
       regulatory_status,
       mrv_score,
-      shortfall_tco2e: hybrid_residual_ccc_volume_annual,
+      shortfall_tco2e: hybrid_total_residual_shortfall_3yr / 3.0,
       ccc_price_inr,
-      capex_cr: project_capex_cr,
+      capex_cr: hybrid_capex_cr,
     });
 
     // ── 4. DEFER STRATEGY (Cost of Inaction §64) ──
@@ -330,9 +354,9 @@ export class CapitalOptimizer {
     });
 
     // ── §108 DOUBLE-COUNTING & INVARIANT GUARDS ──
-    const expected_hybrid_cost = project_capex_cr + build_net_operational_cost_3yr + hybrid_residual_ccc_cost_3yr;
+    const expected_hybrid_cost = hybrid_capex_cr + hybrid_net_operational_cost_3yr + hybrid_residual_ccc_cost_3yr;
     if (Math.abs(hybrid_cost_3yr_cr - expected_hybrid_cost) > 1e-4) {
-      throw new Error(`[INVARIANT_VIOLATION] Hybrid cost must equal Build Cash + Residual CCC without double-counting.`);
+      throw new Error(`[INVARIANT_VIOLATION] Hybrid cost must equal Phase 1 Cash + Residual CCC without double-counting.`);
     }
 
     // ── MULTI-OBJECTIVE NORMALIZED UTILITY SCORING (§65, §66) ──
@@ -469,7 +493,7 @@ export class CapitalOptimizer {
         capex_cr: project_capex_cr,
         internal_abatement_tco2e: Number(effective_reduction_tco2e.toFixed(0)),
         residual_shortfall_tco2e: Number(steady_state_residual_shortfall.toFixed(0)),
-        ccc_procured_tco2e: 0.0,
+        ccc_procured_tco2e: Number(steady_state_residual_shortfall.toFixed(0)),
         post_intervention_gei: build_post_gei,
         post_strategy_gei: build_post_gei,
         npv_cr: build_eval.npv_cr,
@@ -495,20 +519,20 @@ export class CapitalOptimizer {
       HYBRID: {
         strategy_id: 'HYBRID',
         strategy: 'HYBRID',
-        name: 'Hybrid: Project Execution + Residual CCC Hedge',
+        name: 'Strategic Build + Market Hedge',
         total_cost_cr: Number(hybrid_cost_3yr_cr.toFixed(2)),
         total_cost_3yr_cr: Number(hybrid_cost_3yr_cr.toFixed(2)),
-        annual_cost_cr: Number(((hybrid_cost_3yr_cr - project_capex_cr) / 3.0).toFixed(2)),
-        capex_cr: project_capex_cr,
-        internal_abatement_tco2e: Number(effective_reduction_tco2e.toFixed(0)),
-        residual_shortfall_tco2e: Number(steady_state_residual_shortfall.toFixed(0)),
-        ccc_procured_tco2e: Number(steady_state_residual_shortfall.toFixed(0)),
-        post_intervention_gei: build_post_gei,
-        post_strategy_gei: build_post_gei,
-        npv_cr: build_eval.npv_cr,
-        payback_years: build_eval.simple_payback_years,
-        irr_pct: build_eval.irr_pct,
-        cost_per_tco2e: build_eval.mac_inr_per_tco2e,
+        annual_cost_cr: Number(((hybrid_cost_3yr_cr - hybrid_capex_cr) / 3.0).toFixed(2)),
+        capex_cr: hybrid_capex_cr,
+        internal_abatement_tco2e: Number(hybrid_reduction_tco2e.toFixed(0)),
+        residual_shortfall_tco2e: Number(hybrid_steady_state_residual_shortfall.toFixed(0)),
+        ccc_procured_tco2e: Number(hybrid_steady_state_residual_shortfall.toFixed(0)),
+        post_intervention_gei: hybrid_post_gei,
+        post_strategy_gei: hybrid_post_gei,
+        npv_cr: hybrid_eval.npv_cr,
+        payback_years: hybrid_eval.simple_payback_years,
+        irr_pct: hybrid_eval.irr_pct,
+        cost_per_tco2e: hybrid_eval.mac_inr_per_tco2e,
         risk_score: hybrid_risk_profile.composite_risk,
         utility_score: hybrid_score,
         rank: scoreMap.findIndex((s) => s.id === 'HYBRID') + 1,

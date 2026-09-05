@@ -1,4 +1,4 @@
-﻿/**
+/**
  * AANGARA Autopilot — 31-step deterministic tour sequence
  */
 import {
@@ -47,9 +47,8 @@ export const AUTOPILOT_STEPS: AutopilotStep[] = [
     id: "home-stats",
     label: "Landing page — Key statistics",
     action: async (ctx) => {
-      ctx.spotlight(null);
-      await scrollToSelector(".bg-\\[\\#EBE6E3\\]", ctx.signal, -60);
       ctx.spotlight(".bg-\\[\\#EBE6E3\\] .grid");
+      await scrollToSelector(".bg-\\[\\#EBE6E3\\]", ctx.signal, -60);
       await sleep(BEAT, ctx.signal);
     },
   },

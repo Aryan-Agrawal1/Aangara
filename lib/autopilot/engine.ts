@@ -62,7 +62,10 @@ export function smoothScrollTo(targetY: number, duration: number, signal: AbortS
     const diff = targetY - startY;
     if (Math.abs(diff) < 4) { resolve(); return; }
     const startTime = performance.now();
-    const ease = (t: number) => t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+    
+    // Cinematic cubic ease-in-out for premium smooth scrolling
+    const ease = (t: number) => t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+    
     const tick = (now: number) => {
       if (signal.aborted) { resolve(); return; }
       const p = Math.min((now - startTime) / duration, 1);
