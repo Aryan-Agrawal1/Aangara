@@ -3,7 +3,7 @@
 import React, { useState, useMemo } from 'react';
 import { Header } from '@/components/navigation/Header';
 import { ProvenanceFooter } from '@/components/ui/ProvenanceFooter';
-import { MARKETPLACE_DATA } from '@/lib/data/staticData';
+import { MARKETPLACE_DATA } from '@/lib/staticData';
 import { Filter, Search, ShieldCheck, X, TrendingDown, Sun, Leaf, Info, FlaskConical, BarChart2, Building2 } from 'lucide-react';
 import { InfoTooltip } from '@/components/ui/InfoTooltip';
 
@@ -291,3 +291,4 @@ export default function MarketplacePage() {
     </div>
   );
 }
+

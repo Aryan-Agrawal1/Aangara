@@ -1,7 +1,7 @@
 ﻿'use client';
 
 import React, { useState, useEffect, useRef, useMemo } from 'react';
-import { TERMINAL_WATCHLIST, TERMINAL_CCC_CURVE, TERMINAL_BLOTTER, TERMINAL_REG_FEED } from '@/lib/data/staticData';
+import { TERMINAL_WATCHLIST, TERMINAL_CCC_CURVE, TERMINAL_BLOTTER, TERMINAL_REG_FEED } from '@/lib/staticData';
 import { Search, Activity, Clock, Wifi } from 'lucide-react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
@@ -344,3 +344,4 @@ export default function TerminalPage() {
     </div>
   );
 }
+
