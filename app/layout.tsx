@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { Newsreader, Inter } from "next/font/google";
 import "../styles/globals.css";
 import { JudgeModeFAB } from "@/components/navigation/JudgeModeFAB";
@@ -17,23 +17,23 @@ const newsreader = Newsreader({
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans", display: "swap" });
 
 export const metadata: Metadata = {
-  title: "AANGARA — CCTS Decision Intelligence",
-  description: "Institutional carbon-market decision intelligence for India CCTS compliance. BUY vs BUILD vs HYBRID strategies calibrated to BEE / MoEFCC / CERC regulations.",
+  title: "AANGARA â€” CCTS Decision Intelligence",
+  description: "AANGARA connects a plant\u0027s carbon position, renewable-energy position, project economics and market exposure into one auditable decision: Buy, Build, or Hybrid.",
   keywords: ["AANGARA", "CCTS", "carbon compliance", "BEE", "India carbon market", "GEI", "CCC"],
   authors: [{ name: "AANGARA" }],
   creator: "AANGARA",
   publisher: "AANGARA",
   openGraph: {
-    title: "AANGARA — CCTS Decision Intelligence",
-    description: "Institutional carbon-market decision intelligence for India CCTS compliance.",
+    title: "AANGARA â€” CCTS Decision Intelligence",
+    description: "Industrial Transition Optimizer — CCTS + RCO compliance at lowest long-term cost.",
     siteName: "AANGARA",
     type: "website",
     locale: "en_IN",
   },
   twitter: {
     card: "summary_large_image",
-    title: "AANGARA — CCTS Decision Intelligence",
-    description: "Institutional carbon-market decision intelligence for India CCTS compliance.",
+    title: "AANGARA â€” CCTS Decision Intelligence",
+    description: "Industrial Transition Optimizer — CCTS + RCO compliance at lowest long-term cost.",
   },
   icons: {
     icon: [
@@ -64,10 +64,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <footer className="w-full border-t border-[#E8E2DC] bg-white/70 backdrop-blur-sm py-4 px-6">
             <div className="max-w-[1400px] mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
               <p className="text-[10px] text-[#6B7268] font-mono">
-                AANGARA — CCTS Statutory Decision Intelligence Architecture
+                AANGARA â€” CCTS Statutory Decision Intelligence Architecture
               </p>
               <p className="text-[10px] text-[#6B7268] font-mono">
-                <span className="font-bold text-[#1F4D2E]">AANGARA</span> · All Rights Reserved
+                <span className="font-bold text-[#1F4D2E]">AANGARA</span> Â· All Rights Reserved
               </p>
             </div>
           </footer>

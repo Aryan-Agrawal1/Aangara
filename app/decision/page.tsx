@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { UtilityBar } from "@/components/ui/UtilityBar";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
@@ -6,6 +6,7 @@ import React, { useEffect } from 'react';
 import { Header } from '@/components/navigation/Header';
 import { CarbonPositionCard } from '@/components/cockpit/CarbonPositionCard';
 import { MRVReadinessCard } from '@/components/cockpit/MRVReadinessCard';
+import { RCOPositionCard } from '@/components/cockpit/RCOPositionCard';
 import { DecisionTwinHero } from '@/components/cockpit/DecisionTwinHero';
 import { ScenarioSliders } from '@/components/cockpit/ScenarioSliders';
 import { ExplainabilityCard } from '@/components/cockpit/ExplainabilityCard';
@@ -64,7 +65,7 @@ export default function DecisionCockpitPage() {
     }
   };
 
-  // Load decision data when entity or year changes — passes live scenario params on initial load
+  // Load decision data when entity or year changes â€” passes live scenario params on initial load
   useEffect(() => {
     if (!currentEntityId) return;
 
@@ -93,7 +94,7 @@ export default function DecisionCockpitPage() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentEntityId, reportingYear]);
 
-  // Scenario slider changes — live recalculate
+  // Scenario slider changes â€” live recalculate
   const handleScenarioChange = async (newParams: ScenarioParams) => {
     setScenarioParams(newParams);
     if (!currentEntityId || !decisionData) return;
@@ -119,7 +120,7 @@ export default function DecisionCockpitPage() {
     }
   };
 
-  // Management objective change — triggers full re-simulation
+  // Management objective change â€” triggers full re-simulation
   const handleObjectiveChange = async (objective: ManagementObjectiveType) => {
     setManagementObjective(objective);
     if (!currentEntityId || !decisionData) return;
@@ -163,7 +164,7 @@ export default function DecisionCockpitPage() {
             <span className="text-sm font-mono text-[#4B5A54]">Loading AANGARA Decision Engine...</span>
           </div>
         ) : decisionError ? (
-          /* Graceful error state — backend down */
+          /* Graceful error state â€” backend down */
           <div className="h-[60vh] flex flex-col items-center justify-center space-y-4 text-center">
             <div className="p-4 rounded-full bg-[#FDECEA] border border-[#C33B2E]/20">
               <AlertTriangle className="w-8 h-8 text-[#C33B2E]" />
@@ -188,7 +189,7 @@ export default function DecisionCockpitPage() {
             </button>
           </div>
         ) : !decisionData ? (
-          /* Waiting for entity selection — not blank */
+          /* Waiting for entity selection â€” not blank */
           <div className="h-[40vh] flex flex-col items-center justify-center space-y-3 text-center">
             <div className="w-8 h-8 border-2 border-[#0B4A3D] border-t-transparent rounded-full animate-spin" />
             <span className="text-sm text-[#4B5A54] font-mono">Loading Decision Twin analysis...</span>
@@ -266,7 +267,7 @@ export default function DecisionCockpitPage() {
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 {[
                   { label: 'WHAT', text: 'Comparative cost and abatement across three capital strategies' },
-                  { label: 'WHY', text: 'Statutory compliance under CCTS requires meeting GEI targets — this model finds the least-cost path' },
+                  { label: 'WHY', text: 'Statutory compliance under CCTS requires meeting GEI targets â€” this model finds the least-cost path' },
                   { label: 'SO WHAT', text: decisionData ? `${decisionData.recommended_strategy || 'HYBRID'} Strategy minimises 10-year lifecycle cost for this facility` : 'Run analysis to see recommendation' },
                   { label: 'WHAT NEXT', text: 'Adjust stress scenarios to test robustness of this recommendation' }
                 ].map(({ label, text }) => (
@@ -302,3 +303,5 @@ export default function DecisionCockpitPage() {
     </div>
   );
 }
+
+

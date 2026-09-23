@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { ClientChartWrapper } from "@/components/ui/ClientChartWrapper";
 
@@ -10,11 +10,11 @@ import {
 } from 'recharts';
 import { StrategyResult, Project } from '@/lib/types';
 import { formatEmissions, formatYears, formatGEI } from '@/lib/formatters';
-import { Crown, ShoppingCart, Hammer, GitMerge, ArrowRight, Zap, BarChart2, Activity } from 'lucide-react';
+import { Crown, ShoppingCart, Hammer, GitMerge, ArrowRight, Zap, BarChart2, Activity, Leaf, Sun, TrendingDown } from 'lucide-react';
 import { useCurrency } from '@/lib/context/CurrencyContext';
 import { InfoTooltip } from '@/components/ui/InfoTooltip';
 
-// ── Colour palette (preserves existing dark glass-panel design system) ──
+// â”€â”€ Colour palette (preserves existing dark glass-panel design system) â”€â”€
 const STRATEGY_COLORS: Record<string, string> = {
   BUY: '#38bdf8',     // sky-400
   BUILD: '#fbbf24',   // amber-400
@@ -23,7 +23,7 @@ const STRATEGY_COLORS: Record<string, string> = {
 
 const CHART_GRID = '#E4E9E6';      // slate-800
 const CHART_TEXT = '#6B7A72';      // slate-400
-const CHART_BG = 'rgba(15,23,42,0)'; // transparent — panels handle background
+const CHART_BG = 'rgba(15,23,42,0)'; // transparent â€” panels handle background
 
 // Custom tooltip for charts
 const DarkTooltip = ({ active, payload, label }: any) => {
@@ -48,26 +48,26 @@ interface DecisionTwinHeroProps {
   onOpenCalculationTrace?: (strategy: string) => void;
 }
 
-// ── Tooltip definitions for all strategy metrics ──
+// â”€â”€ Tooltip definitions for all strategy metrics â”€â”€
 const TT = {
   utility:
-    'Multi-criteria optimization score (0–100) computed by the AANGARA Capital Optimizer. Weights cost efficiency, CO₂ reduction, compliance speed, and execution risk based on your selected Management Objective. Higher = better overall fit for your compliance strategy.',
+    'Multi-criteria optimization score (0â€“100) computed by the AANGARA Capital Optimizer. Weights cost efficiency, COâ‚‚ reduction, compliance speed, and execution risk based on your selected Management Objective. Higher = better overall fit for your compliance strategy.',
   lifecycleCost:
-    'Total modelled cost over 3 years including CapEx, change in annual OpEx, energy savings (negative cost), and carbon credit purchases at the scenario CCC price. In Indian Rupees Crore (₹ Cr). Source: AANGARA Financial Model v3 (CALCULATION label).',
+    'Total modelled cost over 3 years including CapEx, change in annual OpEx, energy savings (negative cost), and carbon credit purchases at the scenario CCC price. In Indian Rupees Crore (â‚¹ Cr). Source: AANGARA Financial Model v3 (CALCULATION label).',
   internalDecarb:
-    'Actual CO₂e reduction achieved within the facility boundary through BUILD projects — e.g., Waste Heat Recovery (WHRS), renewable PPA, fuel switch from petcoke to natural gas. Counted toward lowering your GEI for CCTS compliance. Unit: tCO₂e per year.',
+    'Actual COâ‚‚e reduction achieved within the facility boundary through BUILD projects â€” e.g., Waste Heat Recovery (WHRS), renewable PPA, fuel switch from petcoke to natural gas. Counted toward lowering your GEI for CCTS compliance. Unit: tCOâ‚‚e per year.',
   cccProcured:
-    'Carbon Credit Certificates purchased from the CCTS market (IEXGREEN / PXIL exchange). Each CCC = 1 tCO₂e of verified abatement from a BEE-registered offset project. Used to close the compliance shortfall without on-site capital investment.',
+    'Carbon Credit Certificates purchased from the CCTS market (IEXGREEN / PXIL exchange). Each CCC = 1 tCOâ‚‚e of verified abatement from a BEE-registered offset project. Used to close the compliance shortfall without on-site capital investment.',
   postGei:
-    'Projected Gross Emission Intensity after full strategy implementation. Must be ≤ Notified Target GEI for CCTS compliance. Lower is better. Unit: tCO₂e / tonne of product.',
+    'Projected Gross Emission Intensity after full strategy implementation. Must be â‰¤ Notified Target GEI for CCTS compliance. Lower is better. Unit: tCOâ‚‚e / tonne of product.',
   npv:
-    'Net Present Value over 10 years, discounting all strategy cash flows (CapEx, OpEx savings, energy savings, avoided penalty costs) at the WACC/financing rate. Positive NPV = the strategy creates financial value beyond compliance. In ₹ Crore.',
+    'Net Present Value over 10 years, discounting all strategy cash flows (CapEx, OpEx savings, energy savings, avoided penalty costs) at the WACC/financing rate. Positive NPV = the strategy creates financial value beyond compliance. In â‚¹ Crore.',
   payback:
     'Number of years to recover the capital investment from energy savings, OpEx reductions, and avoided carbon costs. Shorter payback = lower financial risk. Typical threshold for industrial projects: <5 years.',
   risk:
-    'Composite risk score (0–100) across four sub-dimensions: execution risk (technology readiness, contractor availability), market risk (CCC price volatility), regulatory risk (policy change, audit failure), and financial risk (cost overrun). Lower = safer strategy.',
+    'Composite risk score (0â€“100) across four sub-dimensions: execution risk (technology readiness, contractor availability), market risk (CCC price volatility), regulatory risk (policy change, audit failure), and financial risk (cost overrun). Lower = safer strategy.',
   defer:
-    'Reference scenario assuming no capital action is taken. Compliance shortfall compounds at 2× environmental compensation rate under CCTS if unresolved by deadline. Risk Index typically 85–95/100. This is the baseline cost of doing nothing.',
+    'Reference scenario assuming no capital action is taken. Compliance shortfall compounds at 2Ã— environmental compensation rate under CCTS if unresolved by deadline. Risk Index typically 85â€“95/100. This is the baseline cost of doing nothing.',
 };
 
 export function DecisionTwinHero({
@@ -81,7 +81,7 @@ export function DecisionTwinHero({
   const [chartView, setChartView] = useState<'bars' | 'radar'>('bars');
   const strategyList = ['BUY', 'BUILD', 'HYBRID'];
 
-  // ── Build chart data ──
+  // â”€â”€ Build chart data â”€â”€
   const costData = strategyList.map((key) => ({
     name: key,
     'Lifecycle Cost (Cr)': strategies[key]?.total_cost_cr ?? 0,
@@ -100,7 +100,7 @@ export function DecisionTwinHero({
     return {
       strategy: key,
       'Cost Efficiency': Math.max(0, 100 - s.utility_score),
-      'CO₂ Reduction': Math.min(100, (s.internal_abatement_tco2e / 50000) * 100),
+      'COâ‚‚ Reduction': Math.min(100, (s.internal_abatement_tco2e / 50000) * 100),
       'Low Risk': 100 - s.risk_score,
       'Financial Return': s.npv_cr ? Math.min(100, (s.npv_cr / 50) * 100) : 20,
       'Speed': Math.max(0, 100 - (s.payback_years ?? 5) * 10),
@@ -122,7 +122,7 @@ export function DecisionTwinHero({
       <div className="flex items-center justify-between mb-4">
         <div>
           <div className="flex items-center space-x-2">
-            <h2 className="text-xl font-bold text-[#10231C] tracking-tight">AANGARA Decision Twin™</h2>
+            <h2 className="text-xl font-bold text-[#10231C] tracking-tight">AANGARA Decision Twinâ„¢</h2>
             <span className="px-2 py-0.5 rounded text-[11px] font-semibold bg-[#E8F2EB] text-[#1F4D2E] border border-[#1F4D2E]/25">
               Capital Optimizer Active
             </span>
@@ -150,7 +150,7 @@ export function DecisionTwinHero({
         </div>
       </div>
 
-      {/* ── CHARTS ROW ── */}
+      {/* â”€â”€ CHARTS ROW â”€â”€ */}
       <div className="glass-panel rounded-xl p-4 mb-5">
         {chartView === 'bars' ? (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -181,7 +181,7 @@ export function DecisionTwinHero({
 
             {/* CO2 abatement comparison */}
             <div>
-              <p className="text-[11px] font-semibold text-[#4B5A54] uppercase tracking-widest mb-2">Internal CO₂ Abatement</p>
+              <p className="text-[11px] font-semibold text-[#4B5A54] uppercase tracking-widest mb-2">Internal COâ‚‚ Abatement</p>
               <ClientChartWrapper>
 <ResponsiveContainer width="100%" height={180}>
                 <BarChart data={co2Data} margin={{ top: 4, right: 8, left: 16, bottom: 4 }}>
@@ -189,7 +189,7 @@ export function DecisionTwinHero({
                   <XAxis dataKey="name" tick={{ fill: CHART_TEXT, fontSize: 11 }} axisLine={false} tickLine={false} />
                   <YAxis tick={{ fill: CHART_TEXT, fontSize: 10 }} axisLine={false} tickLine={false} width={45}
                     tickFormatter={(v) => `${v}kt`}
-                    label={{ value: 'kt CO₂e / yr', angle: -90, position: 'insideLeft', offset: 0, style: { fill: CHART_TEXT, fontSize: 9 } }}
+                    label={{ value: 'kt COâ‚‚e / yr', angle: -90, position: 'insideLeft', offset: 0, style: { fill: CHART_TEXT, fontSize: 9 } }}
                   />
                   <Tooltip content={<DarkTooltip />} />
                   <Bar dataKey="Internal Abatement (kt)" radius={[4, 4, 0, 0]} maxBarSize={56}>
@@ -201,7 +201,7 @@ export function DecisionTwinHero({
                 </BarChart>
               </ResponsiveContainer>
 </ClientChartWrapper>
-              <p className="text-[10px] text-[#6B7A72] mt-1 italic">Tonnes of CO₂e physically abated per year through internal decarbonisation projects (excludes market CCC purchases).</p>
+              <p className="text-[10px] text-[#6B7A72] mt-1 italic">Tonnes of COâ‚‚e physically abated per year through internal decarbonisation projects (excludes market CCC purchases).</p>
             </div>
           </div>
         ) : (
@@ -212,7 +212,7 @@ export function DecisionTwinHero({
 <ResponsiveContainer width="100%" height={240}>
               <RadarChart data={radarData[0] ? [
                 { axis: 'Cost Efficiency', BUY: radarData[0]?.['Cost Efficiency'] ?? 0, BUILD: radarData[1]?.['Cost Efficiency'] ?? 0, HYBRID: radarData[2]?.['Cost Efficiency'] ?? 0 },
-                { axis: 'CO₂ Reduction', BUY: radarData[0]?.['CO₂ Reduction'] ?? 0, BUILD: radarData[1]?.['CO₂ Reduction'] ?? 0, HYBRID: radarData[2]?.['CO₂ Reduction'] ?? 0 },
+                { axis: 'COâ‚‚ Reduction', BUY: radarData[0]?.['COâ‚‚ Reduction'] ?? 0, BUILD: radarData[1]?.['COâ‚‚ Reduction'] ?? 0, HYBRID: radarData[2]?.['COâ‚‚ Reduction'] ?? 0 },
                 { axis: 'Low Risk', BUY: radarData[0]?.['Low Risk'] ?? 0, BUILD: radarData[1]?.['Low Risk'] ?? 0, HYBRID: radarData[2]?.['Low Risk'] ?? 0 },
                 { axis: 'Financial Return', BUY: radarData[0]?.['Financial Return'] ?? 0, BUILD: radarData[1]?.['Financial Return'] ?? 0, HYBRID: radarData[2]?.['Financial Return'] ?? 0 },
                 { axis: 'Speed', BUY: radarData[0]?.['Speed'] ?? 0, BUILD: radarData[1]?.['Speed'] ?? 0, HYBRID: radarData[2]?.['Speed'] ?? 0 },
@@ -237,7 +237,7 @@ export function DecisionTwinHero({
         )}
       </div>
 
-      {/* ── 3-Column Strategy Cards ── */}
+      {/* â”€â”€ 3-Column Strategy Cards â”€â”€ */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
         {strategyList.map((stratKey) => {
           const strat = strategies[stratKey];
@@ -295,15 +295,15 @@ export function DecisionTwinHero({
                   </div>
                   <div className="text-2xl font-black text-[#1A1C18] tnum mt-0.5">{formatCr(strat.total_cost_cr)}</div>
                   <div className="text-[11px] text-[#6B7268] mt-1 flex items-center justify-between">
-                    <span>Cost / tCO₂e:</span>
-                    <span className="font-mono font-semibold text-[#1A1C18]">{strat.cost_per_tco2e ? `${symbol}${Math.round(strat.cost_per_tco2e).toLocaleString('en-IN')}/tCO₂e` : `${symbol}0/tCO₂e`}</span>
+                    <span>Cost / tCOâ‚‚e:</span>
+                    <span className="font-mono font-semibold text-[#1A1C18]">{strat.cost_per_tco2e ? `${symbol}${Math.round(strat.cost_per_tco2e).toLocaleString('en-IN')}/tCOâ‚‚e` : `${symbol}0/tCOâ‚‚e`}</span>
                   </div>
                 </div>
 
                 {/* Metrics */}
                 <div className="space-y-2 text-xs">
                   {[
-                    { label: 'Internal Decarbonisation', tooltip: TT.internalDecarb, value: strat.internal_abatement_tco2e > 0 ? formatEmissions(strat.internal_abatement_tco2e) : '0 tCO₂e', color: '#1F4D2E' },
+                    { label: 'Internal Decarbonisation', tooltip: TT.internalDecarb, value: strat.internal_abatement_tco2e > 0 ? formatEmissions(strat.internal_abatement_tco2e) : '0 tCOâ‚‚e', color: '#1F4D2E' },
                     { label: 'Market CCC Procurement', tooltip: TT.cccProcured, value: (strat.ccc_procured_tco2e || 0) > 0 ? `${(strat.ccc_procured_tco2e || 0).toLocaleString('en-IN')} CCCs/yr` : '0 CCCs', color: '#2E6BA8' },
                     { label: 'Post-Strategy GEI', tooltip: TT.postGei, value: formatGEI(strat.post_strategy_gei), color: '#1A1C18' },
                     strat.npv_cr !== null && strat.npv_cr !== undefined ? { label: '10-Yr NPV', tooltip: TT.npv, value: formatCr(strat.npv_cr), color: '#1F4D2E' } : null,
@@ -341,7 +341,7 @@ export function DecisionTwinHero({
         })}
       </div>
 
-      {/* DEFER Strategy — always shown */}
+      {/* DEFER Strategy â€” always shown */}
       {strategies['DEFER'] && (
         <div className="mt-4 rounded-xl p-4 border border-dashed border-[#C33B2E]/40 bg-[#FDECEA]/40 flex items-start justify-between gap-4">
           <div className="flex items-center space-x-3">
@@ -350,7 +350,7 @@ export function DecisionTwinHero({
             </div>
             <div>
               <div className="flex items-center space-x-2">
-                <h4 className="text-sm font-bold text-[#C33B2E]">DEFER — Cost of Inaction</h4>
+                <h4 className="text-sm font-bold text-[#C33B2E]">DEFER â€” Cost of Inaction</h4>
                 <InfoTooltip content={TT.defer} iconSize="w-3.5 h-3.5" />
                 <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-[#FDECEA] text-[#C33B2E] border border-[#C33B2E]/30 font-bold">HIGH RISK</span>
               </div>
@@ -358,7 +358,7 @@ export function DecisionTwinHero({
                 Deferring all capital action results in a modelled 3-year compounding compliance exposure of{' '}
                 <strong className="text-[#C33B2E]">{formatCr(strategies['DEFER'].total_cost_cr)}</strong> and a Risk Index of{' '}
                 <strong className="text-[#C33B2E]">{strategies['DEFER'].risk_score.toFixed(0)}/100</strong>.
-                Environmental compensation (2× shortfall penalty) may apply under CCTS if shortfall remains unresolved.
+                Environmental compensation (2Ã— shortfall penalty) may apply under CCTS if shortfall remains unresolved.
               </p>
             </div>
           </div>
@@ -371,3 +371,4 @@ export function DecisionTwinHero({
     </div>
   );
 }
+

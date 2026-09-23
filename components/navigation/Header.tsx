@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
@@ -6,16 +6,18 @@ import { usePathname } from "next/navigation";
 import { ChevronDown, Menu, X, ArrowRight } from "lucide-react";
 import { CurrencySelector } from "@/components/ui/CurrencySelector";
 
-// Primary navigation — 5 core product modules
+// Primary navigation â€” 5 core product modules
 const PRIMARY_NAV = [
   { href: "/industrial-intelligence", label: "Facility Analysis" },
   { href: "/decision",                label: "Decision Twin" },
   { href: "/overview",                label: "Portfolio" },
   { href: "/scenarios",               label: "Scenarios" },
+  { href: "/marketplace",             label: "Marketplace" },
+  { href: "/terminal",                label: "Terminal \u2197" },
   { href: "/sources",                 label: "Evidence" },
 ];
 
-// Secondary navigation — in a subtle "More" dropdown
+// Secondary navigation â€” in a subtle "More" dropdown
 const SECONDARY_NAV = [
   { href: "/entity",    label: "Input Data" },
   { href: "/trust",     label: "Trust Center" },
@@ -67,7 +69,7 @@ export function Header({ currentSector, currentEntityId, reportingYear, onSector
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-between h-16">
 
-          {/* ── Brand mark ── */}
+          {/* â”€â”€ Brand mark â”€â”€ */}
           <Link href="/" className="flex items-center gap-3 group flex-shrink-0 mr-8">
             <div className="relative w-9 h-9 flex-shrink-0 transition-transform duration-200 group-hover:scale-105">
               <Image
@@ -87,7 +89,7 @@ export function Header({ currentSector, currentEntityId, reportingYear, onSector
             </div>
           </Link>
 
-          {/* ── Desktop nav ── */}
+          {/* â”€â”€ Desktop nav â”€â”€ */}
           <nav
             className="hidden md:flex items-center gap-0.5 flex-1"
             role="navigation"
@@ -155,12 +157,12 @@ export function Header({ currentSector, currentEntityId, reportingYear, onSector
             </div>
           </nav>
 
-          {/* ── Right: Currency Selector + CTA + Mobile trigger ── */}
+          {/* â”€â”€ Right: Currency Selector + CTA + Mobile trigger â”€â”€ */}
           <div className="flex items-center gap-2.5 ml-auto md:ml-0">
             {/* Currency Selector */}
             <CurrencySelector />
 
-            {/* Primary CTA — desktop only */}
+            {/* Primary CTA â€” desktop only */}
             <Link
               href="/decision"
               className="hidden md:inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-[#1F4D2E] hover:bg-[#27643A] text-white text-[13px] font-semibold transition-all duration-150 shadow-sm hover:shadow-[0_4px_12px_rgba(31,77,46,0.3)] transform hover:-translate-y-px"
@@ -182,7 +184,7 @@ export function Header({ currentSector, currentEntityId, reportingYear, onSector
         </div>
       </div>
 
-      {/* ── Mobile nav panel ── */}
+      {/* â”€â”€ Mobile nav panel â”€â”€ */}
       {mobileOpen && (
         <div className="md:hidden border-t border-[#E8E2DC] bg-white">
           <nav className="px-4 py-3 flex flex-col gap-0.5">
@@ -212,7 +214,7 @@ export function Header({ currentSector, currentEntityId, reportingYear, onSector
             </Link>
           </div>
           <div className="px-4 pb-3 text-[10px] text-[#6B7268] font-mono border-t border-[#E8E2DC] pt-3">
-            AANGARA · CCTS Decision Intelligence
+            AANGARA Â· CCTS Decision Intelligence
           </div>
 
         </div>
@@ -220,3 +222,4 @@ export function Header({ currentSector, currentEntityId, reportingYear, onSector
     </header>
   );
 }
+

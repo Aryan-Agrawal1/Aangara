@@ -1,4 +1,4 @@
-export interface Facility {
+﻿export interface Facility {
   facility_id: string;
   name: string;
   capacity: number;
@@ -258,4 +258,152 @@ export interface PeerBenchmarkResult {
   benchmark_model: string;
   confidence: string;
   interpretation: string;
+}
+
+// ─── RCO Profile (Renewable Consumption Obligation) ───────────────────────────
+export interface RCOProfile {
+  current_renewable_mwh: number;
+  current_total_energy_mwh: number;
+  current_renewable_share_pct: number;
+  obligation_target_pct: number;
+  obligation_year: number;
+  solar_sub_target_pct: number;
+  wind_sub_target_pct: number;
+  non_solar_sub_target_pct: number;
+  obligation_source: string;
+  obligation_source_url: string;
+  obligation_status: 'FINAL_NOTIFICATION' | 'DRAFT_TRAJECTORY' | 'WATCHLIST' | 'UNKNOWN';
+  entity_type: 'OPEN_ACCESS_CONSUMER' | 'CAPTIVE_CONSUMER' | 'DISCOM_OBLIGATED';
+  applicable_serc: string;
+  rec_balance_mwh?: number;
+}
+
+export interface RCOPosition {
+  entity_id: string;
+  reporting_year: string;
+  profile: RCOProfile;
+  obligation_target_mwh: number;
+  current_renewable_mwh: number;
+  current_renewable_share_pct: number;
+  gap_mwh: number;
+  gap_pct_points: number;
+  compliance_status: 'COMPLIANT' | 'MARGINAL' | 'DEFICIT' | 'SEVERE_DEFICIT';
+  rec_shortfall_mwh: number;
+  estimated_penalty_cr: number;
+  penalty_rate_inr_per_kwh: number;
+  mechanism_token: {
+    renewable_mwh_allocated_to_rco: number;
+    renewable_mwh_available_for_ccts_adjustment: number;
+    double_count_flag: boolean;
+  };
+  data_status: string;
+  calculation_trace: Array<{ step: string; formula: string; value: number; unit: string; source?: string }>;
+}
+
+// ─── Mechanism Applicability (§3.2 double-count guard) ───────────────────────
+export interface MechanismApplicability {
+  ccts_compliance: { eligible: boolean; basis: string; delta_gei?: number; delta_shortfall_tco2e?: number };
+  rco_obligation: { eligible: boolean; basis: string; delta_share_pct?: number; gap_closed_pct?: number };
+  offset_mechanism: { eligible: boolean; basis: string };
+  double_count_flag: boolean;
+  notes: string;
+}
+
+// ─── Compliance Value Score (§3.3 Transition Engine output) ──────────────────
+export interface ComplianceValueScore {
+  composite: number;
+  sub_scores: {
+    financial: number;
+    ccts_impact: number;
+    rco_impact: number;
+    risk: number;
+    timing: number;
+  };
+  weights: { financial: number; ccts_impact: number; rco_impact: number; risk: number; timing: number };
+  rank?: number;
+}
+
+// ─── Transition Action (generalises "project" to cover CCTS+RCO+market) ──────
+export interface TransitionAction {
+  action_id: string;
+  action_type: 'efficiency' | 'renewable_capex' | 'ppa' | 'ccc_purchase' | 'ccc_sale' | 'hybrid';
+  name: string;
+  description: string;
+  mechanism_applicability: MechanismApplicability;
+  ccts_effect: { delta_gei: number; compliance_gap_closed_pct: number; post_action_shortfall_tco2e: number };
+  rco_effect: { delta_share_pct: number; gap_closed_pct: number; post_action_share_pct: number };
+  financial_effect: { capex_cr: number; npv_cr: number | null; payback_years: number | null; irr_pct?: number | null };
+  compliance_value_score: ComplianceValueScore;
+  trust_pack_ref: string;
+  data_status: 'SYNTHETIC' | 'REAL_FACILITY_INPUT' | 'MODEL_ESTIMATE' | 'ILLUSTRATIVE_VALUE';
+}
+
+// ─── Marketplace Item ────────────────────────────────────────────────────────
+export type MarketplaceDataStatus = 'OBSERVED_MARKET_DATA' | 'USER_DEFINED_SCENARIO' | 'MODEL_ESTIMATE' | 'ILLUSTRATIVE_VALUE';
+export type MarketplaceItemType = 'DECARBONISATION_PROJECT' | 'CCC_LISTING' | 'RENEWABLE_PPA';
+
+export interface MarketplaceItem {
+  item_id: string;
+  item_type: MarketplaceItemType;
+  title: string;
+  sector: string;
+  sub_sector?: string;
+  action_type: string;
+  expected_reduction_tco2e_yr?: number;
+  renewable_capacity_mw?: number;
+  ppa_term_years?: number;
+  capex_band_low_cr?: number;
+  capex_band_high_cr?: number;
+  tariff_inr_per_mwh?: number;
+  mrv_readiness_score?: number;
+  mechanism_tags: { ccts: boolean; rco: boolean; offset: boolean };
+  compliance_value_score?: number;
+  state: string;
+  developer?: string;
+  status: 'AVAILABLE' | 'UNDER_NEGOTIATION' | 'INDICATIVE';
+  data_status: MarketplaceDataStatus;
+  illustrative_price_inr?: number;
+  price_unit?: string;
+  trust_pack_ref: string;
+  description: string;
+  technology_trl?: number;
+}
+
+// ─── Terminal Panel Types ─────────────────────────────────────────────────────
+export interface WatchlistEntry {
+  entity_id: string;
+  entity_name: string;
+  sector: string;
+  actual_gei: number;
+  target_gei: number;
+  gei_delta: number;
+  compliance_status: 'SURPLUS' | 'COMPLIANT' | 'SHORTFALL' | 'SEVERE_SHORTFALL';
+  rco_share_pct: number;
+  rco_target_pct: number;
+  compliance_value_score: number;
+  shortfall_tco2e: number;
+  data_status: string;
+}
+
+export interface CCCScenarioPoint {
+  year: string;
+  scenario_label: string;
+  price_bear_inr: number;
+  price_base_inr: number;
+  price_bull_inr: number;
+  data_status: 'MODEL_ESTIMATE';
+}
+
+export interface OrderBlotterEntry {
+  entry_id: string;
+  entity_id: string;
+  entity_name: string;
+  direction: 'BUY' | 'SELL';
+  quantity_tco2e: number;
+  scenario_price_inr: number;
+  scenario_value_cr: number;
+  strategy: string;
+  status: 'SCENARIO_INTENT';
+  timestamp: string;
+  data_status: 'USER_DEFINED_SCENARIO';
 }
